@@ -1,0 +1,25 @@
+﻿  main.c
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(148,46): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(152,52): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(152,126): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(188,44): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(188,50): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(204,41): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(204,47): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(246,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(247,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(282,74): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(282,141): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(284,81): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(285,81): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(341,60): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(341,134): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(428,135): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(428,190): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(433,119): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(433,169): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(459,136): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(459,191): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(464,120): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\src\main.c(464,170): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  raylib-quickstart-main.vcxproj -> C:\Users\paufs1\Documents\GitHub\proba-1\raylib-quickstart-main\bin\Debug\raylib-quickstart-main.exe
