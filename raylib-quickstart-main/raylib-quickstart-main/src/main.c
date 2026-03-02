@@ -29,27 +29,21 @@ int main ()
 	// game loop
 	while (!WindowShouldClose())		// run the loop until the user presses ESCAPE or presses the Close button on the window
 	{
-		// drawing
 		BeginDrawing();
 
 		// Setup the back buffer for drawing (clear color and depth buffers)
-		ClearBackground(BLACK);
+		ClearBackground(WHITE);
 
 		// draw some text using the default font
-		DrawText("test", 200,200,20,WHITE);
+		DrawText("test", 200,200,20,RED);
 
 		// draw our texture to the screen
-		DrawTexture(wabbit, 400, 200, WHITE);
+		DrawTexture(wabbit, 400, 200, BLACK);
 		
-		// end the frame and get ready for the next one  (display frame, poll input, etc...)
-		EndDrawing();
+		
+		EndDrawing();// end the frame and get ready for the next one  (display frame, poll input, etc...)
 	}
-
-	// cleanup
-	// unload our texture so it can be cleaned up
-	UnloadTexture(wabbit);
-
-	// destroy the window and cleanup the OpenGL context
-	CloseWindow();
+	UnloadTexture(wabbit);// unload our texture so it can be cleaned up
+	CloseWindow();// destroy the window and cleanup the OpenGL context
 	return 0;
 }
