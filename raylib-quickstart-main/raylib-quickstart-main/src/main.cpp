@@ -4,46 +4,49 @@ This is an example main file for a simple raylib project.
 Use this as a starting point or replace it with your code.
 
 by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit https://creativecommons.org/publicdomain/zero/1.0/
-
 */
 
 #include "raylib.h"
+#include "resource_dir.h"// utility header for SearchAndSetResourceDir
 
-#include "resource_dir.h"	// utility header for SearchAndSetResourceDir
-
-int main ()
+int x;
+int main()
 {
 	// Tell the window to use vsync and work on high DPI displays
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
-
 	// Create the window and OpenGL context
 	InitWindow(1920, 1080, "Metal Slug");
 	ToggleFullscreen();
-
 	// Utility function from resource_dir.h to find the resources folder and set it as the current working directory so we can load from it
 	SearchAndSetResourceDir("resources");
-
 	// Load a texture from the resources directory
-	Texture wabbit = LoadTexture("wabbit_alpha.png");
-	
+	Texture p1 = LoadTexture("p1.png");
 	// game loop
 	while (!WindowShouldClose())		// run the loop until the user presses ESCAPE or presses the Close button on the window
 	{
+		if (IsKeyDown(KEY_D))
+		{
+			x+=5;
+		}
+		if (IsKeyDown(KEY_A))
+		{
+			x-=5;
+		}
 		BeginDrawing();
 
 		// Setup the back buffer for drawing (clear color and depth buffers)
 		ClearBackground(WHITE);
 
 		// draw some text using the default font
-		DrawText("test", 200,200,20,RED);
+		DrawText("test", 200, 200, 20, RED);
 
 		// draw our texture to the screen
-		DrawTexture(wabbit, 400, 200, BLACK);
-		
-		
+		DrawTexture(p1, x, 0, WHITE);
+
+
 		EndDrawing();// end the frame and get ready for the next one  (display frame, poll input, etc...)
 	}
-	UnloadTexture(wabbit);// unload our texture so it can be cleaned up
+	UnloadTexture(p1);// unload our texture so it can be cleaned up
 	CloseWindow();// destroy the window and cleanup the OpenGL context
 	return 0;
 }

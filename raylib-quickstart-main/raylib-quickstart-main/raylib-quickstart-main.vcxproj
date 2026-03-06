@@ -302,9 +302,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\resource_dir.h" />
+    <ClInclude Include="Player_movement.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\icon.ico" />
