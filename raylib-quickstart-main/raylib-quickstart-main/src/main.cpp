@@ -8,8 +8,23 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 
 #include "raylib.h"
 #include "resource_dir.h"// utility header for SearchAndSetResourceDir
-
+int y = 500;
 int x;
+int yVelocity;
+bool jumping = false;
+bool jumpE = false;
+
+void jump() {
+	jumping = true;
+	jumpE = true;
+	for (int i = 0; i < 50; i++)
+	{
+		yVelocity = -20;
+	}
+	jumping = false;
+}
+
+
 int main()
 {
 	// Tell the window to use vsync and work on high DPI displays
@@ -24,6 +39,8 @@ int main()
 	// game loop
 	while (!WindowShouldClose())		// run the loop until the user presses ESCAPE or presses the Close button on the window
 	{
+
+		y += yVelocity;
 		if (IsKeyDown(KEY_D))
 		{
 			x+=5;
@@ -32,16 +49,31 @@ int main()
 		{
 			x-=5;
 		}
+		if (IsKeyDown(KEY_W)&&jumpE==false)
+		{
+			jump();
+
+		}else if (y < 500&&jumping==false) {
+			if (yVelocity != 5) {
+				yVelocity++;
+			}
+		}else {
+			jumpE = false;
+			yVelocity = 0;
+		}
+
 		BeginDrawing();
 
 		// Setup the back buffer for drawing (clear color and depth buffers)
 		ClearBackground(WHITE);
 
+		DrawRectangle(0, 775, 1920, 1000, BLACK);
+
 		// draw some text using the default font
-		DrawText("test", 200, 200, 20, RED);
+		DrawText("sol", 200, 200, 200, RED);
 
 		// draw our texture to the screen
-		DrawTexture(p1, x, 0, WHITE);
+		DrawTexture(p1, x, y, WHITE);
 
 
 		EndDrawing();// end the frame and get ready for the next one  (display frame, poll input, etc...)
