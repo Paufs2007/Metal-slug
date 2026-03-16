@@ -32,7 +32,7 @@ int main()
 	// Utility function from resource_dir.h to find the resources folder and set it as the current working directory so we can load from it
 	SearchAndSetResourceDir("resources");
 	// Load a texture from the resources directory
-	Texture p1 = LoadTexture("p1.png");
+	Texture p1 = LoadTexture("p1.2.png");
 	// game loop
 	player p = {0,0,0,0};
 
@@ -52,21 +52,21 @@ int main()
 			p.canJump = true;
 			p.vy = 0;
 		}
-		if (IsKeyDown(KEY_D) && p.vx < 6 && !IsKeyDown(KEY_A))				//Movement X
+		if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A))				//Movement X
 		{
 			p.vx++;
 		}
-		else if (IsKeyDown(KEY_A) && p.vx > -6 && !IsKeyDown(KEY_D)){
+		else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)){
 			p.vx--;
 		}
 		else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)){
 			p.vx = 0;
 		}
-		if (IsKeyDown(KEY_W)&&p.canJump)
+		if (IsKeyDown(KEY_W)&&p.canJump)								    //Jump
 		{
 			p.jump();
 		}
-		
+			
 
 
 		BeginDrawing();
