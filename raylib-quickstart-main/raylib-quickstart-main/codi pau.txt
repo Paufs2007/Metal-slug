@@ -100,4 +100,3 @@ int main()
 	UnloadTexture(p1);// unload our texture so it can be cleaned up
 	CloseWindow();// destroy the window and cleanup the OpenGL context
 	return 0;
-}
