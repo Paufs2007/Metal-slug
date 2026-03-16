@@ -8,21 +8,18 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 
 #include "raylib.h"
 #include "resource_dir.h"// utility header for SearchAndSetResourceDir
-int y = 500;
-int x;
-int yVelocity;
-bool jumping = false;
-bool jumpE = false;
-
-void jump() {
-	jumping = true;
-	jumpE = true;
-	for (int i = 0; i < 50; i++)
-	{
-		yVelocity = -20;
+class player
+{
+public:
+	int x;
+	int y;
+	int vx;
+	int vy;
+	bool canJump;
+	void jump() {
+		vy = 30;
 	}
-	jumping = false;
-}
+};
 
 
 int main()
@@ -37,30 +34,40 @@ int main()
 	// Load a texture from the resources directory
 	Texture p1 = LoadTexture("p1.png");
 	// game loop
+	player p = {0,0,0,0};
+
 	while (!WindowShouldClose())		// run the loop until the user presses ESCAPE or presses the Close button on the window
 	{
-
-		y += yVelocity;
-		if (IsKeyDown(KEY_D))
+		p.x += p.vx;
+		p.y -= p.vy;
+		
+		if (p.y < 500)														//Gravity
 		{
-			x+=5;
-		}
-		if (IsKeyDown(KEY_A))
-		{
-			x-=5;
-		}
-		if (IsKeyDown(KEY_W)&&jumpE==false)
-		{
-			jump();
-
-		}else if (y < 500&&jumping==false) {
-			if (yVelocity != 5) {
-				yVelocity++;
+			p.canJump = false;
+			if (p.vy > -8)
+			{
+				p.vy--;
 			}
-		}else {
-			jumpE = false;
-			yVelocity = 0;
+		} else {
+			p.canJump = true;
+			p.vy = 0;
 		}
+		if (IsKeyDown(KEY_D) && p.vx < 6 && !IsKeyDown(KEY_A))				//Movement X
+		{
+			p.vx++;
+		}
+		else if (IsKeyDown(KEY_A) && p.vx > -6 && !IsKeyDown(KEY_D)){
+			p.vx--;
+		}
+		else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)){
+			p.vx = 0;
+		}
+		if (IsKeyDown(KEY_W)&&p.canJump)
+		{
+			p.jump();
+		}
+		
+
 
 		BeginDrawing();
 
@@ -73,7 +80,7 @@ int main()
 		DrawText("sol", 200, 200, 200, RED);
 
 		// draw our texture to the screen
-		DrawTexture(p1, x, y, WHITE);
+		DrawTexture(p1, p.x, p.y, WHITE);
 
 
 		EndDrawing();// end the frame and get ready for the next one  (display frame, poll input, etc...)
