@@ -45,8 +45,7 @@ int main()
 	int currentFrame = 0;
 	int framesCounter = 0;
 	int framesSpeed = 3;            // Number of spritesheet frames shown by second
-	Font fontBm = LoadFont("font.fnt");
-	SetTextureFilter(fontBm.texture, TEXTURE_FILTER_POINT);
+	Font fontBm = LoadFont("metal-slug.otf");
 	// NOTE: We define a font base size of 32 pixels tall and up-to 250 characters
 	SetTextLineSpacing(16);         // Set line spacing for multiline text (when line breaks are included '\n')
 	bool useTtf = false;	
@@ -103,10 +102,11 @@ int main()
 		position.y = p.y;
 
 		// draw our texture to the screen
+		DrawTexture(p1, 200, 150, WHITE);
 
 		DrawTextureRec(p1, frameRec, position, WHITE);  // Draw part of the texture
 			
-		DrawTextEx(fontBm, "HELLO 123!?", { 100,100 }, 32, 0, BLACK);
+		DrawTextEx(fontBm, msg, Vector2 { 20.0f, 100.0f }, (float)fontBm.baseSize, 2, BLACK);	
 
 		EndDrawing();// end the frame and get ready for the next one  (display frame, poll input, etc...)
 	}
