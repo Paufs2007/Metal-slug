@@ -35,7 +35,31 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="resources\Neo Geo _ NGCD - Metal Slug - Playable Characters - Marco Rossi.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\a1.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\a2.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\a3.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\a4.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\p1.2.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
     <Image Include="resources\p1.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\player 1 sense fons.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\treure fons.png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\wabbit_alpha.png">

@@ -32,6 +32,7 @@ int main()
 	const int screenWidth = 1920;
 	const int screenHeight = 1080;
 	InitWindow(1920, 1080, "Metal Slug");
+	const char msg[256] = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI\nJKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmn\nopqrstuvwxyz{|}~¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓ\nÔÕÖ×ØÙÚÛÜİŞßàáâãäåæçèéêëìíîïğñòóôõö÷\nøùúûüışÿ";
 	ToggleFullscreen();
 	// Utility function from resource_dir.h to find the resources folder and set it as the current working directory so we can load from it
 	SearchAndSetResourceDir("resources");
@@ -44,6 +45,11 @@ int main()
 	int currentFrame = 0;
 	int framesCounter = 0;
 	int framesSpeed = 3;            // Number of spritesheet frames shown by second
+	Font fontBm = LoadFont("font.fnt");
+	SetTextureFilter(fontBm.texture, TEXTURE_FILTER_POINT);
+	// NOTE: We define a font base size of 32 pixels tall and up-to 250 characters
+	SetTextLineSpacing(16);         // Set line spacing for multiline text (when line breaks are included '\n')
+	bool useTtf = false;	
 
 	while (!WindowShouldClose())		// run the loop until the user presses ESCAPE or presses the Close button on the window
 	{
@@ -97,13 +103,15 @@ int main()
 		position.y = p.y;
 
 		// draw our texture to the screen
-		DrawTexture(p1, 200, 150, WHITE);
 
 		DrawTextureRec(p1, frameRec, position, WHITE);  // Draw part of the texture
+			
+		DrawTextEx(fontBm, "HELLO 123!?", { 100,100 }, 32, 0, BLACK);
 
 		EndDrawing();// end the frame and get ready for the next one  (display frame, poll input, etc...)
 	}
 	UnloadTexture(p1);// unload our texture so it can be cleaned up
 	CloseWindow();// destroy the window and cleanup the OpenGL context
+	UnloadFont(fontBm);     // AngelCode Font unloading
 	return 0;
 }
