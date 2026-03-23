@@ -3,7 +3,8 @@
 
 #define MAX_FRAME_SPEED 15
 #define MIN_FRAME_SPEED  1
-
+Sound soundArray[10];
+Music musicArray[10];
 class player
 {
 public:
@@ -22,16 +23,29 @@ public:
 int main()
 {
     SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
+    
+    SearchAndSetResourceDir("resources");
 
+    //Audio
+    InitAudioDevice();
+    //Sound
+    soundArray[0] = LoadSound("sexy_death.mp3");
+    //Music
+    musicArray[0] = LoadMusicStream("bo.mp3");
+    musicArray[0].looping = true;
+    float pitch = 0.5f;
+
+    PlayMusicStream(musicArray[0]);
     const int screenWidth = 1920;
     const int screenHeight = 1080;
     InitWindow(screenWidth, screenHeight, "Metal Slug");
     ToggleFullscreen();
 
-    SearchAndSetResourceDir("resources");
+    
 
     Texture p1 = LoadTexture("treure fons.png");
     Texture bg = LoadTexture("MetalSlug-Mission1.png");
+    Texture e1 = LoadTexture("hud.png");
 
     // Tamaño real del mundo (fondo escalado x5)
     const float bgScale = 5.0f;
@@ -63,6 +77,9 @@ int main()
             if (currentFrame >= 9) currentFrame = 0;
             frameRec.x = (float)currentFrame * (float)p1.width / 9;
         }
+
+        if (IsKeyPressed(KEY_SPACE))
+            PlaySound(soundArray[0]);
 
         // --- Física ---
         p.x += p.vx;
@@ -105,6 +122,8 @@ int main()
         if (camera.target.y < halfH)              camera.target.y = halfH;
         if (camera.target.y > worldHeight - halfH) camera.target.y = worldHeight - halfH;
 
+        UpdateMusicStream(musicArray[0]);
+
         // --- Dibujo ---
         BeginDrawing();
         ClearBackground(BLACK);
@@ -120,9 +139,10 @@ int main()
 
         EndDrawing();
     }
-
+    CloseAudioDevice();
     UnloadTexture(p1);
     UnloadTexture(bg);
+    UnloadTexture(e1);
     CloseWindow();
     return 0;
 }
