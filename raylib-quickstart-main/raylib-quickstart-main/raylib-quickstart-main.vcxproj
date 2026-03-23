@@ -313,11 +313,14 @@
     <ResourceCompile Include="src\application.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="resources\MetalSlug-Mission1.png" />
     <Image Include="resources\Neo Geo _ NGCD - Metal Slug - Playable Characters - Marco Rossi.png" />
     <Image Include="resources\a1.png" />
     <Image Include="resources\a2.png" />
     <Image Include="resources\a3.png" />
     <Image Include="resources\a4.png" />
+    <Image Include="resources\hud.png" />
+    <Image Include="resources\lhud2.png" />
     <Image Include="resources\p1.2.png" />
     <Image Include="resources\p1.png" />
     <Image Include="resources\player 1 sense fons.png" />

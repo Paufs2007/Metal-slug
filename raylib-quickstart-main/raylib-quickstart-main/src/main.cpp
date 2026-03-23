@@ -1,117 +1,128 @@
-/*
-Raylib example file.
-This is an example main file for a simple raylib project.
-Use this as a starting point or replace it with your code.
-
-by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit https://creativecommons.org/publicdomain/zero/1.0/
-*/
-
 #include "raylib.h"
-#include "resource_dir.h"// utility header for SearchAndSetResourceDir
-#define MAX_FRAME_SPEED     15
-#define MIN_FRAME_SPEED      1
+#include "resource_dir.h"
+
+#define MAX_FRAME_SPEED 15
+#define MIN_FRAME_SPEED  1
+
 class player
 {
 public:
-	int x;
-	int y;
-	int vx;
-	int vy;
-	bool canJump;
-	void jump() {
-		vy = 30;
-	}
-};
+    int x;
+    int y;
+    int vx;
+    int vy;
+    bool canJump;
 
+    void jump() {
+        vy = 30;
+        canJump = false;
+    }
+};
 
 int main()
 {
-	// Tell the window to use vsync and work on high DPI displays
-	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
-	// Create the window and OpenGL context
-	const int screenWidth = 1920;
-	const int screenHeight = 1080;
-	InitWindow(1920, 1080, "Metal Slug");
-	const char msg[256] = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI\nJKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmn\nopqrstuvwxyz{|}~¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓ\nÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷\nøùúûüýþÿ";
-	ToggleFullscreen();
-	// Utility function from resource_dir.h to find the resources folder and set it as the current working directory so we can load from it
-	SearchAndSetResourceDir("resources");
-	// Load a texture from the resources directory
-	Texture p1 = LoadTexture("treure fons.png");
-	// game loop
-	player p = {0,0,0,0, true};
-	Vector2 position = { p.x, p.y };
-	Rectangle frameRec = { p.x, p.y, (float)p1.width / 9, (float)p1.height };
-	int currentFrame = 0;
-	int framesCounter = 0;
-	int framesSpeed = 3;            // Number of spritesheet frames shown by second
-	Font fontBm = LoadFont("metal-slug.otf");
-	// NOTE: We define a font base size of 32 pixels tall and up-to 250 characters
-	SetTextLineSpacing(16);         // Set line spacing for multiline text (when line breaks are included '\n')
-	bool useTtf = false;	
+    SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
-	while (!WindowShouldClose())		// run the loop until the user presses ESCAPE or presses the Close button on the window
-	{
-		framesCounter++;
+    const int screenWidth = 1920;
+    const int screenHeight = 1080;
+    InitWindow(screenWidth, screenHeight, "Metal Slug");
+    ToggleFullscreen();
 
-		if (framesCounter >= (60 / framesSpeed))
-		{
-			framesCounter = 0;
-			currentFrame++;
+    SearchAndSetResourceDir("resources");
 
-			if (currentFrame > 9) currentFrame = 0; // el primer numero ha de ser el mateix que les divisions de la sprite sheet
+    Texture p1 = LoadTexture("treure fons.png");
+    Texture bg = LoadTexture("MetalSlug-Mission1.png");
 
-			frameRec.x = (float)currentFrame * (float)p1.width / 9; //numero divisons sprite sheet.
-		}
-		
-		p.x += p.vx;
-		p.y -= p.vy;
-		
-		if (p.y < 500)														//Gravity
-		{
-			p.canJump = false;
-			if (p.vy > -8)
-			{
-				p.vy--;
-			}
-		} else {
-			p.canJump = true;
-			p.vy = 0;
-		}
-		if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A))				//Movement X
-		{
-			p.vx++;
-		}
-		else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)){
-			p.vx--;
-		}
-		else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)){
-			p.vx = 0;
-		}
-		if (IsKeyDown(KEY_W)&&p.canJump)								    //Jump
-		{
-			p.jump();
-		}
+    // Tamaño real del mundo (fondo escalado x5)
+    const float bgScale = 5.0f;
+    const int   worldWidth = (int)(bg.width * bgScale);
+    const int   worldHeight = (int)(bg.height * bgScale);
+    const int   FLOOR_Y = (int)(worldHeight * 0.7f);  // 3/10 desde abajo
 
-		BeginDrawing();
+    player p = { screenWidth / 2, FLOOR_Y, 0, 0, true };
 
-		// Setup the back buffer for drawing (clear color and depth buffers)
-		ClearBackground(WHITE);
+    // --- Cámara 2D ---
+    Camera2D camera = { 0 };
+    camera.offset = { screenWidth / 2.0f, screenHeight / 2.0f }; // centrada en pantalla
+    camera.rotation = 0.0f;
+    camera.zoom = 1.0f;
 
-		position.x = p.x;
-		position.y = p.y;
+    Rectangle frameRec = { 0, 0, (float)p1.width / 9, (float)p1.height };
+    int currentFrame = 0;
+    int framesCounter = 0;
+    int framesSpeed = 3;
 
-		// draw our texture to the screen
-		DrawTexture(p1, 200, 150, WHITE);
+    while (!WindowShouldClose())
+    {
+        // --- Animación ---
+        framesCounter++;
+        if (framesCounter >= (60 / framesSpeed))
+        {
+            framesCounter = 0;
+            currentFrame++;
+            if (currentFrame >= 9) currentFrame = 0;
+            frameRec.x = (float)currentFrame * (float)p1.width / 9;
+        }
 
-		DrawTextureRec(p1, frameRec, position, WHITE);  // Draw part of the texture
-			
-		DrawTextEx(fontBm, msg, Vector2 { 20.0f, 100.0f }, (float)fontBm.baseSize, 2, BLACK);	
+        // --- Física ---
+        p.x += p.vx;
+        p.y -= p.vy;
 
-		EndDrawing();// end the frame and get ready for the next one  (display frame, poll input, etc...)
-	}
-	UnloadTexture(p1);// unload our texture so it can be cleaned up
-	CloseWindow();// destroy the window and cleanup the OpenGL context
-	UnloadFont(fontBm);     // AngelCode Font unloading
-	return 0;
+        if (p.y < FLOOR_Y)
+        {
+            p.canJump = false;
+            if (p.vy > -8) p.vy--;
+        }
+        else
+        {
+            p.y = FLOOR_Y;
+            p.canJump = true;
+            p.vy = 0;
+        }
+
+        // --- Movimiento horizontal ---
+        if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) p.vx++;
+        else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)) p.vx--;
+        else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A))               p.vx = 0;
+
+        // --- Salto ---
+        if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
+
+        // --- Límites del mundo (bordes del fondo) ---
+        if (p.x < 0) { p.x = 0;          if (p.vx < 0) p.vx = 0; }
+        if (p.x > worldWidth) { p.x = worldWidth;  if (p.vx > 0) p.vx = 0; }
+
+        // --- Cámara sigue al jugador, clampeada al mundo ---
+        camera.target = { (float)p.x, (float)FLOOR_Y };
+
+        float halfW = screenWidth / 2.0f;
+        float halfH = screenHeight / 2.0f;
+
+        // Clamp horizontal: no mostrar fuera del fondo
+        if (camera.target.x < halfW)              camera.target.x = halfW;
+        if (camera.target.x > worldWidth - halfW) camera.target.x = worldWidth - halfW;
+        // Clamp vertical
+        if (camera.target.y < halfH)              camera.target.y = halfH;
+        if (camera.target.y > worldHeight - halfH) camera.target.y = worldHeight - halfH;
+
+        // --- Dibujo ---
+        BeginDrawing();
+        ClearBackground(BLACK);
+
+        BeginMode2D(camera);
+        // Fondo en el origen del mundo
+        DrawTextureEx(bg, { 0, 0 }, 0.0f, bgScale, WHITE);
+
+        // Jugador en su posición del mundo
+        Vector2 position = { (float)p.x, (float)p.y };
+        DrawTextureRec(p1, frameRec, position, WHITE);
+        EndMode2D();
+
+        EndDrawing();
+    }
+
+    UnloadTexture(p1);
+    UnloadTexture(bg);
+    CloseWindow();
+    return 0;
 }

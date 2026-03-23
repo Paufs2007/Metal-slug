@@ -35,6 +35,9 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="resources\MetalSlug-Mission1.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
     <Image Include="resources\Neo Geo _ NGCD - Metal Slug - Playable Characters - Marco Rossi.png">
       <Filter>Game Resource Files</Filter>
     </Image>
@@ -48,6 +51,12 @@
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\a4.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\hud.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\lhud2.png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\p1.2.png">
