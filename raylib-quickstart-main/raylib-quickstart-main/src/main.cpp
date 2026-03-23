@@ -24,24 +24,28 @@ int main()
 {
     SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
     
+    const int screenWidth = 1920;
+    const int screenHeight = 1080;
+    InitWindow(screenWidth, screenHeight, "Metal Slug");
+    //ToggleFullscreen();
+    
+    int screenWidth2 = GetScreenWidth();
+    int screenHeight2 = GetScreenHeight();
+
     SearchAndSetResourceDir("resources");
 
     //Audio
     InitAudioDevice();
     //Sound
+    soundArray[1] = LoadSound("vaca.mp3");
     soundArray[0] = LoadSound("sexy_death.mp3");
+    soundArray[1] = LoadSound("vaca.mp3");
     //Music
     musicArray[0] = LoadMusicStream("bo.mp3");
     musicArray[0].looping = true;
     float pitch = 0.5f;
 
     PlayMusicStream(musicArray[0]);
-    const int screenWidth = 1920;
-    const int screenHeight = 1080;
-    InitWindow(screenWidth, screenHeight, "Metal Slug");
-    ToggleFullscreen();
-
-    
 
     Texture p1 = LoadTexture("treure fons.png");
     Texture bg = LoadTexture("MetalSlug-Mission1.png");
@@ -53,11 +57,11 @@ int main()
     const int   worldHeight = (int)(bg.height * bgScale);
     const int   FLOOR_Y = (int)(worldHeight * 0.7f);  // 3/10 desde abajo
 
-    player p = { screenWidth / 2, FLOOR_Y, 0, 0, true };
+    player p = { screenWidth2 / 2, FLOOR_Y, 0, 0, true };
 
     // --- Cámara 2D ---
     Camera2D camera = { 0 };
-    camera.offset = { screenWidth / 2.0f, screenHeight / 2.0f }; // centrada en pantalla
+    camera.offset = { screenWidth2 / 2.0f, screenHeight2 / 2.0f }; // centrada en pantalla
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
 
@@ -80,6 +84,9 @@ int main()
 
         if (IsKeyPressed(KEY_SPACE))
             PlaySound(soundArray[0]);
+        
+        if (IsKeyPressed(KEY_V)) 
+            PlaySound(soundArray[1]);
 
         // --- Física ---
         p.x += p.vx;
@@ -112,8 +119,8 @@ int main()
         // --- Cámara sigue al jugador, clampeada al mundo ---
         camera.target = { (float)p.x, (float)FLOOR_Y };
 
-        float halfW = screenWidth / 2.0f;
-        float halfH = screenHeight / 2.0f;
+        float halfW = screenWidth2 / 2.0f;
+        float halfH = screenHeight2 / 2.0f;
 
         // Clamp horizontal: no mostrar fuera del fondo
         if (camera.target.x < halfW)              camera.target.x = halfW;
@@ -130,7 +137,10 @@ int main()
 
         BeginMode2D(camera);
         // Fondo en el origen del mundo
-        DrawTextureEx(bg, { 0, 0 }, 0.0f, bgScale, WHITE);
+        Rectangle src = { 0, 0, (float)bg.width, (float)bg.height };
+        Rectangle dest = { 0, 0, bg.width * bgScale, bg.height * bgScale };
+
+        DrawTexturePro(bg, src, dest, { 0,0 }, 0.0f, WHITE);
 
         // Jugador en su posición del mundo
         Vector2 position = { (float)p.x, (float)p.y };
