@@ -25,6 +25,15 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="resources\bo.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
+    <None Include="resources\sexy_death.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
+    <None Include="resources\vaca.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
     <None Include="src\icon.ico">
       <Filter>Windows Resource Files</Filter>
     </None>
