@@ -56,7 +56,7 @@ int main()
 
     PlayMusicStream(musicArray[0]);
 
-    Texture p1 = LoadTexture("p2idle2.png");
+    Texture p1 = LoadTexture("cap jugador estatic.png");
     Texture bg = LoadTexture("MetalSlug-Mission1.png");
     Texture bullet = LoadTexture("bullet.png");
     if (bullet.id == 0) TraceLog(LOG_ERROR, "Failed to load bullet.png");
@@ -67,7 +67,7 @@ int main()
     const float bgScale = 5.0f;
     const int   worldWidth = (int)(bg.width * bgScale);
     const int   worldHeight = (int)(bg.height * bgScale);
-    const int   FLOOR_Y = (int)(worldHeight * 0.7f);  // 3/10 desde abajo
+    int   FLOOR_Y = 1500; //1300 - 780
 
     player p = { screenWidth2 / 2, FLOOR_Y, 0, 0, true };
 
