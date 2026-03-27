@@ -47,9 +47,9 @@ int main()
 
     PlayMusicStream(musicArray[0]);
 
-    Texture p1 = LoadTexture("treure fons.png");
+    Texture p1 = LoadTexture("p2idle2.png");
     Texture bg = LoadTexture("MetalSlug-Mission1.png");
-    Texture e1 = LoadTexture("hud.png");
+
 
     // Tamaño real del mundo (fondo escalado x5)
     const float bgScale = 5.0f;
@@ -65,11 +65,11 @@ int main()
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
 
-    Rectangle frameRec = { 0, 0, (float)p1.width / 9, (float)p1.height };
+    Rectangle frameRec = { 0, 0, (float)p1.width / 4, (float)p1.height };
     int currentFrame = 0;
     int framesCounter = 0;
     int framesSpeed = 3;
-
+    
     while (!WindowShouldClose())
     {
         // --- Animación ---
@@ -78,8 +78,8 @@ int main()
         {
             framesCounter = 0;
             currentFrame++;
-            if (currentFrame >= 9) currentFrame = 0;
-            frameRec.x = (float)currentFrame * (float)p1.width / 9;
+            if (currentFrame >= 4) currentFrame = 0;
+            frameRec.x = (float)currentFrame * (float)p1.width / 4;
         }
 
         if (IsKeyPressed(KEY_SPACE))
@@ -151,7 +151,6 @@ int main()
     CloseAudioDevice();
     UnloadTexture(p1);
     UnloadTexture(bg);
-    UnloadTexture(e1);
     CloseWindow();
     return 0;
 }
