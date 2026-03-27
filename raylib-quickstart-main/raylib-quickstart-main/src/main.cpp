@@ -22,12 +22,13 @@ public:
 
 int main()
 {
+    //-----------------------------CHANGE ------------------------------------------
     SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
-    
-    const int screenWidth = 1920;
-    const int screenHeight = 1080;
-    InitWindow(screenWidth, screenHeight, "Metal Slug");
-    //ToggleFullscreen();
+
+    InitWindow(1280, 720, "Metal Slug");
+    SetWindowMinSize(800, 450);
+    //-----------------------------CHANGE ------------------------------------------
+
     
     int screenWidth2 = GetScreenWidth();
     int screenHeight2 = GetScreenHeight();
@@ -37,7 +38,6 @@ int main()
     //Audio
     InitAudioDevice();
     //Sound
-    soundArray[1] = LoadSound("vaca.mp3");
     soundArray[0] = LoadSound("sexy_death.mp3");
     soundArray[1] = LoadSound("vaca.mp3");
     //Music
@@ -117,17 +117,16 @@ int main()
         if (p.x > worldWidth) { p.x = worldWidth;  if (p.vx > 0) p.vx = 0; }
 
         // --- Cámara sigue al jugador, clampeada al mundo ---
-        camera.target = { (float)p.x, (float)FLOOR_Y };
-
+        camera.target.x = (float)p.x;         //-----------------------------REMOVE CURRENT LINE FOR THESE TWO ONE ------------------------------------------
+        camera.target.y = (float)FLOOR_Y - 100; // ----------------------------------------------------------------------------------------------------------
         float halfW = screenWidth2 / 2.0f;
         float halfH = screenHeight2 / 2.0f;
 
         // Clamp horizontal: no mostrar fuera del fondo
         if (camera.target.x < halfW)              camera.target.x = halfW;
         if (camera.target.x > worldWidth - halfW) camera.target.x = worldWidth - halfW;
-        // Clamp vertical
-        if (camera.target.y < halfH)              camera.target.y = halfH;
-        if (camera.target.y > worldHeight - halfH) camera.target.y = worldHeight - halfH;
+
+        //-----------------------------REMOVE VERTICAL CLAMP ------------------------------------------
 
         UpdateMusicStream(musicArray[0]);
 

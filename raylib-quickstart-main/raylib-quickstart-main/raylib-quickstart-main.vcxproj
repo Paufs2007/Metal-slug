@@ -307,6 +307,9 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="resources\bo.mp3" />
+    <None Include="resources\sexy_death.mp3" />
+    <None Include="resources\vaca.mp3" />
     <None Include="src\icon.ico" />
   </ItemGroup>
   <ItemGroup>
