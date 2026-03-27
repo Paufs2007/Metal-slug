@@ -58,7 +58,6 @@ int main()
 
     Texture p1 = LoadTexture("p2idle2.png");
     Texture bg = LoadTexture("MetalSlug-Mission1.png");
-    Texture e1 = LoadTexture("hud.png");
     Texture bullet = LoadTexture("bullet.png");
     if (bullet.id == 0) TraceLog(LOG_ERROR, "Failed to load bullet.png");
 
@@ -84,7 +83,7 @@ int main()
     int framesSpeed = 3;
 
     //BULLETS
-    const int MAX_BULLETS = 20;
+    const int MAX_BULLETS = 20000;
     Bullet bullets[MAX_BULLETS] = {};
 
     while (!WindowShouldClose())
@@ -201,7 +200,6 @@ int main()
     CloseAudioDevice();
     UnloadTexture(p1);
     UnloadTexture(bg);
-    UnloadTexture(e1);
     UnloadTexture(bullet);
     CloseWindow();
     return 0;
