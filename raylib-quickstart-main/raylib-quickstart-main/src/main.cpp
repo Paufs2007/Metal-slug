@@ -55,7 +55,7 @@ int main()
     const float bgScale = 5.0f;
     const int   worldWidth = (int)(bg.width * bgScale);
     const int   worldHeight = (int)(bg.height * bgScale);
-    const int   FLOOR_Y = (int)(worldHeight * 0.7f);  // 3/10 desde abajo
+    int   FLOOR_Y = 1500; //1300 - 780
 
     player p = { screenWidth2 / 2, FLOOR_Y, 0, 0, true };
 
@@ -107,7 +107,7 @@ int main()
         // --- Movimiento horizontal ---
         if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) p.vx++;
         else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)) p.vx--;
-        else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A))               p.vx = 0;
+        else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A))p.vx = 0;
 
         // --- Salto ---
         if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
