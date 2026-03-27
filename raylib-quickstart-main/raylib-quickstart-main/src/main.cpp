@@ -56,7 +56,7 @@ int main()
 
     PlayMusicStream(musicArray[0]);
 
-    Texture p1 = LoadTexture("p2idle2.png");
+    Texture p1 = LoadTexture("cap jugador estatic.png");
     Texture bg = LoadTexture("MetalSlug-Mission1.png");
     Texture e1 = LoadTexture("hud.png");
     Texture bullet = LoadTexture("bullet.png");
