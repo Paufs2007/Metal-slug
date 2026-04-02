@@ -56,7 +56,7 @@ int main()
 
     PlayMusicStream(musicArray[0]);
 
-    Texture p1 = LoadTexture("cap jugador estatic.png");
+    Texture p1 = LoadTexture("bullet.png");
     Texture bg = LoadTexture("MetalSlug-Mission1.png");
     Texture bullet = LoadTexture("bullet.png");
     if (bullet.id == 0) TraceLog(LOG_ERROR, "Failed to load bullet.png");
@@ -67,9 +67,9 @@ int main()
     const float bgScale = 5.0f;
     const int   worldWidth = (int)(bg.width * bgScale);
     const int   worldHeight = (int)(bg.height * bgScale);
-    int   FLOOR_Y = 1500; //1300 - 780
+    int   FLOOR_Y = 1200; //1300 - 780
 
-    player p = { screenWidth2 / 2, FLOOR_Y, 0, 0, true };
+    player p = { 0, FLOOR_Y +1 , 0, 0, true };
 
     // --- C�mara 2D ---
     Camera2D camera = { 0 };
@@ -161,7 +161,7 @@ int main()
 
         // --- C�mara sigue al jugador, clampeada al mundo ---
         camera.target.x = (float)p.x;         //-----------------------------REMOVE CURRENT LINE FOR THESE TWO ONE ------------------------------------------
-        camera.target.y = (float)FLOOR_Y - 100; // ----------------------------------------------------------------------------------------------------------
+        camera.target.y = (float)1300; // ----------------------------------------------------------------------------------------------------------
         float halfW = screenWidth2 / 2.0f;
         float halfH = screenHeight2 / 2.0f;
 
@@ -175,7 +175,7 @@ int main()
 
         // --- Dibujo ---
         BeginDrawing();
-        ClearBackground(BLACK);
+        ClearBackground(RED);
 
         BeginMode2D(camera);
         // Fondo en el origen del mundo
@@ -186,7 +186,7 @@ int main()
 
         // Jugador en su posici�n del mundo
         Vector2 position = { (float)p.x, (float)p.y };
-        DrawTextureRec(p1, frameRec, position, WHITE);
+        DrawTexture(p1, p.x, p.y, WHITE);
 
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
@@ -194,6 +194,7 @@ int main()
         }
 
         EndMode2D();
+
 
         EndDrawing();
     }
