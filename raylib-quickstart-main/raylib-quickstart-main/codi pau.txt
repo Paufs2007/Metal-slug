@@ -13,6 +13,8 @@ public:
     int vx;
     int vy;
     bool canJump;
+    int facing = 1; // 1 = right, -1 = left
+
 
     void jump() {
         vy = 30;
@@ -20,33 +22,35 @@ public:
     }
 };
 
-class enemic
-{
-public:
-    Vector2 position;
-    int hp;
-    int damage;
+//BULLETS
+struct Bullet {
+    float x, y;
+    float vx;
+    bool active;
 };
 
 int main()
 {
+    //-----------------------------CHANGE ------------------------------------------
     SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
-    const int screenWidth = 1920;
-    const int screenHeight = 1080;
-    InitWindow(screenWidth, screenHeight, "Metal Slug");
-    ToggleFullscreen();
+    InitWindow(1280, 720, "Metal Slug");
+    SetWindowMinSize(800, 450);
+    //-----------------------------CHANGE ------------------------------------------
 
+    
     int screenWidth2 = GetScreenWidth();
     int screenHeight2 = GetScreenHeight();
+    int screenWidth = GetScreenWidth();
+    int screenHeight = GetScreenHeight();
 
     SearchAndSetResourceDir("resources");
 
     //Audio
     InitAudioDevice();
     //Sound
-    soundArray[1] = LoadSound("vaca.mp3");
     soundArray[0] = LoadSound("sexy_death.mp3");
+    soundArray[1] = LoadSound("vaca.mp3");
     //Music
     musicArray[0] = LoadMusicStream("bo.mp3");
     musicArray[0].looping = true;
@@ -54,49 +58,60 @@ int main()
 
     PlayMusicStream(musicArray[0]);
 
-    Texture p1 = LoadTexture("p2idle.png");
+    Texture p1 = LoadTexture("mr.png");
     Texture bg = LoadTexture("MetalSlug-Mission1.png");
-    Texture si = LoadTexture("RocketDiver.png");
-    // Tamaño real del mundo (fondo escalado x5)
+    Texture bullet = LoadTexture("bullet.png");
+    if (bullet.id == 0) TraceLog(LOG_ERROR, "Failed to load bullet.png");
+
+
+
+    // Tama o real del mundo (fondo escalado x5)
     const float bgScale = 5.0f;
     const int   worldWidth = (int)(bg.width * bgScale);
     const int   worldHeight = (int)(bg.height * bgScale);
-    int   FLOOR_Y = 1300;
+    int   FLOOR_Y = 1500; //1300 - 780
 
-    player p = { screenWidth2 / 2, FLOOR_Y, 0, 0, true };
+    player p = { 0, FLOOR_Y +1 , 0, 0, true };
 
-    enemic e = { 1000, 100, 2, 2};
-
-    // --- Cámara 2D ---
+    // --- C mara 2D ---
     Camera2D camera = { 0 };
     camera.offset = { screenWidth2 / 2.0f, screenHeight2 / 2.0f }; // centrada en pantalla
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
 
-    Rectangle frameRec = { 0, 0, (float)p1.width / 22, (float)p1.height };
+    Rectangle frameRec = { 0, 0, (float)p1.width / 4, (float)p1.height };
     int currentFrame = 0;
     int framesCounter = 0;
-    int framesSpeed = 3;
+    int framesSpeed = 3;    
+
+    //BULLETS
+    const int MAX_BULLETS = 20000;
+    Bullet bullets[MAX_BULLETS] = {};
 
     while (!WindowShouldClose())
     {
-        // --- Animación ---
+        // --- Fullscreen ---
+        if (IsKeyPressed(KEY_F11))
+        {
+            ToggleFullscreen();
+        }
+        // --- Animaci n ---
         framesCounter++;
         if (framesCounter >= (60 / framesSpeed))
         {
             framesCounter = 0;
             currentFrame++;
-            if (currentFrame >= 22) currentFrame = 0;
-            frameRec.x = (float)currentFrame * (float)p1.width / 22;
+            if (currentFrame >= 4) currentFrame = 0;
+            frameRec.x = (float)currentFrame * (float)p1.width / 4;
         }
 
         if (IsKeyPressed(KEY_SPACE))
             PlaySound(soundArray[0]);
-
-        if (IsKeyPressed(KEY_V))
+        
+        if (IsKeyPressed(KEY_V)) 
             PlaySound(soundArray[1]);
 
-        // --- Física ---
+        // --- F sica ---
         p.x += p.vx;
         p.y -= p.vy;
 
@@ -113,65 +128,88 @@ int main()
         }
 
         // --- Movimiento horizontal ---
-        if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) {
-            if (p.vx < 5) p.vx++;
-            if (p.x >= 16500 && p.x <= 18000) FLOOR_Y -= 2;
+        if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) p.vx++;
+        if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) {
+            p.vx++;
+            p.facing = 1;   // ADD THIS -------------------------------------------
         }
-        else if (IsKeyDown(KEY_A) && !IsKeyDown(KEY_D)) {
-            if (p.vx > -5) p.vx--;
-            if (p.x >= 16500 && p.x <= 18000) FLOOR_Y += 2;
+        else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)) {
+            p.vx--;
+            p.facing = -1;  // ADD THIS--------------------------------------------
         }
         else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
-
-        if (IsKeyPressed(KEY_W) && p.canJump) p.x = 16000;
 
         // --- Salto ---
         if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
 
-        // --- Límites del mundo (bordes del fondo) ---
+        if (IsKeyPressed(KEY_F)) {
+            for (int i = 0; i < MAX_BULLETS; i++) {
+                if (!bullets[i].active) {
+                    bullets[i].x = (float)p.x;
+                    bullets[i].y = (float)p.y;
+                    bullets[i].vx = 15.0f * p.facing;
+                    bullets[i].active = true;
+                    break;
+                }
+            }
+        }
+
+        for (int i = 0; i < MAX_BULLETS; i++) {
+            if (!bullets[i].active) continue;
+            bullets[i].x += bullets[i].vx;
+            if (bullets[i].x < 0 || bullets[i].x > worldWidth)
+                bullets[i].active = false;
+        }
+
+        // --- L mites del mundo (bordes del fondo) ---
         if (p.x < 0) { p.x = 0;          if (p.vx < 0) p.vx = 0; }
         if (p.x > worldWidth) { p.x = worldWidth;  if (p.vx > 0) p.vx = 0; }
 
-        // --- Cámara sigue al jugador, clampeada al mundo ---
-        camera.target = { (float)p.x, (float)p.y };
-
+        // --- C mara sigue al jugador, clampeada al mundo ---
+        camera.target.x = (float)p.x;         //-----------------------------REMOVE CURRENT LINE FOR THESE TWO ONE ------------------------------------------
+        camera.target.y = (float)1100; // ----------------------------------------------------------------------------------------------------------
         float halfW = screenWidth2 / 2.0f;
         float halfH = screenHeight2 / 2.0f;
 
         // Clamp horizontal: no mostrar fuera del fondo
         if (camera.target.x < halfW)              camera.target.x = halfW;
         if (camera.target.x > worldWidth - halfW) camera.target.x = worldWidth - halfW;
-        
-        // Clamp vertical
-        if (camera.target.y < halfH)              camera.target.y = halfH;
-        if (camera.target.y > worldHeight - halfH) camera.target.y = worldHeight - halfH;
+
+        //-----------------------------REMOVE VERTICAL CLAMP ------------------------------------------
 
         UpdateMusicStream(musicArray[0]);
 
         // --- Dibujo ---
         BeginDrawing();
-        ClearBackground(BLACK);
+        ClearBackground(RED);
+
         BeginMode2D(camera);
-        
         // Fondo en el origen del mundo
         Rectangle src = { 0, 0, (float)bg.width, (float)bg.height };
         Rectangle dest = { 0, 0, bg.width * bgScale, bg.height * bgScale };
 
         DrawTexturePro(bg, src, dest, { 0,0 }, 0.0f, WHITE);
 
-        DrawTexture(si, e.position.x, e.position.y, BLACK);
+        // Jugador en su posici n del mundo
+        Vector2 position = { 0.0f, 0.0f };
+        Rectangle pos = { (float)p.x, (float)p.y, frameRec.width * 10, frameRec.height * 10 };
+        //DrawTextureRec(p1, frameRec, position, WHITE);
+        DrawTexturePro(p1, frameRec, pos, position, 0, WHITE);
 
-        // Jugador en su posición del mundo
-        Vector2 position = { (float)p.x, (float)p.y };
-        DrawTextureRec(p1, frameRec, position, WHITE);
+        for (int i = 0; i < MAX_BULLETS; i++) {
+            if (!bullets[i].active) continue;
+            DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
+        }
+
         EndMode2D();
+
 
         EndDrawing();
     }
     CloseAudioDevice();
     UnloadTexture(p1);
     UnloadTexture(bg);
-    UnloadTexture(si);
+    UnloadTexture(bullet);
     CloseWindow();
     return 0;
 }

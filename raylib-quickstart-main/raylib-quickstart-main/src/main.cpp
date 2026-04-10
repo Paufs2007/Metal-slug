@@ -41,6 +41,8 @@ int main()
     
     int screenWidth2 = GetScreenWidth();
     int screenHeight2 = GetScreenHeight();
+    int screenWidth = GetScreenWidth();
+    int screenHeight = GetScreenHeight();
 
     SearchAndSetResourceDir("resources");
 
@@ -80,7 +82,7 @@ int main()
     Rectangle frameRec = { 0, 0, (float)p1.width / 4, (float)p1.height };
     int currentFrame = 0;
     int framesCounter = 0;
-    int framesSpeed = 3;
+    int framesSpeed = 3;    
 
     //BULLETS
     const int MAX_BULLETS = 20000;
@@ -89,7 +91,10 @@ int main()
     while (!WindowShouldClose())
     {
         // --- Fullscreen ---
-        if (IsKeyPressed(KEY_F11)) ToggleFullscreen();
+        if (IsKeyPressed(KEY_F11))
+        {
+            ToggleFullscreen();
+        }
         // --- Animaci�n ---
         framesCounter++;
         if (framesCounter >= (60 / framesSpeed))
@@ -149,7 +154,6 @@ int main()
             }
         }
 
-
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
             bullets[i].x += bullets[i].vx;
@@ -187,8 +191,10 @@ int main()
         DrawTexturePro(bg, src, dest, { 0,0 }, 0.0f, WHITE);
 
         // Jugador en su posici�n del mundo
-        Vector2 position = { (float)p.x, (float)p.y };
-        DrawTexture(p1, p.x, p.y, WHITE);
+        Vector2 position = { 0.0f, 0.0f };
+        Rectangle pos = { (float)p.x, (float)p.y, frameRec.width * 10, frameRec.height * 10 };
+        //DrawTextureRec(p1, frameRec, position, WHITE);
+        DrawTexturePro(p1, frameRec, pos, position, 0, WHITE);
 
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
