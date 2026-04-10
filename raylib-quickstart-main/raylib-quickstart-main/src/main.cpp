@@ -56,7 +56,7 @@ int main()
 
     PlayMusicStream(musicArray[0]);
 
-    Texture p1 = LoadTexture("bullet.png");
+    Texture p1 = LoadTexture("mr.png");
     Texture bg = LoadTexture("MetalSlug-Mission1.png");
     Texture bullet = LoadTexture("bullet.png");
     if (bullet.id == 0) TraceLog(LOG_ERROR, "Failed to load bullet.png");
@@ -67,7 +67,7 @@ int main()
     const float bgScale = 5.0f;
     const int   worldWidth = (int)(bg.width * bgScale);
     const int   worldHeight = (int)(bg.height * bgScale);
-    int   FLOOR_Y = 1200; //1300 - 780
+    int   FLOOR_Y = 1500; //1300 - 780
 
     player p = { 0, FLOOR_Y +1 , 0, 0, true };
 
@@ -88,6 +88,8 @@ int main()
 
     while (!WindowShouldClose())
     {
+        // --- Fullscreen ---
+        if (IsKeyPressed(KEY_F11)) ToggleFullscreen();
         // --- Animaci�n ---
         framesCounter++;
         if (framesCounter >= (60 / framesSpeed))
@@ -161,7 +163,7 @@ int main()
 
         // --- C�mara sigue al jugador, clampeada al mundo ---
         camera.target.x = (float)p.x;         //-----------------------------REMOVE CURRENT LINE FOR THESE TWO ONE ------------------------------------------
-        camera.target.y = (float)1300; // ----------------------------------------------------------------------------------------------------------
+        camera.target.y = (float)1100; // ----------------------------------------------------------------------------------------------------------
         float halfW = screenWidth2 / 2.0f;
         float halfH = screenHeight2 / 2.0f;
 
