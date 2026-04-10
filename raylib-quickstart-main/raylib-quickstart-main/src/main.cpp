@@ -13,11 +13,20 @@ public:
     int vx;
     int vy;
     bool canJump;
+    int facing = 1; // 1 = right, -1 = left
+
 
     void jump() {
         vy = 30;
         canJump = false;
     }
+};
+
+//BULLETS
+struct Bullet {
+    float x, y;
+    float vx;
+    bool active;
 };
 
 int main()
@@ -47,39 +56,46 @@ int main()
 
     PlayMusicStream(musicArray[0]);
 
-    Texture p1 = LoadTexture("treure fons.png");
+    Texture p1 = LoadTexture("bullet.png");
     Texture bg = LoadTexture("MetalSlug-Mission1.png");
-    Texture e1 = LoadTexture("hud.png");
+    Texture bullet = LoadTexture("bullet.png");
+    if (bullet.id == 0) TraceLog(LOG_ERROR, "Failed to load bullet.png");
 
-    // Tamaño real del mundo (fondo escalado x5)
+
+
+    // Tamaï¿½o real del mundo (fondo escalado x5)
     const float bgScale = 5.0f;
     const int   worldWidth = (int)(bg.width * bgScale);
     const int   worldHeight = (int)(bg.height * bgScale);
-    const int   FLOOR_Y = (int)(worldHeight * 0.7f);  // 3/10 desde abajo
+    int   FLOOR_Y = 1200; //1300 - 780
 
-    player p = { screenWidth2 / 2, FLOOR_Y, 0, 0, true };
+    player p = { 0, FLOOR_Y +1 , 0, 0, true };
 
-    // --- Cámara 2D ---
+    // --- Cï¿½mara 2D ---
     Camera2D camera = { 0 };
     camera.offset = { screenWidth2 / 2.0f, screenHeight2 / 2.0f }; // centrada en pantalla
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
 
-    Rectangle frameRec = { 0, 0, (float)p1.width / 9, (float)p1.height };
+    Rectangle frameRec = { 0, 0, (float)p1.width / 4, (float)p1.height };
     int currentFrame = 0;
     int framesCounter = 0;
     int framesSpeed = 3;
 
+    //BULLETS
+    const int MAX_BULLETS = 20000;
+    Bullet bullets[MAX_BULLETS] = {};
+
     while (!WindowShouldClose())
     {
-        // --- Animación ---
+        // --- Animaciï¿½n ---
         framesCounter++;
         if (framesCounter >= (60 / framesSpeed))
         {
             framesCounter = 0;
             currentFrame++;
-            if (currentFrame >= 9) currentFrame = 0;
-            frameRec.x = (float)currentFrame * (float)p1.width / 9;
+            if (currentFrame >= 4) currentFrame = 0;
+            frameRec.x = (float)currentFrame * (float)p1.width / 4;
         }
 
         if (IsKeyPressed(KEY_SPACE))
@@ -88,7 +104,7 @@ int main()
         if (IsKeyPressed(KEY_V)) 
             PlaySound(soundArray[1]);
 
-        // --- Física ---
+        // --- Fï¿½sica ---
         p.x += p.vx;
         p.y -= p.vy;
 
@@ -106,19 +122,46 @@ int main()
 
         // --- Movimiento horizontal ---
         if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) p.vx++;
-        else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)) p.vx--;
-        else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A))               p.vx = 0;
+        if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) {
+            p.vx++;
+            p.facing = 1;   // ADD THIS -------------------------------------------
+        }
+        else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)) {
+            p.vx--;
+            p.facing = -1;  // ADD THIS--------------------------------------------
+        }
+        else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
 
         // --- Salto ---
         if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
 
-        // --- Límites del mundo (bordes del fondo) ---
+        if (IsKeyPressed(KEY_F)) {
+            for (int i = 0; i < MAX_BULLETS; i++) {
+                if (!bullets[i].active) {
+                    bullets[i].x = (float)p.x;
+                    bullets[i].y = (float)p.y;
+                    bullets[i].vx = 15.0f * p.facing;
+                    bullets[i].active = true;
+                    break;
+                }
+            }
+        }
+
+
+        for (int i = 0; i < MAX_BULLETS; i++) {
+            if (!bullets[i].active) continue;
+            bullets[i].x += bullets[i].vx;
+            if (bullets[i].x < 0 || bullets[i].x > worldWidth)
+                bullets[i].active = false;
+        }
+
+        // --- Lï¿½mites del mundo (bordes del fondo) ---
         if (p.x < 0) { p.x = 0;          if (p.vx < 0) p.vx = 0; }
         if (p.x > worldWidth) { p.x = worldWidth;  if (p.vx > 0) p.vx = 0; }
 
-        // --- Cámara sigue al jugador, clampeada al mundo ---
+        // --- Cï¿½mara sigue al jugador, clampeada al mundo ---
         camera.target.x = (float)p.x;         //-----------------------------REMOVE CURRENT LINE FOR THESE TWO ONE ------------------------------------------
-        camera.target.y = (float)FLOOR_Y - 100; // ----------------------------------------------------------------------------------------------------------
+        camera.target.y = (float)1300; // ----------------------------------------------------------------------------------------------------------
         float halfW = screenWidth2 / 2.0f;
         float halfH = screenHeight2 / 2.0f;
 
@@ -132,7 +175,7 @@ int main()
 
         // --- Dibujo ---
         BeginDrawing();
-        ClearBackground(BLACK);
+        ClearBackground(RED);
 
         BeginMode2D(camera);
         // Fondo en el origen del mundo
@@ -141,17 +184,24 @@ int main()
 
         DrawTexturePro(bg, src, dest, { 0,0 }, 0.0f, WHITE);
 
-        // Jugador en su posición del mundo
+        // Jugador en su posiciï¿½n del mundo
         Vector2 position = { (float)p.x, (float)p.y };
-        DrawTextureRec(p1, frameRec, position, WHITE);
+        DrawTexture(p1, p.x, p.y, WHITE);
+
+        for (int i = 0; i < MAX_BULLETS; i++) {
+            if (!bullets[i].active) continue;
+            DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
+        }
+
         EndMode2D();
+
 
         EndDrawing();
     }
     CloseAudioDevice();
     UnloadTexture(p1);
     UnloadTexture(bg);
-    UnloadTexture(e1);
+    UnloadTexture(bullet);
     CloseWindow();
     return 0;
 }
