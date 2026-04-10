@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "resource_dir.h"
-
+#include <string>
+using namespace std;
 #define MAX_FRAME_SPEED 15
 #define MIN_FRAME_SPEED  1
 Sound soundArray[10];
@@ -69,7 +70,7 @@ int main()
     const float bgScale = 5.0f;
     const int   worldWidth = (int)(bg.width * bgScale);
     const int   worldHeight = (int)(bg.height * bgScale);
-    int   FLOOR_Y = 1500; //1300 - 780
+    int   FLOOR_Y = 1300; //1300 - 780
 
     player p = { 0, FLOOR_Y +1 , 0, 0, true };
 
@@ -131,13 +132,32 @@ int main()
         if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) p.vx++;
         if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) {
             p.vx++;
-            p.facing = 1;   // ADD THIS -------------------------------------------
+            p.facing = 1;
         }
         else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)) {
             p.vx--;
-            p.facing = -1;  // ADD THIS--------------------------------------------
+            p.facing = -1;
         }
         else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
+
+        // --- FLOOR_Y ---
+        if (p.x > 0) FLOOR_Y = 1300;
+        if (p.x > 3380) FLOOR_Y = 1500;
+        if (p.x > 9050) FLOOR_Y = 1350;
+        if (p.x > 9345) FLOOR_Y = 1500;
+        if (p.x > 16400) FLOOR_Y = 1350;
+        //if (p.x > 16600) FLOOR_Y = 1200;
+        //if (p.x > 17450) FLOOR_Y = 800;
+
+        // --- Obstacles ---
+        if (p.x <= 3385 && p.y > 1300) p.x = 3390;
+        if (p.x >= 9045 && p.x <= 9050 && p.y > 1350) p.x = 9040;
+        if (p.x >= 9345 && p.x <= 9350 && p.y > 1350) p.x = 9355;
+
+        // --- Cheats ---
+        if (IsKeyDown(KEY_L)) p.x = 20000;
+        string ix = to_string(p.x);
+        const char* cix = ix.c_str();
 
         // --- Salto ---
         if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
@@ -191,10 +211,16 @@ int main()
         DrawTexturePro(bg, src, dest, { 0,0 }, 0.0f, WHITE);
 
         // Jugador en su posici�n del mundo
+<<<<<<< Updated upstream
         Vector2 position = { 0.0f, 0.0f };
         Rectangle pos = { (float)p.x, (float)p.y, frameRec.width * 10, frameRec.height * 10 };
         //DrawTextureRec(p1, frameRec, position, WHITE);
         DrawTexturePro(p1, frameRec, pos, position, 0, WHITE);
+=======
+        Vector2 position = { (float)p.x, (float)p.y };
+        DrawTextureRec(p1, frameRec, position, WHITE);
+        DrawText(cix, p.x, p.y, 20, RED);
+>>>>>>> Stashed changes
 
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
