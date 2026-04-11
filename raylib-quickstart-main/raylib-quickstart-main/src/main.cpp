@@ -211,17 +211,11 @@ int main()
         DrawTexturePro(bg, src, dest, { 0,0 }, 0.0f, WHITE);
 
         // Jugador en su posici�n del mundo
-<<<<<<< Updated upstream
-        Vector2 position = { 0.0f, 0.0f };
+        Vector2 position = { 0.0f, 0.0f };                                                          
         Rectangle pos = { (float)p.x, (float)p.y, frameRec.width * 10, frameRec.height * 10 };
-        //DrawTextureRec(p1, frameRec, position, WHITE);
         DrawTexturePro(p1, frameRec, pos, position, 0, WHITE);
-=======
-        Vector2 position = { (float)p.x, (float)p.y };
         DrawTextureRec(p1, frameRec, position, WHITE);
         DrawText(cix, p.x, p.y, 20, RED);
->>>>>>> Stashed changes
-
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
             DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
