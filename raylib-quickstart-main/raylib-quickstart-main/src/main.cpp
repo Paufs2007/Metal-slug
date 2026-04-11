@@ -15,6 +15,7 @@ public:
     int vy;
     bool canJump;
     int facing = 1; // 1 = right, -1 = left
+    int facingy = 1; // 1 = up, -1 = down
 
 
     void jump() {
@@ -27,6 +28,7 @@ public:
 struct Bullet {
     float x, y;
     float vx;
+    float vy;
     bool active;
 };
 
@@ -162,23 +164,47 @@ int main()
         // --- Salto ---
         if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
 
+        //Aim direction
+        if (IsKeyDown(KEY_W)) p.facingy = 1;
+        else if (IsKeyDown(KEY_S)) p.facingy = -1;
+
+
         if (IsKeyPressed(KEY_F)) {
             for (int i = 0; i < MAX_BULLETS; i++) {
                 if (!bullets[i].active) {
                     bullets[i].x = (float)p.x;
                     bullets[i].y = (float)p.y;
-                    bullets[i].vx = 15.0f * p.facing;
+
+                    
+                    if (IsKeyDown(KEY_W)) {
+                        bullets[i].vx = 0;
+                        bullets[i].vy = -15.0f; // up
+                    }
+                    else if (IsKeyDown(KEY_S)) {
+                        bullets[i].vx = 0;
+                        bullets[i].vy = 15.0f; // down
+                    }
+                    else {
+                        bullets[i].vx = 15.0f * p.facing; // left/right
+                        bullets[i].vy = 0;
+                    }
+
                     bullets[i].active = true;
                     break;
                 }
             }
-        }
 
+        }
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
+
             bullets[i].x += bullets[i].vx;
-            if (bullets[i].x < 0 || bullets[i].x > worldWidth)
+            bullets[i].y += bullets[i].vy;
+
+            if (bullets[i].x < 0 || bullets[i].x > worldWidth ||
+                bullets[i].y < 0 || bullets[i].y > worldHeight) {
                 bullets[i].active = false;
+            }
         }
 
         // --- L�mites del mundo (bordes del fondo) ---
