@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "resource_dir.h"
 #include <string>
+#include <raymath.h>
 using namespace std;
 #define MAX_FRAME_SPEED 15
 #define MIN_FRAME_SPEED  1
@@ -23,6 +24,36 @@ public:
         canJump = false;
     }
 };
+//timer
+struct Timer
+{
+    float lifetime;
+};
+
+void startTimer (Timer* timer, float lifetime)
+{
+    if (timer != NULL)
+    {
+        timer->lifetime = lifetime;
+    }
+}
+
+
+void updatetimer(Timer* timer)
+{
+    if (timer != NULL && timer->lifetime > 0)
+    {
+        timer->lifetime -= GetFrameTime();
+    }
+}
+
+bool TimerDone (Timer* timer)
+{
+    if (timer != NULL)
+    {
+        return timer->lifetime <= 0;
+    }
+}
 
 //BULLETS
 struct Bullet {
@@ -41,12 +72,12 @@ int main()
     SetWindowMinSize(800, 450);
     //-----------------------------CHANGE ------------------------------------------
 
-    
+    int vpunts = 0;
     int screenWidth2 = GetScreenWidth();
     int screenHeight2 = GetScreenHeight();
     int screenWidth = GetScreenWidth();
     int screenHeight = GetScreenHeight();
-
+        
     SearchAndSetResourceDir("resources");
 
     //Audio
@@ -54,6 +85,7 @@ int main()
     //Sound
     soundArray[0] = LoadSound("sexy_death.mp3");
     soundArray[1] = LoadSound("vaca.mp3");
+    soundArray[2] = LoadSound("pipa.mp3");
     //Music
     musicArray[0] = LoadMusicStream("bo.mp3");
     musicArray[0].looping = true;
@@ -66,8 +98,14 @@ int main()
     Texture bullet = LoadTexture("bullet.png");
     if (bullet.id == 0) TraceLog(LOG_ERROR, "Failed to load bullet.png");
 
+    //timer
 
+    int timerlife = 5;
 
+    Timer vidaTimer = { 0 };
+
+    startTimer(&vidaTimer, timerlife);
+    
     // Tama�o real del mundo (fondo escalado x5)
     const float bgScale = 5.0f;
     const int   worldWidth = (int)(bg.width * bgScale);
@@ -98,6 +136,11 @@ int main()
         {
             ToggleFullscreen();
         }
+        
+        //timer
+
+        updatetimer(&vidaTimer);
+
         // --- Animaci�n ---
         framesCounter++;
         if (framesCounter >= (60 / framesSpeed))
@@ -113,6 +156,9 @@ int main()
         
         if (IsKeyPressed(KEY_V)) 
             PlaySound(soundArray[1]);
+
+        if (IsKeyPressed(KEY_F))
+            PlaySound(soundArray[2]);
 
         // --- F�sica ---
         p.x += p.vx;
@@ -131,7 +177,6 @@ int main()
         }
 
         // --- Movimiento horizontal ---
-        if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) p.vx++;
         if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) {
             p.vx++;
             p.facing = 1;
@@ -158,9 +203,7 @@ int main()
 
         // --- Cheats ---
         if (IsKeyDown(KEY_L)) p.x = 20000;
-        string ix = to_string(p.x);
-        const char* cix = ix.c_str();
-
+        
         // --- Salto ---
         if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
 
@@ -169,7 +212,9 @@ int main()
         else if (IsKeyDown(KEY_S)) p.facingy = -1;
 
 
-        if (IsKeyPressed(KEY_F)) {
+        if (IsKeyPressed(KEY_F)) 
+        {
+            vpunts++;
             for (int i = 0; i < MAX_BULLETS; i++) {
                 if (!bullets[i].active) {
                     bullets[i].x = (float)p.x;
@@ -195,6 +240,7 @@ int main()
             }
 
         }
+
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
 
@@ -223,6 +269,15 @@ int main()
 
         //-----------------------------REMOVE VERTICAL CLAMP ------------------------------------------
 
+        string ix = to_string(p.x);
+        const char* cix = ix.c_str();
+
+        string puntstext = "Punts: ";
+        const char* cpuntstext = puntstext.c_str();
+
+        string punts = to_string(vpunts);
+        const char* cpunts = punts.c_str();
+
         UpdateMusicStream(musicArray[0]);
 
         // --- Dibujo ---
@@ -236,11 +291,12 @@ int main()
 
         DrawTexturePro(bg, src, dest, { 0,0 }, 0.0f, WHITE);
 
-        // Jugador en su posici�n del mundo
+        DrawText(cpunts, p.x, -10, 50, RED);
+
+        // Jugador en su posici�n del mundo 
         Vector2 position = { 0.0f, 0.0f };                                                          
-        Rectangle pos = { (float)p.x, (float)p.y, frameRec.width * 10, frameRec.height * 10 };
+        Rectangle pos = { (float)p.x, (float)p.y, frameRec.width * 5, frameRec.height * 5 };
         DrawTexturePro(p1, frameRec, pos, position, 0, WHITE);
-        DrawTextureRec(p1, frameRec, position, WHITE);
         DrawText(cix, p.x, p.y, 20, RED);
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
@@ -249,6 +305,20 @@ int main()
 
         EndMode2D();
 
+        int textWidth = MeasureText(cpunts, 30);
+
+        //mitj pantalla
+        
+
+        DrawText(TextFormat("%d", vidaTimer.lifetime), screenWidth / 2, 20, 30, RED);
+
+        // esquina dreta
+        DrawText(cpuntstext, screenWidth - textWidth - 140, 20, 30, RED);
+
+        DrawText(cpunts, screenWidth - textWidth - 40, 20, 30, RED);
+
+        //esquina esquerra
+        DrawText(cpunts, 20, 20, 30, RED);
 
         EndDrawing();
     }

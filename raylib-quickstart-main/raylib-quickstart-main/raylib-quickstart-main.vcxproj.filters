@@ -53,6 +53,9 @@
     <Image Include="resources\bullet.png">
       <Filter>Game Resource Files</Filter>
     </Image>
+    <Image Include="resources\mr.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
     <Image Include="resources\p2idle.png">
       <Filter>Game Resource Files</Filter>
     </Image>
