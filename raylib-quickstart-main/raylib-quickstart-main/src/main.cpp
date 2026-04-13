@@ -166,7 +166,7 @@ int main()
 
         if (p.y < FLOOR_Y)
         {
-            p.canJump = false;
+            if(p.canJump != false && p.y > FLOOR_Y-10) p.y = FLOOR_Y;
             if (p.vy > -8) p.vy--;
         }
         else
@@ -188,18 +188,30 @@ int main()
         else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
 
         // --- FLOOR_Y ---
-        if (p.x > 0) FLOOR_Y = 1300;
-        if (p.x > 3380) FLOOR_Y = 1500;
-        if (p.x > 9050) FLOOR_Y = 1350;
-        if (p.x > 9345) FLOOR_Y = 1500;
-        if (p.x > 16400) FLOOR_Y = 1350;
-        //if (p.x > 16600) FLOOR_Y = 1200;
-        //if (p.x > 17450) FLOOR_Y = 800;
+        if (p.x > 0) FLOOR_Y = 1220;
+        if (p.x > 3380) FLOOR_Y = 1380;
+        if (p.x > 8900) FLOOR_Y = p.x*-0.8+8500;
+        if (p.x > 9050) FLOOR_Y = 1260;
+        if (p.x > 9400) FLOOR_Y = 1380;
+        if (p.x > 10100) FLOOR_Y = 1220;
+        if (p.x > 10250) FLOOR_Y = 1020;
+        if (p.x > 10700) FLOOR_Y = 1380;
+        if (p.x > 16300) FLOOR_Y = p.x*-0.8+14420;
+        if (p.x > 16550) FLOOR_Y = 1180; 
+        if (p.x > 16750) FLOOR_Y = p.x*-0.6+11230;
+        if (p.x > 17000) FLOOR_Y = 1030;
+        if (p.x > 17150) FLOOR_Y = p.x*-0.75+13892.5;
+        if (p.x > 17350) FLOOR_Y = 880;
+        if (p.x > 17550) FLOOR_Y = p.x*-0.9+16675;
+        if (p.x > 17750) FLOOR_Y = 700;
 
         // --- Obstacles ---
         if (p.x <= 3385 && p.y > 1300) p.x = 3390;
         if (p.x >= 9045 && p.x <= 9050 && p.y > 1350) p.x = 9040;
-        if (p.x >= 9345 && p.x <= 9350 && p.y > 1350) p.x = 9355;
+        if (p.x >= 9350 && p.x <= 9405 && p.y > 1350) p.x = 9410;
+        if (p.x >= 10095 && p.x <= 10150 && p.y > 1220) p.x = 10090;
+        if (p.x >= 10245 && p.x <= 10300 && p.y > 1021) p.x = 10245;
+        if (p.x >= 10600 && p.x <= 10705 && p.y > 1021) p.x = 10710;
 
         // --- Cheats ---
         if (IsKeyDown(KEY_L)) p.x = 20000;
