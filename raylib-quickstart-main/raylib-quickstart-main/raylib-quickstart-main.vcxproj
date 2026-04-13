@@ -319,6 +319,7 @@
     <Image Include="resources\MetalSlug-Mission1.png" />
     <Image Include="resources\RocketDiver.gif" />
     <Image Include="resources\bullet.png" />
+    <Image Include="resources\mr.png" />
     <Image Include="resources\p2idle.png" />
     <Image Include="resources\p2idle2.png" />
     <Image Include="resources\treure fons.png" />
