@@ -120,7 +120,7 @@ int main()
 
         if (p.y < FLOOR_Y)
         {
-            p.canJump = false;
+            if(p.canJump != false && p.y > FLOOR_Y-10) p.y = FLOOR_Y;
             if (p.vy > -8) p.vy--;
         }
         else
@@ -131,7 +131,6 @@ int main()
         }
 
         // --- Movimiento horizontal ---
-        if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) p.vx++;
         if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) {
             p.vx++;
             p.facing = 1;
