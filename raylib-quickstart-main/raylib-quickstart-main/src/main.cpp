@@ -113,11 +113,11 @@ int main()
     const int   worldHeight = (int)(bg.height * bgScale);
     int   FLOOR_Y = 1300; //1300 - 780
 
-    player p = { 0, FLOOR_Y +1 , 0, 0, true };
+    player p = { 400, FLOOR_Y +1 , 0, 0, true };
 
     // --- C�mara 2D ---
     Camera2D camera = { 0 };
-    camera.offset = { 480, 440 }; // centrada en pantalla
+    camera.offset = { 400, 440 }; // centrada en pantalla
     camera.rotation = 0.0f;
     camera.zoom = 0.85f;
 
@@ -219,7 +219,7 @@ int main()
         if (p.x > 17750) FLOOR_Y = 700;
 
         // --- Obstacles ---
-        if (p.x < camera.target.x - 500) p.x = camera.target.x-499;
+        if (p.x < camera.target.x - 480) p.x = camera.target.x-481;
         if (p.x <= 3385 && p.y > 1300) p.x = 3390;
         if (p.x >= 9045 && p.x <= 9050 && p.y > 1350) p.x = 9040;
         if (p.x >= 9350 && p.x <= 9405 && p.y > 1350) p.x = 9410;
