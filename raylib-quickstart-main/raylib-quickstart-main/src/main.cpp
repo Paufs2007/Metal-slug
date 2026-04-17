@@ -214,7 +214,7 @@ int main()
         if (p.x >= 10600 && p.x <= 10705 && p.y > 1021) p.x = 10710;
 
         // --- Cheats ---
-        if (IsKeyDown(KEY_L)) p.x = 20000;
+        if (IsKeyDown(KEY_L)) p.x = 18000;
         
         // --- Salto ---
         if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
@@ -271,7 +271,13 @@ int main()
 
         // --- C�mara sigue al jugador, clampeada al mundo ---
         camera.target.x = (float)p.x;         //-----------------------------REMOVE CURRENT LINE FOR THESE TWO ONE ------------------------------------------
-        camera.target.y = (float)1100; // ----------------------------------------------------------------------------------------------------------
+        if (p.x >= 0 && p.x < 16200) {
+            camera.target.y = (float)1100;
+        } else if (p.x >= 16200 && p.x < 17750) {
+            camera.target.y = FLOOR_Y-280;
+        } else {
+            camera.target.y = (float)420;
+        }
         float halfW = screenWidth2 / 2.0f;
         float halfH = screenHeight2 / 2.0f;
 
