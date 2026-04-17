@@ -69,7 +69,7 @@ int main()
     //-----------------------------CHANGE ------------------------------------------
     SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
-    InitWindow(1280, 720, "Metal Slug");
+    InitWindow(960, 720, "Metal Slug");
     SetWindowMinSize(800, 450);
     //-----------------------------CHANGE ------------------------------------------
 
@@ -93,6 +93,8 @@ int main()
     PlayMusicStream(musicArray[0]);
 
     Texture p1 = LoadTexture("p1idle.png");
+    Texture p1cap = LoadTexture("capquiet.png");
+    Texture p1dretacorrentcames = LoadTexture("camescorrent.png");
     Texture bg = LoadTexture("MetalSlug-Mission1.png");
     Texture bullet = LoadTexture("bullet.png");
     if (bullet.id == 0) TraceLog(LOG_ERROR, "Failed to load bullet.png");
@@ -111,16 +113,19 @@ int main()
     const int   worldHeight = (int)(bg.height * bgScale);
     int   FLOOR_Y = 1300; //1300 - 780
 
-    player p = { 0, FLOOR_Y +1 , 0, 0, true };
+    player p = { 400, FLOOR_Y +1 , 0, 0, true };
 
     // --- C�mara 2D ---
     Camera2D camera = { 0 };
-    camera.offset = { screenWidth2 / 2.0f, screenHeight2 / 2.0f }; // centrada en pantalla
+    camera.offset = { 400, 440 }; // centrada en pantalla
     camera.rotation = 0.0f;
-    camera.zoom = 1.0f;
+    camera.zoom = 0.85f;
 
-    Rectangle frameRec = { 0, 0, (float)p1.width / 4, (float)p1.height };
-    int currentFrame = 0;
+    Rectangle frameReccap = { 0, 0, (float)p1cap.width / 4, (float)p1cap.height };
+    Rectangle frameRecdretacorrent = { 0, 0, (float)p1dretacorrentcames.width / 12, (float)p1dretacorrentcames.height };
+    Rectangle frameRecidle = { 0, 0, (float)p1.width / 4, (float)p1.height };
+    int currentFrameidle = 0;
+    int currentFramcorrer = 0;
     int framesCounter = 0;
     int framesSpeed = 3;    
 
@@ -145,9 +150,18 @@ int main()
         if (framesCounter >= (60 / framesSpeed))
         {
             framesCounter = 0;
-            currentFrame++;
-            if (currentFrame >= 4) currentFrame = 0;
-            frameRec.x = (float)currentFrame * (float)p1.width / 4;
+
+            currentFrameidle++;
+            if (currentFrameidle >= 4) currentFrameidle = 0;
+            
+            currentFramcorrer++;
+            if (currentFramcorrer >= 12) currentFramcorrer = 0;
+
+            frameRecidle.x = (float)currentFrameidle * (float)p1.width / 4;
+            
+            frameReccap.x = (float)currentFrameidle * (float)p1cap.width / 4;
+
+            frameRecdretacorrent.x = (float)currentFramcorrer * (float)p1dretacorrentcames.width / 12;
         }
 
         if (IsKeyPressed(KEY_SPACE))
@@ -205,15 +219,17 @@ int main()
         if (p.x > 17750) FLOOR_Y = 700;
 
         // --- Obstacles ---
+        if (p.x < camera.target.x - 480) p.x = camera.target.x-481;
         if (p.x <= 3385 && p.y > 1300) p.x = 3390;
         if (p.x >= 9045 && p.x <= 9050 && p.y > 1350) p.x = 9040;
         if (p.x >= 9350 && p.x <= 9405 && p.y > 1350) p.x = 9410;
         if (p.x >= 10095 && p.x <= 10150 && p.y > 1220) p.x = 10090;
         if (p.x >= 10245 && p.x <= 10300 && p.y > 1021) p.x = 10245;
         if (p.x >= 10600 && p.x <= 10705 && p.y > 1021) p.x = 10710;
+      
 
         // --- Cheats ---
-        if (IsKeyDown(KEY_L)) p.x = 18000;
+        if (IsKeyDown(KEY_L)) p.x = screenWidth2;
         
         // --- Salto ---
         if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
@@ -269,7 +285,7 @@ int main()
         if (p.x > worldWidth) { p.x = worldWidth;  if (p.vx > 0) p.vx = 0; }
 
         // --- C�mara sigue al jugador, clampeada al mundo ---
-        camera.target.x = (float)p.x;         //-----------------------------REMOVE CURRENT LINE FOR THESE TWO ONE ------------------------------------------
+        if (camera.target.x < p.x) camera.target.x = (float)p.x;  
         if (p.x >= 0 && p.x < 16200) {
             camera.target.y = (float)1100;
         } else if (p.x >= 16200 && p.x < 17750) {
@@ -311,10 +327,32 @@ int main()
         DrawText(cpunts, p.x, -10, 50, RED);
 
         // Jugador en su posici�n del mundo 
-        Vector2 position = { 0.0f, 0.0f };                                                          
-        Rectangle pos = { (float)p.x, (float)p.y, frameRec.width * 5, frameRec.height * 5 };
-        DrawTexturePro(p1, frameRec, pos, position, 0, WHITE);
-        DrawText(cix, p.x, p.y, 20, RED);
+        if (p.vx == 0)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posidle = { (float)p.x, (float)p.y, frameRecidle.width * 5, frameRecidle.height * 5 };
+            DrawTexturePro(p1, frameRecidle, posidle, position, 0, WHITE);
+            DrawText(cix, p.x, p.y, 20, RED);
+        }
+        else if (p.vx > 0 && p.facing == 1)
+        {
+            Vector2 position = { frameRecdretacorrent.width * 4.75f / 2, frameRecdretacorrent.height * 4.75f / 2 };
+            Rectangle posdretacorrent = { (float)p.x - 35, (float)p.y + 93, frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
+            Rectangle poscap = { (float)p.x, (float)p.y, frameReccap.width * 4.75, frameReccap.height * 4.75 };
+            DrawTexturePro(p1dretacorrentcames, frameRecdretacorrent, posdretacorrent, position, 0, WHITE);
+            DrawTexturePro(p1cap, frameReccap, poscap, position, 0, WHITE);
+            DrawText(cix, p.x, p.y, 20, RED);
+        }
+        else if (p.vx < 0 && p.facing == -1)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posesquerracorrent = { (float)p.x - 35, (float)p.y + 93,  frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
+            Rectangle poscap = { (float)p.x, (float)p.y, frameReccap.width * 4.75, frameReccap.height * 4.75 };
+            DrawTexturePro(p1dretacorrentcames, frameRecdretacorrent, posesquerracorrent, position, 0, WHITE);
+            DrawTexturePro(p1cap, frameReccap, poscap, position, 0 , WHITE);
+            DrawText(cix, p.x, p.y, 20, RED);
+        }
+        
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
             DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
@@ -326,21 +364,22 @@ int main()
 
         //mitj pantalla
         
-
         DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
 
-        // esquina dreta
+        // canotnada dreta
         DrawText(cpuntstext, screenWidth2 - textWidth - 140, 20, 30, RED);
 
         DrawText(cpunts, screenWidth2 - textWidth - 40, 20, 30, RED);
 
-        //esquina esquerra
+        //cantonada esquerra
         DrawText(cpunts, 20, 20, 30, RED);
 
         EndDrawing();
     }
     CloseAudioDevice();
     UnloadTexture(p1);
+    UnloadTexture(p1cap);
+    UnloadTexture(p1dretacorrentcames);
     UnloadTexture(bg);
     UnloadTexture(bullet);
     CloseWindow();
