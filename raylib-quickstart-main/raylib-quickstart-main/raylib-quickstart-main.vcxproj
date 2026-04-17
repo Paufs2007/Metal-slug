@@ -317,18 +317,18 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\MetalSlug-Mission1.png" />
-    <Image Include="resources\Neo Geo _ NGCD - Metal Slug - Playable Characters - Marco Rossi.png" />
-    <Image Include="resources\a1.png" />
-    <Image Include="resources\a2.png" />
-    <Image Include="resources\a3.png" />
-    <Image Include="resources\a4.png" />
-    <Image Include="resources\hud.png" />
-    <Image Include="resources\lhud2.png" />
-    <Image Include="resources\p1.2.png" />
-    <Image Include="resources\p1.png" />
-    <Image Include="resources\player 1 sense fons.png" />
+    <Image Include="resources\RocketDiver.gif" />
+    <Image Include="resources\bullet.png" />
+    <Image Include="resources\mr.png" />
+    <Image Include="resources\p2idle.png" />
+    <Image Include="resources\p2idle2.png" />
     <Image Include="resources\treure fons.png" />
     <Image Include="resources\wabbit_alpha.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="raylib.vcxproj">
+      <Project>{8898EA18-743A-15EF-5DF5-284349369C3F}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
