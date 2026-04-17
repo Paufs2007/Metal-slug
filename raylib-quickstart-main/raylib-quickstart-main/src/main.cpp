@@ -53,6 +53,7 @@ bool TimerDone (Timer* timer)
     {
         return timer->lifetime <= 0;
     }
+    return true;
 }
 
 //BULLETS
@@ -91,14 +92,14 @@ int main()
 
     PlayMusicStream(musicArray[0]);
 
-    Texture p1 = LoadTexture("mr.png");
+    Texture p1 = LoadTexture("p1idle.png");
     Texture bg = LoadTexture("MetalSlug-Mission1.png");
     Texture bullet = LoadTexture("bullet.png");
     if (bullet.id == 0) TraceLog(LOG_ERROR, "Failed to load bullet.png");
 
     //timer
 
-    int timerlife = 5;
+    int timerlife = 453;
 
     Timer vidaTimer = { 0 };
 
@@ -326,7 +327,7 @@ int main()
         //mitj pantalla
         
 
-        DrawText(TextFormat("%d", vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
+        DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
 
         // esquina dreta
         DrawText(cpuntstext, screenWidth2 - textWidth - 140, 20, 30, RED);
