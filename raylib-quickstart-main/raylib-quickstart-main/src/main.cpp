@@ -336,7 +336,7 @@ int main()
         }
         else if (p.vx > 0 && p.facing == 1)
         {
-            Vector2 position = { 0.0f, 0.0f };
+            Vector2 position = { frameRecdretacorrent.width * 4.75f / 2, frameRecdretacorrent.height * 4.75f / 2 };
             Rectangle posdretacorrent = { (float)p.x - 35, (float)p.y + 93, frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
             Rectangle poscap = { (float)p.x, (float)p.y, frameReccap.width * 4.75, frameReccap.height * 4.75 };
             DrawTexturePro(p1dretacorrentcames, frameRecdretacorrent, posdretacorrent, position, 0, WHITE);
@@ -346,7 +346,7 @@ int main()
         else if (p.vx < 0 && p.facing == -1)
         {
             Vector2 position = { 0.0f, 0.0f };
-            Rectangle posesquerracorrent = { (float)p.x - 35, (float)p.y + 93, frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
+            Rectangle posesquerracorrent = { (float)p.x - 35, (float)p.y + 93,  frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
             Rectangle poscap = { (float)p.x, (float)p.y, frameReccap.width * 4.75, frameReccap.height * 4.75 };
             DrawTexturePro(p1dretacorrentcames, frameRecdretacorrent, posesquerracorrent, position, 0, WHITE);
             DrawTexturePro(p1cap, frameReccap, poscap, position, 0 , WHITE);
