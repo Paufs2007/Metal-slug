@@ -75,8 +75,6 @@ int main()
     int vpunts = 0;
     int screenWidth2 = GetScreenWidth();
     int screenHeight2 = GetScreenHeight();
-    int screenWidth = GetScreenWidth();
-    int screenHeight = GetScreenHeight();
         
     SearchAndSetResourceDir("resources");
 
@@ -322,12 +320,12 @@ int main()
         //mitj pantalla
         
 
-        DrawText(TextFormat("%d", vidaTimer.lifetime), screenWidth / 2, 20, 30, RED);
+        DrawText(TextFormat("%d", vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
 
         // esquina dreta
-        DrawText(cpuntstext, screenWidth - textWidth - 140, 20, 30, RED);
+        DrawText(cpuntstext, screenWidth2 - textWidth - 140, 20, 30, RED);
 
-        DrawText(cpunts, screenWidth - textWidth - 40, 20, 30, RED);
+        DrawText(cpunts, screenWidth2 - textWidth - 40, 20, 30, RED);
 
         //esquina esquerra
         DrawText(cpunts, 20, 20, 30, RED);
