@@ -69,7 +69,7 @@ int main()
     //-----------------------------CHANGE ------------------------------------------
     SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
-    InitWindow(1280, 720, "Metal Slug");
+    InitWindow(960, 720, "Metal Slug");
     SetWindowMinSize(800, 450);
     //-----------------------------CHANGE ------------------------------------------
 
@@ -115,9 +115,9 @@ int main()
 
     // --- C�mara 2D ---
     Camera2D camera = { 0 };
-    camera.offset = { screenWidth2 / 2.0f, screenHeight2 / 2.0f }; // centrada en pantalla
+    camera.offset = { 480, 440 }; // centrada en pantalla
     camera.rotation = 0.0f;
-    camera.zoom = 1.0f;
+    camera.zoom = 0.85f;
 
     Rectangle frameRec = { 0, 0, (float)p1.width / 4, (float)p1.height };
     int currentFrame = 0;
@@ -205,15 +205,17 @@ int main()
         if (p.x > 17750) FLOOR_Y = 700;
 
         // --- Obstacles ---
+        if (p.x < camera.target.x - 500) p.x = camera.target.x-499;
         if (p.x <= 3385 && p.y > 1300) p.x = 3390;
         if (p.x >= 9045 && p.x <= 9050 && p.y > 1350) p.x = 9040;
         if (p.x >= 9350 && p.x <= 9405 && p.y > 1350) p.x = 9410;
         if (p.x >= 10095 && p.x <= 10150 && p.y > 1220) p.x = 10090;
         if (p.x >= 10245 && p.x <= 10300 && p.y > 1021) p.x = 10245;
         if (p.x >= 10600 && p.x <= 10705 && p.y > 1021) p.x = 10710;
+      
 
         // --- Cheats ---
-        if (IsKeyDown(KEY_L)) p.x = 18000;
+        if (IsKeyDown(KEY_L)) p.x = screenWidth2;
         
         // --- Salto ---
         if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
@@ -269,7 +271,7 @@ int main()
         if (p.x > worldWidth) { p.x = worldWidth;  if (p.vx > 0) p.vx = 0; }
 
         // --- C�mara sigue al jugador, clampeada al mundo ---
-        camera.target.x = (float)p.x;         //-----------------------------REMOVE CURRENT LINE FOR THESE TWO ONE ------------------------------------------
+        if (camera.target.x < p.x) camera.target.x = (float)p.x;  
         if (p.x >= 0 && p.x < 16200) {
             camera.target.y = (float)1100;
         } else if (p.x >= 16200 && p.x < 17750) {
