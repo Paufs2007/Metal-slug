@@ -28,6 +28,9 @@
     <None Include="resources\bo.mp3">
       <Filter>Game Resource Files</Filter>
     </None>
+    <None Include="resources\pipa.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
     <None Include="resources\sexy_death.mp3">
       <Filter>Game Resource Files</Filter>
     </None>
@@ -47,22 +50,67 @@
     <Image Include="resources\MetalSlug-Mission1.png">
       <Filter>Game Resource Files</Filter>
     </Image>
-    <Image Include="resources\RocketDiver.gif">
+    <Image Include="resources\Metal_Slug_Start.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\animació ajupir (quan dones al cap abaix 1 vegada).png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\bullet.png">
       <Filter>Game Resource Files</Filter>
     </Image>
+    <Image Include="resources\bullet_the_OG.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cames quietes animacio.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cames quietes.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cames saltant.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\camescaminant.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\camescorrent.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cap apuntant cap amunt pistola.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cap atack ganivet.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cap disparant pistola.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cap recarega pistola.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cap saltant.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cap suspirant.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\capquiet.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\dispara cap amunt pistola.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\disparar ajopit pistola.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\estar ajupit.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
     <Image Include="resources\mr.png">
       <Filter>Game Resource Files</Filter>
     </Image>
-    <Image Include="resources\p2idle.png">
-      <Filter>Game Resource Files</Filter>
-    </Image>
-    <Image Include="resources\p2idle2.png">
-      <Filter>Game Resource Files</Filter>
-    </Image>
-    <Image Include="resources\treure fons.png">
+    <Image Include="resources\p1idle.png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\wabbit_alpha.png">

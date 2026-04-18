@@ -308,6 +308,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\bo.mp3" />
+    <None Include="resources\pipa.mp3" />
     <None Include="resources\sexy_death.mp3" />
     <None Include="resources\vaca.mp3" />
     <None Include="src\icon.ico" />
@@ -317,12 +318,27 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\MetalSlug-Mission1.png" />
-    <Image Include="resources\RocketDiver.gif" />
+    <Image Include="resources\Metal_Slug_Start.png" />
+    <Image Include="resources\animació ajupir (quan dones al cap abaix 1 vegada).png" />
     <Image Include="resources\bullet.png" />
+    <Image Include="resources\bullet_the_OG.png" />
+    <Image Include="resources\cames quietes animacio.png" />
+    <Image Include="resources\cames quietes.png" />
+    <Image Include="resources\cames saltant.png" />
+    <Image Include="resources\camescaminant.png" />
+    <Image Include="resources\camescorrent.png" />
+    <Image Include="resources\cap apuntant cap amunt pistola.png" />
+    <Image Include="resources\cap atack ganivet.png" />
+    <Image Include="resources\cap disparant pistola.png" />
+    <Image Include="resources\cap recarega pistola.png" />
+    <Image Include="resources\cap saltant.png" />
+    <Image Include="resources\cap suspirant.png" />
+    <Image Include="resources\capquiet.png" />
+    <Image Include="resources\dispara cap amunt pistola.png" />
+    <Image Include="resources\disparar ajopit pistola.png" />
+    <Image Include="resources\estar ajupit.png" />
     <Image Include="resources\mr.png" />
-    <Image Include="resources\p2idle.png" />
-    <Image Include="resources\p2idle2.png" />
-    <Image Include="resources\treure fons.png" />
+    <Image Include="resources\p1idle.png" />
     <Image Include="resources\wabbit_alpha.png" />
   </ItemGroup>
   <ItemGroup>
