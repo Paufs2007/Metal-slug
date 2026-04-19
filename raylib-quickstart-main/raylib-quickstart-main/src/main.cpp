@@ -17,7 +17,8 @@ public:
     bool canJump;
     int facing = 1; // 1 = right, -1 = left
     int facingy = 1; // 1 = up, -1 = down
-
+    int vides = 3; 
+    int hp = 1;
 
     void jump() {
         vy = 30;
@@ -69,6 +70,13 @@ bool TimerDone (Timer* timer)
 
 //BULLETS
 struct Bullet {
+    float x, y;
+    float vx;
+    float vy;
+    bool active;
+};
+
+struct Bullete {
     float x, y;
     float vx;
     float vy;
@@ -148,6 +156,9 @@ int main()
     int framesSpeed = 3;
 
     //BULLETS
+    const int MAX_BULLETSE = 20000;
+    Bullete bulletse[MAX_BULLETSE] = {};
+
     const int MAX_BULLETS = 20000;
     Bullet bullets[MAX_BULLETS] = {};
 
@@ -300,6 +311,19 @@ int main()
             }
         }
 
+
+        for (int i = 0; i < MAX_BULLETSE; i++) {
+            if (!bulletse[i].active) continue;
+
+            bulletse[i].x += bulletse[i].vx;
+            bulletse[i].y += bulletse[i].vy;
+
+            if (bulletse[i].x < 0 || bulletse[i].x > worldWidth ||
+                bulletse[i].y < 0 || bulletse[i].y > worldHeight) {
+                bulletse[i].active = false;
+            }
+        }
+
         // --- L�mites del mundo (bordes del fondo) ---
         if (p.x < 0) { p.x = 0;          if (p.vx < 0) p.vx = 0; }
         if (p.x > worldWidth) { p.x = worldWidth;  if (p.vx > 0) p.vx = 0; }
@@ -359,6 +383,15 @@ int main()
             }
         }
 
+        for (int i = 0; i < MAX_BULLETSE; i++) {
+            if (!bulletse[i].active) continue;
+            DrawTexture(bullet, (int)bulletse[i].x, (int)bulletse[i].y, WHITE);
+            if (bulletse[i].x == p.x)
+            {
+                p.hp--;
+            }
+        }
+
         //enemics
         if (s1.hp == 1)
         {
@@ -369,36 +402,51 @@ int main()
         }
         else
         {
-            
+
         }
 
-        
+
         // Jugador en su posici�n del mundo 
-        if (p.vx == 0)
+        if (p.vides >= 0)
         {
-            Vector2 position = { 0.0f, 0.0f };
-            Rectangle posidle = { (float)p.x, (float)p.y, frameRecidle.width * 5, frameRecidle.height * 5 };
-            DrawTexturePro(p1, frameRecidle, posidle, position, 0, WHITE);
-            DrawText(cix, p.x, p.y, 20, RED);
+            if (p.hp == 1)
+            {
+                if (p.vx == 0)
+                {
+                    Vector2 position = { 0.0f, 0.0f };
+                    Rectangle posidle = { (float)p.x, (float)p.y, frameRecidle.width * 5, frameRecidle.height * 5 };
+                    DrawTexturePro(p1, frameRecidle, posidle, position, 0, WHITE);
+                    DrawText(cix, p.x, p.y, 20, RED);
+                }
+                else if (p.vx > 0 && p.facing == 1)
+                {
+                    Vector2 position = { frameRecdretacorrent.width * 4.75f / 2, frameRecdretacorrent.height * 4.75f / 2 };
+                    Rectangle posdretacorrent = { (float)p.x + 30, (float)p.y + 138, frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
+                    Rectangle poscap = { (float)p.x + 60, (float)p.y + 45, frameReccap.width * 4.75, frameReccap.height * 4.75 };
+                    DrawTexturePro(p1dretacorrentcames, frameRecdretacorrent, posdretacorrent, position, 0, WHITE);
+                    DrawTexturePro(p1cap, frameReccap, poscap, position, 0, WHITE);
+                    DrawText(cix, p.x, p.y, 20, RED);
+                }
+                else if (p.vx < 0 && p.facing == -1)
+                {
+                    Vector2 position = { frameRecdretacorrent.width * 4.75f / 2, frameRecdretacorrent.height * 4.75f / 2 };
+                    Rectangle posesquerracorrent = { (float)p.x + 30, (float)p.y + 138,  -frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
+                    Rectangle poscap = { (float)p.x + 60, (float)p.y + 45, -frameReccap.width * 4.75, frameReccap.height * 4.75 };
+                    DrawTexturePro(p1dretacorrentcames, frameRecdretacorrent, posesquerracorrent, position, 0, WHITE);
+                    DrawTexturePro(p1cap, frameReccap, poscap, position, 0, WHITE);
+                    DrawText(cix, p.x, p.y, 20, RED);
+                }
+            }
+            else
+            {
+                p.vides--;
+            }
         }
-        else if (p.vx > 0 && p.facing == 1)
+        else
         {
-            Vector2 position = { frameRecdretacorrent.width * 4.75f / 2, frameRecdretacorrent.height * 4.75f / 2 };
-            Rectangle posdretacorrent = { (float)p.x + 30, (float)p.y + 138, frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
-            Rectangle poscap = { (float)p.x + 60, (float)p.y + 45, frameReccap.width * 4.75, frameReccap.height * 4.75 };
-            DrawTexturePro(p1dretacorrentcames, frameRecdretacorrent, posdretacorrent, position, 0, WHITE);
-            DrawTexturePro(p1cap, frameReccap, poscap, position, 0, WHITE);
-            DrawText(cix, p.x, p.y, 20, RED);
+           
         }
-        else if (p.vx < 0 && p.facing == -1)
-        {
-            Vector2 position = { frameRecdretacorrent.width * 4.75f / 2, frameRecdretacorrent.height * 4.75f / 2 };
-            Rectangle posesquerracorrent = { (float)p.x + 30, (float)p.y + 138,  -frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
-            Rectangle poscap = { (float)p.x + 60, (float)p.y + 45, -frameReccap.width * 4.75, frameReccap.height * 4.75 };
-            DrawTexturePro(p1dretacorrentcames, frameRecdretacorrent, posesquerracorrent, position, 0, WHITE);
-            DrawTexturePro(p1cap, frameReccap, poscap, position, 0, WHITE);
-            DrawText(cix, p.x, p.y, 20, RED);
-        }
+
 
         EndMode2D();
 
