@@ -113,6 +113,9 @@
     <Image Include="resources\p1idle.png">
       <Filter>Game Resource Files</Filter>
     </Image>
+    <Image Include="resources\soldatidle.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
     <Image Include="resources\wabbit_alpha.png">
       <Filter>Game Resource Files</Filter>
     </Image>

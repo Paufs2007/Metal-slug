@@ -17,6 +17,7 @@ public:
     bool canJump;
     int facing = 1; // 1 = right, -1 = left
     int facingy = 1; // 1 = up, -1 = down
+    int credits;
     int vides = 3; 
     int hp = 1;
 
@@ -88,10 +89,11 @@ int main()
     //-----------------------------CHANGE ------------------------------------------
     SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
-    InitWindow(1500, 1080, "Metal Slug"); // 960 720
+    InitWindow(1190, 885, "Metal Slug"); // 960 720 NO ------ SI 1190 885 - Cal fer zoom quan puja la rampa
     SetWindowMinSize(800, 450);
     //-----------------------------CHANGE ------------------------------------------
 
+    bool inMenu = true;
     int vpunts = 0;
     int screenWidth2 = GetScreenWidth();
     int screenHeight2 = GetScreenHeight();
@@ -117,6 +119,7 @@ int main()
     Texture bg = LoadTexture("MetalSlug-Mission1.png");
     Texture bullet = LoadTexture("bullet.png");
     Texture sidle = LoadTexture("soldatidle.png");
+    Texture start = LoadTexture("Metal_Slug_Start.png");
     if (bullet.id == 0) TraceLog(LOG_ERROR, "Failed to load bullet.png");
 
     //timer
@@ -221,7 +224,7 @@ int main()
         }
 
         // --- Movimiento horizontal ---
-        if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) {
+        if (IsKeyDown(KEY_D) && p.vx < 10 && !IsKeyDown(KEY_A)) {
             p.vx++;
             p.facing = 1;
         }
@@ -276,7 +279,7 @@ int main()
             for (int i = 0; i < MAX_BULLETS; i++) {
                 if (!bullets[i].active) {
                     bullets[i].x = (float)p.x;
-                    bullets[i].y = (float)p.y;
+                    bullets[i].y = (float)p.y+100; // Altura d'on dispara la bala
 
 
                     if (IsKeyDown(KEY_W)) {
@@ -368,6 +371,7 @@ int main()
         Rectangle src = { 0, 0, (float)bg.width, (float)bg.height };
         Rectangle dest = { 0, 0, bg.width * bgScale, bg.height * bgScale };
 
+
         DrawTexturePro(bg, src, dest, { 0,0 }, 0.0f, WHITE);
 
         DrawText(cpunts, p.x, -10, 50, RED);
@@ -450,11 +454,46 @@ int main()
 
         EndMode2D();
 
+
+        if (inMenu == true) {
+
+
+            Rectangle src2 = { 0, 0, (float)start.width, (float)start.height };
+            Rectangle dest2 = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
+
+            DrawTexturePro(start, src2, dest2, { 0, 0 }, 0.0f, WHITE);
+
+
+
+            if (inMenu)
+            {
+                if (IsKeyPressed(KEY_C))
+                    p.credits++;
+
+                if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
+                {
+                    p.credits--;
+                    UnloadTexture(start);
+                    inMenu = false;
+                }
+
+            }
+            else if (inMenu == false) {
+
+
+
+            }
+
+        }
+
         int textWidth = MeasureText(cpunts, 30);
 
         //mitj pantalla
 
         DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
+     
+        DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, 855, 40, RED);
+
 
         // canotnada dreta
         DrawText(cpuntstext, screenWidth2 - textWidth - 140, 20, 30, RED);
