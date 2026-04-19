@@ -24,6 +24,17 @@ public:
         canJump = false;
     }
 };
+
+class soldier
+{
+public:
+    float ex;
+    int ey;
+    int hp = 1;
+    int efacing = 1; // 1 = right, -1 = left
+    int efacingy = 1; // 1 = up, -1 = down
+};
+
 //timer
 struct Timer
 {
@@ -76,7 +87,7 @@ int main()
     int vpunts = 0;
     int screenWidth2 = GetScreenWidth();
     int screenHeight2 = GetScreenHeight();
-        
+
     SearchAndSetResourceDir("resources");
 
     //Audio
@@ -97,6 +108,7 @@ int main()
     Texture p1dretacorrentcames = LoadTexture("camescorrent.png");
     Texture bg = LoadTexture("MetalSlug-Mission1.png");
     Texture bullet = LoadTexture("bullet.png");
+    Texture sidle = LoadTexture("soldatidle.png");
     if (bullet.id == 0) TraceLog(LOG_ERROR, "Failed to load bullet.png");
 
     //timer
@@ -106,14 +118,18 @@ int main()
     Timer vidaTimer = { 0 };
 
     startTimer(&vidaTimer, timerlife);
-    
+
     // Tama�o real del mundo (fondo escalado x5)
     const float bgScale = 5.0f;
     const int   worldWidth = (int)(bg.width * bgScale);
     const int   worldHeight = (int)(bg.height * bgScale);
     int   FLOOR_Y = 1300; //1300 - 780
 
-    player p = { 400, FLOOR_Y +1 , 0, 0, true };
+    player p = { 400, FLOOR_Y + 1 , 0, 0, true };
+
+    //enemics
+
+    soldier s1 = { 1200, FLOOR_Y + 1 };
 
     // --- C�mara 2D ---
     Camera2D camera = { 0 };
@@ -121,13 +137,15 @@ int main()
     camera.rotation = 0.0f;
     camera.zoom = 0.85f;
 
+    Rectangle framereceidle = { 0, 0, (float)sidle.width / 4, (float)sidle.height };
+
     Rectangle frameReccap = { 0, 0, (float)p1cap.width / 4, (float)p1cap.height };
     Rectangle frameRecdretacorrent = { 0, 0, (float)p1dretacorrentcames.width / 12, (float)p1dretacorrentcames.height };
     Rectangle frameRecidle = { 0, 0, (float)p1.width / 4, (float)p1.height };
     int currentFrameidle = 0;
     int currentFramcorrer = 0;
     int framesCounter = 0;
-    int framesSpeed = 3;    
+    int framesSpeed = 3;
 
     //BULLETS
     const int MAX_BULLETS = 20000;
@@ -140,7 +158,7 @@ int main()
         {
             ToggleFullscreen();
         }
-        
+
         //timer
 
         updatetimer(&vidaTimer);
@@ -153,21 +171,23 @@ int main()
 
             currentFrameidle++;
             if (currentFrameidle >= 4) currentFrameidle = 0;
-            
+
             currentFramcorrer++;
             if (currentFramcorrer >= 12) currentFramcorrer = 0;
 
             frameRecidle.x = (float)currentFrameidle * (float)p1.width / 4;
-            
+
             frameReccap.x = (float)currentFrameidle * (float)p1cap.width / 4;
+
+            framereceidle.x = (float)currentFrameidle * (float)sidle.width / 4;
 
             frameRecdretacorrent.x = (float)currentFramcorrer * (float)p1dretacorrentcames.width / 12;
         }
 
         if (IsKeyPressed(KEY_SPACE))
             PlaySound(soundArray[0]);
-        
-        if (IsKeyPressed(KEY_V)) 
+
+        if (IsKeyPressed(KEY_V))
             PlaySound(soundArray[1]);
 
         if (IsKeyPressed(KEY_F))
@@ -179,7 +199,7 @@ int main()
 
         if (p.y < FLOOR_Y)
         {
-            if(p.canJump != false && p.y > FLOOR_Y-10) p.y = FLOOR_Y;
+            if (p.canJump != false && p.y > FLOOR_Y - 10) p.y = FLOOR_Y;
             if (p.vy > -8) p.vy--;
         }
         else
@@ -203,34 +223,34 @@ int main()
         // --- FLOOR_Y ---
         if (p.x > 0) FLOOR_Y = 1220;
         if (p.x > 3380) FLOOR_Y = 1380;
-        if (p.x > 8900) FLOOR_Y = p.x*-0.8+8500;
+        if (p.x > 8900) FLOOR_Y = p.x * -0.8 + 8500;
         if (p.x > 9050) FLOOR_Y = 1260;
         if (p.x > 9400) FLOOR_Y = 1380;
         if (p.x > 10100) FLOOR_Y = 1220;
         if (p.x > 10250) FLOOR_Y = 1020;
         if (p.x > 10700) FLOOR_Y = 1380;
-        if (p.x > 16300) FLOOR_Y = p.x*-0.8+14420;
-        if (p.x > 16550) FLOOR_Y = 1180; 
-        if (p.x > 16750) FLOOR_Y = p.x*-0.6+11230;
+        if (p.x > 16300) FLOOR_Y = p.x * -0.8 + 14420;
+        if (p.x > 16550) FLOOR_Y = 1180;
+        if (p.x > 16750) FLOOR_Y = p.x * -0.6 + 11230;
         if (p.x > 17000) FLOOR_Y = 1030;
-        if (p.x > 17150) FLOOR_Y = p.x*-0.75+13892.5;
+        if (p.x > 17150) FLOOR_Y = p.x * -0.75 + 13892.5;
         if (p.x > 17350) FLOOR_Y = 880;
-        if (p.x > 17550) FLOOR_Y = p.x*-0.9+16675;
+        if (p.x > 17550) FLOOR_Y = p.x * -0.9 + 16675;
         if (p.x > 17750) FLOOR_Y = 700;
 
         // --- Obstacles ---
-        if (p.x < camera.target.x - 480) p.x = camera.target.x-481;
+        if (p.x < camera.target.x - 480) p.x = camera.target.x - 481;
         if (p.x <= 3385 && p.y > 1300) p.x = 3390;
         if (p.x >= 9045 && p.x <= 9050 && p.y > 1350) p.x = 9040;
         if (p.x >= 9350 && p.x <= 9405 && p.y > 1350) p.x = 9410;
         if (p.x >= 10095 && p.x <= 10150 && p.y > 1220) p.x = 10090;
         if (p.x >= 10245 && p.x <= 10300 && p.y > 1021) p.x = 10245;
         if (p.x >= 10600 && p.x <= 10705 && p.y > 1021) p.x = 10710;
-      
+
 
         // --- Cheats ---
         if (IsKeyDown(KEY_L)) p.x = 18000;
-        
+
         // --- Salto ---
         if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
 
@@ -239,7 +259,7 @@ int main()
         else if (IsKeyDown(KEY_S)) p.facingy = -1;
 
 
-        if (IsKeyPressed(KEY_F)) 
+        if (IsKeyPressed(KEY_F))
         {
             vpunts++;
             for (int i = 0; i < MAX_BULLETS; i++) {
@@ -247,7 +267,7 @@ int main()
                     bullets[i].x = (float)p.x;
                     bullets[i].y = (float)p.y;
 
-                    
+
                     if (IsKeyDown(KEY_W)) {
                         bullets[i].vx = 0;
                         bullets[i].vy = -15.0f; // up
@@ -285,12 +305,14 @@ int main()
         if (p.x > worldWidth) { p.x = worldWidth;  if (p.vx > 0) p.vx = 0; }
 
         // --- C�mara sigue al jugador, clampeada al mundo ---
-        if (camera.target.x < p.x) camera.target.x = (float)p.x;  
+        if (camera.target.x < p.x) camera.target.x = (float)p.x;
         if (p.x >= 0 && p.x < 16200) {
             camera.target.y = (float)1100;
-        } else if (p.x >= 16200 && p.x < 17750) {
-            camera.target.y = FLOOR_Y-280;
-        } else {
+        }
+        else if (p.x >= 16200 && p.x < 17750) {
+            camera.target.y = FLOOR_Y - 280;
+        }
+        else {
             camera.target.y = (float)520;
         }
         float halfW = screenWidth2 / 2.0f;
@@ -326,6 +348,31 @@ int main()
 
         DrawText(cpunts, p.x, -10, 50, RED);
 
+        //bales
+
+        for (int i = 0; i < MAX_BULLETS; i++) {
+            if (!bullets[i].active) continue;
+            DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
+            if (bullets[i].x == s1.ex)
+            {
+                s1.hp--;
+            }
+        }
+
+        //enemics
+        if (s1.hp == 1)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posidles1 = { (float)s1.ex, (float)s1.ey - 95, framereceidle.width * 5, framereceidle.height * 5 };
+            DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
+            DrawText(cix, s1.ex, s1.ey, 20, RED);
+        }
+        else
+        {
+            
+        }
+
+        
         // Jugador en su posici�n del mundo 
         if (p.vx == 0)
         {
@@ -337,8 +384,8 @@ int main()
         else if (p.vx > 0 && p.facing == 1)
         {
             Vector2 position = { frameRecdretacorrent.width * 4.75f / 2, frameRecdretacorrent.height * 4.75f / 2 };
-            Rectangle posdretacorrent = { (float)p.x + 25, (float)p.y + 138, frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
-            Rectangle poscap = { (float)p.x + 55, (float)p.y + 45, frameReccap.width * 4.75, frameReccap.height * 4.75 };
+            Rectangle posdretacorrent = { (float)p.x + 30, (float)p.y + 138, frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
+            Rectangle poscap = { (float)p.x + 60, (float)p.y + 45, frameReccap.width * 4.75, frameReccap.height * 4.75 };
             DrawTexturePro(p1dretacorrentcames, frameRecdretacorrent, posdretacorrent, position, 0, WHITE);
             DrawTexturePro(p1cap, frameReccap, poscap, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
@@ -346,16 +393,11 @@ int main()
         else if (p.vx < 0 && p.facing == -1)
         {
             Vector2 position = { frameRecdretacorrent.width * 4.75f / 2, frameRecdretacorrent.height * 4.75f / 2 };
-            Rectangle posesquerracorrent = { (float)p.x + 25, (float)p.y + 138,  -frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
-            Rectangle poscap = { (float)p.x + 55, (float)p.y + 45, -frameReccap.width * 4.75, frameReccap.height * 4.75 };
+            Rectangle posesquerracorrent = { (float)p.x + 30, (float)p.y + 138,  -frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
+            Rectangle poscap = { (float)p.x + 60, (float)p.y + 45, -frameReccap.width * 4.75, frameReccap.height * 4.75 };
             DrawTexturePro(p1dretacorrentcames, frameRecdretacorrent, posesquerracorrent, position, 0, WHITE);
-            DrawTexturePro(p1cap, frameReccap, poscap, position, 0 , WHITE);
+            DrawTexturePro(p1cap, frameReccap, poscap, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
-        }
-        
-        for (int i = 0; i < MAX_BULLETS; i++) {
-            if (!bullets[i].active) continue;
-            DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
         }
 
         EndMode2D();
@@ -363,7 +405,7 @@ int main()
         int textWidth = MeasureText(cpunts, 30);
 
         //mitj pantalla
-        
+
         DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
 
         // canotnada dreta
@@ -382,6 +424,7 @@ int main()
     UnloadTexture(p1dretacorrentcames);
     UnloadTexture(bg);
     UnloadTexture(bullet);
+    UnloadTexture(sidle);
     CloseWindow();
     return 0;
 }
