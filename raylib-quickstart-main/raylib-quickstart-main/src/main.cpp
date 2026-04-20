@@ -918,3 +918,5 @@ int main()
     CloseWindow();
     return 0;
 }
+// Copyright (c) 2026 Explota Studio
+// Licensed under the MIT License
