@@ -275,10 +275,10 @@ int main()
 
         // --- Obstacles ---
         if (p.x <= 3385 && p.y > 1220) p.x = 3390;
-        if (p.x >= 9350 && p.x <= 9405 && p.y >= 1260) p.x = 9410;
+        if (p.x >= 9350 && p.x <= 9405 && p.y >= 1220) p.x = 9410;
         if (p.x >= 10095 && p.x <= 10150 && p.y > 1220) p.x = 10090;
-        if (p.x >= 10245 && p.x <= 10300 && p.y > 1021) p.x = 10245;
-        if (p.x >= 10600 && p.x <= 10705 && p.y > 1021) p.x = 10710;
+        if (p.x >= 10245 && p.x <= 10300 && p.y > 1021) p.x = 10240;
+        if (p.x >= 10600 && p.x <= 10705 && p.y > 1021) p.x = 10715;
 
         // Get the visible world bounds from the camera
         float camLeft = camera.target.x - (camera.offset.x) / camera.zoom;
