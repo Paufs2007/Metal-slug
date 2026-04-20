@@ -35,6 +35,8 @@ class soldier
 public:
     float ex;
     int ey;
+    int vy;
+    int y;
     int ehp = 1;
     int efacing = 1; // 1 = right, -1 = left
     int efacingy = 1; // 1 = up, -1 = down
@@ -325,6 +327,16 @@ int main()
             p.vy = 0;
         }
 
+        //Enemy Physics
+
+        s1.ey += s1.vy;
+        s1.vy += 2; 
+
+        if (s1.ey >= FLOOR_Y)
+        {
+            s1.ey = FLOOR_Y;
+            s1.vy = 0;
+        }
 
 
         // --- FLOOR_Y ---
