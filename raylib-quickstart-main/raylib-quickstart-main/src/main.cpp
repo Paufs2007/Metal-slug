@@ -153,7 +153,7 @@ int main()
 
     //enemics
 
-    soldier s1 = { 1200, FLOOR_Y + 1 };
+    soldier s1 = { 1200, FLOOR_Y-95};
     bool bs1 = true;
     // --- C�mara 2D ---
     Camera2D camera = { 0 };
@@ -430,7 +430,7 @@ int main()
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
             DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
-            if (bullets[i].x>=s1.ex-7 && bullets[i].x<=s1.ex+7)
+            if (bullets[i].x>=s1.ex-7 && bullets[i].x<=s1.ex+7 && bullets[i].y>=s1.ey)
             {
                 s1.ehp--;
             }
@@ -449,7 +449,7 @@ int main()
         if (s1.ehp == 1)
         {
             Vector2 position = { 0.0f, 0.0f };
-            Rectangle posidles1 = { (float)s1.ex, (float)s1.ey - 95, framereceidle.width * 5, framereceidle.height * 5 };
+            Rectangle posidles1 = { (float)s1.ex, (float)s1.ey, framereceidle.width * 5, framereceidle.height * 5 };
             DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
             DrawText(cix, s1.ex, s1.ey, 20, RED);
         }
