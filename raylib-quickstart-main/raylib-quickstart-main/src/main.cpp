@@ -548,12 +548,8 @@ int main()
             if (IsKeyDown(KEY_W)) p.facingy = 1;
             else if (IsKeyDown(KEY_S)) p.facingy = -1;
 
-
-            if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
-            {
-                p.credits--;
-                inMenu = false;
-            }
+            if (IsKeyPressed(KEY_C))
+                p.credits++;
 
         }
 
