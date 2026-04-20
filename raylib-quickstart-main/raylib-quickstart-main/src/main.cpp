@@ -20,7 +20,7 @@ public:
     int isshooting = -1; // 1 = si, -1 = no
     int isajupit = -1; // 1 = si, -1 = no
     int credits;
-    int vides = 3; 
+    int vides = 3;
     int hp = 1;
     bool menu = true;
     void jump() {
@@ -46,7 +46,7 @@ struct Timer
     float lifetime;
 };
 
-void startTimer (Timer* timer, float lifetime)
+void startTimer(Timer* timer, float lifetime)
 {
     if (timer != NULL)
     {
@@ -63,7 +63,7 @@ void updatetimer(Timer* timer)
     }
 }
 
-bool TimerDone (Timer* timer)
+bool TimerDone(Timer* timer)
 {
     if (timer != NULL)
     {
@@ -131,7 +131,7 @@ int main()
 
     float pitch = 0.5f;
 
-    
+
 
     Texture p1 = LoadTexture("p1idle.png");
     Texture p1cap = LoadTexture("capquiet.png");
@@ -178,7 +178,7 @@ int main()
 
     //enemics
 
-    soldier s1 = { 19500, 605};
+    soldier s1 = { 19500, 605 };
     bool bs1 = true;
     // --- C�mara 2D ---
     Camera2D camera = { 0 };
@@ -253,7 +253,7 @@ int main()
 
             framereceidle.x = (float)currentFrameidle * (float)sidle.width / 4;
 
-            frameReccape.x = (float)currentFrameidle* (float)p1cape.width / 4;
+            frameReccape.x = (float)currentFrameidle * (float)p1cape.width / 4;
 
             frameRecidlee.x = (float)currentFrameidle * (float)p1e.width / 4;
 
@@ -316,7 +316,7 @@ int main()
         if (p.y < FLOOR_Y)
         {
             if (p.canJump != false && p.y > FLOOR_Y - 10) p.y = FLOOR_Y;
-            if (p.vy > -10) p.vy-=2;
+            if (p.vy > -10) p.vy -= 2;
         }
         else
         {
@@ -387,7 +387,7 @@ int main()
 
 
         //ENEMIC BULLET
-        
+
         for (int i = 0; i < MAX_BULLETSE; i++) {
             if (!bulletse[i].active) continue;
             bulletse[i].x += bulletse[i].vx;
@@ -408,8 +408,8 @@ int main()
         if (p.x >= 0 && p.x < 16200) {
             camera.target.y = (float)1100;
         }
-        else if (p.x >= 16200 && p.x < 17800 && camera.target.y!=540) {
-            camera.target.y = -0.35*camera.target.x+6770;   // --------------------------------------------------------------------------------------------------------------------------
+        else if (p.x >= 16200 && p.x < 17800 && camera.target.y != 540) {
+            camera.target.y = -0.35 * camera.target.x + 6770;   // --------------------------------------------------------------------------------------------------------------------------
         }
         else {
             camera.target.y = (float)540;
@@ -457,7 +457,7 @@ int main()
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
             DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
-            if (bullets[i].x>=s1.ex-7 && bullets[i].x<=s1.ex+7 && bullets[i].y>=s1.ey)
+            if (bullets[i].x >= s1.ex - 7 && bullets[i].x <= s1.ex + 7 && bullets[i].y >= s1.ey)
             {
                 s1.ehp--;
             }
@@ -489,17 +489,9 @@ int main()
 
             if (IsKeyPressed(KEY_F))
                 PlaySound(soundArray[2]);
-            
+
+
             if (IsKeyPressed(KEY_F))
-
-            // --- SHOOTING ---
-            // Rapid fire: holds F to keep shooting
-            static float shootTimer = 0.0f;
-            const float shootInterval = 0.12f; // ~8 shots/sec like Metal Slug 1
-
-            shootTimer += GetFrameTime();
-
-            if (IsKeyDown(KEY_F) && shootTimer >= shootInterval)
 
             {
                 p.isshooting = 1;
@@ -510,10 +502,6 @@ int main()
                         bullets[i].y = (float)p.y + 55; // Altura d'on dispara la ball
 
                         if (IsKeyDown(KEY_W)) {
-                            bullets[i].vx = 0;
-                            bullets[i].vy = -15.0f; // up
-                        }
-                        else if (IsKeyDown(KEY_W) && IsKeyDown(KEY_D)) {
                             bullets[i].vx = 0;
                             bullets[i].vy = -15.0f; // up
                         }
@@ -533,7 +521,7 @@ int main()
 
             }
         }
-        
+
         //enemics
         if (s1.ehp == 1) {
 
@@ -568,7 +556,7 @@ int main()
             PlaySound(soundArray[0]);
             winscreen = true;
         }
-        
+
 
 
         // Jugador en su posici�n del mundo 
@@ -753,19 +741,19 @@ int main()
             if (IsKeyPressed(KEY_C))
                 p.credits++;
 
-                if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
-                {
-                    p.credits--;
-                    UnloadTexture(start);
+            if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
+            {
+                p.credits--;
+                UnloadTexture(start);
 
 
-                    inMenu = false;
-                }
+                inMenu = false;
+            }
 
         }
         else {
 
-            
+
             // Then inside the loop:
             if (music == false) {
 
@@ -776,11 +764,11 @@ int main()
 
             if (IsKeyPressed(KEY_M)) {
                 PauseMusicStream(musicArray[0]);
-                music = false; 
+                music = false;
             }
             if (IsKeyPressed(KEY_N)) {
-                ResumeMusicStream(musicArray[0]); 
-                music = true; 
+                ResumeMusicStream(musicArray[0]);
+                music = true;
             }//MUTES THE AUDIOOOOOO
 
             //timer
@@ -794,11 +782,11 @@ int main()
 
             // --- Movimiento horizontal ---
             if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) {
-                p.vx +=5;
+                p.vx += 5;
                 p.facing = 1;
             }
             else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)) {
-                p.vx-=5;
+                p.vx -= 5;
                 p.facing = -1;
             }
             else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
@@ -850,7 +838,7 @@ int main()
 
         if (lose == true) {
             PauseMusicStream(musicArray[0]);
-    
+
             if (!winSoundPlayed) {
                 PlaySound(soundArray[5]);
                 winSoundPlayed = true;
@@ -865,8 +853,8 @@ int main()
 
         //mitj pantalla
 
-     
-        DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, screenHeight2-100, 40, RED);
+
+        DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, screenHeight2 - 100, 40, RED);
 
 
         // canotnada dreta
