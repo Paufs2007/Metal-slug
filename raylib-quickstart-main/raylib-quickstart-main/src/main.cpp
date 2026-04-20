@@ -97,6 +97,7 @@ int main()
 
     bool inMenu = true;
     bool winscreen = false;
+    bool music = false;
     bool menuSoundPlayed = false;
     bool winSoundPlayed = false;
     int vpunts = 0;
@@ -658,7 +659,23 @@ int main()
         }
         else {
 
-            UpdateMusicStream(musicArray[0]);
+            
+            // Then inside the loop:
+            if (music == false) {
+                // paused, do nothing
+            }
+            else {
+                UpdateMusicStream(musicArray[0]);
+            }
+
+            if (IsKeyPressed(KEY_M)) {
+                PauseMusicStream(musicArray[0]);
+                music = false; // sync the bool
+            }
+            if (IsKeyPressed(KEY_N)) {
+                ResumeMusicStream(musicArray[0]); // use Resume, not Play
+                music = true; // sync the bool
+            }//MUTES THE AUDIOOOOOO
 
             //timer
             DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
