@@ -272,7 +272,7 @@ int main()
         if (p.y < FLOOR_Y)
         {
             if (p.canJump != false && p.y > FLOOR_Y - 10) p.y = FLOOR_Y;
-            if (p.vy > -8) p.vy--;
+            if (p.vy > -20) p.vy-=2;
         }
         else
         {
@@ -392,14 +392,14 @@ int main()
 
                     if (IsKeyDown(KEY_W)) {
                         bullets[i].vx = 0;
-                        bullets[i].vy = -15.0f; // up
+                        bullets[i].vy = -30.0f; // up
                     }
                     else if (IsKeyDown(KEY_S)) {
                         bullets[i].vx = 0;
-                        bullets[i].vy = 15.0f; // down
+                        bullets[i].vy = 30.0f; // down
                     }
                     else {
-                        bullets[i].vx = 15.0f * p.facing; // left/right
+                        bullets[i].vx = 30.0f * p.facing; // left/right
                         bullets[i].vy = 0;
                     }
 
@@ -553,12 +553,12 @@ int main()
             updatetimer(&vidaTimer);
 
             // --- Movimiento horizontal ---
-            if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) {
-                p.vx ++;
+            if (IsKeyDown(KEY_D) && p.vx < 10 && !IsKeyDown(KEY_A)) {
+                p.vx +=5;
                 p.facing = 1;
             }
-            else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)) {
-                p.vx--;
+            else if (IsKeyDown(KEY_A) && p.vx > -10 && !IsKeyDown(KEY_D)) {
+                p.vx-=5;
                 p.facing = -1;
             }
             else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
