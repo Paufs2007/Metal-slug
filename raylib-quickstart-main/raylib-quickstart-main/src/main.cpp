@@ -90,7 +90,7 @@ int main()
     //-----------------------------CHANGE ------------------------------------------
     SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
-    InitWindow(960, 720, "Metal Slug"); // 960 720 NO ------ SI 1190 885 - Cal fer zoom quan puja la rampa
+    InitWindow(1300, 990, "Metal Slug");
 
     //-----------------------------CHANGE ------------------------------------------
 
@@ -157,7 +157,7 @@ int main()
     bool bs1 = true;
     // --- C�mara 2D ---
     Camera2D camera = { 0 };
-    camera.offset = { 400, 440 }; // centrada en pantalla
+    camera.offset = { 500, 499 }; // centrada en pantalla -----------------------------------------------------------------------------------------------------------------------------------
     camera.rotation = 0.0f;
     camera.zoom = 0.85f;
 
@@ -430,7 +430,7 @@ int main()
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
             DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
-            if (bullets[i].x>=s1.ex-7 && bullets[i].x>=s1.ex+7)
+            if (bullets[i].x>=s1.ex-7 && bullets[i].x<=s1.ex+7)
             {
                 s1.ehp--;
             }
@@ -439,7 +439,7 @@ int main()
         for (int i = 0; i < MAX_BULLETSE; i++) {
             if (!bulletse[i].active) continue;
             DrawTexture(bullet, (int)bulletse[i].x, (int)bulletse[i].y, WHITE);
-            if (bulletse[i].x >= s1.ex-7 && bulletse[i].x <= s1.ex+7)
+            if (bulletse[i].x >= p.x-7 && bulletse[i].x <= p.x+7)
             {
                 p.hp--;
             }
