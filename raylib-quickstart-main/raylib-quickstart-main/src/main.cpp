@@ -7,7 +7,6 @@ using namespace std;
 #define MIN_FRAME_SPEED  1
 Sound soundArray[10];
 Music musicArray[10];
-
 class player
 {
 public:
@@ -246,7 +245,7 @@ int main()
         if (p.y < FLOOR_Y)
         {
             if (p.canJump != false && p.y > FLOOR_Y - 10) p.y = FLOOR_Y;
-            if (p.vy > -10) p.vy-=2;
+            if (p.vy > -20) p.vy-=2;
         }
         else
         {
@@ -255,6 +254,16 @@ int main()
             p.vy = 0;
         }
 
+        // --- Movimiento horizontal ---
+        if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) {
+            p.vx++;
+            p.facing = 1;
+        }
+        else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)) {
+            p.vx--;
+            p.facing = -1;
+        }
+        else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
 
         // --- FLOOR_Y ---
         if (p.x > 0) FLOOR_Y = 1220;
@@ -286,11 +295,52 @@ int main()
         if (p.x < camera.target.x - 480) p.x = camera.target.x - 481;
 
 
+<<<<<<< HEAD
         // Get the visible world bounds from the camera
         float camLeft = camera.target.x - (camera.offset.x) / camera.zoom;
         float camRight = camera.target.x + (screenWidth2 - camera.offset.x) / camera.zoom;
         float camTop = camera.target.y - (camera.offset.y) / camera.zoom;
         float camBottom = camera.target.y + (screenHeight2 - camera.offset.y) / camera.zoom;
+=======
+        // --- Cheats ---
+        if (IsKeyDown(KEY_L)) p.x = 18000;
+
+        // --- Salto ---
+        if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
+
+        //Aim direction
+        if (IsKeyDown(KEY_W)) p.facingy = 1;
+        else if (IsKeyDown(KEY_S) && p.y > FLOOR_Y) p.facingy = -1;
+
+
+        if (IsKeyPressed(KEY_F))
+        {
+            vpunts++;
+            for (int i = 0; i < MAX_BULLETS; i++) {
+                if (!bullets[i].active) {
+                    bullets[i].x = (float)p.x;
+                    bullets[i].y = (float)p.y+100; // Altura d'on dispara la ball
+
+                    if (IsKeyDown(KEY_W)) {
+                        bullets[i].vx = 0;
+                        bullets[i].vy = -15.0f; // up
+                    }
+                    else if (IsKeyDown(KEY_S)) {
+                        bullets[i].vx = 0;
+                        bullets[i].vy = 15.0f; // down
+                    }
+                    else {
+                        bullets[i].vx = 15.0f * p.facing; // left/right
+                        bullets[i].vy = 0;
+                    }
+
+                    bullets[i].active = true;
+                    break;
+                }
+            }
+
+        }
+>>>>>>> parent of ef96da4 (Merge branch 'main' of https://github.com/Paufs2007/Metal-slug)
 
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
@@ -358,6 +408,8 @@ int main()
 
         if (IsKeyPressed(KEY_F))
         {
+            p.isshooting = 1;
+            currentFramtir = 0;
             for (int i = 0; i < MAX_BULLETS; i++) {
                 if (!bullets[i].active) {
                     bullets[i].x = (float)p.x;
@@ -490,10 +542,10 @@ int main()
 
             DrawTexturePro(start, src2, dest2, { 0, 0 }, 0.0f, WHITE);
 
-                if (IsKeyPressed(KEY_C))
-                    p.credits++;
-                    p.vx = 0;
+            if (IsKeyPressed(KEY_C))
+                p.credits++;
 
+<<<<<<< HEAD
 
                 if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
                 {
@@ -530,10 +582,15 @@ int main()
             if (IsKeyDown(KEY_W)) p.facingy = 1;
             else if (IsKeyDown(KEY_S)) p.facingy = -1;
 
+=======
+            if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
+            {
+                p.credits--;
+                inMenu = false;
+            }
+>>>>>>> parent of ef96da4 (Merge branch 'main' of https://github.com/Paufs2007/Metal-slug)
 
         }
-
-
 
         int textWidth = MeasureText(cpunts, 30);
 
@@ -541,7 +598,7 @@ int main()
 
         DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
      
-        DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, 670, 40, RED);
+        DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, 675, 40, RED);
 
 
         // canotnada dreta
