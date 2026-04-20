@@ -475,8 +475,12 @@ int main()
         }
         else if (p.canJump == false && p.facing == -1)
         {
-        
-        
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle poscamesse = { (float)p.x, (float)p.y, framerecscamese.width * 5, framerecscamese.height * 5 };
+            Rectangle poscapse = { (float)p.x, (float)p.y - 100, framerecscape.width * 5, framerecscape.height * 5 };
+            DrawTexturePro(p1scape, framerecscape, poscapse, position, 0, WHITE);
+            DrawTexturePro(p1scamese, framerecscamese, poscamesse, position, 0, WHITE);
+            DrawText(cix, p.x, p.y, 20, RED);
         }
 
 
@@ -563,7 +567,13 @@ int main()
     UnloadTexture(bg);
     UnloadTexture(bullet);
     UnloadTexture(sidle);
-    UnloadTexture(start);
+    UnloadTexture(p1cape);
+    UnloadTexture(p1esquerracorrentcames);
+    UnloadTexture(p1e);
+    UnloadTexture(p1scap);
+    UnloadTexture(p1scape);
+    UnloadTexture(p1scames);
+    UnloadTexture(p1scamese);
     CloseWindow();
     return 0;
 }
