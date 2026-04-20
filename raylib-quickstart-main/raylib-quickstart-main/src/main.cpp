@@ -352,7 +352,7 @@ int main()
         if (p.x <= camLeft) p.x = camLeft + 5;
 
         // --- Cheats ---
-        if (IsKeyDown(KEY_L)) p.x = 18000;
+        if (IsKeyDown(KEY_L)) p.x = 16000;
 
         // --- Salto ---
         if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
@@ -383,11 +383,11 @@ int main()
         if (p.x >= 0 && p.x < 16200) {
             camera.target.y = (float)1100;
         }
-        else if (p.x >= 16200 && p.x < 17750) {
-            camera.target.y = FLOOR_Y - 280;
+        else if (p.x >= 16200 && p.x < 17800) {
+            camera.target.y = -0.35*camera.target.x+6770;   // --------------------------------------------------------------------------------------------------------------------------
         }
         else {
-            camera.target.y = (float)520;
+            camera.target.y = (float)540;
         }
         float halfW = screenWidth2 / 2.0f;
         float halfH = screenHeight2 / 2.0f;
@@ -693,9 +693,6 @@ int main()
             }
             else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
 
-
-            // --- Cheats ---
-            if (IsKeyDown(KEY_L)) p.x = 18000;
 
             // --- Salto ---
             if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
