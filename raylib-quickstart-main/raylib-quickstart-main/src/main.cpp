@@ -100,6 +100,12 @@ int main()
     bool music = false;
     bool menuSoundPlayed = false;
     bool winSoundPlayed = false;
+    bool lose = false;
+    float enemyShootTimer = 0.0f;
+    float enemyShootInterval = 3.0f;
+    bool gameOver = false;
+    float hitCooldown = 0.0f;
+
     int vpunts = 0;
     int screenWidth2 = GetScreenWidth();
     int screenHeight2 = GetScreenHeight();
@@ -114,6 +120,7 @@ int main()
     soundArray[2] = LoadSound("pipa.mp3");
     soundArray[3] = LoadSound("Metal_Slug.mp3");
     soundArray[4] = LoadSound("mission_complete.mp3");
+    soundArray[5] = LoadSound("Game_Over.ogg");
 
     //Music
     musicArray[0] = LoadMusicStream("bo.mp3");
@@ -149,6 +156,7 @@ int main()
     Texture p1baixtire = LoadTexture("tirajupite.png");
     Texture p1alttir = LoadTexture("tiramunt.png");
     Texture p1alttire = LoadTexture("tiramunt.png");
+    Texture gameover = LoadTexture("Game_Over.png");
 
     //timer
 
@@ -361,6 +369,7 @@ int main()
         if (IsKeyDown(KEY_W)) p.facingy = 1;
         else if (IsKeyDown(KEY_S) && p.y > FLOOR_Y) p.facingy = -1;
 
+        //PLAYER BULLETS
 
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
@@ -373,6 +382,20 @@ int main()
                 bullets[i].active = false;
             }
         }
+
+
+        //ENEMIC BULLET
+        
+        for (int i = 0; i < MAX_BULLETSE; i++) {
+            if (!bulletse[i].active) continue;
+            bulletse[i].x += bulletse[i].vx;
+            bulletse[i].y += bulletse[i].vy;
+            if (bulletse[i].x < camLeft || bulletse[i].x > camRight ||
+                bulletse[i].y < camTop || bulletse[i].y > camBottom) {
+                bulletse[i].active = false;
+            }
+        }
+
 
         // --- L�mites del mundo (bordes del fondo) ---
         if (p.x < 0) { p.x = 0;          if (p.vx < 0) p.vx = 0; }
@@ -411,6 +434,7 @@ int main()
         // --- Dibujo ---
         BeginDrawing();
         ClearBackground(RED);
+        if (hitCooldown > 0.0f) hitCooldown -= GetFrameTime();
 
 
 
@@ -440,19 +464,92 @@ int main()
         for (int i = 0; i < MAX_BULLETSE; i++) {
             if (!bulletse[i].active) continue;
             DrawTexture(bullet, (int)bulletse[i].x, (int)bulletse[i].y, WHITE);
-            if (bulletse[i].x >= p.x-7 && bulletse[i].x <= p.x+7)
+
+            if (hitCooldown <= 0.0f &&
+                bulletse[i].x >= p.x - 30 && bulletse[i].x <= p.x + 30 &&
+                bulletse[i].y >= p.y - 200 && bulletse[i].y <= p.y + 50)
             {
-                p.hp--;
+                bulletse[i].active = false;
+                hitCooldown = 1.5f;
+                p.credits--;
+
+                // knockback away from bullet direction
+                p.vx = (bulletse[i].vx > 0) ? 15 : -15;
+                p.vy = 20; // slight upward bounce
+
+                if (p.credits <= 0) {
+                    UnloadTexture(bg);
+                    lose = true;
+
+                }
+            }
+        }
+
+        if (!inMenu && !winscreen && !lose) {
+
+            if (IsKeyPressed(KEY_F))
+                PlaySound(soundArray[2]);
+            
+            if (IsKeyPressed(KEY_F))
+            {
+                p.isshooting = 1;
+                currentFramtir = 0;
+                for (int i = 0; i < MAX_BULLETS; i++) {
+                    if (!bullets[i].active) {
+                        bullets[i].x = (float)p.x + 15;
+                        bullets[i].y = (float)p.y + 55; // Altura d'on dispara la ball
+
+                        if (IsKeyDown(KEY_W)) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = -15.0f; // up
+                        }
+                        else if (IsKeyDown(KEY_W) && IsKeyDown(KEY_D)) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = -15.0f; // up
+                        }
+                        else if (IsKeyDown(KEY_S)) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = 15.0f; // down
+                        }
+                        else {
+                            bullets[i].vx = 15.0f * p.facing; // left/right
+                            bullets[i].vy = 0;
+                        }
+
+                        bullets[i].active = true;
+                        break;
+                    }
+                }
+
             }
         }
 
         //enemics
-        if (s1.ehp == 1)
-        {
+        if (s1.ehp == 1) {
+
             Vector2 position = { 0.0f, 0.0f };
             Rectangle posidles1 = { (float)s1.ex, (float)s1.ey, framereceidle.width * 5, framereceidle.height * 5 };
             DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
             DrawText(cix, s1.ex, s1.ey, 20, RED);
+
+            if (!inMenu && !winscreen && !lose) {
+                enemyShootTimer += GetFrameTime();
+
+                if (enemyShootTimer >= enemyShootInterval) {
+                    enemyShootTimer = 0.0f;
+
+                    for (int i = 0; i < MAX_BULLETSE; i++) {
+                        if (!bulletse[i].active) {
+                            bulletse[i].x = s1.ex;
+                            bulletse[i].y = s1.ey + 30;
+                            bulletse[i].vx = (p.x < s1.ex) ? -8.0f : 8.0f;
+                            bulletse[i].vy = 0;
+                            bulletse[i].active = true;
+                            break;
+                        }
+                    }
+                }
+            }
         }
         else if (bs1)
         {
@@ -662,7 +759,7 @@ int main()
             
             // Then inside the loop:
             if (music == false) {
-                // paused, do nothing
+
             }
             else {
                 UpdateMusicStream(musicArray[0]);
@@ -670,11 +767,11 @@ int main()
 
             if (IsKeyPressed(KEY_M)) {
                 PauseMusicStream(musicArray[0]);
-                music = false; // sync the bool
+                music = false; 
             }
             if (IsKeyPressed(KEY_N)) {
-                ResumeMusicStream(musicArray[0]); // use Resume, not Play
-                music = true; // sync the bool
+                ResumeMusicStream(musicArray[0]); 
+                music = true; 
             }//MUTES THE AUDIOOOOOO
 
             //timer
@@ -705,8 +802,6 @@ int main()
                 p.credits++;
 
 
-            if (IsKeyPressed(KEY_F))
-                PlaySound(soundArray[2]);
 
             if (IsKeyPressed(KEY_S))
             {
@@ -722,44 +817,14 @@ int main()
                 }
             }
 
-            if (IsKeyPressed(KEY_F))
-            {
-                p.isshooting = 1;
-                currentFramtir = 0;
-                for (int i = 0; i < MAX_BULLETS; i++) {
-                    if (!bullets[i].active) {
-                        bullets[i].x = (float)p.x + 15;
-                        bullets[i].y = (float)p.y + 55; // Altura d'on dispara la ball
-
-                        if (IsKeyDown(KEY_W)) {
-                            bullets[i].vx = 0;
-                            bullets[i].vy = -15.0f; // up
-                        }
-                        else if (IsKeyDown(KEY_W) && IsKeyDown(KEY_D)) {
-                            bullets[i].vx = 0;
-                            bullets[i].vy = -15.0f; // up
-                        }
-                        else if (IsKeyDown(KEY_S)) {
-                            bullets[i].vx = 0;
-                            bullets[i].vy = 15.0f; // down
-                        }
-                        else {
-                            bullets[i].vx = 15.0f * p.facing; // left/right
-                            bullets[i].vy = 0;
-                        }
-
-                        bullets[i].active = true;
-                        break;
-                    }
-                }
-
-            }
 
 
 
         }
 
         if (winscreen == true) {
+            PauseMusicStream(musicArray[0]);
+
             if (!winSoundPlayed) {
                 PlaySound(soundArray[4]);
                 winSoundPlayed = true;
@@ -767,6 +832,19 @@ int main()
             Rectangle src3 = { 0, 0, (float)win.width, (float)win.height };
             Rectangle dest3 = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
             DrawTexturePro(win, src3, dest3, { 0, 0 }, 0.0f, WHITE);
+
+        }
+
+        if (lose == true) {
+            PauseMusicStream(musicArray[0]);
+
+            if (!winSoundPlayed) {
+                PlaySound(soundArray[5]);
+                winSoundPlayed = true;
+            }
+            Rectangle src3 = { 0, 0, (float)gameover.width, (float)gameover.height };
+            Rectangle dest3 = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
+            DrawTexturePro(gameover, src3, dest3, { 0, 0 }, 0.0f, WHITE);
 
         }
 
@@ -813,6 +891,7 @@ int main()
     UnloadTexture(p1baixtire);
     UnloadTexture(p1alttir);
     UnloadTexture(p1alttire);
+    UnloadTexture(gameover);
     CloseWindow();
     return 0;
 }
