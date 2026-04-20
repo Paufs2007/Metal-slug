@@ -269,7 +269,7 @@ int main()
 
         // --- FLOOR_Y ---
         if (p.x > 0) FLOOR_Y = 1220;
-        if (p.x > 3380) FLOOR_Y = 1380;
+        if (p.x > 3370) FLOOR_Y = 1380;
         if (p.x > 8900) FLOOR_Y = p.x * -0.8 + 8500;
         if (p.x > 9050) FLOOR_Y = 1260;
         if (p.x > 9400) FLOOR_Y = 1380;
