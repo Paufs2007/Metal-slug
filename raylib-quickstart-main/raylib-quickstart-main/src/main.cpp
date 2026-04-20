@@ -17,7 +17,8 @@ public:
     bool canJump;
     int facing = 1; // 1 = right, -1 = left
     int facingy = 1; // 1 = up, -1 = down
-    int isshooting = -1;
+    int isshooting = -1; // 1 = si, -1 = no
+    int isajupit = -1; // 1 = si, -1 = no
     int credits;
     int vides = 3; 
     int hp = 1;
@@ -134,6 +135,12 @@ int main()
     Texture p1camq = LoadTexture("camesquiet.png");
     Texture p1camqe = LoadTexture("camesquiete.png");
     Texture win = LoadTexture("mission-1-complete.png");
+    Texture p1baix = LoadTexture("ajupit.png");
+    Texture p1baixe = LoadTexture("ajupite.png");
+    Texture p1baixtir = LoadTexture("tirajupit.png");
+    Texture p1baixtire = LoadTexture("tirajupite.png");
+    Texture p1alttir = LoadTexture("tiramunt.png");
+    Texture p1alttire = LoadTexture("tiramunt.png");
 
     //timer
 
@@ -163,6 +170,12 @@ int main()
 
     Rectangle framereceidle = { 0, 0, (float)sidle.width / 4, (float)sidle.height };
 
+    Rectangle framerecalttire = { 0, 0, (float)p1alttire.width / 10, (float)p1alttire.height };
+    Rectangle framerecalttir = { 0, 0, (float)p1alttir.width / 10, (float)p1alttir.height };
+    Rectangle framerecbaixtire = { 0, 0, (float)p1baixtire.width / 10, (float)p1baixtire.height };
+    Rectangle framerecbaixtir = { 0, 0, (float)p1baixtir.width / 10, (float)p1baixtir.height };
+    Rectangle framerecbaixe = { 0, 0, (float)p1baixe.width / 4, (float)p1baixe.height };
+    Rectangle framerecbaix = { 0, 0, (float)p1baix.width / 4, (float)p1baix.height };
     Rectangle framereccamqe = { 0, 0, (float)p1camqe.width / 4, (float)p1camqe.height };
     Rectangle framereccamq = { 0, 0, (float)p1camq.width / 4, (float)p1camq.height };
     Rectangle framerectire = { 0, 0, (float)p1shote.width / 10, (float)p1shote.height };
@@ -230,6 +243,10 @@ int main()
 
             framereccamqe.x = (float)currentFrameidle * (float)p1camqe.width / 4;
 
+            framerecbaix.x = (float)currentFrameidle * (float)p1baix.width / 4;
+
+            framerecbaixe.x = (float)currentFrameidle * (float)p1baixe.width / 4;
+
             framerecscap.x = (float)currentFramsalt * (float)p1scap.width / 6;
 
             framerecscape.x = (float)currentFramsalt * (float)p1scape.width / 6;
@@ -255,6 +272,14 @@ int main()
             framerectir.x = (float)currentFramtir * (float)p1shot.width / 10;
 
             framerectire.x = (float)currentFramtir * (float)p1shote.width / 10;
+
+            framerecbaixtir.x = (float)currentFramtir * (float)framerecbaixtir.width / 10;
+
+            framerecbaixtire.x = (float)currentFramtir * (float)framerecbaixtire.width / 10;
+
+            framerecalttir.x = (float)currentFramtir * (float)framerecalttir.width / 10;
+
+            framerecalttire.x = (float)currentFramtir * (float)framerecalttire.width / 10;
         }
 
 
@@ -274,7 +299,7 @@ int main()
         if (p.y < FLOOR_Y)
         {
             if (p.canJump != false && p.y > FLOOR_Y - 10) p.y = FLOOR_Y;
-            if (p.vy > -20) p.vy-=2;
+            if (p.vy > -10) p.vy-=2;
         }
         else
         {
@@ -569,7 +594,13 @@ int main()
             DrawTexturePro(p1esquerracorrentcames, frameesquerracorrent, posesquerracorrent, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-
+        if (p.vx == 0 && p.facing == 1 && p.canJump == true && p.isshooting == -1)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posidle = { (float)p.x, (float)p.y, frameRecidle.width * 5, frameRecidle.height * 5 };
+            DrawTexturePro(p1, frameRecidle, posidle, position, 0, WHITE);
+            DrawText(cix, p.x, p.y, 20, RED);
+        }
 
 
         EndMode2D();
@@ -673,6 +704,12 @@ int main()
     UnloadTexture(p1camq);
     UnloadTexture(p1camqe);
     UnloadTexture(win);
+    UnloadTexture(p1baix);
+    UnloadTexture(p1baixe);
+    UnloadTexture(p1baixtir);
+    UnloadTexture(p1baixtire);
+    UnloadTexture(p1alttir);
+    UnloadTexture(p1alttire);
     CloseWindow();
     return 0;
 }
