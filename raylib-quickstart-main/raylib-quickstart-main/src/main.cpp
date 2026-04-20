@@ -264,8 +264,7 @@ int main()
         if (IsKeyPressed(KEY_V))
             PlaySound(soundArray[1]);
 
-        if (IsKeyPressed(KEY_F))
-            PlaySound(soundArray[2]);
+
 
         // --- F�sica ---
         p.x += p.vx;
@@ -328,36 +327,6 @@ int main()
         //Aim direction
         if (IsKeyDown(KEY_W)) p.facingy = 1;
         else if (IsKeyDown(KEY_S) && p.y > FLOOR_Y) p.facingy = -1;
-
-
-        if (IsKeyPressed(KEY_F))
-        {
-            p.isshooting = 1;
-            currentFramtir = 0;
-            for (int i = 0; i < MAX_BULLETS; i++) {
-                if (!bullets[i].active) {
-                    bullets[i].x = (float)p.x+15;
-                    bullets[i].y = (float)p.y+55; // Altura d'on dispara la ball
-
-                    if (IsKeyDown(KEY_W)) {
-                        bullets[i].vx = 0;
-                        bullets[i].vy = -15.0f; // up
-                    }
-                    else if (IsKeyDown(KEY_S)) {
-                        bullets[i].vx = 0;
-                        bullets[i].vy = 15.0f; // down
-                    }
-                    else {
-                        bullets[i].vx = 15.0f * p.facing; // left/right
-                        bullets[i].vy = 0;
-                    }
-
-                    bullets[i].active = true;
-                    break;
-                }
-            }
-
-        }
 
 
         for (int i = 0; i < MAX_BULLETS; i++) {
@@ -627,6 +596,41 @@ int main()
 
             if (IsKeyPressed(KEY_C))
                 p.credits++;
+
+
+            if (IsKeyPressed(KEY_F))
+                PlaySound(soundArray[2]);
+
+            if (IsKeyPressed(KEY_F))
+            {
+                p.isshooting = 1;
+                currentFramtir = 0;
+                for (int i = 0; i < MAX_BULLETS; i++) {
+                    if (!bullets[i].active) {
+                        bullets[i].x = (float)p.x + 15;
+                        bullets[i].y = (float)p.y + 55; // Altura d'on dispara la ball
+
+                        if (IsKeyDown(KEY_W)) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = -15.0f; // up
+                        }
+                        else if (IsKeyDown(KEY_S)) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = 15.0f; // down
+                        }
+                        else {
+                            bullets[i].vx = 15.0f * p.facing; // left/right
+                            bullets[i].vy = 0;
+                        }
+
+                        bullets[i].active = true;
+                        break;
+                    }
+                }
+
+            }
+
+
 
         }
 
