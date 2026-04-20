@@ -7,6 +7,7 @@ using namespace std;
 #define MIN_FRAME_SPEED  1
 Sound soundArray[10];
 Music musicArray[10];
+
 class player
 {
 public:
@@ -89,7 +90,7 @@ int main()
     //-----------------------------CHANGE ------------------------------------------
     SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
-    InitWindow(1190, 885, "Metal Slug"); // 960 720 NO ------ SI 1190 885 - Cal fer zoom quan puja la rampa
+    InitWindow(960, 720, "Metal Slug"); // 960 720 NO ------ SI 1190 885 - Cal fer zoom quan puja la rampa
     SetWindowMinSize(800, 450);
     //-----------------------------CHANGE ------------------------------------------
 
@@ -223,16 +224,6 @@ int main()
             p.vy = 0;
         }
 
-        // --- Movimiento horizontal ---
-        if (IsKeyDown(KEY_D) && p.vx < 10 && !IsKeyDown(KEY_A)) {
-            p.vx++;
-            p.facing = 1;
-        }
-        else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)) {
-            p.vx--;
-            p.facing = -1;
-        }
-        else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
 
         // --- FLOOR_Y ---
         if (p.x > 0) FLOOR_Y = 1220;
@@ -262,45 +253,6 @@ int main()
         if (p.x >= 10600 && p.x <= 10705 && p.y > 1021) p.x = 10710;
 
 
-        // --- Cheats ---
-        if (IsKeyDown(KEY_L)) p.x = 18000;
-
-        // --- Salto ---
-        if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
-
-        //Aim direction
-        if (IsKeyDown(KEY_W)) p.facingy = 1;
-        else if (IsKeyDown(KEY_S)) p.facingy = -1;
-
-
-        if (IsKeyPressed(KEY_F))
-        {
-            vpunts++;
-            for (int i = 0; i < MAX_BULLETS; i++) {
-                if (!bullets[i].active) {
-                    bullets[i].x = (float)p.x;
-                    bullets[i].y = (float)p.y+100; // Altura d'on dispara la bala
-
-
-                    if (IsKeyDown(KEY_W)) {
-                        bullets[i].vx = 0;
-                        bullets[i].vy = -15.0f; // up
-                    }
-                    else if (IsKeyDown(KEY_S)) {
-                        bullets[i].vx = 0;
-                        bullets[i].vy = 15.0f; // down
-                    }
-                    else {
-                        bullets[i].vx = 15.0f * p.facing; // left/right
-                        bullets[i].vy = 0;
-                    }
-
-                    bullets[i].active = true;
-                    break;
-                }
-            }
-
-        }
 
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
@@ -463,28 +415,78 @@ int main()
 
             DrawTexturePro(start, src2, dest2, { 0, 0 }, 0.0f, WHITE);
 
-
-
-            if (inMenu)
-            {
                 if (IsKeyPressed(KEY_C))
                     p.credits++;
+                    p.vx = 0;
+
 
                 if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
                 {
                     p.credits--;
                     UnloadTexture(start);
+
+
                     inMenu = false;
                 }
 
-            }
-            else if (inMenu == false) {
-
-
-
-            }
-
         }
+        else {
+
+
+            // --- Movimiento horizontal ---
+            if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) {
+                p.vx++;
+                p.facing = 1;
+            }
+            else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)) {
+                p.vx--;
+                p.facing = -1;
+            }
+            else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
+
+
+            // --- Cheats ---
+            if (IsKeyDown(KEY_L)) p.x = 18000;
+
+            // --- Salto ---
+            if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
+
+            //Aim direction
+            if (IsKeyDown(KEY_W)) p.facingy = 1;
+            else if (IsKeyDown(KEY_S)) p.facingy = -1;
+
+
+            if (IsKeyPressed(KEY_F))
+            {
+                vpunts++;
+                for (int i = 0; i < MAX_BULLETS; i++) {
+                    if (!bullets[i].active) {
+                        bullets[i].x = (float)p.x;
+                        bullets[i].y = (float)p.y + 100; // Altura d'on dispara la bala
+
+
+                        if (IsKeyDown(KEY_W)) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = -15.0f; // up
+                        }
+                        else if (IsKeyDown(KEY_S)) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = 15.0f; // down
+                        }
+                        else {
+                            bullets[i].vx = 15.0f * p.facing; // left/right
+                            bullets[i].vy = 0;
+                        }
+
+                        bullets[i].active = true;
+                        break;
+                    }
+                }
+
+            }
+        }
+
+
 
         int textWidth = MeasureText(cpunts, 30);
 
@@ -492,7 +494,7 @@ int main()
 
         DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
      
-        DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, 855, 40, RED);
+        DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, 670, 40, RED);
 
 
         // canotnada dreta
