@@ -459,14 +459,14 @@ int main()
 
         // Jugador en su posici�n del mundo 
 
-        if (p.vx == 0 && p.facing == 1 && p.canJump == true && p.isshooting == -1)
+        if (p.vx == 0 && p.facing == 1 && p.canJump == true && p.isshooting == -1 && p.isajupit == -1)
         {
             Vector2 position = { 0.0f, 0.0f };
             Rectangle posidle = { (float)p.x, (float)p.y, frameRecidle.width * 5, frameRecidle.height * 5 };
             DrawTexturePro(p1, frameRecidle, posidle, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        else if (p.vx > 0 && p.facing == 1 && p.canJump == true && p.isshooting == -1)
+        else if (p.vx > 0 && p.facing == 1 && p.canJump == true && p.isshooting == -1 && p.isajupit == -1)
         {
             Vector2 position = { frameRecdretacorrent.width * 4.75f / 2, frameRecdretacorrent.height * 4.75f / 2 };
             Rectangle posdretacorrent = { (float)p.x + 30, (float)p.y + 138, frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
@@ -475,7 +475,7 @@ int main()
             DrawTexturePro(p1cap, frameReccap, poscap, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        else if (p.vx < 0 && p.facing == -1 && p.canJump == true && p.isshooting == -1)
+        else if (p.vx < 0 && p.facing == -1 && p.canJump == true && p.isshooting == -1 && p.isajupit == -1)
         {
             Vector2 position = { frameesquerracorrent.width * 4.75f / 2, frameesquerracorrent.height * 4.75f / 2 };
             Rectangle posesquerracorrent = { (float)p.x + 80, (float)p.y + 138,  frameesquerracorrent.width * 4.75, frameesquerracorrent.height * 4.75 };
@@ -484,14 +484,14 @@ int main()
             DrawTexturePro(p1cape, frameReccape, poscap, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        else if (p.vx == 0 && p.facing == -1 && p.canJump == true && p.isshooting == -1)
+        else if (p.vx == 0 && p.facing == -1 && p.canJump == true && p.isshooting == -1 && p.isajupit == -1)
         {
             Vector2 position = { 0.0f, 0.0f };
             Rectangle posidle = { (float)p.x, (float)p.y, frameRecidlee.width * 5, frameRecidlee.height * 5 };
             DrawTexturePro(p1e, frameRecidlee, posidle, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        else if (p.canJump == false && p.facing == 1 && p.isshooting == -1)
+        else if (p.canJump == false && p.facing == 1 && p.isshooting == -1 && p.isajupit == -1)
         {
             Vector2 position = { 0.0f, 0.0f };
             Rectangle poscamess = { (float)p.x, (float)p.y, framerecscames.width * 5, framerecscames.height * 5 };
@@ -500,7 +500,7 @@ int main()
             DrawTexturePro(p1scames, framerecscames, poscamess, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        else if (p.canJump == false && p.facing == 1 && p.isshooting == 1)
+        else if (p.canJump == false && p.facing == 1 && p.isshooting == 1 && p.isajupit == -1)
         {
             Vector2 position = { 0.0f, 0.0f };
             Rectangle poscamess = { (float)p.x, (float)p.y + 90, framerecscames.width * 5, framerecscames.height * 5 };
@@ -509,7 +509,7 @@ int main()
             DrawTexturePro(p1scames, framerecscames, poscamess, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        else if (p.canJump == false && p.facing == -1 && p.isshooting == -1)
+        else if (p.canJump == false && p.facing == -1 && p.isshooting == -1 && p.isajupit == -1)
         {
             Vector2 position = { 0.0f, 0.0f };
             Rectangle poscamesse = { (float)p.x, (float)p.y, framerecscamese.width * 5, framerecscamese.height * 5 };
@@ -518,7 +518,7 @@ int main()
             DrawTexturePro(p1scamese, framerecscamese, poscamesse, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        else if (p.canJump == false && p.facing == -1 && p.isshooting == 1)
+        else if (p.canJump == false && p.facing == -1 && p.isshooting == 1 && p.isajupit == -1)
         {
             Vector2 position = { 0.0f, 0.0f };
             Rectangle poscamesse = { (float)p.x, (float)p.y + 90, framerecscamese.width * 5, framerecscamese.height * 5 };
@@ -527,7 +527,7 @@ int main()
             DrawTexturePro(p1scamese, framerecscamese, poscamesse, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        else if (p.vx == 0 && p.canJump == true && p.facing == 1 && p.isshooting == 1)
+        else if (p.vx == 0 && p.canJump == true && p.facing == 1 && p.isshooting == 1 && p.isajupit == -1)
         {
             Vector2 position = { 0.0f, 0.0f };
             Rectangle camqu = { (float)p.x - 20, (float)p.y + 105, framereccamq.width * 5, framereccamq.height * 5 };
@@ -536,7 +536,7 @@ int main()
             DrawTexturePro(p1camq, framereccamq, camqu, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        else if (p.vx > 0 && p.canJump == true && p.facing == 1 && p.isshooting == 1)
+        else if (p.vx > 0 && p.canJump == true && p.facing == 1 && p.isshooting == 1 && p.isajupit == -1)
         {
             Vector2 position = { 0.0f, 0.0f };
             Rectangle posdretacorrent = { (float)p.x - 10, (float)p.y + 100, frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
@@ -545,7 +545,7 @@ int main()
             DrawTexturePro(p1dretacorrentcames, frameRecdretacorrent, posdretacorrent, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        else if (p.vx == 0 && p.canJump == true && p.facing == -1 && p.isshooting == 1)
+        else if (p.vx == 0 && p.canJump == true && p.facing == -1 && p.isshooting == 1 && p.isajupit == -1)
         {
             Vector2 position = { 0.0f, 0.0f };
             Rectangle camque = { (float)p.x - 20, (float)p.y + 105, framereccamqe.width * 5, framereccamqe.height * 5 };
@@ -554,7 +554,7 @@ int main()
             DrawTexturePro(p1camqe, framereccamqe, camque, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        else if (p.vx < 0 && p.canJump == true && p.facing == -1 && p.isshooting == 1)
+        else if (p.vx < 0 && p.canJump == true && p.facing == -1 && p.isshooting == 1 && p.isajupit == -1)
         {
             Vector2 position = { 0.0f, 0.0f };
             Rectangle posesquerracorrent = { (float)p.x + 10, (float)p.y + 100,  frameesquerracorrent.width * 4.75, frameesquerracorrent.height * 4.75 };
@@ -563,14 +563,63 @@ int main()
             DrawTexturePro(p1esquerracorrentcames, frameesquerracorrent, posesquerracorrent, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        if (p.vx == 0 && p.facing == 1 && p.canJump == true && p.isshooting == -1)
+        if (p.vx == 0 && p.facing == 1 && p.isshooting == -1 && p.isajupit == 1)
         {
             Vector2 position = { 0.0f, 0.0f };
-            Rectangle posidle = { (float)p.x, (float)p.y, frameRecidle.width * 5, frameRecidle.height * 5 };
-            DrawTexturePro(p1, frameRecidle, posidle, position, 0, WHITE);
+            Rectangle posaju = { (float)p.x, (float)p.y + 70, framerecbaix.width * 5, framerecbaix.height * 5 };
+            DrawTexturePro(p1baix, framerecbaix, posaju, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-
+        if (p.vx > 0 && p.facing == 1 && p.isshooting == -1 && p.isajupit == 1)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posaju = { (float)p.x, (float)p.y + 70, framerecbaix.width * 5, framerecbaix.height * 5 };
+            DrawTexturePro(p1baix, framerecbaix, posaju, position, 0, WHITE);
+            DrawText(cix, p.x, p.y, 20, RED);
+        }
+        if (p.vx == 0 && p.facing == -1 && p.isshooting == -1 && p.isajupit == 1)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posajue = { (float)p.x, (float)p.y + 70, framerecbaixe.width * 5, framerecbaixe.height * 5 };
+            DrawTexturePro(p1baixe, framerecbaixe, posajue, position, 0, WHITE);
+            DrawText(cix, p.x, p.y, 20, RED);
+        }
+        if (p.vx < 0 && p.facing == -1 && p.isshooting == -1 && p.isajupit == 1)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posajue = { (float)p.x, (float)p.y + 70, framerecbaixe.width * 5, framerecbaixe.height * 5 };
+            DrawTexturePro(p1baixe, framerecbaixe, posajue, position, 0, WHITE);
+            DrawText(cix, p.x, p.y, 20, RED);
+        }
+        if (p.vx == 0 && p.facing == 1 && p.isshooting == 1 && p.isajupit == 1)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posajutir = { (float)p.x, (float)p.y + 70, framerecbaixtir.width * 5, framerecbaixtir.height * 5 };
+            DrawTexturePro(p1baixtir, framerecbaixtir, posajutir, position, 0, WHITE);
+            DrawText(cix, p.x, p.y, 20, RED);
+        }
+        if (p.vx > 0 && p.facing == 1 && p.isshooting == 1 && p.isajupit == 1)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posajutir = { (float)p.x, (float)p.y + 70, framerecbaixtir.width * 5, framerecbaixtir.height * 5 };
+            DrawTexturePro(p1baixtir, framerecbaixtir, posajutir, position, 0, WHITE);
+            DrawText(cix, p.x, p.y, 20, RED);
+        }
+        if (p.vx == 0 && p.facing == -1 && p.isshooting == 1 && p.isajupit == 1)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posajutire = { (float)p.x, (float)p.y + 70, framerecbaixtire.width * 5, framerecbaixtire.height * 5 };
+            DrawTexturePro(p1baixtire, framerecbaixtire, posajutire, position, 0, WHITE);
+            DrawText(cix, p.x, p.y, 20, RED);
+        }
+        if (p.vx < 0 && p.facing == -1 && p.isshooting == 1 && p.isajupit == 1)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posajutire = { (float)p.x, (float)p.y + 70, framerecbaixtire.width * 5, framerecbaixtire.height * 5 };
+            DrawTexturePro(p1baixtire, framerecbaixtire, posajutire, position, 0, WHITE);
+            DrawText(cix, p.x, p.y, 20, RED);
+        }
+        
 
         EndMode2D();
 
@@ -631,6 +680,20 @@ int main()
 
             if (IsKeyPressed(KEY_F))
                 PlaySound(soundArray[2]);
+
+            if (IsKeyPressed(KEY_S))
+            {
+                if (p.isajupit == -1)
+                {
+                    p.isajupit = 1;
+                    p.canJump = false;
+                }
+                else
+                {
+                    p.isajupit = -1;
+                    p.canJump = true;
+                }
+            }
 
             if (IsKeyPressed(KEY_F))
             {
