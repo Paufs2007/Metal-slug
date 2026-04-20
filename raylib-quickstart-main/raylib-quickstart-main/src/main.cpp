@@ -246,7 +246,7 @@ int main()
         if (p.y < FLOOR_Y)
         {
             if (p.canJump != false && p.y > FLOOR_Y - 10) p.y = FLOOR_Y;
-            if (p.vy > -10) p.vy-=2;
+            if (p.vy > -20) p.vy-=2;
         }
         else
         {
