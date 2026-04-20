@@ -92,7 +92,7 @@ int main()
     SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
     InitWindow(960, 720, "Metal Slug"); // 960 720 NO ------ SI 1190 885 - Cal fer zoom quan puja la rampa
-    SetWindowMinSize(800, 450);
+
     //-----------------------------CHANGE ------------------------------------------
 
     bool inMenu = true;
@@ -312,18 +312,23 @@ int main()
         if (p.x < camera.target.x - 480) p.x = camera.target.x - 481;
 
 
+        // Get the visible world bounds from the camera
+        float camLeft = camera.target.x - (camera.offset.x) / camera.zoom;
+        float camRight = camera.target.x + (screenWidth2 - camera.offset.x) / camera.zoom;
+        float camTop = camera.target.y - (camera.offset.y) / camera.zoom;
+        float camBottom = camera.target.y + (screenHeight2 - camera.offset.y) / camera.zoom;
+
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
 
             bullets[i].x += bullets[i].vx;
             bullets[i].y += bullets[i].vy;
 
-            if (bullets[i].x < 0 || bullets[i].x > worldWidth ||
-                bullets[i].y < 0 || bullets[i].y > worldHeight) {
+            if (bullets[i].x < camLeft || bullets[i].x > camRight ||
+                bullets[i].y < camTop || bullets[i].y > camBottom) {
                 bullets[i].active = false;
             }
         }
-
 
         for (int i = 0; i < MAX_BULLETSE; i++) {
             if (!bulletse[i].active) continue;
@@ -331,8 +336,8 @@ int main()
             bulletse[i].x += bulletse[i].vx;
             bulletse[i].y += bulletse[i].vy;
 
-            if (bulletse[i].x < 0 || bulletse[i].x > worldWidth ||
-                bulletse[i].y < 0 || bulletse[i].y > worldHeight) {
+            if (bulletse[i].x < camLeft || bulletse[i].x > camRight ||
+                bulletse[i].y < camTop || bulletse[i].y > camBottom) {
                 bulletse[i].active = false;
             }
         }
@@ -375,6 +380,35 @@ int main()
         // --- Dibujo ---
         BeginDrawing();
         ClearBackground(RED);
+
+
+        if (IsKeyPressed(KEY_F))
+        {
+            for (int i = 0; i < MAX_BULLETS; i++) {
+                if (!bullets[i].active) {
+                    bullets[i].x = (float)p.x;
+                    bullets[i].y = (float)p.y + 100; // Altura d'on dispara la bala
+
+
+                    if (IsKeyDown(KEY_W)) {
+                        bullets[i].vx = 0;
+                        bullets[i].vy = -15.0f; // up
+                    }
+                    else if (IsKeyDown(KEY_S)) {
+                        bullets[i].vx = 0;
+                        bullets[i].vy = 15.0f; // down
+                    }
+                    else {
+                        bullets[i].vx = 15.0f * p.facing; // left/right
+                        bullets[i].vy = 0;
+                    }
+
+                    bullets[i].active = true;
+                    break;
+                }
+            }
+
+        }
 
         BeginMode2D(camera);
         // Fondo en el origen del mundo
@@ -489,7 +523,6 @@ int main()
 
         if (inMenu == true) {
 
-
             Rectangle src2 = { 0, 0, (float)start.width, (float)start.height };
             Rectangle dest2 = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
 
@@ -521,7 +554,7 @@ int main()
 
             // --- Movimiento horizontal ---
             if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) {
-                p.vx++;
+                p.vx ++;
                 p.facing = 1;
             }
             else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)) {
@@ -542,34 +575,6 @@ int main()
             else if (IsKeyDown(KEY_S)) p.facingy = -1;
 
 
-            if (IsKeyPressed(KEY_F))
-            {
-                vpunts++;
-                for (int i = 0; i < MAX_BULLETS; i++) {
-                    if (!bullets[i].active) {
-                        bullets[i].x = (float)p.x;
-                        bullets[i].y = (float)p.y + 100; // Altura d'on dispara la bala
-
-
-                        if (IsKeyDown(KEY_W)) {
-                            bullets[i].vx = 0;
-                            bullets[i].vy = -15.0f; // up
-                        }
-                        else if (IsKeyDown(KEY_S)) {
-                            bullets[i].vx = 0;
-                            bullets[i].vy = 15.0f; // down
-                        }
-                        else {
-                            bullets[i].vx = 15.0f * p.facing; // left/right
-                            bullets[i].vy = 0;
-                        }
-
-                        bullets[i].active = true;
-                        break;
-                    }
-                }
-
-            }
         }
 
 
