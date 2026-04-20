@@ -136,11 +136,11 @@ int main()
     const int   worldHeight = (int)(bg.height * bgScale);
     int   FLOOR_Y = 1300; //1300 - 780
 
-    player p = { 400, FLOOR_Y + 1 , 0, 0, true };
+    player p = { 400, 1220 , 0, 0, true };
 
     //enemics
 
-    soldier s1 = { 1200, FLOOR_Y + 1 };
+    soldier s1 = { 1200, 1220 };
 
     // --- C�mara 2D ---
     Camera2D camera = { 0 };
@@ -253,13 +253,15 @@ int main()
         if (p.x > 17750) FLOOR_Y = 700;
 
         // --- Obstacles ---
-        if (p.x < camera.target.x - 480) p.x = camera.target.x - 481;
-        if (p.x <= 3385 && p.y > 1300) p.x = 3390;
+        if (p.x <= 3385 && p.y > 1220) p.x = 3390;
         if (p.x >= 9045 && p.x <= 9050 && p.y > 1350) p.x = 9040;
-        if (p.x >= 9350 && p.x <= 9405 && p.y > 1350) p.x = 9410;
+        if (p.x >= 9350 && p.x <= 9405 && p.y > 1260) p.x = 9410;
         if (p.x >= 10095 && p.x <= 10150 && p.y > 1220) p.x = 10090;
         if (p.x >= 10245 && p.x <= 10300 && p.y > 1021) p.x = 10245;
         if (p.x >= 10600 && p.x <= 10705 && p.y > 1021) p.x = 10710;
+
+        // --- Camera ---
+        if (p.x < camera.target.x - 480) p.x = camera.target.x - 481;
 
 
         // --- Cheats ---
@@ -279,8 +281,7 @@ int main()
             for (int i = 0; i < MAX_BULLETS; i++) {
                 if (!bullets[i].active) {
                     bullets[i].x = (float)p.x;
-                    bullets[i].y = (float)p.y+100; // Altura d'on dispara la bala
-
+                    bullets[i].y = (float)p.y+100; // Altura d'on dispara la ball
 
                     if (IsKeyDown(KEY_W)) {
                         bullets[i].vx = 0;
@@ -381,7 +382,7 @@ int main()
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
             DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
-            if (bullets[i].x == s1.ex)
+            if (bullets[i].x>=s1.ex-7 && bullets[i].x>=s1.ex+7)
             {
                 s1.ehp--;
             }
