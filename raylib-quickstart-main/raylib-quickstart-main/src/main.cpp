@@ -32,7 +32,7 @@ class soldier
 public:
     float ex;
     int ey;
-    int hp = 1;
+    int ehp = 1;
     int efacing = 1; // 1 = right, -1 = left
     int efacingy = 1; // 1 = up, -1 = down
 };
@@ -383,7 +383,7 @@ int main()
             DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
             if (bullets[i].x == s1.ex)
             {
-                s1.hp--;
+                s1.ehp--;
             }
         }
 
@@ -397,7 +397,7 @@ int main()
         }
 
         //enemics
-        if (s1.hp == 1)
+        if (s1.ehp == 1)
         {
             Vector2 position = { 0.0f, 0.0f };
             Rectangle posidles1 = { (float)s1.ex, (float)s1.ey - 95, framereceidle.width * 5, framereceidle.height * 5 };
