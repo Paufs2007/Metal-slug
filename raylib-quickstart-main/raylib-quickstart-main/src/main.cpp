@@ -533,6 +533,9 @@ int main()
             if (IsKeyDown(KEY_W)) p.facingy = 1;
             else if (IsKeyDown(KEY_S)) p.facingy = -1;
 
+            if (IsKeyPressed(KEY_C))
+                p.credits++;
+
         }
 
         int textWidth = MeasureText(cpunts, 30);
