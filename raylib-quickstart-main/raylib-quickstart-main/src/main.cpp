@@ -178,7 +178,7 @@ int main()
 
     //enemics
 
-    soldier s1 = { 1200, FLOOR_Y-95};
+    soldier s1 = { 19500, 605};
     bool bs1 = true;
     // --- C�mara 2D ---
     Camera2D camera = { 0 };
@@ -467,9 +467,7 @@ int main()
             if (!bulletse[i].active) continue;
             DrawTexture(bullet, (int)bulletse[i].x, (int)bulletse[i].y, WHITE);
 
-            if (hitCooldown <= 0.0f &&
-                bulletse[i].x >= p.x - 30 && bulletse[i].x <= p.x + 30 &&
-                bulletse[i].y >= p.y - 200 && bulletse[i].y <= p.y + 50)
+            if (bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y && bulletse[i].y <= p.y + 200)
             {
                 bulletse[i].active = false;
                 hitCooldown = 1.5f;
@@ -493,6 +491,16 @@ int main()
                 PlaySound(soundArray[2]);
             
             if (IsKeyPressed(KEY_F))
+
+            // --- SHOOTING ---
+            // Rapid fire: holds F to keep shooting
+            static float shootTimer = 0.0f;
+            const float shootInterval = 0.12f; // ~8 shots/sec like Metal Slug 1
+
+            shootTimer += GetFrameTime();
+
+            if (IsKeyDown(KEY_F) && shootTimer >= shootInterval)
+
             {
                 p.isshooting = 1;
                 currentFramtir = 0;
@@ -525,7 +533,7 @@ int main()
 
             }
         }
-
+        
         //enemics
         if (s1.ehp == 1) {
 
@@ -725,7 +733,6 @@ int main()
             DrawTexturePro(p1baixtire, framerecbaixtire, posajutire, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        
 
         EndMode2D();
 
@@ -901,3 +908,5 @@ int main()
     CloseWindow();
     return 0;
 }
+// Copyright (c) 2026 Explota Studio
+// Licensed under the MIT License

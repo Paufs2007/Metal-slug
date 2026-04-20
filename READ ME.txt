@@ -16,3 +16,4 @@ J to shoot
 C to insert credit
 ENTER to start (requires credit)
 
+[List of features implemented]
