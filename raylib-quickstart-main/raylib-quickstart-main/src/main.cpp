@@ -457,7 +457,7 @@ int main()
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
             DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
-            if (bullets[i].x >= s1.ex - 7 && bullets[i].x <= s1.ex + 7 && bullets[i].y >= s1.ey)
+            if (bullets[i].x >= s1.ex && bullets[i].x <= s1.ex + 100 && bullets[i].y >= s1.ey && bullets[i].y <= s1.ey+200)
             {
                 s1.ehp--;
             }
