@@ -20,7 +20,7 @@ public:
     int credits;
     int vides = 3; 
     int hp = 1;
-
+    bool menu = true;
     void jump() {
         vy = 30;
         canJump = false;
@@ -89,7 +89,7 @@ int main()
     //-----------------------------CHANGE ------------------------------------------
     SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
-    InitWindow(1190, 885, "Metal Slug"); // 960 720 NO ------ SI 1190 885 - Cal fer zoom quan puja la rampa
+    InitWindow(960, 720, "Metal Slug"); // 960 720 NO ------ SI 1190 885 - Cal fer zoom quan puja la rampa
     SetWindowMinSize(800, 450);
     //-----------------------------CHANGE ------------------------------------------
 
@@ -270,7 +270,7 @@ int main()
 
         //Aim direction
         if (IsKeyDown(KEY_W)) p.facingy = 1;
-        else if (IsKeyDown(KEY_S)) p.facingy = -1;
+        else if (IsKeyDown(KEY_S) && p.y > FLOOR_Y) p.facingy = -1;
 
 
         if (IsKeyPressed(KEY_F))
@@ -492,7 +492,7 @@ int main()
 
         DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
      
-        DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, 855, 40, RED);
+        DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, 670, 40, RED);
 
 
         // canotnada dreta
