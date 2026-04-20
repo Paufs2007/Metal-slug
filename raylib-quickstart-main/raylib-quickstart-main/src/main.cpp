@@ -7,6 +7,7 @@ using namespace std;
 #define MIN_FRAME_SPEED  1
 Sound soundArray[10];
 Music musicArray[10];
+
 class player
 {
 public:
@@ -17,6 +18,7 @@ public:
     bool canJump;
     int facing = 1; // 1 = right, -1 = left
     int facingy = 1; // 1 = up, -1 = down
+    int isshooting = -1; // 1= true, -1 = false
     int credits;
     int vides = 3; 
     int hp = 1;
@@ -127,10 +129,14 @@ int main()
     Texture p1scape = LoadTexture("scape.png");
     Texture p1scames = LoadTexture("scames.png");
     Texture p1scamese = LoadTexture("scamese.png");
+    Texture p1shot = LoadTexture("captir.png");
+    Texture p1shote = LoadTexture("captire.png");
+    Texture p1camq = LoadTexture("camesquiet.png");
+    Texture p1camqe = LoadTexture("camesquiete.png");
 
     //timer
 
-    int timerlife = 453;
+    int timerlife = 450;
 
     Timer vidaTimer = { 0 };
 
@@ -156,6 +162,10 @@ int main()
 
     Rectangle framereceidle = { 0, 0, (float)sidle.width / 4, (float)sidle.height };
 
+    Rectangle framereccamqe = { 0, 0, (float)p1camqe.width / 4, (float)p1camqe.height };
+    Rectangle framereccamq = { 0, 0, (float)p1camq.width / 4, (float)p1camq.height };
+    Rectangle framerectire = { 0, 0, (float)p1shote.width / 10, (float)p1shote.height };
+    Rectangle framerectir = { 0, 0, (float)p1shot.width / 10, (float)p1shot.height };
     Rectangle framerecscamese = { 0, 0, (float)p1scamese.width / 6, (float)p1scamese.height };
     Rectangle framerecscames = { 0, 0, (float)p1scames.width / 6, (float)p1scames.height };
     Rectangle framerecscape = { 0, 0, (float)p1scape.width / 6, (float)p1scape.height };
@@ -169,8 +179,10 @@ int main()
     int currentFrameidle = 0;
     int currentFramcorrer = 0;
     int currentFramsalt = 0;
+    int currentFramtir = 0;
     int framesCounter = 0;
     int framesSpeed = 3;
+    int framesSpeedtir = 4;
 
     //BULLETS
     const int MAX_BULLETSE = 20000;
@@ -187,9 +199,6 @@ int main()
             ToggleFullscreen();
         }
 
-        //timer
-
-        updatetimer(&vidaTimer);
 
         // --- Animaci�n ---
         framesCounter++;
@@ -216,6 +225,10 @@ int main()
 
             frameRecidlee.x = (float)currentFrameidle * (float)p1e.width / 4;
 
+            framereccamq.x = (float)currentFrameidle * (float)p1camq.width / 4;
+
+            framereccamqe.x = (float)currentFrameidle * (float)p1camqe.width / 4;
+
             framerecscap.x = (float)currentFramsalt * (float)p1scap.width / 6;
 
             framerecscape.x = (float)currentFramsalt * (float)p1scape.width / 6;
@@ -227,6 +240,20 @@ int main()
             frameRecdretacorrent.x = (float)currentFramcorrer * (float)p1dretacorrentcames.width / 12;
 
             frameesquerracorrent.x = (float)currentFramcorrer * (float)p1esquerracorrentcames.width / 12;
+        }
+
+        if (framesCounter >= (60 / framesSpeedtir))
+        {
+            currentFramtir++;
+            if (currentFramtir >= 10)
+            {
+                currentFramtir = 0;
+                p.isshooting = -1;
+            }
+
+            framerectir.x = (float)currentFramtir * (float)p1shot.width / 10;
+
+            framerectire.x = (float)currentFramtir * (float)p1shote.width / 10;
         }
 
         if (IsKeyPressed(KEY_SPACE))
@@ -254,16 +281,6 @@ int main()
             p.vy = 0;
         }
 
-        // --- Movimiento horizontal ---
-        if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) {
-            p.vx++;
-            p.facing = 1;
-        }
-        else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)) {
-            p.vx--;
-            p.facing = -1;
-        }
-        else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
 
         // --- FLOOR_Y ---
         if (p.x > 0) FLOOR_Y = 1220;
@@ -294,45 +311,6 @@ int main()
         // --- Camera ---
         if (p.x < camera.target.x - 480) p.x = camera.target.x - 481;
 
-
-        // --- Cheats ---
-        if (IsKeyDown(KEY_L)) p.x = 18000;
-
-        // --- Salto ---
-        if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
-
-        //Aim direction
-        if (IsKeyDown(KEY_W)) p.facingy = 1;
-        else if (IsKeyDown(KEY_S) && p.y > FLOOR_Y) p.facingy = -1;
-
-
-        if (IsKeyPressed(KEY_F))
-        {
-            vpunts++;
-            for (int i = 0; i < MAX_BULLETS; i++) {
-                if (!bullets[i].active) {
-                    bullets[i].x = (float)p.x;
-                    bullets[i].y = (float)p.y+100; // Altura d'on dispara la ball
-
-                    if (IsKeyDown(KEY_W)) {
-                        bullets[i].vx = 0;
-                        bullets[i].vy = -15.0f; // up
-                    }
-                    else if (IsKeyDown(KEY_S)) {
-                        bullets[i].vx = 0;
-                        bullets[i].vy = 15.0f; // down
-                    }
-                    else {
-                        bullets[i].vx = 15.0f * p.facing; // left/right
-                        bullets[i].vy = 0;
-                    }
-
-                    bullets[i].active = true;
-                    break;
-                }
-            }
-
-        }
 
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
@@ -446,14 +424,14 @@ int main()
 
         // Jugador en su posici�n del mundo 
 
-        if (p.vx == 0 && p.facing == 1 && p.canJump == true)
+        if (p.vx == 0 && p.facing == 1 && p.canJump == true && p.isshooting == -1)
         {
             Vector2 position = { 0.0f, 0.0f };
             Rectangle posidle = { (float)p.x, (float)p.y, frameRecidle.width * 5, frameRecidle.height * 5 };
             DrawTexturePro(p1, frameRecidle, posidle, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        else if (p.vx > 0 && p.facing == 1 && p.canJump == true)
+        else if (p.vx > 0 && p.facing == 1 && p.canJump == true && p.isshooting == -1)
         {
             Vector2 position = { frameRecdretacorrent.width * 4.75f / 2, frameRecdretacorrent.height * 4.75f / 2 };
             Rectangle posdretacorrent = { (float)p.x + 30, (float)p.y + 138, frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
@@ -462,7 +440,7 @@ int main()
             DrawTexturePro(p1cap, frameReccap, poscap, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        else if (p.vx < 0 && p.facing == -1 && p.canJump == true)
+        else if (p.vx < 0 && p.facing == -1 && p.canJump == true && p.isshooting == -1)
         {
             Vector2 position = { frameesquerracorrent.width * 4.75f / 2, frameesquerracorrent.height * 4.75f / 2 };
             Rectangle posesquerracorrent = { (float)p.x + 80, (float)p.y + 138,  frameesquerracorrent.width * 4.75, frameesquerracorrent.height * 4.75 };
@@ -471,14 +449,14 @@ int main()
             DrawTexturePro(p1cape, frameReccape, poscap, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        else if (p.vx == 0 && p.facing == -1 && p.canJump == true)
+        else if (p.vx == 0 && p.facing == -1 && p.canJump == true && p.isshooting == -1)
         {
             Vector2 position = { 0.0f, 0.0f };
             Rectangle posidle = { (float)p.x, (float)p.y, frameRecidlee.width * 5, frameRecidlee.height * 5 };
             DrawTexturePro(p1e, frameRecidlee, posidle, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        else if (p.canJump == false && p.facing == 1)
+        else if (p.canJump == false && p.facing == 1 && p.isshooting == -1)
         {
             Vector2 position = { 0.0f, 0.0f };
             Rectangle poscamess = { (float)p.x, (float)p.y, framerecscames.width * 5, framerecscames.height * 5 };
@@ -487,12 +465,24 @@ int main()
             DrawTexturePro(p1scames, framerecscames, poscamess, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        else if (p.canJump == false && p.facing == -1)
+        else if (p.canJump == false && p.facing == -1 && p.isshooting == -1)
         {
-        
-        
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle poscamesse = { (float)p.x, (float)p.y, framerecscamese.width * 5, framerecscamese.height * 5 };
+            Rectangle poscapse = { (float)p.x, (float)p.y - 100, framerecscape.width * 5, framerecscape.height * 5 };
+            DrawTexturePro(p1scape, framerecscape, poscapse, position, 0, WHITE);
+            DrawTexturePro(p1scamese, framerecscamese, poscamesse, position, 0, WHITE);
+            DrawText(cix, p.x, p.y, 20, RED);
         }
-
+        else if (p.vx == 0 && p.canJump == true && p.facing == 1 && p.isshooting == 1)
+        {
+            Vector2 position = { 0.0f, 0.0f }; 
+            Rectangle camqu = { (float)p.x - 20, (float)p.y + 105, framereccamq.width * 5, framereccamq.height * 5 };
+            Rectangle poshots = { (float)p.x - 65, (float)p.y, framerectir.width * 5, framerectir.height * 5 };
+            DrawTexturePro(p1shot, framerectir, poshots, position, 0, WHITE);
+            DrawTexturePro(p1camq, framereccamq, camqu, position,  0, WHITE);
+            DrawText(cix, p.x, p.y, 20, RED);
+        }
 
         EndMode2D();
 
@@ -505,24 +495,91 @@ int main()
 
             DrawTexturePro(start, src2, dest2, { 0, 0 }, 0.0f, WHITE);
 
-            if (IsKeyPressed(KEY_C))
-                p.credits++;
+                if (IsKeyPressed(KEY_C))
+                    p.credits++;
+                    p.vx = 0;
 
-            if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
-            {
-                p.credits--;
-                inMenu = false;
-            }
+
+                if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
+                {
+                    p.credits--;
+                    UnloadTexture(start);
+
+
+                    inMenu = false;
+                }
 
         }
+        else {
+
+
+            //timer
+
+            DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
+
+            updatetimer(&vidaTimer);
+
+            // --- Movimiento horizontal ---
+            if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) {
+                p.vx++;
+                p.facing = 1;
+            }
+            else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)) {
+                p.vx--;
+                p.facing = -1;
+            }
+            else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
+
+
+            // --- Cheats ---
+            if (IsKeyDown(KEY_L)) p.x = 18000;
+
+            // --- Salto ---
+            if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
+
+            //Aim direction
+            if (IsKeyDown(KEY_W)) p.facingy = 1;
+            else if (IsKeyDown(KEY_S)) p.facingy = -1;
+
+
+            if (IsKeyPressed(KEY_F))
+            {
+                vpunts++;
+                for (int i = 0; i < MAX_BULLETS; i++) {
+                    if (!bullets[i].active) {
+                        bullets[i].x = (float)p.x;
+                        bullets[i].y = (float)p.y + 100; // Altura d'on dispara la bala
+
+
+                        if (IsKeyDown(KEY_W)) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = -15.0f; // up
+                        }
+                        else if (IsKeyDown(KEY_S)) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = 15.0f; // down
+                        }
+                        else {
+                            bullets[i].vx = 15.0f * p.facing; // left/right
+                            bullets[i].vy = 0;
+                        }
+
+                        bullets[i].active = true;
+                        break;
+                    }
+                }
+
+            }
+        }
+
+
 
         int textWidth = MeasureText(cpunts, 30);
 
         //mitj pantalla
 
-        DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
      
-        DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, 675, 40, RED);
+        DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, 670, 40, RED);
 
 
         // canotnada dreta
@@ -543,6 +600,16 @@ int main()
     UnloadTexture(bullet);
     UnloadTexture(sidle);
     UnloadTexture(start);
+    UnloadTexture(p1scap);
+    UnloadTexture(p1e);
+    UnloadTexture(p1esquerracorrentcames);
+    UnloadTexture(p1scape);
+    UnloadTexture(p1scames);
+    UnloadTexture(p1scamese);
+    UnloadTexture(p1shot);
+    UnloadTexture(p1shote);
+    UnloadTexture(p1camq);
+    UnloadTexture(p1camqe);
     CloseWindow();
     return 0;
 }
