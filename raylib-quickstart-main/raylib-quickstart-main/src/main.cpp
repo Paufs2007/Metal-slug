@@ -384,6 +384,8 @@ int main()
 
         if (IsKeyPressed(KEY_F))
         {
+            p.isshooting = 1;
+            currentFramtir = 0;
             for (int i = 0; i < MAX_BULLETS; i++) {
                 if (!bullets[i].active) {
                     bullets[i].x = (float)p.x;
