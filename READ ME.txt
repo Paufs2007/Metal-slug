@@ -7,13 +7,77 @@ Aidan -> AidanJake
 Pau -> Paufs2007
 Emma -> Emma-Riera
 
-[short description of the game]
+Short description:
+A 2D side-scrolling action shooter that resembles Metal Slug, where the player controls a soldier that runs, jumps, 
+crouches, and shoots in multiple directions while fighting off enemies through a large scrolling level. Taking damage 
+from enemies removes credits. When reaching 0 credits, the player loses. You can also lose by running out of time. The game 
+features animated sprites, music, sound effects, a win and lose screen, and finally a start menu, all with the objective 
+of defeating enemies, surviving and completing the mission.
 
+Controls:
 A and D to move left and right
 W and S to aim up and down
 SPACE to jump
 J to shoot
 C to insert credit
+M to mute only music
+N to unmute only music
 ENTER to start (requires credit)
 
-[List of features implemented]
+Features:
+
+1. Player actions:
+Up
+Down
+Left
+Right
+Jumping
+Crouching
+Shooting
+
+
+2. Enemies:
+Take damage
+Inflict damage
+Shoot projectiles both left and right depending on the players position
+Health (Die with one hit)
+Gravity
+
+3. UI:
+Points
+Timer
+Credits
+Debug text
+
+4. Audio:
+Sound effects
+Music
+Mute button
+
+5. Screens:
+Start screen
+Game screen
+Losing screen
+
+6. Animations:
+Player animations:
+- Shooting
+- Jumping
+- Crouching
+- Walking
+- Taking damage
+
+Enemy animations:
+- Still
+
+7. Camera system:
+Follows the player on the map from left to right
+
+
+8. Terrain:
+Ramps
+Flat surface
+Platforms
+
+
+This project is licensed under the MIT License - see the LICENSE file for details.
