@@ -131,7 +131,7 @@ int main()
 
     //timer
 
-    int timerlife = 453;
+    int timerlife = 450;
 
     Timer vidaTimer = { 0 };
 
@@ -189,9 +189,6 @@ int main()
             ToggleFullscreen();
         }
 
-        //timer
-
-        updatetimer(&vidaTimer);
 
         // --- Animaci�n ---
         framesCounter++;
@@ -256,16 +253,7 @@ int main()
             p.vy = 0;
         }
 
-        // --- Movimiento horizontal ---
-        if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) {
-            p.vx++;
-            p.facing = 1;
-        }
-        else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)) {
-            p.vx--;
-            p.facing = -1;
-        }
-        else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
+
 
         // --- FLOOR_Y ---
         if (p.x > 0) FLOOR_Y = 1220;
@@ -317,10 +305,10 @@ int main()
 
         if (IsKeyPressed(KEY_F))
         {
-            vpunts++;
+
             for (int i = 0; i < MAX_BULLETS; i++) {
                 if (!bullets[i].active) {
-                    bullets[i].x = (float)p.x;
+                    bullets[i].x = (float)p.x+10;
                     bullets[i].y = (float)p.y+100; // Altura d'on dispara la ball
 
                     if (IsKeyDown(KEY_W)) {
@@ -408,35 +396,8 @@ int main()
         ClearBackground(RED);
 
 
-        if (IsKeyPressed(KEY_F))
-        {
-            p.isshooting = 1;
-            
-            for (int i = 0; i < MAX_BULLETS; i++) {
-                if (!bullets[i].active) {
-                    bullets[i].x = (float)p.x;
-                    bullets[i].y = (float)p.y + 100; // Altura d'on dispara la bala
 
 
-                    if (IsKeyDown(KEY_W)) {
-                        bullets[i].vx = 0;
-                        bullets[i].vy = -30.0f; // up
-                    }
-                    else if (IsKeyDown(KEY_S)) {
-                        bullets[i].vx = 0;
-                        bullets[i].vy = 30.0f; // down
-                    }
-                    else {
-                        bullets[i].vx = 30.0f * p.facing; // left/right
-                        bullets[i].vy = 0;
-                    }
-
-                    bullets[i].active = true;
-                    break;
-                }
-            }
-
-        }
 
         BeginMode2D(camera);
         // Fondo en el origen del mundo
@@ -560,6 +521,11 @@ int main()
         else {
 
 
+            //timer
+            DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
+
+            updatetimer(&vidaTimer);
+
             // --- Movimiento horizontal ---
             if (IsKeyDown(KEY_D) && p.vx < 10 && !IsKeyDown(KEY_A)) {
                 p.vx +=5;
@@ -595,7 +561,6 @@ int main()
 
         //mitj pantalla
 
-        DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
      
         DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, 675, 40, RED);
 
