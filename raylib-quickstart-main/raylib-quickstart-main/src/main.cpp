@@ -91,7 +91,7 @@ int main()
     //-----------------------------CHANGE ------------------------------------------
     SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
-    InitWindow(1300, 990, "Metal Slug");
+    InitWindow(1300, 952, "Metal Slug");
 
     //-----------------------------CHANGE ------------------------------------------
 
@@ -164,7 +164,7 @@ int main()
     bool bs1 = true;
     // --- C�mara 2D ---
     Camera2D camera = { 0 };
-    camera.offset = { 550, 499 }; // centrada en pantalla -----------------------------------------------------------------------------------------------------------------------------------
+    camera.offset = { 550, 459 }; // centrada en pantalla -----------------------------------------------------------------------------------------------------------------------------------
     camera.rotation = 0.0f;
     camera.zoom = 0.85f;
 
@@ -289,8 +289,7 @@ int main()
         if (IsKeyPressed(KEY_V))
             PlaySound(soundArray[1]);
 
-        if (IsKeyPressed(KEY_F))
-            PlaySound(soundArray[2]);
+
 
         // --- F�sica ---
         p.x += p.vx;
@@ -353,36 +352,6 @@ int main()
         //Aim direction
         if (IsKeyDown(KEY_W)) p.facingy = 1;
         else if (IsKeyDown(KEY_S) && p.y > FLOOR_Y) p.facingy = -1;
-
-
-        if (IsKeyPressed(KEY_F))
-        {
-            p.isshooting = 1;
-            currentFramtir = 0;
-            for (int i = 0; i < MAX_BULLETS; i++) {
-                if (!bullets[i].active) {
-                    bullets[i].x = (float)p.x+15;
-                    bullets[i].y = (float)p.y+55; // Altura d'on dispara la ball
-
-                    if (IsKeyDown(KEY_W)) {
-                        bullets[i].vx = 0;
-                        bullets[i].vy = -15.0f; // up
-                    }
-                    else if (IsKeyDown(KEY_S)) {
-                        bullets[i].vx = 0;
-                        bullets[i].vy = 15.0f; // down
-                    }
-                    else {
-                        bullets[i].vx = 15.0f * p.facing; // left/right
-                        bullets[i].vy = 0;
-                    }
-
-                    bullets[i].active = true;
-                    break;
-                }
-            }
-
-        }
 
 
         for (int i = 0; i < MAX_BULLETS; i++) {
@@ -658,6 +627,41 @@ int main()
 
             if (IsKeyPressed(KEY_C))
                 p.credits++;
+
+
+            if (IsKeyPressed(KEY_F))
+                PlaySound(soundArray[2]);
+
+            if (IsKeyPressed(KEY_F))
+            {
+                p.isshooting = 1;
+                currentFramtir = 0;
+                for (int i = 0; i < MAX_BULLETS; i++) {
+                    if (!bullets[i].active) {
+                        bullets[i].x = (float)p.x + 15;
+                        bullets[i].y = (float)p.y + 55; // Altura d'on dispara la ball
+
+                        if (IsKeyDown(KEY_W)) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = -15.0f; // up
+                        }
+                        else if (IsKeyDown(KEY_S)) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = 15.0f; // down
+                        }
+                        else {
+                            bullets[i].vx = 15.0f * p.facing; // left/right
+                            bullets[i].vy = 0;
+                        }
+
+                        bullets[i].active = true;
+                        break;
+                    }
+                }
+
+            }
+
+
 
         }
 
