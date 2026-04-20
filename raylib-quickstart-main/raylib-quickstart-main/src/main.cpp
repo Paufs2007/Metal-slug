@@ -23,7 +23,7 @@ public:
     int hp = 1;
     bool menu = true;
     void jump() {
-        vy = 30;
+        vy = 40;
         canJump = false;
     }
 };
@@ -95,6 +95,7 @@ int main()
     //-----------------------------CHANGE ------------------------------------------
 
     bool inMenu = true;
+    bool winscreen = false;
     int vpunts = 0;
     int screenWidth2 = GetScreenWidth();
     int screenHeight2 = GetScreenHeight();
@@ -132,6 +133,7 @@ int main()
     Texture p1shote = LoadTexture("captire.png");
     Texture p1camq = LoadTexture("camesquiet.png");
     Texture p1camqe = LoadTexture("camesquiete.png");
+    Texture win = LoadTexture("mission-1-complete.png");
 
     //timer
 
@@ -455,6 +457,7 @@ int main()
         {
             vpunts = vpunts + 10;
             bs1 = false;
+            winscreen = true;
         }
         
 
@@ -617,6 +620,12 @@ int main()
 
         }
 
+        if (winscreen == true) {
+            Rectangle src3 = { 0, 0, (float)win.width, (float)win.height };
+            Rectangle dest3 = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
+            DrawTexturePro(win, src3, dest3, { 0, 0 }, 0.0f, WHITE);
+        }
+
         int textWidth = MeasureText(cpunts, 30);
 
         //mitj pantalla
@@ -653,6 +662,7 @@ int main()
     UnloadTexture(p1shote);
     UnloadTexture(p1camq);
     UnloadTexture(p1camqe);
+    UnloadTexture(win);
     CloseWindow();
     return 0;
 }
