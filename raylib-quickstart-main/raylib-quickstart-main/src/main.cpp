@@ -489,7 +489,7 @@ int main()
 
             if (IsKeyPressed(KEY_F))
                 PlaySound(soundArray[2]);
-            
+
             // --- SHOOTING ---
             // Rapid fire: holds F to keep shooting
             static float shootTimer = 0.0f;
@@ -542,7 +542,7 @@ int main()
             if (IsKeyReleased(KEY_F)) {
                 p.isshooting = -1;
             }
-
+        }
         //enemics
         if (s1.ehp == 1) {
 
@@ -742,7 +742,6 @@ int main()
             DrawTexturePro(p1baixtire, framerecbaixtire, posajutire, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        DrawRectangle(p.x,p.y,100,200,RED);
 
         EndMode2D();
 
