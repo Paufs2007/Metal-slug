@@ -430,7 +430,7 @@ int main()
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
             DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
-            if (bullets[i].x>=s1.ex-7 && bullets[i].x<=s1.ex+7)
+            if (bullets[i].x>=s1.ex-7 && bullets[i].x<=s1.ex+7 && bullets[i].y <= s1.ey)
             {
                 s1.ehp--;
             }
@@ -509,7 +509,7 @@ int main()
         else if (p.canJump == false && p.facing == 1 && p.isshooting == 1)
         {
             Vector2 position = { 0.0f, 0.0f };
-            Rectangle poscamess = { (float)p.x, (float)p.y, framerecscames.width * 5, framerecscames.height * 5 };
+            Rectangle poscamess = { (float)p.x, (float)p.y + 90, framerecscames.width * 5, framerecscames.height * 5 };
             Rectangle poshots = { (float)p.x - 55, (float)p.y - 15, framerectir.width * 5, framerectir.height * 5 };
             DrawTexturePro(p1shot, framerectir, poshots, position, 0, WHITE);
             DrawTexturePro(p1scames, framerecscames, poscamess, position, 0, WHITE);
@@ -527,8 +527,8 @@ int main()
         else if (p.canJump == false && p.facing == -1 && p.isshooting == 1)
         {
             Vector2 position = { 0.0f, 0.0f };
-            Rectangle poscamesse = { (float)p.x, (float)p.y, framerecscamese.width * 5, framerecscamese.height * 5 };
-            Rectangle poshotse = { (float)p.x - 55, (float)p.y - 15, framerectire.width * 5, framerectire.height * 5 };
+            Rectangle poscamesse = { (float)p.x, (float)p.y + 90, framerecscamese.width * 5, framerecscamese.height * 5 };
+            Rectangle poshotse = { (float)p.x - 90, (float)p.y - 15, framerectire.width * 5, framerectire.height * 5 };
             DrawTexturePro(p1shote, framerectire, poshotse, position, 0, WHITE);
             DrawTexturePro(p1scamese, framerecscamese, poscamesse, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
