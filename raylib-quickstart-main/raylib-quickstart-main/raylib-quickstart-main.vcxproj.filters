@@ -62,17 +62,16 @@
     <Image Include="resources\bullet_the_OG.png">
       <Filter>Game Resource Files</Filter>
     </Image>
-<<<<<<< HEAD
     <Image Include="resources\cames caminant versio girada.png">
-=======
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cames quietes animacio ( versio girada.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
     <Image Include="resources\cames quietes animacio.png">
->>>>>>> parent of ef96da4 (Merge branch 'main' of https://github.com/Paufs2007/Metal-slug)
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\cames quietes.png">
-      <Filter>Game Resource Files</Filter>
-    </Image>
-    <Image Include="resources\cames saltant.png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\camescaminant.png">
@@ -81,38 +80,34 @@
     <Image Include="resources\camescorrent.png">
       <Filter>Game Resource Files</Filter>
     </Image>
-<<<<<<< HEAD
     <Image Include="resources\camescorrente.png">
-      <Filter>Game Resource Files</Filter>
-    </Image>
-    <Image Include="resources\camesquiet.png">
-      <Filter>Game Resource Files</Filter>
-    </Image>
-    <Image Include="resources\camesquiete.png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\cap apuntant cap amunt pistola versio girada .png">
       <Filter>Game Resource Files</Filter>
     </Image>
-=======
->>>>>>> parent of ef96da4 (Merge branch 'main' of https://github.com/Paufs2007/Metal-slug)
     <Image Include="resources\cap apuntant cap amunt pistola.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cap atack ganivet versio girada .png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\cap atack ganivet.png">
       <Filter>Game Resource Files</Filter>
     </Image>
-<<<<<<< HEAD
-    <Image Include="resources\cap recarega pistola versio girada.png">
-=======
+    <Image Include="resources\cap disparant pistola versio girada .png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
     <Image Include="resources\cap disparant pistola.png">
->>>>>>> parent of ef96da4 (Merge branch 'main' of https://github.com/Paufs2007/Metal-slug)
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cap recarega pistola versio girada.png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\cap recarega pistola.png">
       <Filter>Game Resource Files</Filter>
     </Image>
-    <Image Include="resources\cap saltant.png">
+    <Image Include="resources\cap suspirant ( versio girada .png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\cap suspirant.png">
@@ -121,25 +116,22 @@
     <Image Include="resources\capquiet.png">
       <Filter>Game Resource Files</Filter>
     </Image>
-<<<<<<< HEAD
     <Image Include="resources\capquiete.png">
-      <Filter>Game Resource Files</Filter>
-    </Image>
-    <Image Include="resources\captir.png">
-      <Filter>Game Resource Files</Filter>
-    </Image>
-    <Image Include="resources\captire.png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\dispara cap amunt pistola ( versio girada.png">
       <Filter>Game Resource Files</Filter>
     </Image>
-=======
->>>>>>> parent of ef96da4 (Merge branch 'main' of https://github.com/Paufs2007/Metal-slug)
     <Image Include="resources\dispara cap amunt pistola.png">
       <Filter>Game Resource Files</Filter>
     </Image>
+    <Image Include="resources\disparar ajopit pistola ( versio girada .png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
     <Image Include="resources\disparar ajopit pistola.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\estar ajupit ( versio girada.png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\estar ajupit.png">
@@ -149,6 +141,21 @@
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\p1idle.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\p1idlee.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\scames.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\scamese.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\scap.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\scape.png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\soldatidle.png">

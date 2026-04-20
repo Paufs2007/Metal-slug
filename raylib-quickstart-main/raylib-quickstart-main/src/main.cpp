@@ -17,6 +17,7 @@ public:
     bool canJump;
     int facing = 1; // 1 = right, -1 = left
     int facingy = 1; // 1 = up, -1 = down
+    int isshooting = -1;
     int credits;
     int vides = 3; 
     int hp = 1;
@@ -171,6 +172,7 @@ int main()
     int currentFramsalt = 0;
     int framesCounter = 0;
     int framesSpeed = 3;
+    int framespedtid = 4;
 
     //BULLETS
     const int MAX_BULLETSE = 20000;
@@ -295,13 +297,13 @@ int main()
         if (p.x < camera.target.x - 480) p.x = camera.target.x - 481;
 
 
-<<<<<<< HEAD
+
         // Get the visible world bounds from the camera
         float camLeft = camera.target.x - (camera.offset.x) / camera.zoom;
         float camRight = camera.target.x + (screenWidth2 - camera.offset.x) / camera.zoom;
         float camTop = camera.target.y - (camera.offset.y) / camera.zoom;
         float camBottom = camera.target.y + (screenHeight2 - camera.offset.y) / camera.zoom;
-=======
+
         // --- Cheats ---
         if (IsKeyDown(KEY_L)) p.x = 18000;
 
@@ -340,7 +342,7 @@ int main()
             }
 
         }
->>>>>>> parent of ef96da4 (Merge branch 'main' of https://github.com/Paufs2007/Metal-slug)
+
 
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
@@ -409,7 +411,7 @@ int main()
         if (IsKeyPressed(KEY_F))
         {
             p.isshooting = 1;
-            currentFramtir = 0;
+            
             for (int i = 0; i < MAX_BULLETS; i++) {
                 if (!bullets[i].active) {
                     bullets[i].x = (float)p.x;
@@ -545,8 +547,6 @@ int main()
             if (IsKeyPressed(KEY_C))
                 p.credits++;
 
-<<<<<<< HEAD
-
                 if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
                 {
                     p.credits--;
@@ -582,13 +582,12 @@ int main()
             if (IsKeyDown(KEY_W)) p.facingy = 1;
             else if (IsKeyDown(KEY_S)) p.facingy = -1;
 
-=======
+
             if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
             {
                 p.credits--;
                 inMenu = false;
             }
->>>>>>> parent of ef96da4 (Merge branch 'main' of https://github.com/Paufs2007/Metal-slug)
 
         }
 
