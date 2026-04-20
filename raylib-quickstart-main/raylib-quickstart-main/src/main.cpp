@@ -7,6 +7,7 @@ using namespace std;
 #define MIN_FRAME_SPEED  1
 Sound soundArray[10];
 Music musicArray[10];
+
 class player
 {
 public:
@@ -135,7 +136,7 @@ int main()
 
     //timer
 
-    int timerlife = 453;
+    int timerlife = 450;
 
     Timer vidaTimer = { 0 };
 
@@ -147,7 +148,7 @@ int main()
     const int   worldHeight = (int)(bg.height * bgScale);
     int   FLOOR_Y = 1300; //1300 - 780
 
-    player p = { 400, FLOOR_Y + 1 , 0, 0, true };
+    player p = { 400, 1220 , 0, 0, true };
 
     //enemics
 
@@ -198,9 +199,6 @@ int main()
             ToggleFullscreen();
         }
 
-        //timer
-
-        updatetimer(&vidaTimer);
 
         // --- Animaci�n ---
         framesCounter++;
@@ -283,16 +281,6 @@ int main()
             p.vy = 0;
         }
 
-        // --- Movimiento horizontal ---
-        if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) {
-            p.vx++;
-            p.facing = 1;
-        }
-        else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)) {
-            p.vx--;
-            p.facing = -1;
-        }
-        else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
 
         // --- FLOOR_Y ---
         if (p.x > 0) FLOOR_Y = 1220;
@@ -313,56 +301,16 @@ int main()
         if (p.x > 17750) FLOOR_Y = 700;
 
         // --- Obstacles ---
-        if (p.x < camera.target.x - 480) p.x = camera.target.x - 481;
-        if (p.x <= 3385 && p.y > 1300) p.x = 3390;
+        if (p.x <= 3385 && p.y > 1220) p.x = 3390;
         if (p.x >= 9045 && p.x <= 9050 && p.y > 1350) p.x = 9040;
-        if (p.x >= 9350 && p.x <= 9405 && p.y > 1350) p.x = 9410;
+        if (p.x >= 9350 && p.x <= 9405 && p.y > 1260) p.x = 9410;
         if (p.x >= 10095 && p.x <= 10150 && p.y > 1220) p.x = 10090;
         if (p.x >= 10245 && p.x <= 10300 && p.y > 1021) p.x = 10245;
         if (p.x >= 10600 && p.x <= 10705 && p.y > 1021) p.x = 10710;
 
+        // --- Camera ---
+        if (p.x < camera.target.x - 480) p.x = camera.target.x - 481;
 
-        // --- Cheats ---
-        if (IsKeyDown(KEY_L)) p.x = 18000;
-
-        // --- Salto ---
-        if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
-
-        //Aim direction
-        if (IsKeyDown(KEY_W)) p.facingy = 1;
-        else if (IsKeyDown(KEY_S) && p.y > FLOOR_Y) p.facingy = -1;
-
-
-        if (IsKeyPressed(KEY_F))
-        {
-            p.isshooting = 1;
-            currentFramtir = 0;
-            vpunts++;
-            for (int i = 0; i < MAX_BULLETS; i++) {
-                if (!bullets[i].active) {
-                    bullets[i].x = (float)p.x;
-                    bullets[i].y = (float)p.y+100; // Altura d'on dispara la bala
-
-
-                    if (IsKeyDown(KEY_W)) {
-                        bullets[i].vx = 0;
-                        bullets[i].vy = -15.0f; // up
-                    }
-                    else if (IsKeyDown(KEY_S)) {
-                        bullets[i].vx = 0;
-                        bullets[i].vy = 15.0f; // down
-                    }
-                    else {
-                        bullets[i].vx = 15.0f * p.facing; // left/right
-                        bullets[i].vy = 0;
-                    }
-
-                    bullets[i].active = true;
-                    break;
-                }
-            }
-
-        }
 
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
@@ -443,7 +391,7 @@ int main()
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
             DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
-            if ((float)bullets[i].x >= (float)s1.ex - 10 && (float)bullets[i].x <= (float)s1.ex + 10)
+            if (bullets[i].x>=s1.ex-7 && bullets[i].x>=s1.ex+7)
             {
                 s1.ehp--;
             }
@@ -547,24 +495,91 @@ int main()
 
             DrawTexturePro(start, src2, dest2, { 0, 0 }, 0.0f, WHITE);
 
-            if (IsKeyPressed(KEY_C))
-                p.credits++;
+                if (IsKeyPressed(KEY_C))
+                    p.credits++;
+                    p.vx = 0;
 
-            if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
-            {
-                p.credits--;
-                inMenu = false;
-            }
+
+                if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
+                {
+                    p.credits--;
+                    UnloadTexture(start);
+
+
+                    inMenu = false;
+                }
 
         }
+        else {
+
+
+            //timer
+
+            DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
+
+            updatetimer(&vidaTimer);
+
+            // --- Movimiento horizontal ---
+            if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) {
+                p.vx++;
+                p.facing = 1;
+            }
+            else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)) {
+                p.vx--;
+                p.facing = -1;
+            }
+            else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
+
+
+            // --- Cheats ---
+            if (IsKeyDown(KEY_L)) p.x = 18000;
+
+            // --- Salto ---
+            if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
+
+            //Aim direction
+            if (IsKeyDown(KEY_W)) p.facingy = 1;
+            else if (IsKeyDown(KEY_S)) p.facingy = -1;
+
+
+            if (IsKeyPressed(KEY_F))
+            {
+                vpunts++;
+                for (int i = 0; i < MAX_BULLETS; i++) {
+                    if (!bullets[i].active) {
+                        bullets[i].x = (float)p.x;
+                        bullets[i].y = (float)p.y + 100; // Altura d'on dispara la bala
+
+
+                        if (IsKeyDown(KEY_W)) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = -15.0f; // up
+                        }
+                        else if (IsKeyDown(KEY_S)) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = 15.0f; // down
+                        }
+                        else {
+                            bullets[i].vx = 15.0f * p.facing; // left/right
+                            bullets[i].vy = 0;
+                        }
+
+                        bullets[i].active = true;
+                        break;
+                    }
+                }
+
+            }
+        }
+
+
 
         int textWidth = MeasureText(cpunts, 30);
 
         //mitj pantalla
 
-        DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
      
-        DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, 675, 40, RED);
+        DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, 670, 40, RED);
 
 
         // canotnada dreta
