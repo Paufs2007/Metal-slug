@@ -164,7 +164,7 @@ int main()
     bool bs1 = true;
     // --- C�mara 2D ---
     Camera2D camera = { 0 };
-    camera.offset = { 550, 459 }; // centrada en pantalla -----------------------------------------------------------------------------------------------------------------------------------
+    camera.offset = { 550, 459 }; // centrada en pantalla 
     camera.rotation = 0.0f;
     camera.zoom = 0.85f;
 
@@ -314,7 +314,7 @@ int main()
         if (p.x > 3370) FLOOR_Y = 1380;
         if (p.x > 8900) FLOOR_Y = p.x * -0.8 + 8500;
         if (p.x > 9050) FLOOR_Y = 1260;
-        if (p.x > 9390) FLOOR_Y = 1380;
+        if (p.x > 9400) FLOOR_Y = 1380;
         if (p.x > 10100) FLOOR_Y = 1220;
         if (p.x > 10250) FLOOR_Y = 1020;
         if (p.x > 10700) FLOOR_Y = 1380;
@@ -329,7 +329,7 @@ int main()
 
         // --- Obstacles ---
         if (p.x <= 3385 && p.y > 1220) p.x = 3390;
-        if (p.x >= 9350 && p.x <= 9405 && p.y >= 1220) p.x = 9410;
+        if (p.x >= 9350 && p.x <= 9405 && p.y > 1219) p.x = 9410;
         if (p.x >= 10095 && p.x <= 10150 && p.y > 1220) p.x = 10090;
         if (p.x >= 10245 && p.x <= 10300 && p.y > 1021) p.x = 10240;
         if (p.x >= 10600 && p.x <= 10710 && p.y > 1021) p.x = 10715;
