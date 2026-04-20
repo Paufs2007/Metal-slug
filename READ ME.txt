@@ -17,3 +17,5 @@ C to insert credit
 ENTER to start (requires credit)
 
 [List of features implemented]
+
+This project is licensed under the MIT License - see the LICENSE file for details.
