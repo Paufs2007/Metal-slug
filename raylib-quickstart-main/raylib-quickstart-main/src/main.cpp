@@ -475,7 +475,7 @@ int main()
                 p.credits--;
 
                 // knockback away from bullet direction
-                p.vx = (bulletse[i].vx > 0) ? 15 : -15;
+                p.vx = (bulletse[i].vx > 0) ? 0 : 0;
                 p.vy = 20; // slight upward bounce
 
                 if (p.credits <= 0) {
