@@ -131,7 +131,7 @@ int main()
 
     //timer
 
-    int timerlife = 453;
+    int timerlife = 450;
 
     Timer vidaTimer = { 0 };
 
@@ -188,9 +188,6 @@ int main()
             ToggleFullscreen();
         }
 
-        //timer
-
-        updatetimer(&vidaTimer);
 
         // --- Animaci�n ---
         framesCounter++;
@@ -475,6 +472,12 @@ int main()
         else {
 
 
+            //timer
+
+            DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
+
+            updatetimer(&vidaTimer);
+
             // --- Movimiento horizontal ---
             if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) {
                 p.vx++;
@@ -534,7 +537,6 @@ int main()
 
         //mitj pantalla
 
-        DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
      
         DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, 670, 40, RED);
 
