@@ -260,7 +260,7 @@ int main()
         if (p.x > 3370) FLOOR_Y = 1380;
         if (p.x > 8900) FLOOR_Y = p.x * -0.8 + 8500;
         if (p.x > 9050) FLOOR_Y = 1260;
-        if (p.x > 9400) FLOOR_Y = 1380;
+        if (p.x > 9390) FLOOR_Y = 1380;
         if (p.x > 10100) FLOOR_Y = 1220;
         if (p.x > 10250) FLOOR_Y = 1020;
         if (p.x > 10700) FLOOR_Y = 1380;
@@ -275,22 +275,19 @@ int main()
 
         // --- Obstacles ---
         if (p.x <= 3385 && p.y > 1220) p.x = 3390;
-        if (p.x >= 9045 && p.x <= 9050 && p.y > 1350) p.x = 9040;
-        if (p.x >= 9350 && p.x <= 9405 && p.y > 1260) p.x = 9410;
+        if (p.x >= 9350 && p.x <= 9405 && p.y >= 1260) p.x = 9410;
         if (p.x >= 10095 && p.x <= 10150 && p.y > 1220) p.x = 10090;
         if (p.x >= 10245 && p.x <= 10300 && p.y > 1021) p.x = 10245;
         if (p.x >= 10600 && p.x <= 10705 && p.y > 1021) p.x = 10710;
-
-        // --- Camera ---
-        if (p.x < camera.target.x - 480) p.x = camera.target.x - 481;
-
-
 
         // Get the visible world bounds from the camera
         float camLeft = camera.target.x - (camera.offset.x) / camera.zoom;
         float camRight = camera.target.x + (screenWidth2 - camera.offset.x) / camera.zoom;
         float camTop = camera.target.y - (camera.offset.y) / camera.zoom;
         float camBottom = camera.target.y + (screenHeight2 - camera.offset.y) / camera.zoom;
+
+        // --- Camera ---
+        if (p.x <= camLeft) p.x = camLeft + 5;
 
         // --- Cheats ---
         if (IsKeyDown(KEY_L)) p.x = 18000;
@@ -341,18 +338,6 @@ int main()
             if (bullets[i].x < camLeft || bullets[i].x > camRight ||
                 bullets[i].y < camTop || bullets[i].y > camBottom) {
                 bullets[i].active = false;
-            }
-        }
-
-        for (int i = 0; i < MAX_BULLETSE; i++) {
-            if (!bulletse[i].active) continue;
-
-            bulletse[i].x += bulletse[i].vx;
-            bulletse[i].y += bulletse[i].vy;
-
-            if (bulletse[i].x < camLeft || bulletse[i].x > camRight ||
-                bulletse[i].y < camTop || bulletse[i].y > camBottom) {
-                bulletse[i].active = false;
             }
         }
 
@@ -423,7 +408,7 @@ int main()
         for (int i = 0; i < MAX_BULLETSE; i++) {
             if (!bulletse[i].active) continue;
             DrawTexture(bullet, (int)bulletse[i].x, (int)bulletse[i].y, WHITE);
-            if (bulletse[i].x == p.x)
+            if (bulletse[i].x >= s1.ex-7 && bulletse[i].x <= s1.ex+7)
             {
                 p.hp--;
             }
@@ -547,13 +532,6 @@ int main()
             //Aim direction
             if (IsKeyDown(KEY_W)) p.facingy = 1;
             else if (IsKeyDown(KEY_S)) p.facingy = -1;
-
-
-            if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
-            {
-                p.credits--;
-                inMenu = false;
-            }
 
         }
 
