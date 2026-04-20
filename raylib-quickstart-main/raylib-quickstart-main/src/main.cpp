@@ -96,6 +96,8 @@ int main()
 
     bool inMenu = true;
     bool winscreen = false;
+    bool menuSoundPlayed = false;
+    bool winSoundPlayed = false;
     int vpunts = 0;
     int screenWidth2 = GetScreenWidth();
     int screenHeight2 = GetScreenHeight();
@@ -108,12 +110,17 @@ int main()
     soundArray[0] = LoadSound("sexy_death.mp3");
     soundArray[1] = LoadSound("vaca.mp3");
     soundArray[2] = LoadSound("pipa.mp3");
+    soundArray[3] = LoadSound("Metal_Slug.mp3");
+    soundArray[4] = LoadSound("mission_complete.mp3");
+
     //Music
     musicArray[0] = LoadMusicStream("bo.mp3");
+
     musicArray[0].looping = true;
+    PlayMusicStream(musicArray[0]);
+
     float pitch = 0.5f;
 
-    PlayMusicStream(musicArray[0]);
 
     Texture p1 = LoadTexture("p1idle.png");
     Texture p1cap = LoadTexture("capquiet.png");
@@ -374,7 +381,6 @@ int main()
         string punts = to_string(vpunts);
         const char* cpunts = punts.c_str();
 
-        UpdateMusicStream(musicArray[0]);
 
         // --- Dibujo ---
         BeginDrawing();
@@ -426,7 +432,7 @@ int main()
         {
             vpunts = vpunts + 10;
             bs1 = false;
-            PlaySound(soundArray[1]);
+            PlaySound(soundArray[0]);
             winscreen = true;
         }
         
@@ -546,10 +552,16 @@ int main()
 
         if (inMenu == true) {
 
+            if (!menuSoundPlayed) {
+                PlaySound(soundArray[3]);
+                menuSoundPlayed = true;
+            }
+
             Rectangle src2 = { 0, 0, (float)start.width, (float)start.height };
             Rectangle dest2 = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
 
             DrawTexturePro(start, src2, dest2, { 0, 0 }, 0.0f, WHITE);
+
 
             if (IsKeyPressed(KEY_C))
                 p.credits++;
@@ -566,6 +578,7 @@ int main()
         }
         else {
 
+            UpdateMusicStream(musicArray[0]);
 
             //timer
             DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
@@ -614,6 +627,10 @@ int main()
                             bullets[i].vx = 0;
                             bullets[i].vy = -15.0f; // up
                         }
+                        else if (IsKeyDown(KEY_W) && IsKeyDown(KEY_D)) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = -15.0f; // up
+                        }
                         else if (IsKeyDown(KEY_S)) {
                             bullets[i].vx = 0;
                             bullets[i].vy = 15.0f; // down
@@ -635,9 +652,14 @@ int main()
         }
 
         if (winscreen == true) {
+            if (!winSoundPlayed) {
+                PlaySound(soundArray[4]);
+                winSoundPlayed = true;
+            }
             Rectangle src3 = { 0, 0, (float)win.width, (float)win.height };
             Rectangle dest3 = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
             DrawTexturePro(win, src3, dest3, { 0, 0 }, 0.0f, WHITE);
+
         }
 
         int textWidth = MeasureText(cpunts, 30);
