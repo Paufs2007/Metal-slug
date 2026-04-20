@@ -20,7 +20,7 @@ public:
     int credits;
     int vides = 3; 
     int hp = 1;
-
+    bool menu = true;
     void jump() {
         vy = 30;
         canJump = false;
@@ -32,7 +32,7 @@ class soldier
 public:
     float ex;
     int ey;
-    int hp = 1;
+    int ehp = 1;
     int efacing = 1; // 1 = right, -1 = left
     int efacingy = 1; // 1 = up, -1 = down
 };
@@ -301,7 +301,7 @@ int main()
 
         //Aim direction
         if (IsKeyDown(KEY_W)) p.facingy = 1;
-        else if (IsKeyDown(KEY_S)) p.facingy = -1;
+        else if (IsKeyDown(KEY_S) && p.y > FLOOR_Y) p.facingy = -1;
 
 
         if (IsKeyPressed(KEY_F))
@@ -414,7 +414,7 @@ int main()
             DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
             if ((float)bullets[i].x >= (float)s1.ex - 10 && (float)bullets[i].x <= (float)s1.ex + 10)
             {
-                s1.hp--;
+                s1.ehp--;
             }
         }
 
@@ -428,7 +428,7 @@ int main()
         }
 
         //enemics
-        if (s1.hp == 1)
+        if (s1.ehp == 1)
         {
             Vector2 position = { 0.0f, 0.0f };
             Rectangle posidles1 = { (float)s1.ex, (float)s1.ey - 95, framereceidle.width * 5, framereceidle.height * 5 };
