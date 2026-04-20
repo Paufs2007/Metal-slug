@@ -489,6 +489,8 @@ int main()
 
             if (IsKeyPressed(KEY_F))
                 PlaySound(soundArray[2]);
+            
+            if (IsKeyPressed(KEY_F))
 
             // --- SHOOTING ---
             // Rapid fire: holds F to keep shooting
@@ -498,51 +500,40 @@ int main()
             shootTimer += GetFrameTime();
 
             if (IsKeyDown(KEY_F) && shootTimer >= shootInterval)
+
             {
-                shootTimer = 0.0f;
-                PlaySound(soundArray[2]);
                 p.isshooting = 1;
                 currentFramtir = 0;
-
                 for (int i = 0; i < MAX_BULLETS; i++) {
                     if (!bullets[i].active) {
+                        bullets[i].x = (float)p.x + 15;
+                        bullets[i].y = (float)p.y + 55; // Altura d'on dispara la ball
 
-                        // --- Determine aim direction (8-way) ---
-                        bool aimUp = IsKeyDown(KEY_W);
-                        bool aimDown = IsKeyDown(KEY_S) && (!p.canJump || p.isajupit == 1);
-                        // aimDown only works mid-air or crouching, like Metal Slug
+                        if (IsKeyDown(KEY_W)) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = -15.0f; // up
+                        }
+                        else if (IsKeyDown(KEY_W) && IsKeyDown(KEY_D)) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = -15.0f; // up
+                        }
+                        else if (IsKeyDown(KEY_S)) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = 15.0f; // down
+                        }
+                        else {
+                            bullets[i].vx = 15.0f * p.facing; // left/right
+                            bullets[i].vy = 0;
+                        }
 
-                        float bvx = 0, bvy = 0;
-                        const float spd = 18.0f; // Metal Slug bullets are fast
-
-                        if (aimUp && p.facing == 1) { bvx = spd * 0.7f; bvy = -spd * 0.7f; } // up-right
-                        else if (aimUp && p.facing == -1) { bvx = -spd * 0.7f; bvy = -spd * 0.7f; } // up-left
-                        else if (aimUp) { bvx = 0;            bvy = -spd; } // straight up
-                        else if (aimDown) { bvx = 0;            bvy = spd; } // straight down
-                        else { bvx = spd * p.facing; bvy = 0; } // left or right
-
-                        // --- Spawn position based on facing ---
-                        float spawnX = (p.facing == 1) ? p.x + 80 : p.x - 30;
-                        float spawnY = p.y + 55;
-
-                        if (aimUp)   spawnY = p.y + 10;  // raised when aiming up
-                        if (aimDown) spawnY = p.y + 100; // lowered when aiming down
-
-                        bullets[i].x = spawnX;
-                        bullets[i].y = spawnY;
-                        bullets[i].vx = bvx;
-                        bullets[i].vy = bvy;
                         bullets[i].active = true;
                         break;
                     }
                 }
-            }
 
-            // Reset shoot animation when key released
-            if (IsKeyReleased(KEY_F)) {
-                p.isshooting = -1;
             }
         }
+        
         //enemics
         if (s1.ehp == 1) {
 
@@ -859,7 +850,7 @@ int main()
 
         if (lose == true) {
             PauseMusicStream(musicArray[0]);
-
+    
             if (!winSoundPlayed) {
                 PlaySound(soundArray[5]);
                 winSoundPlayed = true;
@@ -875,7 +866,7 @@ int main()
         //mitj pantalla
 
      
-        DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, 675, 40, RED);
+        DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, screenHeight2-100, 40, RED);
 
 
         // canotnada dreta
