@@ -457,6 +457,7 @@ int main()
         {
             vpunts = vpunts + 10;
             bs1 = false;
+            PlaySound(soundArray[1]);
             winscreen = true;
         }
         
@@ -523,6 +524,15 @@ int main()
             DrawTexturePro(p1scamese, framerecscamese, poscamesse, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
+        else if (p.canJump == false && p.facing == -1 && p.isshooting == 1)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle poscamesse = { (float)p.x, (float)p.y, framerecscamese.width * 5, framerecscamese.height * 5 };
+            Rectangle poshotse = { (float)p.x - 55, (float)p.y - 15, framerectire.width * 5, framerectire.height * 5 };
+            DrawTexturePro(p1shote, framerectire, poshotse, position, 0, WHITE);
+            DrawTexturePro(p1scamese, framerecscamese, poscamesse, position, 0, WHITE);
+            DrawText(cix, p.x, p.y, 20, RED);
+        }
         else if (p.vx == 0 && p.canJump == true && p.facing == 1 && p.isshooting == 1)
         {
             Vector2 position = { 0.0f, 0.0f };
@@ -535,7 +545,7 @@ int main()
         else if (p.vx > 0 && p.canJump == true && p.facing == 1 && p.isshooting == 1)
         {
             Vector2 position = { 0.0f, 0.0f };
-            Rectangle posdretacorrent = { (float)p.x + 30, (float)p.y + 138, frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
+            Rectangle posdretacorrent = { (float)p.x - 10, (float)p.y + 100, frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
             Rectangle poshots = { (float)p.x - 55, (float)p.y - 15, framerectir.width * 5, framerectir.height * 5 };
             DrawTexturePro(p1shot, framerectir, poshots, position, 0, WHITE);
             DrawTexturePro(p1dretacorrentcames, frameRecdretacorrent, posdretacorrent, position, 0, WHITE);
@@ -545,7 +555,7 @@ int main()
         {
             Vector2 position = { 0.0f, 0.0f };
             Rectangle camque = { (float)p.x - 20, (float)p.y + 105, framereccamqe.width * 5, framereccamqe.height * 5 };
-            Rectangle poshotse = { (float)p.x - 55, (float)p.y - 15, framerectire.width * 5, framerectire.height * 5 };
+            Rectangle poshotse = { (float)p.x - 125, (float)p.y - 5, framerectire.width * 5, framerectire.height * 5 };
             DrawTexturePro(p1shote, framerectire, poshotse, position, 0, WHITE);
             DrawTexturePro(p1camqe, framereccamqe, camque, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
@@ -553,8 +563,8 @@ int main()
         else if (p.vx < 0 && p.canJump == true && p.facing == -1 && p.isshooting == 1)
         {
             Vector2 position = { 0.0f, 0.0f };
-            Rectangle posesquerracorrent = { (float)p.x + 80, (float)p.y + 138,  frameesquerracorrent.width * 4.75, frameesquerracorrent.height * 4.75 };
-            Rectangle poshotse = { (float)p.x - 55, (float)p.y - 15, framerectire.width * 5, framerectire.height * 5 };
+            Rectangle posesquerracorrent = { (float)p.x + 10, (float)p.y + 100,  frameesquerracorrent.width * 4.75, frameesquerracorrent.height * 4.75 };
+            Rectangle poshotse = { (float)p.x - 90, (float)p.y, framerectire.width * 5, framerectire.height * 5 };
             DrawTexturePro(p1shote, framerectire, poshotse, position, 0, WHITE);
             DrawTexturePro(p1esquerracorrentcames, frameesquerracorrent, posesquerracorrent, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
