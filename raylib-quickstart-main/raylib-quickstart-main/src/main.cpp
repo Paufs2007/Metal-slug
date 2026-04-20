@@ -177,7 +177,7 @@ int main()
 
     //enemics
 
-    soldier s1 = { 1200, FLOOR_Y-95};
+    soldier s1 = { 19500, 605};
     bool bs1 = true;
     // --- C�mara 2D ---
     Camera2D camera = { 0 };
@@ -466,9 +466,7 @@ int main()
             if (!bulletse[i].active) continue;
             DrawTexture(bullet, (int)bulletse[i].x, (int)bulletse[i].y, WHITE);
 
-            if (hitCooldown <= 0.0f &&
-                bulletse[i].x >= p.x - 30 && bulletse[i].x <= p.x + 30 &&
-                bulletse[i].y >= p.y - 200 && bulletse[i].y <= p.y + 50)
+            if (bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y && bulletse[i].y <= p.y + 200)
             {
                 bulletse[i].active = false;
                 hitCooldown = 1.5f;
@@ -724,7 +722,7 @@ int main()
             DrawTexturePro(p1baixtire, framerecbaixtire, posajutire, position, 0, WHITE);
             DrawText(cix, p.x, p.y, 20, RED);
         }
-        
+        DrawRectangle(p.x,p.y,100,200,RED);
 
         EndMode2D();
 
