@@ -22,6 +22,7 @@ J to shoot
 C to insert credit
 M to mute only music
 N to unmute only music
+R to restart lever or return from win/lose screen
 ENTER to start (requires credit)
 
 Features:
@@ -34,6 +35,7 @@ Right
 Jumping
 Crouching
 Shooting
+Restart level
 
 
 2. Enemies:
