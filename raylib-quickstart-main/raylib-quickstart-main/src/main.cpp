@@ -149,6 +149,8 @@ int main()
     Texture gameover = LoadTexture("Game_Over.png");
     Texture bullete = LoadTexture("benemic.png");
     Texture logo = LoadTexture("logoExplota.png");
+    Texture scor = LoadTexture("scorr.png");
+    Texture score = LoadTexture("scorre.png");
 
     int timerlife = 450;
     Timer vidaTimer = { 0 };
@@ -175,6 +177,8 @@ int main()
     camera.zoom = 0.85f;
 
     Rectangle framereceidle = { 0, 0, (float)sidle.width / 4, (float)sidle.height };
+    Rectangle framerececorr = { 0, 0, (float)scor.width / 12, (float)scor.height };
+    Rectangle framerececorre = { 0, 0, (float)score.width / 12, (float)score.height };
 
     Rectangle framerecalttire = { 0, 0, (float)p1alttire.width / 10, (float)p1alttire.height };
     Rectangle framerecalttir = { 0, 0, (float)p1alttir.width / 10, (float)p1alttir.height };
@@ -239,6 +243,8 @@ int main()
             framerecscamese.x = (float)currentFramsalt * (float)p1scamese.width / 6;
             frameRecdretacorrent.x = (float)currentFramcorrer * (float)p1dretacorrentcames.width / 12;
             frameesquerracorrent.x = (float)currentFramcorrer * (float)p1esquerracorrentcames.width / 12;
+            framerececorr.x = (float)currentFramcorrer * (float)scor.width / 12;
+            framerececorre.x = (float)currentFramcorrer * (float)score.width / 12;
         }
 
         if (framesCounter >= (60 / framesSpeedtir))
@@ -429,6 +435,7 @@ int main()
         }
 
         if (!inMenu && !winscreen && !lose) {
+
             if (IsKeyPressed(KEY_F)) {
                 PlaySound(soundArray[2]);
                 p.isshooting = 1;
@@ -456,16 +463,31 @@ int main()
             }
         }
 
-        if (s1.ehp == 1) {
-            Vector2 position = { 0.0f, 0.0f };
-            Rectangle posidles1 = { (float)s1.ex, (float)s1.ey, framereceidle.width * 5, framereceidle.height * 5 };
-            DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
-            DrawText(cix, s1.ex, s1.ey, 20, RED);
-            if (!inMenu && !winscreen && !lose) {
+        if (s1.ehp == 1) 
+        {
+            if (s1.evx == 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posidles1 = { (float)s1.ex, (float)s1.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
+                DrawText(cix, s1.ex, s1.ey, 20, RED);
+            }
+            else if (s1.evx < 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posidles1 = { (float)s1.ex, (float)s1.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
+                DrawText(cix, s1.ex, s1.ey, 20, RED);
+            }
+
+            if (!inMenu && !winscreen && !lose) 
+            {
                 enemyShootTimer += GetFrameTime();
-                if (enemyShootTimer >= enemyShootInterval) {
+                if (enemyShootTimer >= enemyShootInterval) 
+                {
                     enemyShootTimer = 0.0f;
-                    for (int i = 0; i < MAX_BULLETSE; i++) {
+                    for (int i = 0; i < MAX_BULLETSE; i++) 
+                    {
                         if (!bulletse[i].active) {
                             bulletse[i].x = s1.ex;
                             bulletse[i].y = s1.ey + 30;
@@ -485,16 +507,33 @@ int main()
             PlaySound(soundArray[0]);
             winscreen = true;
         }
-        if (s2.ehp == 1) {
-            Vector2 position = { 0.0f, 0.0f };
-            Rectangle posidles2 = { (float)s2.ex, (float)s2.ey, framereceidle.width * 5, framereceidle.height * 5 };
-            DrawTexturePro(sidle, framereceidle, posidles2, position, 0, WHITE);
-            DrawText(cix, s2.ex, s2.ey, 20, RED);
-            if (!inMenu && !winscreen && !lose) {
+
+        if (s2.ehp == 1) 
+        {
+            
+            if (s2.evx == 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posidles1 = { (float)s2.ex, (float)s2.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
+                DrawText(cix, s2.ex, s2.ey, 20, RED);
+            }
+            else if (s2.evx < 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle poscorr = { (float)s2.ex, (float)s2.ey, framerececorr.width * 5, framerececorr.height * 5 };
+                DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
+                DrawText(cix, s2.ex, s2.ey, 20, RED);
+            }
+
+            if (!inMenu && !winscreen && !lose) 
+            {
                 enemyShootTimer += GetFrameTime();
-                if (enemyShootTimer >= enemyShootInterval) {
+                if (enemyShootTimer >= enemyShootInterval) 
+                {
                     enemyShootTimer = 0.0f;
-                    for (int i = 0; i < MAX_BULLETSE; i++) {
+                    for (int i = 0; i < MAX_BULLETSE; i++) 
+                    {
                         if (!bulletse[i].active) {
                             bulletse[i].x = s2.ex;
                             bulletse[i].y = s2.ey + 30;
@@ -519,12 +558,16 @@ int main()
             Rectangle posidles3 = { (float)s3.ex, (float)s3.ey, framereceidle.width * 5, framereceidle.height * 5 };
             DrawTexturePro(sidle, framereceidle, posidles3, position, 0, WHITE);
             DrawText(cix, s3.ex, s3.ey, 20, RED);
-            if (!inMenu && !winscreen && !lose) {
+            if (!inMenu && !winscreen && !lose) 
+            {
                 enemyShootTimer += GetFrameTime();
-                if (enemyShootTimer >= enemyShootInterval) {
+                if (enemyShootTimer >= enemyShootInterval) 
+                {
                     enemyShootTimer = 0.0f;
-                    for (int i = 0; i < MAX_BULLETSE; i++) {
-                        if (!bulletse[i].active) {
+                    for (int i = 0; i < MAX_BULLETSE; i++) 
+                    {
+                        if (!bulletse[i].active) 
+                        {
                             bulletse[i].x = s3.ex;
                             bulletse[i].y = s3.ey + 30;
                             bulletse[i].vx = (p.x < s3.ex) ? -8.0f : 8.0f;
@@ -635,8 +678,8 @@ int main()
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle poscamess = { (float)p.x, (float)p.y + 90, framerecscames.width * 5, framerecscames.height * 5 };
-                Rectangle poshots = { (float)p.x + 10, (float)p.y - 30, framerectir.width * 5, framerectir.height * 5 };
-                DrawTexturePro(p1shot, framerectir, poshots, position, 0, WHITE);
+                Rectangle poshota = { (float)p.x - 10, (float)p.y - 220, framerecalttir.width * 5, framerecalttir.height * 5 };
+                DrawTexturePro(p1alttir, framerecalttir, poshota, position, 0, WHITE);
                 DrawTexturePro(p1scames, framerecscames, poscamess, position, 0, WHITE);
                 DrawText(cix, p.x, p.y, 20, RED);
             }
@@ -644,8 +687,8 @@ int main()
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle poscamesse = { (float)p.x, (float)p.y + 90, framerecscamese.width * 5, framerecscamese.height * 5 };
-                Rectangle poshotse = { (float)p.x - 170, (float)p.y - 20, framerectire.width * 5, framerectire.height * 5 };
-                DrawTexturePro(p1shote, framerectire, poshotse, position, 0, WHITE);
+                Rectangle poshotae = { (float)p.x - 10, (float)p.y - 210, framerecalttire.width * 5, framerecalttire.height * 5 };
+                DrawTexturePro(p1alttire, framerecalttire, poshotae, position, 0, WHITE);
                 DrawTexturePro(p1scamese, framerecscamese, poscamesse, position, 0, WHITE);
                 DrawText(cix, p.x, p.y, 20, RED);
             }
@@ -833,6 +876,8 @@ int main()
                 p.y = 1220;
                 p.vx = 0;
                 p.vy = 0;
+                s2.ex = 5450;
+                s2.evx = 0;
 
                 camera.target.x = p.x;
                 camera.target.y = 1100;
@@ -934,6 +979,10 @@ int main()
     UnloadTexture(gameover);
     UnloadTexture(bullete);
     UnloadTexture(logo);
+    UnloadTexture(bullete); 
+    UnloadTexture(scor);
+    UnloadTexture(score);
+    
     CloseWindow();
     return 0;
 }
