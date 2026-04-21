@@ -597,7 +597,7 @@ int main()
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle camqu = { (float)p.x - 20, (float)p.y + 105, framereccamq.width * 5, framereccamq.height * 5 };
-                Rectangle poshota = { (float)p.x - 55, (float)p.y - 15, framerecalttir.width * 5, framerecalttir.height * 5 };
+                Rectangle poshota = { (float)p.x - 10, (float)p.y - 210, framerecalttir.width * 5, framerecalttir.height * 5 };
                 DrawTexturePro(p1alttir, framerecalttir, poshota, position, 0, WHITE);
                 DrawTexturePro(p1camq, framereccamq, camqu, position, 0, WHITE);
                 DrawText(cix, p.x, p.y, 20, RED);
@@ -606,7 +606,7 @@ int main()
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle camqu = { (float)p.x - 20, (float)p.y + 105, framereccamq.width * 5, framereccamq.height * 5 };
-                Rectangle poshota = { (float)p.x - 55, (float)p.y - 15, framerecalttir.width * 5, framerecalttir.height * 5 };
+                Rectangle poshota = { (float)p.x - 10, (float)p.y - 210, framerecalttir.width * 5, framerecalttir.height * 5 };
                 DrawTexturePro(p1alttir, framerecalttir, poshota, position, 0, WHITE);
                 DrawTexturePro(p1camq, framereccamq, camqu, position, 0, WHITE);
                 DrawText(cix, p.x, p.y, 20, RED);
