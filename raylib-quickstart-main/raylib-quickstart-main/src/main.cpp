@@ -633,8 +633,8 @@ int main()
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle poscamess = { (float)p.x, (float)p.y + 90, framerecscames.width * 5, framerecscames.height * 5 };
-                Rectangle poshots = { (float)p.x + 10, (float)p.y - 30, framerectir.width * 5, framerectir.height * 5 };
-                DrawTexturePro(p1shot, framerectir, poshots, position, 0, WHITE);
+                Rectangle poshota = { (float)p.x - 10, (float)p.y - 220, framerecalttir.width * 5, framerecalttir.height * 5 };
+                DrawTexturePro(p1alttir, framerecalttir, poshota, position, 0, WHITE);
                 DrawTexturePro(p1scames, framerecscames, poscamess, position, 0, WHITE);
                 DrawText(cix, p.x, p.y, 20, RED);
             }
@@ -642,8 +642,8 @@ int main()
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle poscamesse = { (float)p.x, (float)p.y + 90, framerecscamese.width * 5, framerecscamese.height * 5 };
-                Rectangle poshotse = { (float)p.x - 170, (float)p.y - 20, framerectire.width * 5, framerectire.height * 5 };
-                DrawTexturePro(p1shote, framerectire, poshotse, position, 0, WHITE);
+                Rectangle poshotae = { (float)p.x - 10, (float)p.y - 210, framerecalttire.width * 5, framerecalttire.height * 5 };
+                DrawTexturePro(p1alttire, framerecalttire, poshotae, position, 0, WHITE);
                 DrawTexturePro(p1scamese, framerecscamese, poscamesse, position, 0, WHITE);
                 DrawText(cix, p.x, p.y, 20, RED);
             }
