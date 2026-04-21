@@ -37,7 +37,6 @@ Crouching
 Shooting
 Restart level
 
-
 2. Enemies:
 Take damage
 Inflict damage
@@ -68,13 +67,11 @@ Player animations:
 - Crouching
 - Walking
 - Taking damage
-
 Enemy animations:
 - Still
 
 7. Camera system:
 Follows the player on the map from left to right
-
 
 8. Terrain:
 Ramps
