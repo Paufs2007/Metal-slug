@@ -234,6 +234,8 @@ int main()
         }
 
 
+
+
         // --- Animaci�n ---
         framesCounter++;
         if (framesCounter >= (60 / framesSpeed))
@@ -490,7 +492,6 @@ int main()
                 p.vy = 20; // slight upward bounce
 
                 if (p.credits <= 0) {
-                    UnloadTexture(bg);
                     lose = true;
 
                 }
@@ -737,6 +738,8 @@ int main()
         EndMode2D();
 
 
+
+
         if (inMenu == true) {
 
             if (!menuSoundPlayed) {
@@ -848,7 +851,9 @@ int main()
 
         }
 
+
         if (lose == true) {
+            if (p.credits < 0)p.credits = 0;
             PauseMusicStream(musicArray[0]);
 
             if (!winSoundPlayed) {
@@ -861,7 +866,44 @@ int main()
 
         }
 
+        if (winscreen || lose) {
+
+            for (int i = 0; i < MAX_BULLETS; i++) {
+                bullets[i].active = false;
+            }
+
+            for (int i = 0; i < MAX_BULLETSE; i++) {
+                bulletse[i].active = false;
+            }
+        }
+
         int textWidth = MeasureText(cpunts, 30);
+
+        //Restar level
+
+        if (!inMenu) {
+            
+            if (IsKeyPressed(KEY_R)) {
+
+                lose = false;
+                vpunts = 0;
+                winscreen = false;
+
+                winSoundPlayed = false;
+
+
+                ResumeMusicStream(musicArray[0]);
+
+                p.x = 400;
+                p.y = 1220;
+                p.vx = 0;
+                p.vy = 0;
+
+                camera.target.x = p.x;
+                camera.target.y = 1100;
+            }
+        }
+
 
         //mitj pantalla
 
@@ -876,6 +918,9 @@ int main()
 
         //cantonada esquerra
         DrawText(cpunts, 20, 20, 30, RED);
+
+
+
 
         EndDrawing();
     }
