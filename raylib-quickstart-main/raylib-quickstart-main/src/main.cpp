@@ -459,30 +459,79 @@ int main()
 
         if (!inMenu && !winscreen && !lose) {
 
-            if (IsKeyPressed(KEY_F)) {
+            if (IsKeyPressed(KEY_J)) {
                 PlaySound(soundArray[2]);
                 p.isshooting = 1;
                 currentFramtir = 0;
-                for (int i = 0; i < MAX_BULLETS; i++) {
-                    if (!bullets[i].active) {
-                        bullets[i].x = (float)p.x + 15;
-                        bullets[i].y = (float)p.y + 55;
-                        if (p.facingy == 1) {
-                            bullets[i].vx = 0;
-                            bullets[i].vy = -30.0f;
+                if (p.facing == 1) {
+                    for (int i = 0; i < MAX_BULLETS; i++) {
+                        if (!bullets[i].active) {
+                            bullets[i].x = (float)p.x + 175;
+                            bullets[i].y = (float)p.y + 55;
+                            if (p.facingy == 1) {
+                                bullets[i].vx = 0;
+                                bullets[i].vy = -30.0f;
+                            }
+                            else if (p.facingy == -1) {
+                                bullets[i].vx = 0;
+                                bullets[i].vy = 30.0f;
+                            }
+                            else {
+                                bullets[i].vx = 30.0f * p.facing;
+                                bullets[i].vy = 0;
+                            }
+                            bullets[i].active = true;
+                            break;
                         }
-                        else if (p.facingy == -1) {
-                            bullets[i].vx = 0;
-                            bullets[i].vy = 30.0f;
-                        }
-                        else {
-                            bullets[i].vx = 30.0f * p.facing;
-                            bullets[i].vy = 0;
-                        }
-                        bullets[i].active = true;
-                        break;
                     }
                 }
+                else if (p.facing == -1) {
+                    for (int i = 0; i < MAX_BULLETS; i++) {
+                        if (!bullets[i].active) {
+                            bullets[i].x = (float)p.x - 75;
+                            bullets[i].y = (float)p.y + 55;
+                            if (p.facingy == 1) {
+                                bullets[i].vx = 0;
+                                bullets[i].vy = -30.0f;
+                            }
+                            else if (p.facingy == -1) {
+                                bullets[i].vx = 0;
+                                bullets[i].vy = 30.0f;
+                            }
+                            else {
+                                bullets[i].vx = 30.0f * p.facing;
+                                bullets[i].vy = 0;
+                            }
+                            bullets[i].active = true;
+                            break;
+                        }
+                    }
+
+                }
+                else if (p.facingy == -1) {
+                    for (int i = 0; i < MAX_BULLETS; i++) {
+                        if (!bullets[i].active) {
+                            bullets[i].x = (float)p.x - 100;
+                            bullets[i].y = (float)p.y - 55;
+                            if (p.facingy == 1) {
+                                bullets[i].vx = 0;
+                                bullets[i].vy = -30.0f;
+                            }
+                            else if (p.facingy == -1) {
+                                bullets[i].vx = 0;
+                                bullets[i].vy = 3.0f;
+                            }
+                            else {
+                                bullets[i].vx = 30.0f * p.facing;
+                                bullets[i].vy = 0;
+                            }
+                            bullets[i].active = true;
+                            break;
+                        }
+                    }
+
+                }
+
             }
         }
 
