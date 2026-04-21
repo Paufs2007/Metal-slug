@@ -68,6 +68,7 @@ Player animations:
 - Crouching
 - Walking
 - Taking damage
+
 Enemy animations:
 - Still
 
