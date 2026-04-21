@@ -963,7 +963,9 @@ int main()
     UnloadTexture(p1alttir);
     UnloadTexture(p1alttire);
     UnloadTexture(gameover);
-    UnloadTexture(bullete);
+    UnloadTexture(bullete); 
+    UnloadTexture(scor);
+    UnloadTexture(score);
     CloseWindow();
     return 0;
 }
