@@ -466,17 +466,17 @@ int main()
                 if (p.facing == 1) {
                     for (int i = 0; i < MAX_BULLETS; i++) {
                         if (!bullets[i].active) {
-                            bullets[i].x = (float)p.x + 175; // modifies x of bullet when shooting 
-                            bullets[i].y = (float)p.y + 55; // modifies y of bullet when shooting 
+                            bullets[i].x = (float)p.x + 175; 
+                            bullets[i].y = (float)p.y + 55; 
 
                             if (p.isajupit == 1) {
-                                bullets[i].y = (float)p.y + 100; // modifies y of bullet when shooting down
+                                bullets[i].y = (float)p.y + 100; 
                                 bullets[i].vx = 30.0f;
                                 bullets[i].vy = 0;
                             }
                             else if (p.facingy == 1) {
-                                bullets[i].x = (float)p.x + 35; // modifies x of bullet when shooting up
-                                bullets[i].y = (float)p.y - 55;  // modifies y of bullet when shooting up
+                                bullets[i].x = (float)p.x + 35;
+                                bullets[i].y = (float)p.y - 55;
                                 bullets[i].vx = 0;
                                 bullets[i].vy = -30.0f;
                             }
@@ -961,8 +961,12 @@ int main()
                 lose = false;
                 vpunts = 0;
                 bs1 = true;
+                bs2 = true;
+                bs3 = true;
                 winscreen = false;
                 s1.ehp = 1;
+                s2.ehp = 1;
+                s3.ehp = 1;
                 winSoundPlayed = false;
                 timerlife = 450;
                 startTimer(&vidaTimer, timerlife);
