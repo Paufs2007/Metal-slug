@@ -149,6 +149,11 @@ int main()
     Texture bullete = LoadTexture("benemic.png");
     Texture scor = LoadTexture("scorr.png");
     Texture score = LoadTexture("scorre.png");
+    Texture bulletes = LoadTexture("balae.png");
+    Texture bulleta = LoadTexture("balaamunt.png");
+    Texture bulletb = LoadTexture("balaball.png");
+    Texture bulletee = LoadTexture("benemice.png");
+
 
     int timerlife = 450;
     Timer vidaTimer = { 0 };
@@ -401,7 +406,24 @@ int main()
 
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
-            DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
+            
+            if (p.facing == 1 && p.facingy == 0)
+            {
+                DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
+            }
+            else if (p.facing == -1 && p.facingy == 0)
+            {
+                DrawTexture(bulletes, (int)bullets[i].x, (int)bullets[i].y, WHITE);
+            }
+            else if (p.facingy == 1)
+            {
+                DrawTexture(bulleta, (int)bullets[i].x, (int)bullets[i].y, WHITE);
+            }
+            else if (p.facingy == -1)
+            {
+                DrawTexture(bulletb, (int)bullets[i].x, (int)bullets[i].y, WHITE);
+            }
+
             if (bullets[i].x >= s1.ex && bullets[i].x <= s1.ex + 100 && bullets[i].y >= s1.ey && bullets[i].y <= s1.ey + 200)
             {
                 s1.ehp--;
@@ -418,7 +440,7 @@ int main()
 
         for (int i = 0; i < MAX_BULLETSE; i++) {
             if (!bulletse[i].active) continue;
-            DrawTexture(bullete, (int)bulletse[i].x, (int)bulletse[i].y, WHITE);
+            DrawTexture(bulletee, (int)bulletse[i].x, (int)bulletse[i].y, WHITE);
             if (bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y && bulletse[i].y <= p.y + 200 && p.isajupit == -1 || bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y + 100 && bulletse[i].y <= p.y + 200 && p.isajupit == 1)
             {
                 bulletse[i].active = false;
@@ -965,7 +987,10 @@ int main()
     UnloadTexture(gameover);
     UnloadTexture(bullete); 
     UnloadTexture(scor);
-    UnloadTexture(score);
+    UnloadTexture(bulletes);
+    UnloadTexture(bulleta);
+    UnloadTexture(bulletb);
+    UnloadTexture(bulletee);
     CloseWindow();
     return 0;
 }
