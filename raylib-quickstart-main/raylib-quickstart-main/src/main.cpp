@@ -427,6 +427,7 @@ int main()
         }
 
         if (!inMenu && !winscreen && !lose) {
+
             if (IsKeyPressed(KEY_F)) {
                 PlaySound(soundArray[2]);
                 p.isshooting = 1;
@@ -817,6 +818,8 @@ int main()
                 p.y = 1220;
                 p.vx = 0;
                 p.vy = 0;
+                s2.ex = 5450;
+                s2.evx = 0;
 
                 camera.target.x = p.x;
                 camera.target.y = 1100;
