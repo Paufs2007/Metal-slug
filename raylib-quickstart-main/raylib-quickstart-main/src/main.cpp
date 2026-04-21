@@ -92,6 +92,7 @@ int main()
     InitWindow(1300, 952, "Metal Slug");
     SetTargetFPS(60);
 
+    bool logoscreen = true;
     bool inMenu = true;
     bool winscreen = false;
     bool music = false;
@@ -147,6 +148,7 @@ int main()
     Texture p1alttire = LoadTexture("tiramunte.png");
     Texture gameover = LoadTexture("Game_Over.png");
     Texture bullete = LoadTexture("benemic.png");
+    Texture logo = LoadTexture("logoExplota.png");
     Texture scor = LoadTexture("scorr.png");
     Texture score = LoadTexture("scorre.png");
     Texture bulletes = LoadTexture("balae.png");
@@ -829,7 +831,21 @@ int main()
         }
         EndMode2D();
 
-        if (inMenu == true) {
+        if (logoscreen) {
+
+            Rectangle src4 = { 0, 0, (float)logo.width, (float)logo.height };
+            Rectangle dest4 = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
+
+            DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BLACK);
+            DrawTexturePro(logo, src4, dest4, { 0, 0 }, 0.0f, WHITE);
+
+            if (IsKeyPressed(KEY_ENTER))
+            {
+                UnloadTexture(logo);
+                logoscreen = false;
+                inMenu = true;
+            }
+        } else if (inMenu && !logoscreen) {
             if (!menuSoundPlayed) {
                 PlaySound(soundArray[3]);
                 menuSoundPlayed = true;
@@ -849,7 +865,7 @@ int main()
                 inMenu = false;
             }
         }
-        else {
+        else if(!inMenu && !logoscreen){
             if (music == false) {
             }
             else {
@@ -950,8 +966,6 @@ int main()
 
         int textWidth = MeasureText(cpunts, 30);
 
-
-
         DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, screenHeight2 - 100, 40, RED);
         DrawText(cpuntstext, screenWidth2 - textWidth - 140, 20, 30, RED);
         DrawText(cpunts, screenWidth2 - textWidth - 40, 20, 30, RED);
@@ -985,6 +999,8 @@ int main()
     UnloadTexture(p1alttir);
     UnloadTexture(p1alttire);
     UnloadTexture(gameover);
+    UnloadTexture(bullete);
+    UnloadTexture(logo);
     UnloadTexture(bullete); 
     UnloadTexture(scor);
     UnloadTexture(bulletes);
