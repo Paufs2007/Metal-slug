@@ -147,6 +147,8 @@ int main()
     Texture p1alttire = LoadTexture("tiramunte.png");
     Texture gameover = LoadTexture("Game_Over.png");
     Texture bullete = LoadTexture("benemic.png");
+    Texture scor = LoadTexture("scorr.png");
+    Texture score = LoadTexture("scorre.png");
 
     int timerlife = 450;
     Timer vidaTimer = { 0 };
@@ -173,6 +175,8 @@ int main()
     camera.zoom = 0.85f;
 
     Rectangle framereceidle = { 0, 0, (float)sidle.width / 4, (float)sidle.height };
+    Rectangle framerececorr = { 0, 0, (float)scor.width / 12, (float)scor.height };
+    Rectangle framerececorre = { 0, 0, (float)score.width / 12, (float)score.height };
 
     Rectangle framerecalttire = { 0, 0, (float)p1alttire.width / 10, (float)p1alttire.height };
     Rectangle framerecalttir = { 0, 0, (float)p1alttir.width / 10, (float)p1alttir.height };
@@ -237,6 +241,8 @@ int main()
             framerecscamese.x = (float)currentFramsalt * (float)p1scamese.width / 6;
             frameRecdretacorrent.x = (float)currentFramcorrer * (float)p1dretacorrentcames.width / 12;
             frameesquerracorrent.x = (float)currentFramcorrer * (float)p1esquerracorrentcames.width / 12;
+            framerececorr.x = (float)currentFramcorrer * (float)scor.width / 12;
+            framerececorre.x = (float)currentFramcorrer * (float)score.width / 12;
         }
 
         if (framesCounter >= (60 / framesSpeedtir))
@@ -457,10 +463,21 @@ int main()
 
         if (s1.ehp == 1) 
         {
-            Vector2 position = { 0.0f, 0.0f };
-            Rectangle posidles1 = { (float)s1.ex, (float)s1.ey, framereceidle.width * 5, framereceidle.height * 5 };
-            DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
-            DrawText(cix, s1.ex, s1.ey, 20, RED);
+            if (s1.evx == 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posidles1 = { (float)s1.ex, (float)s1.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
+                DrawText(cix, s1.ex, s1.ey, 20, RED);
+            }
+            else if (s1.evx < 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posidles1 = { (float)s1.ex, (float)s1.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
+                DrawText(cix, s1.ex, s1.ey, 20, RED);
+            }
+
             if (!inMenu && !winscreen && !lose) 
             {
                 enemyShootTimer += GetFrameTime();
@@ -491,10 +508,22 @@ int main()
 
         if (s2.ehp == 1) 
         {
-            Vector2 position = { 0.0f, 0.0f };
-            Rectangle posidles2 = { (float)s2.ex, (float)s2.ey, framereceidle.width * 5, framereceidle.height * 5 };
-            DrawTexturePro(sidle, framereceidle, posidles2, position, 0, WHITE);
-            DrawText(cix, s2.ex, s2.ey, 20, RED);
+            
+            if (s2.evx == 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posidles1 = { (float)s2.ex, (float)s2.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
+                DrawText(cix, s2.ex, s2.ey, 20, RED);
+            }
+            else if (s2.evx < 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle poscorr = { (float)s2.ex, (float)s2.ey, framerececorr.width * 5, framerececorr.height * 5 };
+                DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
+                DrawText(cix, s2.ex, s2.ey, 20, RED);
+            }
+
             if (!inMenu && !winscreen && !lose) 
             {
                 enemyShootTimer += GetFrameTime();
