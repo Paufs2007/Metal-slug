@@ -24,7 +24,7 @@ public:
     int hp = 1;
     bool menu = true;
     void jump() {
-        vy = 40;
+        vy = 50;
         canJump = false;
     }
 };
@@ -369,7 +369,8 @@ int main()
 
         //Aim direction
         if (IsKeyDown(KEY_W)) p.facingy = 1;
-        else if (IsKeyDown(KEY_S) && p.y > FLOOR_Y) p.facingy = -1;
+        else if (IsKeyDown(KEY_S) && p.y < FLOOR_Y) p.facingy = -1;
+        else p.facingy = 0;
 
         //PLAYER BULLETS
 
