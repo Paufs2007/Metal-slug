@@ -148,7 +148,6 @@ int main()
     Texture gameover = LoadTexture("Game_Over.png");
     Texture bullete = LoadTexture("benemic.png");
 
-
     int timerlife = 450;
     Timer vidaTimer = { 0 };
     startTimer(&vidaTimer, timerlife);
@@ -159,13 +158,14 @@ int main()
     int   FLOOR_Y = 1300;
 
     player p = { 400, 1220 , 0, 0, true };
-    //enemics ----------------------------------------------------------------------------------------------------------------------------------------
+
     soldier s1 = { 19500, 605 };
     soldier s2 = { 5450, 605 };
-
+    soldier s3 = { 10450, 605 };
 
     bool bs1 = true;
     bool bs2 = true;
+    bool bs3 = true;
 
     Camera2D camera = { 0 };
     camera.offset = { 550, 459 };
@@ -293,6 +293,15 @@ int main()
             s2.vy = 0;
         }
 
+        s3.ey += s3.vy;
+        s3.vy += 4;
+
+        if (s3.ey >= 1020)
+        {
+            s3.ey = 1020;
+            s3.vy = 0;
+        }
+
         float camLeft = camera.target.x - (camera.offset.x) / camera.zoom;
         float camRight = camera.target.x + (screenWidth2 - camera.offset.x) / camera.zoom;
         float camTop = camera.target.y - (camera.offset.y) / camera.zoom;
@@ -390,6 +399,14 @@ int main()
             if (bullets[i].x >= s1.ex && bullets[i].x <= s1.ex + 100 && bullets[i].y >= s1.ey && bullets[i].y <= s1.ey + 200)
             {
                 s1.ehp--;
+            }
+            if (bullets[i].x >= s2.ex && bullets[i].x <= s2.ex + 100 && bullets[i].y >= s2.ey && bullets[i].y <= s2.ey + 200)
+            {
+                s2.ehp--;
+            }
+            if (bullets[i].x >= s3.ex && bullets[i].x <= s3.ex + 100 && bullets[i].y >= s3.ey && bullets[i].y <= s3.ey + 200)
+            {
+                s3.ehp--;
             }
         }
 
@@ -492,6 +509,35 @@ int main()
         {
             vpunts = vpunts + 10;
             bs2 = false;
+            PlaySound(soundArray[0]);
+        }
+
+        if (s3.ehp == 1) {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posidles3 = { (float)s3.ex, (float)s3.ey, framereceidle.width * 5, framereceidle.height * 5 };
+            DrawTexturePro(sidle, framereceidle, posidles3, position, 0, WHITE);
+            DrawText(cix, s3.ex, s3.ey, 20, RED);
+            if (!inMenu && !winscreen && !lose) {
+                enemyShootTimer += GetFrameTime();
+                if (enemyShootTimer >= enemyShootInterval) {
+                    enemyShootTimer = 0.0f;
+                    for (int i = 0; i < MAX_BULLETSE; i++) {
+                        if (!bulletse[i].active) {
+                            bulletse[i].x = s3.ex;
+                            bulletse[i].y = s3.ey + 30;
+                            bulletse[i].vx = (p.x < s3.ex) ? -8.0f : 8.0f;
+                            bulletse[i].vy = 0;
+                            bulletse[i].active = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        else if (bs3)
+        {
+            vpunts = vpunts + 10;
+            bs3 = false;
             PlaySound(soundArray[0]);
         }
 
