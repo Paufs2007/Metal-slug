@@ -781,6 +781,30 @@ int main()
                 music = true;
             }
 
+            if (IsKeyPressed(KEY_C)) p.credits++;
+
+            if (IsKeyPressed(KEY_R)) {
+                lose = false;
+                vpunts = 0;
+                bs1 = true;
+                winscreen = false;
+                s1.ehp = 1;
+                winSoundPlayed = false;
+                timerlife = 450;
+                startTimer(&vidaTimer, timerlife);
+
+                ResumeMusicStream(musicArray[0]);
+
+                p.x = 400;
+                p.y = 1220;
+                p.vx = 0;
+                p.vy = 0;
+
+                camera.target.x = p.x;
+                camera.target.y = 1100;
+            }
+
+
             DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
             updatetimer(&vidaTimer);
 
@@ -841,26 +865,7 @@ int main()
 
         int textWidth = MeasureText(cpunts, 30);
 
-        if (!inMenu) {
-            if (IsKeyPressed(KEY_R)) {
-                lose = false;
-                vpunts = 0;
-                bs1 = true;
-                winscreen = false;
-                s1.ehp = 1;
-                winSoundPlayed = false;
 
-                ResumeMusicStream(musicArray[0]);
-
-                p.x = 400;
-                p.y = 1220;
-                p.vx = 0;
-                p.vy = 0;
-
-                camera.target.x = p.x;
-                camera.target.y = 1100;
-            }
-        }
 
         DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, screenHeight2 - 100, 40, RED);
         DrawText(cpuntstext, screenWidth2 - textWidth - 140, 20, 30, RED);
