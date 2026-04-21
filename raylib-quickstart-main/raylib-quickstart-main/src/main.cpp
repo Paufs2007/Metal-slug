@@ -1007,6 +1007,7 @@ int main()
     UnloadTexture(bulleta);
     UnloadTexture(bulletb);
     UnloadTexture(bulletee);
+    UnloadTexture(score);
     CloseWindow();
     return 0;
 }
