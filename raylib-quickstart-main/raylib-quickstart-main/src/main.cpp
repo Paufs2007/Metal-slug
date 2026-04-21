@@ -98,7 +98,7 @@ int main()
     InitWindow(1300, 952, "Metal Slug");
 
     //-----------------------------CHANGE ------------------------------------------
-
+    SetTargetFPS(60);
     bool inMenu = true;
     bool winscreen = false;
     bool music = false;
@@ -319,7 +319,7 @@ int main()
         if (p.y < FLOOR_Y)
         {
             if (p.canJump != false && p.y > FLOOR_Y - 10) p.y = FLOOR_Y;
-            if (p.vy > -10) p.vy -= 2;
+            if (p.vy > -20) p.vy -= 4;
         }
         else
         {
@@ -331,7 +331,7 @@ int main()
         //Enemy Physics
 
         s1.ey += s1.vy;
-        s1.vy += 2; 
+        s1.vy += 4; 
 
         if (s1.ey >= FLOOR_Y)
         {
@@ -339,6 +339,11 @@ int main()
             s1.vy = 0;
         }
 
+        // Get the visible world bounds from the camera
+        float camLeft = camera.target.x - (camera.offset.x) / camera.zoom;
+        float camRight = camera.target.x + (screenWidth2 - camera.offset.x) / camera.zoom;
+        float camTop = camera.target.y - (camera.offset.y) / camera.zoom;
+        float camBottom = camera.target.y + (screenHeight2 - camera.offset.y) / camera.zoom;
 
         // --- FLOOR_Y ---
         if (p.x > 0) FLOOR_Y = 1220;
@@ -359,26 +364,15 @@ int main()
         if (p.x > 17750) FLOOR_Y = 700;
 
         // --- Obstacles ---
+        if (p.x <= camLeft) p.x = camLeft + 5;
         if (p.x <= 3385 && p.y > 1220) p.x = 3390;
         if (p.x >= 9350 && p.x <= 9405 && p.y > 1260) p.x = 9410;
         if (p.x >= 10095 && p.x <= 10150 && p.y > 1220) p.x = 10090;
         if (p.x >= 10245 && p.x <= 10300 && p.y > 1021) p.x = 10240;
         if (p.x >= 10600 && p.x <= 10710 && p.y > 1021) p.x = 10715;
 
-        // Get the visible world bounds from the camera
-        float camLeft = camera.target.x - (camera.offset.x) / camera.zoom;
-        float camRight = camera.target.x + (screenWidth2 - camera.offset.x) / camera.zoom;
-        float camTop = camera.target.y - (camera.offset.y) / camera.zoom;
-        float camBottom = camera.target.y + (screenHeight2 - camera.offset.y) / camera.zoom;
-
-        // --- Camera ---
-        if (p.x <= camLeft) p.x = camLeft + 5;
-
         // --- Cheats ---
         if (IsKeyDown(KEY_L)) p.x = 16000;
-
-        // --- Salto ---
-        if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
 
         //Aim direction
         if (IsKeyDown(KEY_W)) p.facingy = 1;
@@ -422,7 +416,7 @@ int main()
             camera.target.y = (float)1100;
         }
         else if (p.x >= 16200 && p.x < 17800 && camera.target.y != 540) {
-            camera.target.y = -0.35 * camera.target.x + 6770;   // --------------------------------------------------------------------------------------------------------------------------
+            camera.target.y = -0.35 * camera.target.x + 6770;
         }
         else {
             camera.target.y = (float)540;
@@ -793,12 +787,12 @@ int main()
                 lose = true;
             }
 
-            // --- Movimiento horizontal ---
-            if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A)) {
+            // --- Player movement ---
+            if (IsKeyDown(KEY_D) && p.vx < 10 && !IsKeyDown(KEY_A)) {
                 p.vx += 5;
                 p.facing = 1;
             }
-            else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D)) {
+            else if (IsKeyDown(KEY_A) && p.vx > -10 && !IsKeyDown(KEY_D)) {
                 p.vx -= 5;
                 p.facing = -1;
             }
@@ -806,7 +800,7 @@ int main()
 
 
             // --- Salto ---
-            if (IsKeyPressed(KEY_W) && p.canJump) p.jump();
+            if (IsKeyPressed(KEY_SPACE) && p.canJump) p.jump();
 
             //Aim direction
             if (IsKeyDown(KEY_W)) p.facingy = 1;
