@@ -95,7 +95,7 @@ int main()
     bool logoscreen = true;
     bool inMenu = true;
     bool winscreen = false;
-    bool music = false;
+    bool music = true;
     bool menuSoundPlayed = false;
     bool winSoundPlayed = false;
     bool lose = false;
@@ -893,7 +893,7 @@ int main()
             DrawTexturePro(logo, src4, dest4, { 0, 0 }, 0.0f, WHITE);
             DrawText("PRESS ENTER TO START", 375, 725, 40, RED);
 
-            DrawText("Aidan Herzog - Pau Fornons - Emma Riera - Bernat Deu", (GetScreenWidth() / 4) + 25, 800, 20, RED);
+            DrawText("Projecte 1 - Grau en Disseny i Desenvolupament de Videojocs - UPC Terrassa\nAidan Herzog - Pau Fornons - Emma Riera - Bernat Deu\nTutor: Alejandro Paris", (GetScreenWidth() / 4) + 25, 800, 20, RED);
 
 
 
@@ -928,7 +928,6 @@ int main()
             if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
             {
                 p.credits--;
-                UnloadTexture(start);
                 inMenu = false;
             }
         }
@@ -975,6 +974,7 @@ int main()
                 p.vy = 0;
                 s2.ex = 5450;
                 s2.evx = 0;
+                s3.ehp = 1;
 
                 camera.target.x = p.x;
                 camera.target.y = 1100;
@@ -1017,9 +1017,37 @@ int main()
             Rectangle src3 = { 0, 0, (float)win.width, (float)win.height };
             Rectangle dest3 = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
             DrawTexturePro(win, src3, dest3, { 0, 0 }, 0.0f, WHITE);
+            DrawText("PRESS P TO RETURN TO MENU\nPRESS R TO RESTART LEVEL", 375, 800, 40, RED);
+            if (IsKeyPressed(KEY_P)) {
+                winscreen = false;
+                lose = false;
+                winSoundPlayed = false;
+                menuSoundPlayed = false;
+                vpunts = 0;
+                bs1 = true;
+                bs2 = true;
+                bs3 = true;
+                s1.ehp = 1;
+                s2.ehp = 1;
+                s3.ehp = 1;
+                s2.ex = 5450;
+                s2.evx = 0;
+                timerlife = 450;
+                startTimer(&vidaTimer, timerlife);
+                p.x = 400;
+                p.y = 1220;
+                p.vx = 0;
+                p.vy = 0;
+                camera.target.x = p.x;
+                camera.target.y = 1100;
+                ResumeMusicStream(musicArray[0]);
+                inMenu = true;
+
+
+            }
         }
         if (lose == true) {
-            if (p.credits < 0)p.credits = 0;
+            if (p.credits < 0) p.credits = 0;
             PauseMusicStream(musicArray[0]);
             if (!winSoundPlayed) {
                 PlaySound(soundArray[5]);
@@ -1028,6 +1056,33 @@ int main()
             Rectangle src3 = { 0, 0, (float)gameover.width, (float)gameover.height };
             Rectangle dest3 = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
             DrawTexturePro(gameover, src3, dest3, { 0, 0 }, 0.0f, WHITE);
+            DrawText("PRESS P TO RETURN TO MENU\nPRESS R TO RESTART LEVEL", 375, 800, 40, RED);
+            if (IsKeyPressed(KEY_P)) {
+                winscreen = false;
+                lose = false;
+                winSoundPlayed = false;
+                menuSoundPlayed = false;
+                vpunts = 0;
+                bs1 = true;
+                bs2 = true;
+                bs3 = true;
+                s1.ehp = 1;
+                s2.ehp = 1;
+                s3.ehp = 1;
+                s2.ex = 5450;
+                s2.evx = 0;
+                timerlife = 450;
+                startTimer(&vidaTimer, timerlife);
+                p.x = 400;
+                p.y = 1220;
+                p.vx = 0;
+                p.vy = 0;
+                camera.target.x = p.x;
+                camera.target.y = 1100;
+                ResumeMusicStream(musicArray[0]);
+                inMenu = true;
+
+            }
         }
 
         if (winscreen || lose) {
