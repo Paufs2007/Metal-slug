@@ -505,8 +505,8 @@ int main()
                                 bullets[i].vy = 0;
                             }
                             else if (p.facingy == 1) {
-                                bullets[i].x = (float)p.x + 50; // ← modify X here
-                                bullets[i].y = (float)p.y - 55; // ← modify Y here
+                                bullets[i].x = (float)p.x + 50; 
+                                bullets[i].y = (float)p.y - 55;
                                 bullets[i].vx = 0;
                                 bullets[i].vy = -30.0f;
                             }
