@@ -663,11 +663,12 @@ int main()
             }
             else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
             if (IsKeyPressed(KEY_SPACE) && p.canJump) p.jump();
-            if (IsKeyDown(KEY_S))
+            if (IsKeyDown(KEY_S) && p.canJump)
             {
                 p.isajupit = 1;
             }
-            else {
+            else
+            {
                 p.isajupit = -1;
             }
         }
