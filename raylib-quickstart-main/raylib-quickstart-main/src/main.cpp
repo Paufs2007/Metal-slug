@@ -587,7 +587,7 @@ int main()
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle poscamess = { (float)p.x, (float)p.y + 90, framerecscames.width * 5, framerecscames.height * 5 };
-                Rectangle poshots = { (float)p.x - 55, (float)p.y - 15, framerectir.width * 5, framerectir.height * 5 };
+                Rectangle poshots = { (float)p.x + 10, (float)p.y - 30, framerectir.width * 5, framerectir.height * 5 };
                 DrawTexturePro(p1shot, framerectir, poshots, position, 0, WHITE);
                 DrawTexturePro(p1scames, framerecscames, poscamess, position, 0, WHITE);
                 DrawText(cix, p.x, p.y, 20, RED);
@@ -596,7 +596,7 @@ int main()
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle poscamesse = { (float)p.x, (float)p.y + 90, framerecscamese.width * 5, framerecscamese.height * 5 };
-                Rectangle poshotse = { (float)p.x - 90, (float)p.y - 15, framerectire.width * 5, framerectire.height * 5 };
+                Rectangle poshotse = { (float)p.x - 170, (float)p.y - 20, framerectire.width * 5, framerectire.height * 5 };
                 DrawTexturePro(p1shote, framerectire, poshotse, position, 0, WHITE);
                 DrawTexturePro(p1scamese, framerecscamese, poscamesse, position, 0, WHITE);
                 DrawText(cix, p.x, p.y, 20, RED);
@@ -685,14 +685,14 @@ int main()
             if (p.vx == 0 && p.facing == -1 && p.isshooting == 1)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posajutire = { (float)p.x - 120, (float)p.y + 45, framerecbaixtire.width * 5, framerecbaixtire.height * 5 };
+                Rectangle posajutire = { (float)p.x - 140, (float)p.y + 45, framerecbaixtire.width * 5, framerecbaixtire.height * 5 };
                 DrawTexturePro(p1baixtire, framerecbaixtire, posajutire, position, 0, WHITE);
                 DrawText(cix, p.x, p.y, 20, RED);
             }
             if (p.vx < 0 && p.facing == -1 && p.isshooting == 1)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posajutire = { (float)p.x - 120, (float)p.y + 45, framerecbaixtire.width * 5, framerecbaixtire.height * 5 };
+                Rectangle posajutire = { (float)p.x - 140, (float)p.y + 45, framerecbaixtire.width * 5, framerecbaixtire.height * 5 };
                 DrawTexturePro(p1baixtire, framerecbaixtire, posajutire, position, 0, WHITE);
                 DrawText(cix, p.x, p.y, 20, RED);
             }
