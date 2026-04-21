@@ -893,9 +893,7 @@ int main()
             DrawTexturePro(logo, src4, dest4, { 0, 0 }, 0.0f, WHITE);
             DrawText("PRESS ENTER TO START", 375, 725, 40, RED);
 
-            DrawText("Projecte 1 - Grau en Disseny i Desenvolupament de Videojocs - UPC Terrassa\nAidan Herzog - Pau Fornons - Emma Riera - Bernat Deu\nTutor: Alejandro Paris", (GetScreenWidth() / 4) + 25, 800, 20, RED);
-
-
+            DrawText("Explota Studio's recreation of Metal Slug\nProjecte 1 - Grau en Disseny i Desenvolupament de Videojocs - UPC Terrassa\nAidan Herzog - Pau Fornons - Emma Riera - Bernat Deu\nTutor: Alejandro Paris", (GetScreenWidth() / 4) + 25, 800, 20, RED);
 
             if (IsKeyPressed(KEY_ENTER))
             {
