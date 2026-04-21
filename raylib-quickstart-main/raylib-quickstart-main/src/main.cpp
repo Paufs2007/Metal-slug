@@ -833,11 +833,24 @@ int main()
 
         if (logoscreen) {
 
+            float width = logo.width * 4;
+            float height = logo.height * 4;
+
+            Rectangle dest4 = {
+                (GetScreenWidth() - width) / 2,
+                (GetScreenHeight() - height) / 2 - 100,
+                width,
+                height
+            };
             Rectangle src4 = { 0, 0, (float)logo.width, (float)logo.height };
-            Rectangle dest4 = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
 
             DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BLACK);
             DrawTexturePro(logo, src4, dest4, { 0, 0 }, 0.0f, WHITE);
+            DrawText("PRESS ENTER TO START", 375, 725, 40, RED);
+
+            DrawText("Aidan Herzog - Pau Fornons - Emma Riera - Bernat Deu", (GetScreenWidth() / 4) + 25, 800, 20, RED);
+
+
 
             if (IsKeyPressed(KEY_ENTER))
             {
@@ -845,7 +858,11 @@ int main()
                 logoscreen = false;
                 inMenu = true;
             }
-        } else if (inMenu && !logoscreen) {
+        }
+        else if (inMenu && !logoscreen) {
+
+
+
             if (!menuSoundPlayed) {
                 PlaySound(soundArray[3]);
                 menuSoundPlayed = true;
@@ -856,6 +873,9 @@ int main()
 
             DrawTexturePro(start, src2, dest2, { 0, 0 }, 0.0f, WHITE);
 
+            int textWidth = MeasureText(cpunts, 30);
+
+            DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, screenHeight2 - 100, 40, RED);
             if (IsKeyPressed(KEY_C))
                 p.credits++;
             if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
@@ -865,7 +885,15 @@ int main()
                 inMenu = false;
             }
         }
-        else if(!inMenu && !logoscreen){
+        else if (!inMenu && !logoscreen) {
+
+            int textWidth = MeasureText(cpunts, 30);
+
+            DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, screenHeight2 - 100, 40, RED);
+            DrawText(cpuntstext, screenWidth2 - textWidth - 140, 20, 30, RED);
+            DrawText(cpunts, screenWidth2 - textWidth - 40, 20, 30, RED);
+            DrawText(cpunts, 20, 20, 30, RED);
+
             if (music == false) {
             }
             else {
@@ -964,12 +992,7 @@ int main()
             }
         }
 
-        int textWidth = MeasureText(cpunts, 30);
 
-        DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, screenHeight2 - 100, 40, RED);
-        DrawText(cpuntstext, screenWidth2 - textWidth - 140, 20, 30, RED);
-        DrawText(cpunts, screenWidth2 - textWidth - 40, 20, 30, RED);
-        DrawText(cpunts, 20, 20, 30, RED);
 
         EndDrawing();
     }
