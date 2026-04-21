@@ -115,6 +115,7 @@ int main()
     soundArray[3] = LoadSound("Metal_Slug.mp3");
     soundArray[4] = LoadSound("mission_complete.mp3");
     soundArray[5] = LoadSound("Game_Over.ogg");
+    soundArray[6] = LoadSound("explode.mp3");
 
     musicArray[0] = LoadMusicStream("bo.mp3");
     musicArray[0].looping = true;
@@ -844,6 +845,10 @@ int main()
             };
             Rectangle src4 = { 0, 0, (float)logo.width, (float)logo.height };
 
+            if (!winSoundPlayed) {
+                PlaySound(soundArray[6]);
+                winSoundPlayed = true;
+            }            
             DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BLACK);
             DrawTexturePro(logo, src4, dest4, { 0, 0 }, 0.0f, WHITE);
             DrawText("PRESS ENTER TO START", 375, 725, 40, RED);
@@ -857,6 +862,8 @@ int main()
                 UnloadTexture(logo);
                 logoscreen = false;
                 inMenu = true;
+                winSoundPlayed = false;
+
             }
         }
         else if (inMenu && !logoscreen) {
