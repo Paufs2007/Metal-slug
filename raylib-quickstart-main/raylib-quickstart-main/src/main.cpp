@@ -822,12 +822,10 @@ int main()
                 if (p.isajupit == -1)
                 {
                     p.isajupit = 1;
-                    p.canJump = false;
                 }
                 else
                 {
                     p.isajupit = -1;
-                    p.canJump = true;
                 }
             }
 
