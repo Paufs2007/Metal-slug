@@ -459,7 +459,7 @@ int main()
 
         if (!inMenu && !winscreen && !lose) {
 
-            if (IsKeyPressed(KEY_F)) {
+            if (IsKeyPressed(KEY_J)) {
                 PlaySound(soundArray[2]);
                 p.isshooting = 1;
                 currentFramtir = 0;
