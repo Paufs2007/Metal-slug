@@ -467,7 +467,7 @@ int main()
             if (!bulletse[i].active) continue;
             DrawTexture(bullet, (int)bulletse[i].x, (int)bulletse[i].y, WHITE);
 
-            if (bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y && bulletse[i].y <= p.y + 200)
+            if (bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y && bulletse[i].y <= p.y + 200 && p.isajupit == -1 || bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y + 100 && bulletse[i].y <= p.y + 200 && p.isajupit == 1)
             {
                 bulletse[i].active = false;
                 hitCooldown = 1.5f;
