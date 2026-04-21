@@ -36,7 +36,7 @@ public:
     float ex;
     int ey;
     int vy;
-    int y;
+    int evx;
     int ehp = 1;
     int efacing = 1; // 1 = right, -1 = left
     int efacingy = 1; // 1 = up, -1 = down
@@ -161,7 +161,13 @@ int main()
     player p = { 400, 1220 , 0, 0, true };
     //enemics ----------------------------------------------------------------------------------------------------------------------------------------
     soldier s1 = { 19500, 605 };
+
+    soldier s2 = { 5450, 605 };
+    if (p.x >= 4500) s2.evx = -5;
+    s2.ex += s2.evx;
+
     bool bs1 = true;
+    bool bs2 = true;
 
     Camera2D camera = { 0 };
     camera.offset = { 550, 459 };
@@ -277,6 +283,15 @@ int main()
             s1.vy = 0;
         }
 
+        s2.ey += s2.vy;
+        s2.vy += 4;
+
+        if (s2.ey >= FLOOR_Y)
+        {
+            s2.ey = FLOOR_Y;
+            s2.vy = 0;
+        }
+
         float camLeft = camera.target.x - (camera.offset.x) / camera.zoom;
         float camRight = camera.target.x + (screenWidth2 - camera.offset.x) / camera.zoom;
         float camTop = camera.target.y - (camera.offset.y) / camera.zoom;
@@ -301,13 +316,13 @@ int main()
 
         if (p.x <= camLeft) p.x = camLeft + 5;
         if (p.x <= 3385 && p.y > 1220) p.x = 3390;
-        if (p.x >= 9350 && p.x <= 9405 && p.y > 1260) p.x = 9410;
+        if (p.x >= 9350 && p.x <= 9410 && p.y > 1260) p.x = 9415;
         if (p.x >= 10095 && p.x <= 10150 && p.y > 1220) p.x = 10090;
         if (p.x >= 10245 && p.x <= 10300 && p.y > 1021) p.x = 10240;
         if (p.x >= 10600 && p.x <= 10710 && p.y > 1021) p.x = 10715;
 
-        if (IsKeyDown(KEY_W)) p.facingy = 1;
-        else if (IsKeyDown(KEY_S) && p.y < FLOOR_Y) p.facingy = -1;
+        if (IsKeyDown(KEY_W) && !IsKeyDown(KEY_S)) p.facingy = 1;
+        else if (IsKeyDown(KEY_S) && !IsKeyDown(KEY_W) && p.y < FLOOR_Y) p.facingy = -1;
         else p.facingy = 0;
 
         for (int i = 0; i < MAX_BULLETS; i++) {
@@ -402,16 +417,16 @@ int main()
                     if (!bullets[i].active) {
                         bullets[i].x = (float)p.x + 15;
                         bullets[i].y = (float)p.y + 55;
-                        if (IsKeyDown(KEY_W)) {
+                        if (p.facingy == 1) {
                             bullets[i].vx = 0;
-                            bullets[i].vy = -15.0f;
+                            bullets[i].vy = -30.0f;
                         }
                         else if (p.facingy == -1) {
                             bullets[i].vx = 0;
-                            bullets[i].vy = 15.0f;
+                            bullets[i].vy = 30.0f;
                         }
                         else {
-                            bullets[i].vx = 15.0f * p.facing;
+                            bullets[i].vx = 30.0f * p.facing;
                             bullets[i].vy = 0;
                         }
                         bullets[i].active = true;
@@ -449,6 +464,34 @@ int main()
             bs1 = false;
             PlaySound(soundArray[0]);
             winscreen = true;
+        }
+        if (s2.ehp == 1) {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posidles2 = { (float)s2.ex, (float)s2.ey, framereceidle.width * 5, framereceidle.height * 5 };
+            DrawTexturePro(sidle, framereceidle, posidles2, position, 0, WHITE);
+            DrawText(cix, s2.ex, s2.ey, 20, RED);
+            if (!inMenu && !winscreen && !lose) {
+                enemyShootTimer += GetFrameTime();
+                if (enemyShootTimer >= enemyShootInterval) {
+                    enemyShootTimer = 0.0f;
+                    for (int i = 0; i < MAX_BULLETSE; i++) {
+                        if (!bulletse[i].active) {
+                            bulletse[i].x = s2.ex;
+                            bulletse[i].y = s2.ey + 30;
+                            bulletse[i].vx = (p.x < s2.ex) ? -8.0f : 8.0f;
+                            bulletse[i].vy = 0;
+                            bulletse[i].active = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        else if (bs2)
+        {
+            vpunts = vpunts + 10;
+            bs2 = false;
+            PlaySound(soundArray[0]);
         }
 
         if (p.isajupit == -1) 
@@ -708,7 +751,7 @@ int main()
             }
             else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
             if (IsKeyPressed(KEY_SPACE) && p.canJump) p.jump();
-            if (IsKeyDown(KEY_S) && p.canJump)
+            if (IsKeyDown(KEY_S) && !IsKeyDown(KEY_W) && p.canJump)
             {
                 p.isajupit = 1;
             }
