@@ -436,7 +436,7 @@ int main()
 
         // --- Dibujo ---
         BeginDrawing();
-        ClearBackground(RED);
+        ClearBackground(BLACK);
         if (hitCooldown > 0.0f) hitCooldown -= GetFrameTime();
 
 
