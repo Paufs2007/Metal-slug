@@ -466,9 +466,17 @@ int main()
                 if (p.facing == 1) {
                     for (int i = 0; i < MAX_BULLETS; i++) {
                         if (!bullets[i].active) {
-                            bullets[i].x = (float)p.x + 175;
-                            bullets[i].y = (float)p.y + 55;
-                            if (p.facingy == 1) {
+                            bullets[i].x = (float)p.x + 175; // modifies x of bullet when shooting 
+                            bullets[i].y = (float)p.y + 55; // modifies y of bullet when shooting 
+
+                            if (p.isajupit == 1) {
+                                bullets[i].y = (float)p.y + 100; // modifies y of bullet when shooting down
+                                bullets[i].vx = 30.0f;
+                                bullets[i].vy = 0;
+                            }
+                            else if (p.facingy == 1) {
+                                bullets[i].x = (float)p.x + 35; // modifies x of bullet when shooting up
+                                bullets[i].y = (float)p.y - 55;  // modifies y of bullet when shooting up
                                 bullets[i].vx = 0;
                                 bullets[i].vy = -30.0f;
                             }
@@ -488,9 +496,17 @@ int main()
                 else if (p.facing == -1) {
                     for (int i = 0; i < MAX_BULLETS; i++) {
                         if (!bullets[i].active) {
-                            bullets[i].x = (float)p.x - 75;
+                            bullets[i].x = (float)p.x - 0;
                             bullets[i].y = (float)p.y + 55;
-                            if (p.facingy == 1) {
+
+                            if (p.isajupit == 1) {
+                                bullets[i].y = (float)p.y + 100;
+                                bullets[i].vx = -30.0f;
+                                bullets[i].vy = 0;
+                            }
+                            else if (p.facingy == 1) {
+                                bullets[i].x = (float)p.x + 50; // ← modify X here
+                                bullets[i].y = (float)p.y - 55; // ← modify Y here
                                 bullets[i].vx = 0;
                                 bullets[i].vy = -30.0f;
                             }
@@ -506,30 +522,6 @@ int main()
                             break;
                         }
                     }
-
-                }
-                else if (p.facingy == -1) {
-                    for (int i = 0; i < MAX_BULLETS; i++) {
-                        if (!bullets[i].active) {
-                            bullets[i].x = (float)p.x - 100;
-                            bullets[i].y = (float)p.y - 55;
-                            if (p.facingy == 1) {
-                                bullets[i].vx = 0;
-                                bullets[i].vy = -30.0f;
-                            }
-                            else if (p.facingy == -1) {
-                                bullets[i].vx = 0;
-                                bullets[i].vy = 3.0f;
-                            }
-                            else {
-                                bullets[i].vx = 30.0f * p.facing;
-                                bullets[i].vy = 0;
-                            }
-                            bullets[i].active = true;
-                            break;
-                        }
-                    }
-
                 }
 
             }
