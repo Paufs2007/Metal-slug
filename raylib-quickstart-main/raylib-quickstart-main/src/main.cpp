@@ -159,10 +159,10 @@ int main()
     int   FLOOR_Y = 1300;
 
     player p = { 400, 1220 , 0, 0, true };
-    //enemics ----------------------------------------------------------------------------------------------------------------------------------------
+
     soldier s1 = { 19500, 605 };
     soldier s2 = { 5450, 605 };
-
+    soldier s3 = { 9700, 605 };
 
     bool bs1 = true;
     bool bs2 = true;
@@ -390,6 +390,14 @@ int main()
             if (bullets[i].x >= s1.ex && bullets[i].x <= s1.ex + 100 && bullets[i].y >= s1.ey && bullets[i].y <= s1.ey + 200)
             {
                 s1.ehp--;
+            }
+            if (bullets[i].x >= s2.ex && bullets[i].x <= s2.ex + 100 && bullets[i].y >= s2.ey && bullets[i].y <= s2.ey + 200)
+            {
+                s2.ehp--;
+            }
+            if (bullets[i].x >= s3.ex && bullets[i].x <= s3.ex + 100 && bullets[i].y >= s3.ey && bullets[i].y <= s3.ey + 200)
+            {
+                s3.ehp--;
             }
         }
 
