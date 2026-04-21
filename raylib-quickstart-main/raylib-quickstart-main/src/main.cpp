@@ -878,9 +878,12 @@ int main()
             
             if (IsKeyPressed(KEY_R)) {
 
+
                 lose = false;
                 vpunts = 0;
+                bs1 = true;
                 winscreen = false;
+                s1.ehp = 1;
 
                 winSoundPlayed = false;
 
