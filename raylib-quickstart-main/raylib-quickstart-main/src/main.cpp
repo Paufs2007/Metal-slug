@@ -92,6 +92,7 @@ struct Bullete {
 int main()
 {
     //-----------------------------CHANGE ------------------------------------------
+    // Tell the window to use vsync and work on high DPI displays
     SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
     InitWindow(1300, 952, "Metal Slug");
