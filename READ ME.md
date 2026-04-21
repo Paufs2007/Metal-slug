@@ -1,6 +1,6 @@
 https://github.com/Paufs2007/Metal-slug/
 
-[youtube link]
+https://youtu.be/20J7XNMCmEM
 
 Bernat -> Bernatusac
 Aidan -> AidanJake

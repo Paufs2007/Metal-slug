@@ -311,6 +311,7 @@
     <None Include="resources\Game_Over.ogg" />
     <None Include="resources\Metal_Slug.mp3" />
     <None Include="resources\bo.mp3" />
+    <None Include="resources\explode.mp3" />
     <None Include="resources\mission_complete.mp3" />
     <None Include="resources\pipa.mp3" />
     <None Include="resources\sexy_death.mp3" />
@@ -327,7 +328,13 @@
     <Image Include="resources\Metal_Slug_Start.png" />
     <Image Include="resources\ajupit.png" />
     <Image Include="resources\ajupite.png" />
+    <Image Include="resources\animacio de reviure ( despres de morir).png" />
     <Image Include="resources\animació ajupir (quan dones al cap abaix 1 vegada).png" />
+    <Image Include="resources\balaamunt.png" />
+    <Image Include="resources\balaball.png" />
+    <Image Include="resources\balae.png" />
+    <Image Include="resources\benemic.png" />
+    <Image Include="resources\benemice.png" />
     <Image Include="resources\bullet.png" />
     <Image Include="resources\bullet_the_OG.png" />
     <Image Include="resources\cames caminant versio girada.png" />
@@ -349,6 +356,7 @@
     <Image Include="resources\capquiete.png" />
     <Image Include="resources\captir.png" />
     <Image Include="resources\captire.png" />
+    <Image Include="resources\logoExplota.png" />
     <Image Include="resources\mission-1-complete.png" />
     <Image Include="resources\mr.png" />
     <Image Include="resources\p1idle.png" />
@@ -357,6 +365,8 @@
     <Image Include="resources\scamese.png" />
     <Image Include="resources\scap.png" />
     <Image Include="resources\scape.png" />
+    <Image Include="resources\scorr.png" />
+    <Image Include="resources\scorre.png" />
     <Image Include="resources\soldatidle.png" />
     <Image Include="resources\tirajupit.png" />
     <Image Include="resources\tirajupite.png" />

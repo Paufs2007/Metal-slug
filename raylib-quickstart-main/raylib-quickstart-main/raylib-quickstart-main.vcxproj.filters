@@ -37,6 +37,9 @@
     <None Include="resources\bo.mp3">
       <Filter>Game Resource Files</Filter>
     </None>
+    <None Include="resources\explode.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
     <None Include="resources\mission_complete.mp3">
       <Filter>Game Resource Files</Filter>
     </None>
@@ -77,7 +80,25 @@
     <Image Include="resources\ajupite.png">
       <Filter>Game Resource Files</Filter>
     </Image>
+    <Image Include="resources\animacio de reviure ( despres de morir).png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
     <Image Include="resources\animació ajupir (quan dones al cap abaix 1 vegada).png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\balaamunt.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\balaball.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\balae.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\benemic.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\benemice.png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\bullet.png">
@@ -143,6 +164,9 @@
     <Image Include="resources\captire.png">
       <Filter>Game Resource Files</Filter>
     </Image>
+    <Image Include="resources\logoExplota.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
     <Image Include="resources\mission-1-complete.png">
       <Filter>Game Resource Files</Filter>
     </Image>
@@ -165,6 +189,12 @@
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\scape.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\scorr.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\scorre.png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\soldatidle.png">
