@@ -171,7 +171,7 @@ int main()
 
     startTimer(&vidaTimer, timerlife);
 
-    // Tama�o real del mundo (fondo escalado x5)
+    // Tamany real del mon (fons escalat x5)
     const float bgScale = 5.0f;
     const int   worldWidth = (int)(bg.width * bgScale);
     const int   worldHeight = (int)(bg.height * bgScale);
@@ -183,7 +183,7 @@ int main()
 
     soldier s1 = { 19500, 605 };
     bool bs1 = true;
-    // --- C�mara 2D ---
+    // --- Camara 2D ---
     Camera2D camera = { 0 };
     camera.offset = { 550, 459 }; // centrada en pantalla 
     camera.rotation = 0.0f;
@@ -237,7 +237,7 @@ int main()
 
 
 
-        // --- Animaci�n ---
+        // --- Animacio ---
         framesCounter++;
         if (framesCounter >= (60 / framesSpeed))
         {
@@ -314,7 +314,7 @@ int main()
 
 
 
-        // --- F�sica ---
+        // --- Fisica ---
         p.x += p.vx;
         p.y -= p.vy;
 
@@ -408,11 +408,11 @@ int main()
         }
 
 
-        // --- L�mites del mundo (bordes del fondo) ---
+        // --- Limits del mon ---
         if (p.x < 0) { p.x = 0;          if (p.vx < 0) p.vx = 0; }
         if (p.x > worldWidth) { p.x = worldWidth;  if (p.vx > 0) p.vx = 0; }
 
-        // --- C�mara sigue al jugador, clampeada al mundo ---
+        // --- Camara sigue al jugador, clampeada al mundo ---
         if (camera.target.x < p.x) camera.target.x = (float)p.x;
         if (p.x >= 0 && p.x < 16200) {
             camera.target.y = (float)1100;
