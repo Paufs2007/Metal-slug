@@ -89,7 +89,7 @@ struct Bullete {
 int main()
 {
     SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
-    InitWindow(1300, 952, "Metal Slug");
+    InitWindow(975, 714, "Metal Slug"); //1300 952
     SetTargetFPS(60);
 
     bool logoscreen = true;
@@ -178,7 +178,7 @@ int main()
     bool bs3 = true;
 
     Camera2D camera = { 0 };
-    camera.offset = { 550, 459 };
+    camera.offset = { 350, 459 };
     camera.rotation = 0.0f;
     camera.zoom = 0.85f;
 
