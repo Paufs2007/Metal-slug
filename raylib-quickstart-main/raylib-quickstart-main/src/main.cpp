@@ -875,8 +875,8 @@ int main()
 
         if (logoscreen) {
 
-            float width = logo.width * 4;
-            float height = logo.height * 4;
+            float width = logo.width * 2;
+            float height = logo.height * 2;
 
             Rectangle dest4 = {
                 (GetScreenWidth() - width) / 2,
@@ -886,15 +886,16 @@ int main()
             };
             Rectangle src4 = { 0, 0, (float)logo.width, (float)logo.height };
 
+
             if (!winSoundPlayed) {
                 PlaySound(soundArray[6]);
                 winSoundPlayed = true;
-            }            
+            }
             DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BLACK);
             DrawTexturePro(logo, src4, dest4, { 0, 0 }, 0.0f, WHITE);
-            DrawText("PRESS ENTER TO START", 375, 725, 40, RED);
+            DrawText("PRESS ENTER TO START", 250, 500, 40, RED);
 
-            DrawText("Explota Studio's recreation of Metal Slug\nProjecte 1 - Grau en Disseny i Desenvolupament de Videojocs - UPC Terrassa\nAidan Herzog - Pau Fornons - Emma Riera - Bernat Deu\nTutor: Alejandro Paris", (GetScreenWidth() / 4) + 25, 800, 20, RED);
+            DrawText("                        Explota Studio's recreation of Metal Slug\n Projecte 1 - Grau en Disseny i Desenvolupament de Videojocs - UPC Terrassa\n             Aidan Herzog - Pau Fornons - Emma Riera - Bernat Deu\n                                 Tutor: Alejandro Paris", 225, 550, 15, RED);
 
             if (IsKeyPressed(KEY_ENTER))
             {
