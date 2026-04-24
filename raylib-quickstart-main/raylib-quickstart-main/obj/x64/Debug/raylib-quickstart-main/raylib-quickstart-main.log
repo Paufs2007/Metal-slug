@@ -1,0 +1,58 @@
+﻿  main.cpp
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(163,28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(326,46): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(332,47): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(334,47): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(336,48): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(338,47): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(341,43): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(380,55): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(536,33): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(543,33): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(556,51): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(582,33): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(589,33): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(602,51): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(623,29): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(635,51): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(664,109): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(664,109): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(664,145): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(664,145): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(665,90): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(665,90): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(665,117): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(665,117): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(673,113): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(673,113): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(673,149): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(673,149): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(674,91): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(674,91): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(674,119): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(674,119): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(716,104): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(716,104): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(716,140): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(716,140): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(734,108): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(734,108): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(734,144): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(734,144): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(788,109): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(788,109): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(788,145): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(788,145): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(806,113): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(806,113): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(806,149): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(806,149): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(877,25): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(878,26): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(969,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(981,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(1038,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(1043,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(1077,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\src\main.cpp(1082,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  raylib-quickstart-main.vcxproj -> C:\Users\paufs1\Documents\GitHub\Metal-slug\raylib-quickstart-main\raylib-quickstart-main\bin\Debug\raylib-quickstart-main.exe
