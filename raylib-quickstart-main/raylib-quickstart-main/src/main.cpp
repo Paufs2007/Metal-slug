@@ -223,8 +223,6 @@ int main()
 
     while (!WindowShouldClose())
     {
-        if (IsKeyPressed(KEY_F11)) ToggleFullscreen();
-
         framesCounter++;
         if (framesCounter >= (60 / framesSpeed))
         {
