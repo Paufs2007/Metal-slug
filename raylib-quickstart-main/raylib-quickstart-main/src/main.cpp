@@ -76,6 +76,7 @@ struct Bullet {
     float x, y;
     float vx;
     float vy;
+    int direction; // 1 = top -1 = bottom 2 = front -2 = back 
     bool active;
 };
 
@@ -317,9 +318,9 @@ int main()
         }
 
         float camLeft = camera.target.x - (camera.offset.x) / camera.zoom;
-        float camRight = camera.target.x + (screenWidth2 - camera.offset.x) / camera.zoom;
+        float camRight = camera.target.x + 975;
         float camTop = camera.target.y - (camera.offset.y) / camera.zoom;
-        float camBottom = camera.target.y + (screenHeight2 - camera.offset.y) / camera.zoom;
+        float camBottom = camera.target.y + (camera.offset.y) / camera.zoom;
 
         if (p.x > 0) FLOOR_Y = 1220;
         if (p.x > 3370) FLOOR_Y = 1380;
@@ -410,19 +411,19 @@ int main()
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
             
-            if (p.facing == 1 && p.facingy == 0)
+            if (bullets[i].direction == 2)
             {
                 DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
             }
-            else if (p.facing == -1 && p.facingy == 0)
+            else if (bullets[i].direction == -2)
             {
                 DrawTexture(bulletes, (int)bullets[i].x, (int)bullets[i].y, WHITE);
             }
-            else if (p.facingy == 1)
+            else if (bullets[i].direction == 1)
             {
                 DrawTexture(bulleta, (int)bullets[i].x, (int)bullets[i].y, WHITE);
             }
-            else if (p.facingy == -1)
+            else if (bullets[i].direction == -1)
             {
                 DrawTexture(bulletb, (int)bullets[i].x, (int)bullets[i].y, WHITE);
             }
@@ -468,25 +469,27 @@ int main()
                         if (!bullets[i].active) {
                             bullets[i].x = (float)p.x + 175; 
                             bullets[i].y = (float)p.y + 55; 
-
                             if (p.isajupit == 1) {
                                 bullets[i].y = (float)p.y + 100; 
                                 bullets[i].vx = 30.0f;
                                 bullets[i].vy = 0;
                             }
-                            else if (p.facingy == 1) {
+                            if (p.facingy == 1) {
                                 bullets[i].x = (float)p.x + 35;
                                 bullets[i].y = (float)p.y - 55;
                                 bullets[i].vx = 0;
                                 bullets[i].vy = -30.0f;
+                                bullets[i].direction = 1;
                             }
                             else if (p.facingy == -1) {
                                 bullets[i].vx = 0;
                                 bullets[i].vy = 30.0f;
+                                bullets[i].direction = -1;
                             }
                             else {
                                 bullets[i].vx = 30.0f * p.facing;
                                 bullets[i].vy = 0;
+                                bullets[i].direction = 2 * p.facing;
                             }
                             bullets[i].active = true;
                             break;
