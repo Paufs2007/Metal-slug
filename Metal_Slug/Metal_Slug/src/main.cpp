@@ -1002,6 +1002,7 @@ int main()
             Rectangle src4 = { 0, 0, (float)logo.width, (float)logo.height };
 
             if (!winSoundPlayed) {
+
                 PlaySound(soundArray[6]);
                 winSoundPlayed = true;
             }            
@@ -1052,7 +1053,7 @@ int main()
             DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, screenHeight2 - 100, 40, RED);
             DrawText(cpuntstext, screenWidth2 - textWidth - 140, 20, 30, RED);
             DrawText(cpunts, screenWidth2 - textWidth - 40, 20, 30, RED);
-            DrawText(cpunts, 20, 20, 30, RED);
+            DrawText(TextFormat("%i", p.vides), 20, 20, 30, RED);
 
             if (music == false) {
             }
