@@ -48,6 +48,7 @@ class objecte
 public:
     float ox;
     int oy;
+    int ovy;
     float punts;
     int alive = 1;
 };
@@ -335,6 +336,15 @@ int main()
             Jorge.vy = 0;
         }
 
+        o1.oy += o1.ovy;
+        o1.ovy += 4;
+
+        if (o1.oy >= FLOOR_Y)
+        {
+            o1.oy = FLOOR_Y;
+            o1.ovy = 0;
+        }
+
         s3.ey += s3.vy;
         s3.vy += 4;
 
@@ -472,7 +482,7 @@ int main()
             {
                 s3.ehp--;
             }
-            if (o1.ox >= p.x && o1.ox <= p.x + 100 && o1.oy >= p.y && o1.oy <= p.y + 200 && p.isajupit == -1 || o1.ox >= p.x && o1.ox <= p.x + 100 && o1.oy >= p.y + 100 && o1.oy <= p.y + 200 && p.isajupit == 1)
+            if (o1.ox >= p.x && o1.ox <= p.x + 100 && o1.oy >= p.y-20 && o1.oy <= p.y + 200)
             {
                 o1.alive--;
             }
@@ -586,7 +596,7 @@ int main()
 
             vpunts += o1.punts;
         }
-       
+        
         if (s1.ehp == 1) 
         {
             if (s1.evx == 0)
