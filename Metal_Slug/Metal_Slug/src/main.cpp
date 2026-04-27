@@ -117,6 +117,8 @@ int main()
     soundArray[4] = LoadSound("mission_complete.mp3");
     soundArray[5] = LoadSound("Game_Over.ogg");
     soundArray[6] = LoadSound("explode.mp3");
+    soundArray[7] = LoadSound("Fahhhh.mp3");
+    SetSoundVolume(soundArray[7], 100.0f);
 
     musicArray[0] = LoadMusicStream("bo.mp3");
     musicArray[0].looping = true;
@@ -367,6 +369,7 @@ int main()
                 bulletse[i].active = false;
             }
         }
+
 
         if (p.x < 0) { p.x = 0;          if (p.vx < 0) p.vx = 0; }
         if (p.x > worldWidth) { p.x = worldWidth;  if (p.vx > 0) p.vx = 0; }
@@ -1072,6 +1075,8 @@ int main()
             if (p.credits < 0) p.credits = 0;
             PauseMusicStream(musicArray[0]);
             if (!winSoundPlayed) {
+                PlaySound(soundArray[7]);
+
                 PlaySound(soundArray[5]);
                 winSoundPlayed = true;
             }
