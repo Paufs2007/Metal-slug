@@ -288,7 +288,7 @@ int main()
             framerecalttir.x = (float)currentFramtir * (float)p1alttir.width / 10;
             framerecalttire.x = (float)currentFramtir * (float)p1alttire.width / 10;
         }
-
+        // 5550 / 5785 / 5850 / 6470/ 6765/7515/7630/7870
         if (o1.ox >= p.x && o1.ox <= p.x + 100 && o1.oy >= p.y - 20 && o1.oy <= p.y + 200)
         {
             o1.alive--;
