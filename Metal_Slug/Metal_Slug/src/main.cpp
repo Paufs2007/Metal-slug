@@ -454,7 +454,7 @@ int main()
                 {
                     p.credits--;
                     p.vides = 3;
-                    if (p.canJump <= 0)
+                    if (p.credits <= 0)
                     {
                         lose = true;
                     }
