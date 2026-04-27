@@ -275,6 +275,13 @@ int main()
             framerecalttire.x = (float)currentFramtir * (float)p1alttire.width / 10;
         }
 
+        if (p.x > 4200 && p.x < 4510 && p.y <= 1220) FLOOR_Y = 1200;
+        if (p.x > 4650 && p.x < 5450 && p.y <= 1000) FLOOR_Y = 1000;
+        if (p.x > 5550 && p.x < 5785 && p.y <= 1220) FLOOR_Y = 1200;
+        if (p.x > 5850 && p.x < 6470 && p.y <= 1000) FLOOR_Y = 1000;
+        if (p.x > 6765 && p.x < 7515 && p.y <= 1000) FLOOR_Y = 1000;
+        if (p.x > 7630 && p.x < 7870 && p.y <= 1220) FLOOR_Y = 1200;
+
         p.x += p.vx;
         p.y -= p.vy;
 
@@ -307,9 +314,9 @@ int main()
         s2.ey += s2.vy;
         s2.vy += 4;
 
-        if (s2.ey >= FLOOR_Y)
+        if (s2.ey >= 1380)
         {
-            s2.ey = FLOOR_Y;
+            s2.ey = 1380;
             s2.vy = 0;
         }
 
