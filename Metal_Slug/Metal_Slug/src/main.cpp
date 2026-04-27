@@ -289,6 +289,12 @@ int main()
             framerecalttire.x = (float)currentFramtir * (float)p1alttire.width / 10;
         }
 
+        if (o1.ox >= p.x && o1.ox <= p.x + 100 && o1.oy >= p.y - 20 && o1.oy <= p.y + 200)
+        {
+            o1.alive--;
+        }
+
+
         p.x += p.vx;
         p.y -= p.vy;
 
@@ -482,11 +488,6 @@ int main()
             {
                 s3.ehp--;
             }
-            if (o1.ox >= p.x && o1.ox <= p.x + 100 && o1.oy >= p.y-20 && o1.oy <= p.y + 200)
-            {
-                o1.alive--;
-            }
-
         }
 
         for (int i = 0; i < MAX_BULLETSE; i++) {
@@ -1090,6 +1091,7 @@ int main()
                 bs1 = true;
                 bs2 = true;
                 bs3 = true;
+                os1 = true;
                 winscreen = false;
                 s1.ehp = 1;
                 s2.ehp = 1;
@@ -1159,6 +1161,7 @@ int main()
                 bs1 = true;
                 bs2 = true;
                 bs3 = true;
+                os1 = true;
                 s1.ehp = 1;
                 s2.ehp = 1;
                 s3.ehp = 1;
@@ -1200,6 +1203,7 @@ int main()
                 bs1 = true;
                 bs2 = true;
                 bs3 = true;
+                os1 = true;
                 s1.ehp = 1;
                 s2.ehp = 1;
                 s3.ehp = 1;
