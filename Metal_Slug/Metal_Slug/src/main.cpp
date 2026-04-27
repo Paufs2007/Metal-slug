@@ -40,6 +40,7 @@ public:
     int ehp = 1;
     int efacing = 1; // 1 = right, -1 = left
     int efacingy = 1; // 1 = up, -1 = down
+    float enemyShootTimer = 0.0f;
 };
 
 struct Timer
@@ -100,7 +101,6 @@ int main()
     bool menuSoundPlayed = false;
     bool winSoundPlayed = false;
     bool lose = false;
-    float enemyShootTimer = 0.0f;
     float enemyShootInterval = 3.0f;
     bool gameOver = false;
     float hitCooldown = 0.0f;
@@ -447,11 +447,17 @@ int main()
             {
                 bulletse[i].active = false;
                 hitCooldown = 1.5f;
-                p.credits--;
+                p.vides--;
                 p.vx = (bulletse[i].vx > 0) ? 0 : 0;
                 p.vy = 20;
-                if (p.credits <= 0) {
-                    lose = true;
+                if (p.vides <= 0) 
+                {
+                    p.credits--;
+                    p.vides = 3;
+                    if (p.canJump <= 0)
+                    {
+                        lose = true;
+                    }
                 }
             }
         }
@@ -546,10 +552,10 @@ int main()
 
             if (!inMenu && !winscreen && !lose) 
             {
-                enemyShootTimer += GetFrameTime();
-                if (enemyShootTimer >= enemyShootInterval) 
+                s1.enemyShootTimer += GetFrameTime();
+                if (s1.enemyShootTimer >= enemyShootInterval) 
                 {
-                    enemyShootTimer = 0.0f;
+                    s1.enemyShootTimer = 0.0f;
                     for (int i = 0; i < MAX_BULLETSE; i++) 
                     {
                         if (!bulletse[i].active) {
@@ -592,10 +598,10 @@ int main()
 
             if (!inMenu && !winscreen && !lose) 
             {
-                enemyShootTimer += GetFrameTime();
-                if (enemyShootTimer >= enemyShootInterval) 
+                s2.enemyShootTimer += GetFrameTime();
+                if (s2.enemyShootTimer >= enemyShootInterval) 
                 {
-                    enemyShootTimer = 0.0f;
+                    s2.enemyShootTimer = 0.0f;
                     for (int i = 0; i < MAX_BULLETSE; i++) 
                     {
                         if (!bulletse[i].active) {
@@ -624,10 +630,10 @@ int main()
             DrawText(cix, s3.ex, s3.ey, 20, RED);
             if (!inMenu && !winscreen && !lose) 
             {
-                enemyShootTimer += GetFrameTime();
-                if (enemyShootTimer >= enemyShootInterval) 
+                s3.enemyShootTimer += GetFrameTime();
+                if (s3.enemyShootTimer >= enemyShootInterval) 
                 {
-                    enemyShootTimer = 0.0f;
+                    s3.enemyShootTimer = 0.0f;
                     for (int i = 0; i < MAX_BULLETSE; i++) 
                     {
                         if (!bulletse[i].active) 
@@ -714,10 +720,10 @@ int main()
             else if (p.vx > 0 && p.canJump == true && p.facing == 1 && p.isshooting == 1 && p.facingy == 1)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle camqu = { (float)p.x - 20, (float)p.y + 105, framereccamq.width * 5, framereccamq.height * 5 };
+                Rectangle posdretacorrent = { (float)p.x - 5, (float)p.y + 108, frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
                 Rectangle poshota = { (float)p.x - 10, (float)p.y - 210, framerecalttir.width * 5, framerecalttir.height * 5 };
                 DrawTexturePro(p1alttir, framerecalttir, poshota, position, 0, WHITE);
-                DrawTexturePro(p1camq, framereccamq, camqu, position, 0, WHITE);
+                DrawTexturePro(p1dretacorrentcames, frameRecdretacorrent, posdretacorrent, position, 0, WHITE);
                 DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.vx == 0 && p.canJump == true && p.facing == -1 && p.isshooting == 1 && p.facingy == 1)
@@ -732,10 +738,10 @@ int main()
             else if (p.vx < 0 && p.canJump == true && p.facing == -1 && p.isshooting == 1 && p.facingy == 1)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle camque = { (float)p.x - 20, (float)p.y + 105, framereccamqe.width * 5, framereccamqe.height * 5 };
+                Rectangle posesquerracorrent = { (float)p.x - 30, (float)p.y + 108,  frameesquerracorrent.width * 4.75, frameesquerracorrent.height * 4.75 };
                 Rectangle poshotae = { (float)p.x - 50, (float)p.y - 210, framerecalttire.width * 5, framerecalttire.height * 5 };
                 DrawTexturePro(p1alttire, framerecalttire, poshotae, position, 0, WHITE);
-                DrawTexturePro(p1camqe, framereccamqe, camque, position, 0, WHITE);
+                DrawTexturePro(p1esquerracorrentcames, frameesquerracorrent, posesquerracorrent, position, 0, WHITE);
                 DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.canJump == false && p.facing == 1 && p.isshooting == 1 && p.facingy == 1)
