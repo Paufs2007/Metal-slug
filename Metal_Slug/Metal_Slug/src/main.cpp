@@ -43,6 +43,15 @@ public:
     float enemyShootTimer = 0.0f;
 };
 
+class objecte
+{
+public:
+    float ox;
+    int oy;
+    float punts;
+    int alive = 1;
+};
+
 struct Timer
 {
     float lifetime;
@@ -173,6 +182,10 @@ int main()
     soldier s1 = { 19500, 605 };
     soldier s2 = { 5450, 605 };
     soldier s3 = { 10450, 605 };
+
+    objecte o1 = { 5250, 605 };
+
+    bool os1 = true;
 
     bool bs1 = true;
     bool bs2 = true;
@@ -438,6 +451,11 @@ int main()
             {
                 s3.ehp--;
             }
+            if (o1.ox >= p.x && o1.ox <= p.x + 100 && o1.oy >= p.y && o1.oy <= p.y + 200 && p.isajupit == -1 || o1.ox >= p.x && o1.ox <= p.x + 100 && o1.oy >= p.y + 100 && o1.oy <= p.y + 200 && p.isajupit == 1)
+            {
+                o1.alive--;
+            }
+
         }
 
         for (int i = 0; i < MAX_BULLETSE; i++) {
@@ -533,6 +551,21 @@ int main()
             }
         }
 
+        if (o1.alive == 1)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posidles1 = { (float)o1.ox, (float)o1.oy, framereceidle.width * 5, framereceidle.height * 5 };
+            DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
+        }
+        else if (os1)
+        {
+            os1 = false;
+            
+            o1.punts = 100;
+
+            vpunts += o1.punts;
+        }
+       
         if (s1.ehp == 1) 
         {
             if (s1.evx == 0)
