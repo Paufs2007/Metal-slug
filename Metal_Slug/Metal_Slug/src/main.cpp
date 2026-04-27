@@ -43,6 +43,16 @@ public:
     float enemyShootTimer = 0.0f;
 };
 
+class objecte
+{
+public:
+    float ox;
+    int oy;
+    int ovy;
+    float punts;
+    int alive = 1;
+};
+
 struct Timer
 {
     float lifetime;
@@ -78,6 +88,7 @@ struct Bullet {
     float vx;
     float vy;
     int direction; // 1 = top -1 = bottom 2 = front -2 = back 
+    bool useGravity;
     bool active;
 };
 
@@ -85,6 +96,7 @@ struct Bullete {
     float x, y;
     float vx;
     float vy;
+    bool useGravity;
     bool active;
 };
 
@@ -176,6 +188,10 @@ int main()
     soldier s2 = { 5450, 605 };
     soldier s3 = { 10450, 605 };
     soldier Jorge = { 3200, 800 };
+
+    objecte o1 = { 5250, 605 };
+
+    bool os1 = true;
 
     bool bs1 = true;
     bool bs2 = true;
@@ -281,6 +297,12 @@ int main()
         if (p.x > 5850 && p.x < 6470 && p.y <= 1000) FLOOR_Y = 1000;
         if (p.x > 6765 && p.x < 7515 && p.y <= 1000) FLOOR_Y = 1000;
         if (p.x > 7630 && p.x < 7870 && p.y <= 1220) FLOOR_Y = 1200;
+        
+        if (o1.ox >= p.x && o1.ox <= p.x + 100 && o1.oy >= p.y - 20 && o1.oy <= p.y + 200)
+        {
+            o1.alive--;
+        }
+
 
         p.x += p.vx;
         p.y -= p.vy;
@@ -327,6 +349,15 @@ int main()
         {
             Jorge.ey = FLOOR_Y;
             Jorge.vy = 0;
+        }
+
+        o1.oy += o1.ovy;
+        o1.ovy += 4;
+
+        if (o1.oy >= FLOOR_Y)
+        {
+            o1.oy = FLOOR_Y;
+            o1.ovy = 0;
         }
 
         s3.ey += s3.vy;
@@ -383,8 +414,14 @@ int main()
 
         for (int i = 0; i < MAX_BULLETSE; i++) {
             if (!bulletse[i].active) continue;
+
+            if (bulletse[i].useGravity) {
+                bulletse[i].vy += 0.5f; //Gravity strength
+            }
+
             bulletse[i].x += bulletse[i].vx;
             bulletse[i].y += bulletse[i].vy;
+
             if (bulletse[i].x < camLeft || bulletse[i].x > camRight ||
                 bulletse[i].y < camTop || bulletse[i].y > camBottom) {
                 bulletse[i].active = false;
@@ -561,6 +598,21 @@ int main()
             }
         }
 
+        if (o1.alive == 1)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posidles1 = { (float)o1.ox, (float)o1.oy, framereceidle.width * 5, framereceidle.height * 5 };
+            DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
+        }
+        else if (os1)
+        {
+            os1 = false;
+            
+            o1.punts = 100;
+
+            vpunts += o1.punts;
+        }
+        
         if (s1.ehp == 1) 
         {
             if (s1.evx == 0)
@@ -581,16 +633,24 @@ int main()
             if (!inMenu && !winscreen && !lose) 
             {
                 s1.enemyShootTimer += GetFrameTime();
-                if (s1.enemyShootTimer >= enemyShootInterval) 
+                if (s1.enemyShootTimer >= enemyShootInterval)
                 {
                     s1.enemyShootTimer = 0.0f;
-                    for (int i = 0; i < MAX_BULLETSE; i++) 
+
+                    for (int i = 0; i < MAX_BULLETSE; i++)
                     {
-                        if (!bulletse[i].active) {
+                        if (!bulletse[i].active)
+                        {
                             bulletse[i].x = s1.ex;
                             bulletse[i].y = s1.ey + 30;
-                            bulletse[i].vx = (p.x < s1.ex) ? -8.0f : 8.0f;
-                            bulletse[i].vy = 0;
+
+                            // direccio horitzontal
+                            bulletse[i].vx = (p.x < s1.ex) ? -6.0f : 6.0f;
+
+                            // Upward force
+                            bulletse[i].vy = -8.0f;
+
+                            bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
                             bulletse[i].active = true;
                             break;
                         }
@@ -966,6 +1026,7 @@ int main()
             Rectangle src4 = { 0, 0, (float)logo.width, (float)logo.height };
 
             if (!winSoundPlayed) {
+
                 PlaySound(soundArray[6]);
                 winSoundPlayed = true;
             }            
@@ -1016,7 +1077,7 @@ int main()
             DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, screenHeight2 - 100, 40, RED);
             DrawText(cpuntstext, screenWidth2 - textWidth - 140, 20, 30, RED);
             DrawText(cpunts, screenWidth2 - textWidth - 40, 20, 30, RED);
-            DrawText(cpunts, 20, 20, 30, RED);
+            DrawText(TextFormat("%i", p.vides), 20, 20, 30, RED);
 
             if (music == false) {
             }
@@ -1053,6 +1114,7 @@ int main()
                 bs1 = true;
                 bs2 = true;
                 bs3 = true;
+                os1 = true;
                 winscreen = false;
                 s1.ehp = 1;
                 s2.ehp = 1;
@@ -1122,6 +1184,7 @@ int main()
                 bs1 = true;
                 bs2 = true;
                 bs3 = true;
+                os1 = true;
                 s1.ehp = 1;
                 s2.ehp = 1;
                 s3.ehp = 1;
@@ -1163,6 +1226,7 @@ int main()
                 bs1 = true;
                 bs2 = true;
                 bs3 = true;
+                os1 = true;
                 s1.ehp = 1;
                 s2.ehp = 1;
                 s3.ehp = 1;
