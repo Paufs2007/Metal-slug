@@ -88,6 +88,7 @@ struct Bullet {
     float vx;
     float vy;
     int direction; // 1 = top -1 = bottom 2 = front -2 = back 
+    bool useGravity;
     bool active;
 };
 
@@ -95,6 +96,7 @@ struct Bullete {
     float x, y;
     float vx;
     float vy;
+    bool useGravity;
     bool active;
 };
 
@@ -405,8 +407,14 @@ int main()
 
         for (int i = 0; i < MAX_BULLETSE; i++) {
             if (!bulletse[i].active) continue;
+
+            if (bulletse[i].useGravity) {
+                bulletse[i].vy += 0.5f; //Gravity strength
+            }
+
             bulletse[i].x += bulletse[i].vx;
             bulletse[i].y += bulletse[i].vy;
+
             if (bulletse[i].x < camLeft || bulletse[i].x > camRight ||
                 bulletse[i].y < camTop || bulletse[i].y > camBottom) {
                 bulletse[i].active = false;
@@ -618,16 +626,24 @@ int main()
             if (!inMenu && !winscreen && !lose) 
             {
                 s1.enemyShootTimer += GetFrameTime();
-                if (s1.enemyShootTimer >= enemyShootInterval) 
+                if (s1.enemyShootTimer >= enemyShootInterval)
                 {
                     s1.enemyShootTimer = 0.0f;
-                    for (int i = 0; i < MAX_BULLETSE; i++) 
+
+                    for (int i = 0; i < MAX_BULLETSE; i++)
                     {
-                        if (!bulletse[i].active) {
+                        if (!bulletse[i].active)
+                        {
                             bulletse[i].x = s1.ex;
                             bulletse[i].y = s1.ey + 30;
-                            bulletse[i].vx = (p.x < s1.ex) ? -8.0f : 8.0f;
-                            bulletse[i].vy = 0;
+
+                            // direccio horitzontal
+                            bulletse[i].vx = (p.x < s1.ex) ? -6.0f : 6.0f;
+
+                            // Upward force
+                            bulletse[i].vy = -8.0f;
+
+                            bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
                             bulletse[i].active = true;
                             break;
                         }
