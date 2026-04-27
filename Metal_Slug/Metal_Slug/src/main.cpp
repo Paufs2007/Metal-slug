@@ -126,6 +126,8 @@ int main()
     soundArray[4] = LoadSound("mission_complete.mp3");
     soundArray[5] = LoadSound("Game_Over.ogg");
     soundArray[6] = LoadSound("explode.mp3");
+    soundArray[7] = LoadSound("Fahhhh.mp3");
+    SetSoundVolume(soundArray[7], 100.0f);
 
     musicArray[0] = LoadMusicStream("bo.mp3");
     musicArray[0].looping = true;
@@ -182,6 +184,7 @@ int main()
     soldier s1 = { 19500, 605 };
     soldier s2 = { 5450, 605 };
     soldier s3 = { 10450, 605 };
+    soldier Jorge = { 3200, 800 };
 
     objecte o1 = { 5250, 605 };
 
@@ -190,6 +193,8 @@ int main()
     bool bs1 = true;
     bool bs2 = true;
     bool bs3 = true;
+    bool bJorge = true;
+
 
     Camera2D camera = { 0 };
     camera.offset = { 350, 459 };
@@ -288,6 +293,8 @@ int main()
 
         if (p.x >= 4500) s2.evx = -5;
         s2.ex += s2.evx;
+        if (!inMenu) Jorge.evx = -5;
+        Jorge.ex += Jorge.evx;
 
         if (p.y < FLOOR_Y)
         {
@@ -317,6 +324,15 @@ int main()
         {
             s2.ey = FLOOR_Y;
             s2.vy = 0;
+        }
+
+        Jorge.ey += Jorge.vy;
+        Jorge.vy += 4;
+
+        if (Jorge.ey >= FLOOR_Y)
+        {
+            Jorge.ey = FLOOR_Y;
+            Jorge.vy = 0;
         }
 
         s3.ey += s3.vy;
@@ -380,6 +396,7 @@ int main()
                 bulletse[i].active = false;
             }
         }
+
 
         if (p.x < 0) { p.x = 0;          if (p.vx < 0) p.vx = 0; }
         if (p.x > worldWidth) { p.x = worldWidth;  if (p.vx > 0) p.vx = 0; }
@@ -446,6 +463,10 @@ int main()
             if (bullets[i].x >= s2.ex && bullets[i].x <= s2.ex + 100 && bullets[i].y >= s2.ey && bullets[i].y <= s2.ey + 200)
             {
                 s2.ehp--;
+            }
+            if (bullets[i].x >= Jorge.ex && bullets[i].x <= Jorge.ex + 100 && bullets[i].y >= Jorge.ey && bullets[i].y <= Jorge.ey + 200)
+            {
+                Jorge.ehp--;
             }
             if (bullets[i].x >= s3.ex && bullets[i].x <= s3.ex + 100 && bullets[i].y >= s3.ey && bullets[i].y <= s3.ey + 200)
             {
@@ -653,6 +674,51 @@ int main()
         {
             vpunts = vpunts + 10;
             bs2 = false;
+            PlaySound(soundArray[0]);
+        }
+
+        if (Jorge.ehp == 1)
+        {
+
+            if (Jorge.evx == 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posidles1 = { (float)Jorge.ex, (float)Jorge.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
+                DrawText(cix, Jorge.ex, Jorge.ey, 20, RED);
+            }
+            else if (Jorge.evx < 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle poscorr = { (float)Jorge.ex, (float)Jorge.ey, framerececorr.width * 5, framerececorr.height * 5 };
+                DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
+                DrawText(cix, Jorge.ex, Jorge.ey, 20, RED);
+            }
+
+            if (!inMenu && !winscreen && !lose)
+            {
+                Jorge.enemyShootTimer += GetFrameTime();
+                if (Jorge.enemyShootTimer >= enemyShootInterval)
+                {
+                    Jorge.enemyShootTimer = 0.0f;
+                    for (int i = 0; i < MAX_BULLETSE; i++)
+                    {
+                        if (!bulletse[i].active) {
+                            bulletse[i].x = Jorge.ex;
+                            bulletse[i].y = Jorge.ey + 30;
+                            bulletse[i].vx = (p.x < Jorge.ex) ? -8.0f : 8.0f;
+                            bulletse[i].vy = 0;
+                            bulletse[i].active = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        else if (bJorge)
+        {
+            vpunts = vpunts + 10;
+            bJorge = false;
             PlaySound(soundArray[0]);
         }
 
@@ -1105,6 +1171,8 @@ int main()
             if (p.credits < 0) p.credits = 0;
             PauseMusicStream(musicArray[0]);
             if (!winSoundPlayed) {
+                PlaySound(soundArray[7]);
+
                 PlaySound(soundArray[5]);
                 winSoundPlayed = true;
             }
