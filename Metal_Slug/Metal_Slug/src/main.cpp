@@ -40,6 +40,7 @@ public:
     int ehp = 1;
     int efacing = 1; // 1 = right, -1 = left
     int efacingy = 1; // 1 = up, -1 = down
+    float enemyShootTimer = 0.0f;
 };
 
 struct Timer
@@ -100,7 +101,6 @@ int main()
     bool menuSoundPlayed = false;
     bool winSoundPlayed = false;
     bool lose = false;
-    float enemyShootTimer = 0.0f;
     float enemyShootInterval = 3.0f;
     bool gameOver = false;
     float hitCooldown = 0.0f;
@@ -552,10 +552,10 @@ int main()
 
             if (!inMenu && !winscreen && !lose) 
             {
-                enemyShootTimer += GetFrameTime();
-                if (enemyShootTimer >= enemyShootInterval) 
+                s1.enemyShootTimer += GetFrameTime();
+                if (s1.enemyShootTimer >= enemyShootInterval) 
                 {
-                    enemyShootTimer = 0.0f;
+                    s1.enemyShootTimer = 0.0f;
                     for (int i = 0; i < MAX_BULLETSE; i++) 
                     {
                         if (!bulletse[i].active) {
@@ -598,10 +598,10 @@ int main()
 
             if (!inMenu && !winscreen && !lose) 
             {
-                enemyShootTimer += GetFrameTime();
-                if (enemyShootTimer >= enemyShootInterval) 
+                s2.enemyShootTimer += GetFrameTime();
+                if (s2.enemyShootTimer >= enemyShootInterval) 
                 {
-                    enemyShootTimer = 0.0f;
+                    s2.enemyShootTimer = 0.0f;
                     for (int i = 0; i < MAX_BULLETSE; i++) 
                     {
                         if (!bulletse[i].active) {
@@ -630,10 +630,10 @@ int main()
             DrawText(cix, s3.ex, s3.ey, 20, RED);
             if (!inMenu && !winscreen && !lose) 
             {
-                enemyShootTimer += GetFrameTime();
-                if (enemyShootTimer >= enemyShootInterval) 
+                s3.enemyShootTimer += GetFrameTime();
+                if (s3.enemyShootTimer >= enemyShootInterval) 
                 {
-                    enemyShootTimer = 0.0f;
+                    s3.enemyShootTimer = 0.0f;
                     for (int i = 0; i < MAX_BULLETSE; i++) 
                     {
                         if (!bulletse[i].active) 
