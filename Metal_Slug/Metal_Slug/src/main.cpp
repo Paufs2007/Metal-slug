@@ -117,6 +117,8 @@ int main()
     soundArray[4] = LoadSound("mission_complete.mp3");
     soundArray[5] = LoadSound("Game_Over.ogg");
     soundArray[6] = LoadSound("explode.mp3");
+    soundArray[7] = LoadSound("Fahhhh.mp3");
+    SetSoundVolume(soundArray[7], 100.0f);
 
     musicArray[0] = LoadMusicStream("bo.mp3");
     musicArray[0].looping = true;
@@ -382,6 +384,7 @@ int main()
             }
         }
 
+
         if (p.x < 0) { p.x = 0;          if (p.vx < 0) p.vx = 0; }
         if (p.x > worldWidth) { p.x = worldWidth;  if (p.vx > 0) p.vx = 0; }
 
@@ -465,11 +468,17 @@ int main()
             {
                 bulletse[i].active = false;
                 hitCooldown = 1.5f;
-                p.credits--;
+                p.vides--;
                 p.vx = (bulletse[i].vx > 0) ? 0 : 0;
                 p.vy = 20;
-                if (p.credits <= 0) {
-                    lose = true;
+                if (p.vides <= 0) 
+                {
+                    p.credits--;
+                    p.vides = 3;
+                    if (p.credits <= 0)
+                    {
+                        lose = true;
+                    }
                 }
             }
         }
@@ -777,10 +786,10 @@ int main()
             else if (p.vx > 0 && p.canJump == true && p.facing == 1 && p.isshooting == 1 && p.facingy == 1)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle camqu = { (float)p.x - 20, (float)p.y + 105, framereccamq.width * 5, framereccamq.height * 5 };
+                Rectangle posdretacorrent = { (float)p.x - 5, (float)p.y + 108, frameRecdretacorrent.width * 4.75, frameRecdretacorrent.height * 4.75 };
                 Rectangle poshota = { (float)p.x - 10, (float)p.y - 210, framerecalttir.width * 5, framerecalttir.height * 5 };
                 DrawTexturePro(p1alttir, framerecalttir, poshota, position, 0, WHITE);
-                DrawTexturePro(p1camq, framereccamq, camqu, position, 0, WHITE);
+                DrawTexturePro(p1dretacorrentcames, frameRecdretacorrent, posdretacorrent, position, 0, WHITE);
                 DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.vx == 0 && p.canJump == true && p.facing == -1 && p.isshooting == 1 && p.facingy == 1)
@@ -795,10 +804,10 @@ int main()
             else if (p.vx < 0 && p.canJump == true && p.facing == -1 && p.isshooting == 1 && p.facingy == 1)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle camque = { (float)p.x - 20, (float)p.y + 105, framereccamqe.width * 5, framereccamqe.height * 5 };
+                Rectangle posesquerracorrent = { (float)p.x - 30, (float)p.y + 108,  frameesquerracorrent.width * 4.75, frameesquerracorrent.height * 4.75 };
                 Rectangle poshotae = { (float)p.x - 50, (float)p.y - 210, framerecalttire.width * 5, framerecalttire.height * 5 };
                 DrawTexturePro(p1alttire, framerecalttire, poshotae, position, 0, WHITE);
-                DrawTexturePro(p1camqe, framereccamqe, camque, position, 0, WHITE);
+                DrawTexturePro(p1esquerracorrentcames, frameesquerracorrent, posesquerracorrent, position, 0, WHITE);
                 DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.canJump == false && p.facing == 1 && p.isshooting == 1 && p.facingy == 1)
@@ -1129,6 +1138,8 @@ int main()
             if (p.credits < 0) p.credits = 0;
             PauseMusicStream(musicArray[0]);
             if (!winSoundPlayed) {
+                PlaySound(soundArray[7]);
+
                 PlaySound(soundArray[5]);
                 winSoundPlayed = true;
             }
