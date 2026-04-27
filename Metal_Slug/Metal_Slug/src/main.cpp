@@ -43,6 +43,15 @@ public:
     float enemyShootTimer = 0.0f;
 };
 
+class objecte
+{
+public:
+    float ox;
+    int oy;
+    float punts;
+    int alive = 1;
+};
+
 struct Timer
 {
     float lifetime;
@@ -175,10 +184,17 @@ int main()
     soldier s1 = { 19500, 605 };
     soldier s2 = { 5450, 605 };
     soldier s3 = { 10450, 605 };
+    soldier Jorge = { 3200, 800 };
+
+    objecte o1 = { 5250, 605 };
+
+    bool os1 = true;
 
     bool bs1 = true;
     bool bs2 = true;
     bool bs3 = true;
+    bool bJorge = true;
+
 
     Camera2D camera = { 0 };
     camera.offset = { 350, 459 };
@@ -277,6 +293,8 @@ int main()
 
         if (p.x >= 4500) s2.evx = -5;
         s2.ex += s2.evx;
+        if (!inMenu) Jorge.evx = -5;
+        Jorge.ex += Jorge.evx;
 
         if (p.y < FLOOR_Y)
         {
@@ -306,6 +324,15 @@ int main()
         {
             s2.ey = FLOOR_Y;
             s2.vy = 0;
+        }
+
+        Jorge.ey += Jorge.vy;
+        Jorge.vy += 4;
+
+        if (Jorge.ey >= FLOOR_Y)
+        {
+            Jorge.ey = FLOOR_Y;
+            Jorge.vy = 0;
         }
 
         s3.ey += s3.vy;
@@ -437,10 +464,19 @@ int main()
             {
                 s2.ehp--;
             }
+            if (bullets[i].x >= Jorge.ex && bullets[i].x <= Jorge.ex + 100 && bullets[i].y >= Jorge.ey && bullets[i].y <= Jorge.ey + 200)
+            {
+                Jorge.ehp--;
+            }
             if (bullets[i].x >= s3.ex && bullets[i].x <= s3.ex + 100 && bullets[i].y >= s3.ey && bullets[i].y <= s3.ey + 200)
             {
                 s3.ehp--;
             }
+            if (o1.ox >= p.x && o1.ox <= p.x + 100 && o1.oy >= p.y && o1.oy <= p.y + 200 && p.isajupit == -1 || o1.ox >= p.x && o1.ox <= p.x + 100 && o1.oy >= p.y + 100 && o1.oy <= p.y + 200 && p.isajupit == 1)
+            {
+                o1.alive--;
+            }
+
         }
 
         for (int i = 0; i < MAX_BULLETSE; i++) {
@@ -536,6 +572,21 @@ int main()
             }
         }
 
+        if (o1.alive == 1)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posidles1 = { (float)o1.ox, (float)o1.oy, framereceidle.width * 5, framereceidle.height * 5 };
+            DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
+        }
+        else if (os1)
+        {
+            os1 = false;
+            
+            o1.punts = 100;
+
+            vpunts += o1.punts;
+        }
+       
         if (s1.ehp == 1) 
         {
             if (s1.evx == 0)
@@ -623,6 +674,51 @@ int main()
         {
             vpunts = vpunts + 10;
             bs2 = false;
+            PlaySound(soundArray[0]);
+        }
+
+        if (Jorge.ehp == 1)
+        {
+
+            if (Jorge.evx == 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posidles1 = { (float)Jorge.ex, (float)Jorge.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
+                DrawText(cix, Jorge.ex, Jorge.ey, 20, RED);
+            }
+            else if (Jorge.evx < 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle poscorr = { (float)Jorge.ex, (float)Jorge.ey, framerececorr.width * 5, framerececorr.height * 5 };
+                DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
+                DrawText(cix, Jorge.ex, Jorge.ey, 20, RED);
+            }
+
+            if (!inMenu && !winscreen && !lose)
+            {
+                Jorge.enemyShootTimer += GetFrameTime();
+                if (Jorge.enemyShootTimer >= enemyShootInterval)
+                {
+                    Jorge.enemyShootTimer = 0.0f;
+                    for (int i = 0; i < MAX_BULLETSE; i++)
+                    {
+                        if (!bulletse[i].active) {
+                            bulletse[i].x = Jorge.ex;
+                            bulletse[i].y = Jorge.ey + 30;
+                            bulletse[i].vx = (p.x < Jorge.ex) ? -8.0f : 8.0f;
+                            bulletse[i].vy = 0;
+                            bulletse[i].active = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        else if (bJorge)
+        {
+            vpunts = vpunts + 10;
+            bJorge = false;
             PlaySound(soundArray[0]);
         }
 
