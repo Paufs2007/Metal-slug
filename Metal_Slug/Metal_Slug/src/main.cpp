@@ -88,6 +88,7 @@ struct Bullet {
     float vx;
     float vy;
     int direction; // 1 = top -1 = bottom 2 = front -2 = back 
+    bool useGravity;
     bool active;
 };
 
@@ -95,6 +96,7 @@ struct Bullete {
     float x, y;
     float vx;
     float vy;
+    bool useGravity;
     bool active;
 };
 
@@ -288,7 +290,14 @@ int main()
             framerecalttir.x = (float)currentFramtir * (float)p1alttir.width / 10;
             framerecalttire.x = (float)currentFramtir * (float)p1alttire.width / 10;
         }
-        // 5550 / 5785 / 5850 / 6470/ 6765/7515/7630/7870
+
+        if (p.x > 4200 && p.x < 4510 && p.y <= 1220) FLOOR_Y = 1200;
+        if (p.x > 4650 && p.x < 5450 && p.y <= 1000) FLOOR_Y = 1000;
+        if (p.x > 5550 && p.x < 5785 && p.y <= 1220) FLOOR_Y = 1200;
+        if (p.x > 5850 && p.x < 6470 && p.y <= 1000) FLOOR_Y = 1000;
+        if (p.x > 6765 && p.x < 7515 && p.y <= 1000) FLOOR_Y = 1000;
+        if (p.x > 7630 && p.x < 7870 && p.y <= 1220) FLOOR_Y = 1200;
+        
         if (o1.ox >= p.x && o1.ox <= p.x + 100 && o1.oy >= p.y - 20 && o1.oy <= p.y + 200)
         {
             o1.alive--;
@@ -327,9 +336,9 @@ int main()
         s2.ey += s2.vy;
         s2.vy += 4;
 
-        if (s2.ey >= FLOOR_Y)
+        if (s2.ey >= 1380)
         {
-            s2.ey = FLOOR_Y;
+            s2.ey = 1380;
             s2.vy = 0;
         }
 
@@ -405,8 +414,14 @@ int main()
 
         for (int i = 0; i < MAX_BULLETSE; i++) {
             if (!bulletse[i].active) continue;
+
+            if (bulletse[i].useGravity) {
+                bulletse[i].vy += 0.5f; //Gravity strength
+            }
+
             bulletse[i].x += bulletse[i].vx;
             bulletse[i].y += bulletse[i].vy;
+
             if (bulletse[i].x < camLeft || bulletse[i].x > camRight ||
                 bulletse[i].y < camTop || bulletse[i].y > camBottom) {
                 bulletse[i].active = false;
@@ -618,16 +633,24 @@ int main()
             if (!inMenu && !winscreen && !lose) 
             {
                 s1.enemyShootTimer += GetFrameTime();
-                if (s1.enemyShootTimer >= enemyShootInterval) 
+                if (s1.enemyShootTimer >= enemyShootInterval)
                 {
                     s1.enemyShootTimer = 0.0f;
-                    for (int i = 0; i < MAX_BULLETSE; i++) 
+
+                    for (int i = 0; i < MAX_BULLETSE; i++)
                     {
-                        if (!bulletse[i].active) {
+                        if (!bulletse[i].active)
+                        {
                             bulletse[i].x = s1.ex;
                             bulletse[i].y = s1.ey + 30;
-                            bulletse[i].vx = (p.x < s1.ex) ? -8.0f : 8.0f;
-                            bulletse[i].vy = 0;
+
+                            // direccio horitzontal
+                            bulletse[i].vx = (p.x < s1.ex) ? -6.0f : 6.0f;
+
+                            // Upward force
+                            bulletse[i].vy = -8.0f;
+
+                            bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
                             bulletse[i].active = true;
                             break;
                         }
