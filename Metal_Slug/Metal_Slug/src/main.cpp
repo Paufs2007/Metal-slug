@@ -200,9 +200,9 @@ int main()
 
 
     Camera2D camera = { 0 };
-    camera.offset = { 350, 459 };
+    camera.offset = { 315, 340 };
     camera.rotation = 0.0f;
-    camera.zoom = 0.85f;
+    camera.zoom = (float)GetScreenWidth() / 1500.0f; //0.85f;
 
     Rectangle framereceidle = { 0, 0, (float)sidle.width / 4, (float)sidle.height };
     Rectangle framerececorr = { 0, 0, (float)scor.width / 12, (float)scor.height };
@@ -296,7 +296,7 @@ int main()
         if (p.x > 5550 && p.x < 5785 && p.y <= 1220) FLOOR_Y = 1200;
         if (p.x > 5850 && p.x < 6470 && p.y <= 1000) FLOOR_Y = 1000;
         if (p.x > 6765 && p.x < 7515 && p.y <= 1000) FLOOR_Y = 1000;
-        if (p.x > 7630 && p.x < 7870 && p.y <= 1220) FLOOR_Y = 1200;
+        if (p.x > 7600 && p.x < 7870 && p.y <= 1220) FLOOR_Y = 1200;
         
         if (o1.ox >= p.x && o1.ox <= p.x + 100 && o1.oy >= p.y - 20 && o1.oy <= p.y + 200)
         {

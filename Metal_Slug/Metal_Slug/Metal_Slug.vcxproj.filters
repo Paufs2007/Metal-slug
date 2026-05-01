@@ -28,6 +28,9 @@
     <None Include="resources\06.-Stage-Clear.ogg">
       <Filter>Game Resource Files</Filter>
     </None>
+    <None Include="resources\Fahhhh.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
     <None Include="resources\Game_Over.ogg">
       <Filter>Game Resource Files</Filter>
     </None>

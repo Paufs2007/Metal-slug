@@ -308,6 +308,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\06.-Stage-Clear.ogg" />
+    <None Include="resources\Fahhhh.mp3" />
     <None Include="resources\Game_Over.ogg" />
     <None Include="resources\Metal_Slug.mp3" />
     <None Include="resources\bo.mp3" />
