@@ -361,18 +361,18 @@ int main()
             Jorge.vy = 0;
         }
 
-            o1.ovy = 0;
-        }
-
-        s3.ey += s3.vy;
-        s3.vy += 4;
-
         o1.oy += o1.ovy;
         o1.ovy += 4;
 
         if (o1.oy >= FLOOR_Y)
         {
             o1.oy = FLOOR_Y;
+            o1.ovy = 0;
+        }
+
+        s3.ey += s3.vy;
+        s3.vy += 4;
+
         if (s3.ey >= 1020)
         {
             s3.ey = 1020;
@@ -538,7 +538,7 @@ int main()
         }
 
         if (!inMenu && !winscreen && !lose) {
-            //Jorge.ex = 3200;
+
             if (IsKeyPressed(KEY_J)) {
                 PlaySound(soundArray[2]);
                 p.isshooting = 1;
@@ -1126,11 +1126,14 @@ int main()
                 bs1 = true;
                 bs2 = true;
                 bs3 = true;
+                bJorge = true;
                 os1 = true;
                 winscreen = false;
                 s1.ehp = 1;
                 s2.ehp = 1;
                 s3.ehp = 1;
+                Jorge.ehp = 1;
+                Jorge.ex = 3200;
                 winSoundPlayed = false;
                 timerlife = 450;
                 startTimer(&vidaTimer, timerlife);
