@@ -43,6 +43,19 @@ public:
     float enemyShootTimer = 0.0f;
 };
 
+class boss
+{
+public:
+    float ex;
+    int ey;
+    int vy;
+    int evx;
+    int ehp = 10;
+    int efacing = 1; // 1 = right, -1 = left
+    int efacingy = 1; // 1 = up, -1 = down
+    float enemyShootTimer = 0.0f;
+};
+
 class objecte
 {
 public:
@@ -185,7 +198,7 @@ int main()
 
     player p = { 400, 1220 , 0, 0, true };
 
-    soldier s1 = { 19500, 605 };
+    boss s1 = { 19500, 605 };
     soldier s2 = { 5450, 605 };
     soldier s3 = { 10450, 605 };
     soldier Jorge = { 3200, 800 };
@@ -194,7 +207,7 @@ int main()
 
     bool os1 = true;
 
-    bool bs1 = true;
+    bool KevinTheFuckingBoss = true;
     bool bs2 = true;
     bool bs3 = true;
     bool bJorge = true;
@@ -625,7 +638,7 @@ int main()
         
 
 
-        if (s1.ehp == 1) 
+        if (s1.ehp >= 1) 
         {
             if (s1.evx == 0)
             {
@@ -670,10 +683,10 @@ int main()
                 }
             }
         }
-        else if (bs1)
+        else if (KevinTheFuckingBoss)
         {
             vpunts = vpunts + 10;
-            bs1 = false;
+            KevinTheFuckingBoss = false;
             PlaySound(soundArray[0]);
             winscreen = true;
         }
@@ -709,6 +722,7 @@ int main()
                             bulletse[i].y = s2.ey + 30;
                             bulletse[i].vx = (p.x < s2.ex) ? -8.0f : 8.0f;
                             bulletse[i].vy = 0;
+                            bulletse[i].useGravity = false;
                             bulletse[i].active = true;
                             break;
                         }
@@ -754,6 +768,7 @@ int main()
                             bulletse[i].y = Jorge.ey + 30;
                             bulletse[i].vx = (p.x < Jorge.ex) ? -8.0f : 8.0f;
                             bulletse[i].vy = 0;
+                            bulletse[i].useGravity = false;
                             bulletse[i].active = true;
                             break;
                         }
@@ -787,6 +802,7 @@ int main()
                             bulletse[i].y = s3.ey + 30;
                             bulletse[i].vx = (p.x < s3.ex) ? -8.0f : 8.0f;
                             bulletse[i].vy = 0;
+                            bulletse[i].useGravity = false;
                             bulletse[i].active = true;
                             break;
                         }
@@ -1123,13 +1139,13 @@ int main()
             if (IsKeyPressed(KEY_R)) {
                 lose = false;
                 vpunts = 0;
-                bs1 = true;
+                KevinTheFuckingBoss = true;
                 bs2 = true;
                 bs3 = true;
                 bJorge = true;
                 os1 = true;
                 winscreen = false;
-                s1.ehp = 1;
+                s1.ehp = 10;
                 s2.ehp = 1;
                 s3.ehp = 1;
                 Jorge.ehp = 1;
@@ -1209,11 +1225,11 @@ int main()
                 winSoundPlayed = false;
                 menuSoundPlayed = false;
                 vpunts = 0;
-                bs1 = true;
+                KevinTheFuckingBoss = true;
                 bs2 = true;
                 bs3 = true;
                 os1 = true;
-                s1.ehp = 1;
+                s1.ehp = 10;
                 s2.ehp = 1;
                 s3.ehp = 1;
                 s2.ex = 5450;
@@ -1250,11 +1266,11 @@ int main()
                 winSoundPlayed = false;
                 menuSoundPlayed = false;
                 vpunts = 0;
-                bs1 = true;
+                KevinTheFuckingBoss = true;
                 bs2 = true;
                 bs3 = true;
                 os1 = true;
-                s1.ehp = 1;
+                s1.ehp = 10;
                 s2.ehp = 1;
                 s3.ehp = 1;
                 s2.ex = 5450;
