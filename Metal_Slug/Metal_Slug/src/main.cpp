@@ -172,6 +172,7 @@ int main()
     Texture bulletb = LoadTexture("balaball.png");
     Texture bulletee = LoadTexture("benemice.png");
     Texture p1cbaix = LoadTexture("cajupit.png");
+    Texture p1cbaixe = LoadTexture("cajupite.png");
 
     int timerlife = 450;
     Timer vidaTimer = { 0 };
@@ -208,6 +209,7 @@ int main()
     Rectangle framerececorr = { 0, 0, (float)scor.width / 12, (float)scor.height };
     Rectangle framerececorre = { 0, 0, (float)score.width / 12, (float)score.height };
 
+    Rectangle framereccajupite = { 0, 0, (float)p1cbaixe.width / 7, (float)p1cbaixe.height };
     Rectangle framereccajupit = { 0, 0, (float)p1cbaix.width / 7, (float)p1cbaix.height };
     Rectangle framerecalttire = { 0, 0, (float)p1alttire.width / 10, (float)p1alttire.height };
     Rectangle framerecalttir = { 0, 0, (float)p1alttir.width / 10, (float)p1alttir.height };
@@ -256,15 +258,10 @@ int main()
             currentFramcorrer++;
             if (currentFramcorrer >= 12) currentFramcorrer = 0;
             currentFramsalt++;
-            framerecscap.x = (float)currentFramsalt * (float)p1scap.width / 6;
-            framerecscape.x = (float)currentFramsalt * (float)p1scape.width / 6;
-            framerecscames.x = (float)currentFramsalt * (float)p1scames.width / 6;
-            framerecscamese.x = (float)currentFramsalt * (float)p1scamese.width / 6;
-            frameRecdretacorrent.x = (float)currentFramcorrer * (float)p1dretacorrentcames.width / 12;
-            frameesquerracorrent.x = (float)currentFramcorrer * (float)p1esquerracorrentcames.width / 12;
             if (currentFramsalt >= 6) currentFramsalt = 0;
             currentFramajupit++;
             if (currentFramajupit >= 7) currentFramajupit = 0;
+            
             frameRecidle.x = (float)currentFrameidle * (float)p1.width / 4;
             frameReccap.x = (float)currentFrameidle * (float)p1cap.width / 4;
             framereceidle.x = (float)currentFrameidle * (float)sidle.width / 4;
@@ -274,9 +271,16 @@ int main()
             framereccamqe.x = (float)currentFrameidle * (float)p1camqe.width / 4;
             framerecbaix.x = (float)currentFrameidle * (float)p1baix.width / 4;
             framerecbaixe.x = (float)currentFrameidle * (float)p1baixe.width / 4;
+            framerecscap.x = (float)currentFramsalt * (float)p1scap.width / 6;
+            framerecscape.x = (float)currentFramsalt * (float)p1scape.width / 6;
+            framerecscames.x = (float)currentFramsalt * (float)p1scames.width / 6;
+            framerecscamese.x = (float)currentFramsalt * (float)p1scamese.width / 6;
+            frameRecdretacorrent.x = (float)currentFramcorrer * (float)p1dretacorrentcames.width / 12;
+            frameesquerracorrent.x = (float)currentFramcorrer * (float)p1esquerracorrentcames.width / 12;
             framerececorr.x = (float)currentFramcorrer * (float)scor.width / 12;
             framerececorre.x = (float)currentFramcorrer * (float)score.width / 12;
             framereccajupit.x = (float)currentFramajupit * (float)p1cbaix.width / 7;
+            framereccajupite.x = (float)currentFramajupit * (float)p1cbaixe.width / 7;
         }
 
         if (framesCounter >= (60 / framesSpeedtir))
@@ -985,7 +989,7 @@ int main()
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posajue = { (float)p.x, (float)p.y + 70, framerecbaixe.width * 5, framerecbaixe.height * 5 };
-                DrawTexturePro(p1baixe, framerecbaixe, posajue, position, 0, WHITE);
+                DrawTexturePro(p1cbaixe, framereccajupite, posajue, position, 0, WHITE);
                 DrawText(cix, p.x, p.y, 20, RED);
             }
             if (p.vx == 0 && p.facing == 1 && p.isshooting == 1)
@@ -1315,6 +1319,7 @@ int main()
     UnloadTexture(bulletee);
     UnloadTexture(score);
     UnloadTexture(p1cbaix);
+    UnloadTexture(p1cbaixe);
     CloseWindow();
     return 0;
 }
