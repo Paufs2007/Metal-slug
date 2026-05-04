@@ -171,7 +171,7 @@ int main()
     Texture bulleta = LoadTexture("balaamunt.png");
     Texture bulletb = LoadTexture("balaball.png");
     Texture bulletee = LoadTexture("benemice.png");
-
+    Texture p1cbaix = LoadTexture("cajupit.png");
 
     int timerlife = 450;
     Timer vidaTimer = { 0 };
@@ -208,6 +208,7 @@ int main()
     Rectangle framerececorr = { 0, 0, (float)scor.width / 12, (float)scor.height };
     Rectangle framerececorre = { 0, 0, (float)score.width / 12, (float)score.height };
 
+    Rectangle framereccajupit = { 0, 0, (float)p1cbaix.width / 7, (float)p1cbaix.height };
     Rectangle framerecalttire = { 0, 0, (float)p1alttire.width / 10, (float)p1alttire.height };
     Rectangle framerecalttir = { 0, 0, (float)p1alttir.width / 10, (float)p1alttir.height };
     Rectangle framerecbaixtire = { 0, 0, (float)p1baixtire.width / 10, (float)p1baixtire.height };
@@ -233,9 +234,11 @@ int main()
     int currentFramcorrer = 0;
     int currentFramsalt = 0;
     int currentFramtir = 0;
+    int currentFramajupit = 0;
     int framesCounter = 0;
     int framesSpeed = 3;
     int framesSpeedtir = 4;
+    int framesspeedajupit = 3;
 
     const int MAX_BULLETSE = 20000;
     Bullete bulletse[MAX_BULLETSE] = {};
@@ -254,6 +257,8 @@ int main()
             if (currentFramcorrer >= 12) currentFramcorrer = 0;
             currentFramsalt++;
             if (currentFramsalt >= 6) currentFramsalt = 0;
+            currentFramajupit++;
+            if (currentFramajupit >= 7) currentFramajupit = 0;
             frameRecidle.x = (float)currentFrameidle * (float)p1.width / 4;
             frameReccap.x = (float)currentFrameidle * (float)p1cap.width / 4;
             framereceidle.x = (float)currentFrameidle * (float)sidle.width / 4;
@@ -271,6 +276,7 @@ int main()
             frameesquerracorrent.x = (float)currentFramcorrer * (float)p1esquerracorrentcames.width / 12;
             framerececorr.x = (float)currentFramcorrer * (float)scor.width / 12;
             framerececorre.x = (float)currentFramcorrer * (float)score.width / 12;
+            framereccajupit.x = (float)currentFramajupit * (float)p1cbaix.width / 7;
         }
 
         if (framesCounter >= (60 / framesSpeedtir))
@@ -429,7 +435,7 @@ int main()
         }
 
 
-        if (p.x < 0) { p.x = 0;          if (p.vx < 0) p.vx = 0; }
+        if (p.x < 0) { p.x = 0; if (p.vx < 0) p.vx = 0; }
         if (p.x > worldWidth) { p.x = worldWidth;  if (p.vx > 0) p.vx = 0; }
 
         if (camera.target.x < p.x) camera.target.x = (float)p.x;
@@ -613,6 +619,8 @@ int main()
             vpunts += o1.punts;
         }
         
+
+
         if (s1.ehp == 1) 
         {
             if (s1.evx == 0)
@@ -962,8 +970,8 @@ int main()
             if (p.vx > 0 && p.facing == 1 && p.isshooting == -1)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posaju = { (float)p.x, (float)p.y + 70, framerecbaix.width * 5, framerecbaix.height * 5 };
-                DrawTexturePro(p1baix, framerecbaix, posaju, position, 0, WHITE);
+                Rectangle posaju = { (float)p.x, (float)p.y + 70, framereccajupit.width * 5, framereccajupit.height * 5 };
+                DrawTexturePro(p1cbaix, framereccajupit, posaju, position, 0, WHITE);
                 DrawText(cix, p.x, p.y, 20, RED);
             }
             if (p.vx == 0 && p.facing == -1 && p.isshooting == -1)
@@ -1148,12 +1156,24 @@ int main()
                 lose = true;
             }
 
-            if (IsKeyDown(KEY_D) && p.vx < 10 && !IsKeyDown(KEY_A)) {
+            if (IsKeyDown(KEY_D) && p.vx < 10 && !IsKeyDown(KEY_A) && p.isajupit == -1) 
+            {
                 p.vx += 5;
                 p.facing = 1;
             }
-            else if (IsKeyDown(KEY_A) && p.vx > -10 && !IsKeyDown(KEY_D)) {
+            else if (IsKeyDown(KEY_A) && p.vx > -10 && !IsKeyDown(KEY_D) && p.isajupit == -1) 
+            {
                 p.vx -= 5;
+                p.facing = -1;
+            }
+            if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A) && p.isajupit == 1)
+            {
+                p.vx = 5;
+                p.facing = 1;
+            }
+            else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D) && p.isajupit == 1)
+            {
+                p.vx = -5;
                 p.facing = -1;
             }
             else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
@@ -1297,6 +1317,7 @@ int main()
     UnloadTexture(bulletb);
     UnloadTexture(bulletee);
     UnloadTexture(score);
+    UnloadTexture(p1cbaix);
     CloseWindow();
     return 0;
 }
