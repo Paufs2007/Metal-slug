@@ -513,18 +513,23 @@ int main()
             if (bullets[i].x >= s1.ex && bullets[i].x <= s1.ex + 100 && bullets[i].y >= s1.ey && bullets[i].y <= s1.ey + 200)
             {
                 s1.ehp--;
+                vpunts += 10;
+                bullets[i].active = false;
             }
             if (bullets[i].x >= s2.ex && bullets[i].x <= s2.ex + 100 && bullets[i].y >= s2.ey && bullets[i].y <= s2.ey + 200)
             {
                 s2.ehp--;
+                bullets[i].active = false;
             }
             if (bullets[i].x >= Jorge.ex && bullets[i].x <= Jorge.ex + 100 && bullets[i].y >= Jorge.ey && bullets[i].y <= Jorge.ey + 200)
             {
                 Jorge.ehp--;
+                bullets[i].active = false;
             }
             if (bullets[i].x >= s3.ex && bullets[i].x <= s3.ex + 100 && bullets[i].y >= s3.ey && bullets[i].y <= s3.ey + 200)
             {
                 s3.ehp--;
+                bullets[i].active = false;
             }
         }
 
@@ -616,8 +621,11 @@ int main()
                             bullets[i].active = true;
                             break;
                         }
+
                     }
+
                 }
+                
             }
         }
 
@@ -685,7 +693,7 @@ int main()
         }
         else if (KevinTheFuckingBoss)
         {
-            vpunts = vpunts + 10;
+            vpunts = vpunts + 1000;
             KevinTheFuckingBoss = false;
             PlaySound(soundArray[0]);
             winscreen = true;
@@ -1138,7 +1146,7 @@ int main()
 
             if (IsKeyPressed(KEY_R)) {
                 lose = false;
-                vpunts = 0;
+                vpunts -= vpunts;
                 KevinTheFuckingBoss = true;
                 bs2 = true;
                 bs3 = true;
@@ -1224,7 +1232,7 @@ int main()
                 lose = false;
                 winSoundPlayed = false;
                 menuSoundPlayed = false;
-                vpunts = 0;
+                vpunts -= vpunts;
                 KevinTheFuckingBoss = true;
                 bs2 = true;
                 bs3 = true;
@@ -1265,7 +1273,7 @@ int main()
                 lose = false;
                 winSoundPlayed = false;
                 menuSoundPlayed = false;
-                vpunts = 0;
+                vpunts -= vpunts;
                 KevinTheFuckingBoss = true;
                 bs2 = true;
                 bs3 = true;
