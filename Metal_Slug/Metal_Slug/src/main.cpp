@@ -256,6 +256,12 @@ int main()
             currentFramcorrer++;
             if (currentFramcorrer >= 12) currentFramcorrer = 0;
             currentFramsalt++;
+            framerecscap.x = (float)currentFramsalt * (float)p1scap.width / 6;
+            framerecscape.x = (float)currentFramsalt * (float)p1scape.width / 6;
+            framerecscames.x = (float)currentFramsalt * (float)p1scames.width / 6;
+            framerecscamese.x = (float)currentFramsalt * (float)p1scamese.width / 6;
+            frameRecdretacorrent.x = (float)currentFramcorrer * (float)p1dretacorrentcames.width / 12;
+            frameesquerracorrent.x = (float)currentFramcorrer * (float)p1esquerracorrentcames.width / 12;
             if (currentFramsalt >= 6) currentFramsalt = 0;
             currentFramajupit++;
             if (currentFramajupit >= 7) currentFramajupit = 0;
@@ -268,12 +274,6 @@ int main()
             framereccamqe.x = (float)currentFrameidle * (float)p1camqe.width / 4;
             framerecbaix.x = (float)currentFrameidle * (float)p1baix.width / 4;
             framerecbaixe.x = (float)currentFrameidle * (float)p1baixe.width / 4;
-            framerecscap.x = (float)currentFramsalt * (float)p1scap.width / 6;
-            framerecscape.x = (float)currentFramsalt * (float)p1scape.width / 6;
-            framerecscames.x = (float)currentFramsalt * (float)p1scames.width / 6;
-            framerecscamese.x = (float)currentFramsalt * (float)p1scamese.width / 6;
-            frameRecdretacorrent.x = (float)currentFramcorrer * (float)p1dretacorrentcames.width / 12;
-            frameesquerracorrent.x = (float)currentFramcorrer * (float)p1esquerracorrentcames.width / 12;
             framerececorr.x = (float)currentFramcorrer * (float)scor.width / 12;
             framerececorre.x = (float)currentFramcorrer * (float)score.width / 12;
             framereccajupit.x = (float)currentFramajupit * (float)p1cbaix.width / 7;
@@ -357,18 +357,18 @@ int main()
             Jorge.vy = 0;
         }
 
-        o1.oy += o1.ovy;
-        o1.ovy += 4;
-
-        if (o1.oy >= FLOOR_Y)
-        {
-            o1.oy = FLOOR_Y;
             o1.ovy = 0;
         }
 
         s3.ey += s3.vy;
         s3.vy += 4;
 
+        o1.oy += o1.ovy;
+        o1.ovy += 4;
+
+        if (o1.oy >= FLOOR_Y)
+        {
+            o1.oy = FLOOR_Y;
         if (s3.ey >= 1020)
         {
             s3.ey = 1020;
@@ -534,7 +534,7 @@ int main()
         }
 
         if (!inMenu && !winscreen && !lose) {
-
+            //Jorge.ex = 3200;
             if (IsKeyPressed(KEY_J)) {
                 PlaySound(soundArray[2]);
                 p.isshooting = 1;
