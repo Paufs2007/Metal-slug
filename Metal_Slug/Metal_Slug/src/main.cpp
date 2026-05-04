@@ -636,10 +636,8 @@ int main()
         else if (os1)
         {
             os1 = false;
-            
-            o1.punts = 100;
 
-            vpunts += o1.punts;
+            vpunts += 100;
         }
         
 
@@ -1272,7 +1270,7 @@ int main()
                 lose = false;
                 winSoundPlayed = false;
                 menuSoundPlayed = false;
-                vpunts -= vpunts;
+                vpunts = 0;
                 KevinTheFuckingBoss = true;
                 bs2 = true;
                 bs3 = true;
