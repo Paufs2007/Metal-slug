@@ -253,12 +253,6 @@ int main()
             currentFramcorrer++;
             if (currentFramcorrer >= 12) currentFramcorrer = 0;
             currentFramsalt++;
-            framerecscap.x = (float)currentFramsalt * (float)p1scap.width / 6;
-            framerecscape.x = (float)currentFramsalt * (float)p1scape.width / 6;
-            framerecscames.x = (float)currentFramsalt * (float)p1scames.width / 6;
-            framerecscamese.x = (float)currentFramsalt * (float)p1scamese.width / 6;
-            frameRecdretacorrent.x = (float)currentFramcorrer * (float)p1dretacorrentcames.width / 12;
-            frameesquerracorrent.x = (float)currentFramcorrer * (float)p1esquerracorrentcames.width / 12;
             if (currentFramsalt >= 6) currentFramsalt = 0;
             frameRecidle.x = (float)currentFrameidle * (float)p1.width / 4;
             frameReccap.x = (float)currentFrameidle * (float)p1cap.width / 4;
@@ -269,6 +263,12 @@ int main()
             framereccamqe.x = (float)currentFrameidle * (float)p1camqe.width / 4;
             framerecbaix.x = (float)currentFrameidle * (float)p1baix.width / 4;
             framerecbaixe.x = (float)currentFrameidle * (float)p1baixe.width / 4;
+            framerecscap.x = (float)currentFramsalt * (float)p1scap.width / 6;
+            framerecscape.x = (float)currentFramsalt * (float)p1scape.width / 6;
+            framerecscames.x = (float)currentFramsalt * (float)p1scames.width / 6;
+            framerecscamese.x = (float)currentFramsalt * (float)p1scamese.width / 6;
+            frameRecdretacorrent.x = (float)currentFramcorrer * (float)p1dretacorrentcames.width / 12;
+            frameesquerracorrent.x = (float)currentFramcorrer * (float)p1esquerracorrentcames.width / 12;
             framerececorr.x = (float)currentFramcorrer * (float)scor.width / 12;
             framerececorre.x = (float)currentFramcorrer * (float)score.width / 12;
         }
@@ -351,18 +351,18 @@ int main()
             Jorge.vy = 0;
         }
 
-            o1.ovy = 0;
-        }
-
-        s3.ey += s3.vy;
-        s3.vy += 4;
-
         o1.oy += o1.ovy;
         o1.ovy += 4;
 
         if (o1.oy >= FLOOR_Y)
         {
             o1.oy = FLOOR_Y;
+            o1.ovy = 0;
+        }
+
+        s3.ey += s3.vy;
+        s3.vy += 4;
+
         if (s3.ey >= 1020)
         {
             s3.ey = 1020;
@@ -528,7 +528,7 @@ int main()
         }
 
         if (!inMenu && !winscreen && !lose) {
-            //Jorge.ex = 3200;
+
             if (IsKeyPressed(KEY_J)) {
                 PlaySound(soundArray[2]);
                 p.isshooting = 1;
@@ -1114,11 +1114,14 @@ int main()
                 bs1 = true;
                 bs2 = true;
                 bs3 = true;
+                bJorge = true;
                 os1 = true;
                 winscreen = false;
                 s1.ehp = 1;
                 s2.ehp = 1;
                 s3.ehp = 1;
+                Jorge.ehp = 1;
+                Jorge.ex = 3200;
                 winSoundPlayed = false;
                 timerlife = 450;
                 startTimer(&vidaTimer, timerlife);
