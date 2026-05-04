@@ -1152,34 +1152,35 @@ int main()
                 camera.target.y = 1100;
             }
 
-
             DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
             updatetimer(&vidaTimer);
 
-            if ((int)vidaTimer.lifetime == 0) {
+            if ((int)vidaTimer.lifetime == 0) 
+            {
                 lose = true;
             }
 
-            if (IsKeyDown(KEY_D) && p.vx < 10 && !IsKeyDown(KEY_A) && p.isajupit == -1) 
+            float maxSpeed = (p.isajupit == 1) ? 4 : 10;
+            float accel = (p.isajupit == 1) ? 2 : 5;
+
+            if (p.vx > maxSpeed) p.vx = maxSpeed;
+            if (p.vx < -maxSpeed) p.vx = -maxSpeed;
+
+            if (IsKeyDown(KEY_D) && p.vx < maxSpeed && !IsKeyDown(KEY_A))
             {
-                p.vx += 5;
+                p.vx += accel;
                 p.facing = 1;
             }
-            else if (IsKeyDown(KEY_A) && p.vx > -10 && !IsKeyDown(KEY_D) && p.isajupit == -1) 
+            else if (IsKeyDown(KEY_A) && p.vx > -maxSpeed && !IsKeyDown(KEY_D))
             {
-                p.vx -= 5;
+                p.vx -= accel;
                 p.facing = -1;
             }
-            if (IsKeyDown(KEY_D) && p.vx < 5 && !IsKeyDown(KEY_A) && p.isajupit == 1)
+            else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A))
             {
-                p.vx = 5;
-                p.facing = 1;
+                p.vx = 0;
             }
-            else if (IsKeyDown(KEY_A) && p.vx > -5 && !IsKeyDown(KEY_D) && p.isajupit == 1)
-            {
-                p.vx = -5;
-                p.facing = -1;
-            }
+
             else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
             if (IsKeyPressed(KEY_SPACE) && p.canJump) p.jump();
             if (IsKeyDown(KEY_S) && !IsKeyDown(KEY_W) && p.canJump)
@@ -1227,7 +1228,6 @@ int main()
                 camera.target.y = 1100;
                 ResumeMusicStream(musicArray[0]);
                 inMenu = true;
-
 
             }
         }
