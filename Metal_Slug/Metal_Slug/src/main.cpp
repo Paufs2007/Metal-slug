@@ -117,8 +117,6 @@ int main()
     bool gameOver = false;
     float hitCooldown = 0.0f;
     int vpunts = 0;
-    int screenWidth2 = GetScreenWidth();
-    int screenHeight2 = GetScreenHeight();
     SearchAndSetResourceDir("resources");
     InitAudioDevice();
 
@@ -201,9 +199,9 @@ int main()
 
 
     Camera2D camera = { 0 };
-    camera.offset = { 315, 340 };
+    camera.offset = { 410, 400 };
     camera.rotation = 0.0f;
-    camera.zoom = (float)GetScreenWidth() / 1500.0f; //0.85f;
+    camera.zoom = 0.85f;
 
     Rectangle framereceidle = { 0, 0, (float)sidle.width / 4, (float)sidle.height };
     Rectangle framerececorr = { 0, 0, (float)scor.width / 12, (float)scor.height };
@@ -452,8 +450,8 @@ int main()
         else {
             camera.target.y = (float)540;
         }
-        float halfW = screenWidth2 / 2.0f;
-        float halfH = screenHeight2 / 2.0f;
+        float halfW = 975 / 2.0f;
+        float halfH = 714 / 2.0f;
 
         if (camera.target.x < halfW)              camera.target.x = halfW;
         if (camera.target.x > worldWidth - halfW) camera.target.x = worldWidth - halfW;
@@ -1030,8 +1028,8 @@ int main()
             float height = logo.height * 2;
 
             Rectangle dest4 = {
-                (GetScreenWidth() - width) / 2,
-                (GetScreenHeight() - height) / 2 - 100,
+                (975 - width) / 2,
+                (714 - height) / 2 - 100,
                 width,
                 height
             };
@@ -1042,7 +1040,7 @@ int main()
                 PlaySound(soundArray[6]);
                 winSoundPlayed = true;
             }            
-            DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BLACK);
+            DrawRectangle(0, 0, 975, 714, BLACK);
             DrawTexturePro(logo, src4, dest4, { 0, 0 }, 0.0f, WHITE);
             DrawText("PRESS ENTER TO START", 250, 500, 40, RED);
 
@@ -1067,13 +1065,13 @@ int main()
             }
 
             Rectangle src2 = { 0, 0, (float)start.width, (float)start.height };
-            Rectangle dest2 = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
+            Rectangle dest2 = { 0, 0, 975, 714 };
 
             DrawTexturePro(start, src2, dest2, { 0, 0 }, 0.0f, WHITE);
 
             int textWidth = MeasureText(cpunts, 30);
 
-            DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, screenHeight2 - 100, 40, RED);
+            DrawText(TextFormat("%i", p.credits), 975 - textWidth - 100, 714 - 100, 40, RED);
             if (IsKeyPressed(KEY_C))
                 p.credits++;
             if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
@@ -1086,9 +1084,9 @@ int main()
 
             int textWidth = MeasureText(cpunts, 30);
 
-            DrawText(TextFormat("%i", p.credits), screenWidth2 - textWidth - 100, screenHeight2 - 100, 40, RED);
-            DrawText(cpuntstext, screenWidth2 - textWidth - 140, 20, 30, RED);
-            DrawText(cpunts, screenWidth2 - textWidth - 40, 20, 30, RED);
+            DrawText(TextFormat("%i", p.credits), 975 - textWidth - 100, 714 - 100, 40, RED);
+            DrawText(cpuntstext, 975 - textWidth - 140, 20, 30, RED);
+            DrawText(cpunts, 975 - textWidth - 40, 20, 30, RED);
             DrawText(TextFormat("%i", p.vides), 20, 20, 30, RED);
 
             if (music == false) {
@@ -1153,7 +1151,7 @@ int main()
             }
 
 
-            DrawText(TextFormat("%d", (int)vidaTimer.lifetime), screenWidth2 / 2, 20, 30, RED);
+            DrawText(TextFormat("%d", (int)vidaTimer.lifetime), 975 / 2, 20, 30, RED);
             updatetimer(&vidaTimer);
 
             if ((int)vidaTimer.lifetime == 0) {
@@ -1199,7 +1197,7 @@ int main()
                 winSoundPlayed = true;
             }
             Rectangle src3 = { 0, 0, (float)win.width, (float)win.height };
-            Rectangle dest3 = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
+            Rectangle dest3 = { 0, 0, 975, 714 };
             DrawTexturePro(win, src3, dest3, { 0, 0 }, 0.0f, WHITE);
             DrawText("PRESS P TO RETURN TO MENU\nPRESS R TO RESTART LEVEL", 375, 800, 40, RED);
             if (IsKeyPressed(KEY_P)) {
@@ -1241,7 +1239,7 @@ int main()
                 winSoundPlayed = true;
             }
             Rectangle src3 = { 0, 0, (float)gameover.width, (float)gameover.height };
-            Rectangle dest3 = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
+            Rectangle dest3 = { 0, 0, 975, 714 };
             DrawTexturePro(gameover, src3, dest3, { 0, 0 }, 0.0f, WHITE);
             DrawText("PRESS P TO RETURN TO MENU\nPRESS R TO RESTART LEVEL", 375, 800, 40, RED);
             if (IsKeyPressed(KEY_P)) {
