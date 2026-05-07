@@ -213,9 +213,9 @@ int main()
 
 
     Camera2D camera = { 0 };
-    camera.offset = { 410, 400 };
+    camera.offset = { 315, 350 };
     camera.rotation = 0.0f;
-    camera.zoom = 1;//GetScreenWidth() / 975.0f; //0.85f;
+    camera.zoom = 0.65f;
 
     Rectangle framereceidle = { 0, 0, (float)sidle.width / 4, (float)sidle.height };
     Rectangle framerececorr = { 0, 0, (float)scor.width / 12, (float)scor.height };
