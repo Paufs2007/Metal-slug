@@ -115,7 +115,6 @@ struct Bullete {
 
 int main()
 {
-    //SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
     SetConfigFlags(FLAG_VSYNC_HINT);
     InitWindow(975, 714, "Metal Slug"); //1300 952
     SetTargetFPS(60);
