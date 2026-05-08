@@ -337,6 +337,8 @@
     <Image Include="resources\benemice.png" />
     <Image Include="resources\bullet.png" />
     <Image Include="resources\bullet_the_OG.png" />
+    <Image Include="resources\cajupit.png" />
+    <Image Include="resources\cajupite.png" />
     <Image Include="resources\cames caminant versio girada.png" />
     <Image Include="resources\cames quietes.png" />
     <Image Include="resources\camescaminant.png" />
@@ -373,6 +375,11 @@
     <Image Include="resources\tiramunt.png" />
     <Image Include="resources\tiramunte.png" />
     <Image Include="resources\wabbit_alpha.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="raylib.vcxproj">
+      <Project>{8898EA18-743A-15EF-5DF5-284349369C3F}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

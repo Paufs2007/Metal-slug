@@ -196,7 +196,7 @@ int main()
 
     player p = { 400, 1220 , 0, 0, true };
 
-    boss s1 = { 19500, 605 };
+    boss s1 = { 19895, 605 };
     soldier s2 = { 5450, 605 };
     soldier s3 = { 10450, 605 };
     soldier Jorge = { 3200, 800 };
@@ -555,6 +555,8 @@ int main()
 
         if (!inMenu && !winscreen && !lose) {
 
+            if (IsKeyPressed(KEY_L))p.x = 19000; // USED FOR TESTING THE BOSS YOU STUPID ASS HOES
+
             if (IsKeyPressed(KEY_J)) {
                 PlaySound(soundArray[2]);
                 p.isshooting = 1;
@@ -677,7 +679,7 @@ int main()
                             bulletse[i].vx = (p.x < s1.ex) ? -6.0f : 6.0f;
 
                             // Upward force
-                            bulletse[i].vy = -8.0f;
+                            bulletse[i].vy = -12.0f;
 
                             bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
                             bulletse[i].active = true;
@@ -687,6 +689,7 @@ int main()
                 }
             }
         }
+
         else if (KevinTheFuckingBoss)
         {
             vpunts = vpunts + 1000;
