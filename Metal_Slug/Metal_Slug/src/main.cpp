@@ -30,6 +30,18 @@ public:
     }
 };
 
+
+class Raig
+{
+public:
+    float x;
+
+    float y;
+
+    int isshooting = 0;
+};
+
+
 class soldier
 {
 public:
@@ -54,6 +66,9 @@ public:
     int efacing = 1; // 1 = right, -1 = left
     int efacingy = 1; // 1 = up, -1 = down
     float enemyShootTimer = 0.0f;
+    int   burstCount = 0;      // bullets remaining in barrage
+    float burstTimer = 0.0f;   // time between each burst shot
+    const float burstInterval = 0.12f; // seconds between each shot in barrage
 };
 
 class objecte
@@ -196,7 +211,9 @@ int main()
 
     player p = { 400, 1220 , 0, 0, true };
 
-    boss s1 = { 19500, 605 };
+    Raig r = {1985, 605};
+
+    boss s1 = { 19895, 605 };
     soldier s2 = { 5450, 605 };
     soldier s3 = { 10450, 605 };
     soldier Jorge = { 3200, 800 };
@@ -555,6 +572,8 @@ int main()
 
         if (!inMenu && !winscreen && !lose) {
 
+            if (IsKeyPressed(KEY_L))p.x = 19000; // USED FOR TESTING THE BOSS YOU STUPID ASS HOES
+
             if (IsKeyPressed(KEY_J)) {
                 PlaySound(soundArray[2]);
                 p.isshooting = 1;
@@ -658,40 +677,94 @@ int main()
                 DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
                 DrawText(cix, s1.ex, s1.ey, 20, RED);
             }
-
-            if (!inMenu && !winscreen && !lose) 
+            if (!inMenu && !winscreen && !lose)
             {
                 s1.enemyShootTimer += GetFrameTime();
+
                 if (s1.enemyShootTimer >= enemyShootInterval)
                 {
                     s1.enemyShootTimer = 0.0f;
+                    s1.burstCount = 5;
+                }
 
-                    for (int i = 0; i < MAX_BULLETSE; i++)
+                if (s1.burstCount > 0)
+                {
+                    s1.burstTimer += GetFrameTime();
+                    if (s1.burstTimer >= 0.4f)
                     {
-                        if (!bulletse[i].active)
+                        s1.burstTimer = 0.0f;
+                        s1.burstCount--;
+
+                        for (int i = 0; i < MAX_BULLETSE; i++)
                         {
-                            bulletse[i].x = s1.ex;
-                            bulletse[i].y = s1.ey + 30;
+                            if (!bulletse[i].active)
+                            {
+                                bulletse[i].x = s1.ex;
+                                bulletse[i].y = s1.ey + 30;
 
-                            // direccio horitzontal
-                            bulletse[i].vx = (p.x < s1.ex) ? -6.0f : 6.0f;
+                                float gravity = 0.5f;
+                                float vy = -22.5f;
 
-                            // Upward force
-                            bulletse[i].vy = -8.0f;
+                                float spread = 200.0f;
+                                float step = spread / 4.0f;
+                                float targetX = (p.x - spread / 2.0f) + s1.burstCount * step;
 
-                            bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
-                            bulletse[i].active = true;
-                            break;
+                                float timeOfFlight = (-2.0f * vy) / gravity;
+                                bulletse[i].vx = (targetX - s1.ex) / timeOfFlight;
+                                bulletse[i].vy = vy;
+
+                                bulletse[i].useGravity = true; // TURNS ON GRAVITY GILIPOLLAS!
+                                bulletse[i].active = true;
+                                break;
+                            }
                         }
                     }
                 }
             }
         }
+
+
+        // BERNAT DO NOT DELETE, ES FARA SERVIR PER ELS ENEMICS.
+        //if (!inMenu && !winscreen && !lose)
+        //{
+        //    s1.enemyShootTimer += GetFrameTime();
+        //    if (s1.enemyShootTimer >= enemyShootInterval)
+        //    {
+        //        s1.enemyShootTimer = 0.0f;
+
+        //        for (int i = 0; i < MAX_BULLETSE; i++)
+        //        {
+        //            if (!bulletse[i].active)
+        //            {
+        //                bulletse[i].x = s1.ex;
+        //                bulletse[i].y = s1.ey + 30;
+
+        //                float gravity = 0.5f;   // matches bullet update loop, WHY ARE YOU GAY?
+        //                float vy = -12.0f; // Arc parabola
+
+        //                // Frames until bullet returns to same Y
+        //                float timeOfFlight = (-2.0f * vy) / gravity; // = 48 frames
+
+        //                // vx needed to land exactly on player's X
+        //                bulletse[i].vx = (p.x - s1.ex) / timeOfFlight;
+        //                bulletse[i].vy = vy;
+
+        //                bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
+        //                bulletse[i].active = true;
+        //                break;
+        //            }
+        //        }
+        //    }
+        //}
+        //}
+
+
         else if (KevinTheFuckingBoss)
         {
             vpunts = vpunts + 1000;
             KevinTheFuckingBoss = false;
             PlaySound(soundArray[0]);
+            
             winscreen = true;
         }
 
@@ -737,8 +810,9 @@ int main()
         else if (bs2)
         {
             vpunts = vpunts + 10;
-            bs2 = false;
+            s2.ex = 100000000;
             PlaySound(soundArray[0]);
+            bs2 = false;
         }
 
         if (Jorge.ehp == 1)
@@ -783,8 +857,9 @@ int main()
         else if (bJorge)
         {
             vpunts = vpunts + 10;
-            bJorge = false;
             PlaySound(soundArray[0]);
+            Jorge.ex = 100000000;
+            bJorge = false;
         }
 
         if (s3.ehp == 1) {
@@ -817,8 +892,9 @@ int main()
         else if (bs3)
         {
             vpunts = vpunts + 10;
-            bs3 = false;
             PlaySound(soundArray[0]);
+            s3.ex = 100000000;
+            bs3 = false;
         }
 
         if (p.isajupit == -1) 
@@ -1227,31 +1303,38 @@ int main()
             DrawText("PRESS P TO RETURN TO MENU\nPRESS R TO RESTART LEVEL", 375, 800, 40, RED);
             if (IsKeyPressed(KEY_P)) {
                 winscreen = false;
-                lose = false;
                 winSoundPlayed = false;
                 menuSoundPlayed = false;
+                lose = false;
                 vpunts -= vpunts;
                 KevinTheFuckingBoss = true;
                 bs2 = true;
                 bs3 = true;
+                bJorge = true;
                 os1 = true;
+                winscreen = false;
                 s1.ehp = 10;
                 s2.ehp = 1;
                 s3.ehp = 1;
                 o1.alive = 1;
-                s2.ex = 5450;
-                s2.evx = 0;
+                Jorge.ehp = 1;
+                Jorge.ex = 3200;
+                winSoundPlayed = false;
                 timerlife = 450;
                 startTimer(&vidaTimer, timerlife);
+
+                ResumeMusicStream(musicArray[0]);
+
                 p.x = 400;
                 p.y = 1220;
                 p.vx = 0;
                 p.vy = 0;
+                s2.ex = 5450;
+                s2.evx = 0;
+                s3.ehp = 1;
+
                 camera.target.x = p.x;
                 camera.target.y = 1100;
-                ResumeMusicStream(musicArray[0]);
-                inMenu = true;
-
             }
         }
         if (lose == true) {
@@ -1269,31 +1352,38 @@ int main()
             DrawText("PRESS P TO RETURN TO MENU\nPRESS R TO RESTART LEVEL", 375, 800, 40, RED);
             if (IsKeyPressed(KEY_P)) {
                 winscreen = false;
-                lose = false;
-                winSoundPlayed = false;
                 menuSoundPlayed = false;
-                vpunts = 0;
+                inMenu = true;
+                lose = false;
+                vpunts -= vpunts;
                 KevinTheFuckingBoss = true;
                 bs2 = true;
                 bs3 = true;
+                bJorge = true;
                 os1 = true;
+                winscreen = false;
                 s1.ehp = 10;
                 s2.ehp = 1;
                 s3.ehp = 1;
                 o1.alive = 1;
-                s2.ex = 5450;
-                s2.evx = 0;
+                Jorge.ehp = 1;
+                Jorge.ex = 3200;
+                winSoundPlayed = false;
                 timerlife = 450;
                 startTimer(&vidaTimer, timerlife);
+
+                ResumeMusicStream(musicArray[0]);
+
                 p.x = 400;
                 p.y = 1220;
                 p.vx = 0;
                 p.vy = 0;
+                s2.ex = 5450;
+                s2.evx = 0;
+                s3.ehp = 1;
+
                 camera.target.x = p.x;
                 camera.target.y = 1100;
-                ResumeMusicStream(musicArray[0]);
-                inMenu = true;
-
             }
         }
 

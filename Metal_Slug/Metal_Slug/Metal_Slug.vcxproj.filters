@@ -107,6 +107,12 @@
     <Image Include="resources\bullet_the_OG.png">
       <Filter>Game Resource Files</Filter>
     </Image>
+    <Image Include="resources\cajupit.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cajupite.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
     <Image Include="resources\cames caminant versio girada.png">
       <Filter>Game Resource Files</Filter>
     </Image>
