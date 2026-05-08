@@ -30,6 +30,18 @@ public:
     }
 };
 
+
+class Raig
+{
+public:
+    float x;
+
+    float y;
+
+    int isshooting = 0;
+};
+
+
 class soldier
 {
 public:
@@ -195,6 +207,8 @@ int main()
     int   FLOOR_Y = 1300;
 
     player p = { 400, 1220 , 0, 0, true };
+
+    Raig r = {1985, 605};
 
     boss s1 = { 19895, 605 };
     soldier s2 = { 5450, 605 };
@@ -663,33 +677,57 @@ int main()
 
             if (!inMenu && !winscreen && !lose) 
             {
-                s1.enemyShootTimer += GetFrameTime();
-                if (s1.enemyShootTimer >= enemyShootInterval)
+                if (s1.ehp > 5)
                 {
-                    s1.enemyShootTimer = 0.0f;
-
-                    for (int i = 0; i < MAX_BULLETSE; i++)
+                    s1.enemyShootTimer += GetFrameTime();
+                    if (s1.enemyShootTimer >= enemyShootInterval)
                     {
-                        if (!bulletse[i].active)
+                        s1.enemyShootTimer = 0.0f;
+
+                        for (int i = 0; i < MAX_BULLETSE; i++)
                         {
-                            bulletse[i].x = s1.ex;
-                            bulletse[i].y = s1.ey + 30;
+                            if (!bulletse[i].active)
+                            {
+                                bulletse[i].x = s1.ex;
+                                bulletse[i].y = s1.ey + 30;
 
-                            // direccio horitzontal
-                            bulletse[i].vx = (p.x < s1.ex) ? -6.0f : 6.0f;
+                                // direccio horitzontal
+                                bulletse[i].vx = (p.x < s1.ex) ? -6.0f : 6.0f;
 
-                            // Upward force
-                            bulletse[i].vy = -12.0f;
+                                // Upward force
+                                bulletse[i].vy = -12.0f;
 
-                            bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
-                            bulletse[i].active = true;
-                            break;
+                                bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
+                                bulletse[i].active = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                else 
+                {
+                    s1.enemyShootTimer += GetFrameTime();
+                    if (s1.enemyShootTimer >= enemyShootInterval)
+                    {
+                        s1.enemyShootTimer = 0.0f;
+
+                        r.isshooting = 1;
+
+                        Vector2 position = { 0.0f, 0.0f };
+                        Rectangle posidles1 = { (float)s1.ex, (float)s1.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                        DrawTexturePro(sidle, framereceidle, posidles1, position, 90, WHITE);
+                        DrawText(cix, s1.ex, s1.ey, 20, RED);
+
+                        if (r.x >= p.x && r.x <= p.x + 100 && r.y >= p.y - 20 && r.y <= p.y + 200 && r.isshooting == 1)
+                        {
+                            p.hp - 1;
+
+                            r.isshooting = 0;
                         }
                     }
                 }
             }
         }
-
         else if (KevinTheFuckingBoss)
         {
             vpunts = vpunts + 1000;
