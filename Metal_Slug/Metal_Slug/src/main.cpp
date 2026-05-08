@@ -681,7 +681,8 @@ int main()
 
             if (s1.ehp > 5)
             {
-                   
+
+
                 if (!inMenu && !winscreen && !lose)
                 {
                     s1.enemyShootTimer += GetFrameTime();
@@ -697,46 +698,36 @@ int main()
                         s1.burstTimer += GetFrameTime();
                         if (s1.burstTimer >= 0.4f)
                         {
-                            s1.enemyShootTimer = 0.0f;
-                            s1.burstCount = 5; // number of bullets per barrage
-                        }
+                            s1.burstTimer = 0.0f;
+                            s1.burstCount--;
 
-                        // Fire one burst bullet per burstInterval tick
-                        if (s1.burstCount > 0)
-                        {
-                            s1.burstTimer += GetFrameTime();
-                            if (s1.burstTimer >= s1.burstInterval)
+                            for (int i = 0; i < MAX_BULLETSE; i++)
                             {
-                                s1.burstTimer = 0.0f;
-                                s1.burstCount--;
-
-                                for (int i = 0; i < MAX_BULLETSE; i++)
+                                if (!bulletse[i].active)
                                 {
-                                    if (!bulletse[i].active)
-                                    {
-                                        bulletse[i].x = s1.ex;
-                                        bulletse[i].y = s1.ey + 30;
+                                    bulletse[i].x = s1.ex;
+                                    bulletse[i].y = s1.ey + 30;
 
-                                        float gravity = 0.5f;
+                                    float gravity = 0.5f;
+                                    float vy = -22.5f;
 
-                                        // Spread: each bullet in burst gets a different arc height
-                                        // burstCount goes 4 -> 0, maps vy from -8 (flat) to -20 (high arc)
-                                        float t = (float)s1.burstCount / 4.0f; // 0.0 to 1.0
-                                        float vy = -8.0f - t * 12.0f;           // -8 to -20
+                                    float spread = 200.0f;
+                                    float step = spread / 4.0f;
+                                    float targetX = (p.x - spread / 2.0f) + s1.burstCount * step;
 
-                                        float timeOfFlight = (-2.0f * vy) / gravity;
-                                        bulletse[i].vx = (p.x - s1.ex) / timeOfFlight;
-                                        bulletse[i].vy = vy;
+                                    float timeOfFlight = (-2.0f * vy) / gravity;
+                                    bulletse[i].vx = (targetX - s1.ex) / timeOfFlight;
+                                    bulletse[i].vy = vy;
 
-                                        bulletse[i].useGravity = true;
-                                        bulletse[i].active = true;
-                                        break;
-                                    }
+                                    bulletse[i].useGravity = true; // TURNS ON GRAVITY GILIPOLLAS!
+                                    bulletse[i].active = true;
+                                    break;
                                 }
                             }
                         }
                     }
                 }
+
             }
             else if (s1.ehp <= 5)
             {
