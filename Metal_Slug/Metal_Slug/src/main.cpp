@@ -635,9 +635,9 @@ int main()
         }
         else if (os1)
         {
-            os1 = false;
+            vpunts = vpunts + 100;
 
-            vpunts += 100;
+            os1 = false;
         }
         
 
@@ -1152,6 +1152,7 @@ int main()
                 s1.ehp = 10;
                 s2.ehp = 1;
                 s3.ehp = 1;
+                o1.alive = 1;
                 Jorge.ehp = 1;
                 Jorge.ex = 3200;
                 winSoundPlayed = false;
@@ -1237,6 +1238,7 @@ int main()
                 s1.ehp = 10;
                 s2.ehp = 1;
                 s3.ehp = 1;
+                o1.alive = 1;
                 s2.ex = 5450;
                 s2.evx = 0;
                 timerlife = 450;
@@ -1278,6 +1280,7 @@ int main()
                 s1.ehp = 10;
                 s2.ehp = 1;
                 s3.ehp = 1;
+                o1.alive = 1;
                 s2.ex = 5450;
                 s2.evx = 0;
                 timerlife = 450;
