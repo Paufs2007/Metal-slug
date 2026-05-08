@@ -54,6 +54,9 @@ public:
     int efacing = 1; // 1 = right, -1 = left
     int efacingy = 1; // 1 = up, -1 = down
     float enemyShootTimer = 0.0f;
+    int   burstCount = 0;      // bullets remaining in barrage
+    float burstTimer = 0.0f;   // time between each burst shot
+    const float burstInterval = 0.12f; // seconds between each shot in barrage
 };
 
 class objecte
@@ -661,34 +664,89 @@ int main()
                 DrawText(cix, s1.ex, s1.ey, 20, RED);
             }
 
-            if (!inMenu && !winscreen && !lose) 
+            if (!inMenu && !winscreen && !lose)
             {
                 s1.enemyShootTimer += GetFrameTime();
+
+                // Main interval expired -> trigger a new barrage
                 if (s1.enemyShootTimer >= enemyShootInterval)
                 {
                     s1.enemyShootTimer = 0.0f;
+                    s1.burstCount = 5; // number of bullets per barrage
+                }
 
-                    for (int i = 0; i < MAX_BULLETSE; i++)
+                // Fire one burst bullet per burstInterval tick
+                if (s1.burstCount > 0)
+                {
+                    s1.burstTimer += GetFrameTime();
+                    if (s1.burstTimer >= s1.burstInterval)
                     {
-                        if (!bulletse[i].active)
+                        s1.burstTimer = 0.0f;
+                        s1.burstCount--;
+
+                        for (int i = 0; i < MAX_BULLETSE; i++)
                         {
-                            bulletse[i].x = s1.ex;
-                            bulletse[i].y = s1.ey + 30;
+                            if (!bulletse[i].active)
+                            {
+                                bulletse[i].x = s1.ex;
+                                bulletse[i].y = s1.ey + 30;
 
-                            // direccio horitzontal
-                            bulletse[i].vx = (p.x < s1.ex) ? -6.0f : 6.0f;
+                                float gravity = 0.5f;
 
-                            // Upward force
-                            bulletse[i].vy = -12.0f;
+                                // Spread: each bullet in burst gets a different arc height
+                                // burstCount goes 4 -> 0, maps vy from -8 (flat) to -20 (high arc)
+                                float t = (float)s1.burstCount / 4.0f; // 0.0 to 1.0
+                                float vy = -8.0f - t * 12.0f;           // -8 to -20
 
-                            bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
-                            bulletse[i].active = true;
-                            break;
+                                float timeOfFlight = (-2.0f * vy) / gravity;
+                                bulletse[i].vx = (p.x - s1.ex) / timeOfFlight;
+                                bulletse[i].vy = vy;
+
+                                bulletse[i].useGravity = true;
+                                bulletse[i].active = true;
+                                break;
+                            }
                         }
                     }
                 }
             }
         }
+
+
+        // BERNAT DO NOT DELETE, ES FARA SERVIR PER ELS ENEMICS.
+        //if (!inMenu && !winscreen && !lose)
+        //{
+        //    s1.enemyShootTimer += GetFrameTime();
+        //    if (s1.enemyShootTimer >= enemyShootInterval)
+        //    {
+        //        s1.enemyShootTimer = 0.0f;
+
+        //        for (int i = 0; i < MAX_BULLETSE; i++)
+        //        {
+        //            if (!bulletse[i].active)
+        //            {
+        //                bulletse[i].x = s1.ex;
+        //                bulletse[i].y = s1.ey + 30;
+
+        //                float gravity = 0.5f;   // matches bullet update loop, WHY ARE YOU GAY?
+        //                float vy = -12.0f; // Arc parabola
+
+        //                // Frames until bullet returns to same Y
+        //                float timeOfFlight = (-2.0f * vy) / gravity; // = 48 frames
+
+        //                // vx needed to land exactly on player's X
+        //                bulletse[i].vx = (p.x - s1.ex) / timeOfFlight;
+        //                bulletse[i].vy = vy;
+
+        //                bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
+        //                bulletse[i].active = true;
+        //                break;
+        //            }
+        //        }
+        //    }
+        //}
+        //}
+
 
         else if (KevinTheFuckingBoss)
         {
