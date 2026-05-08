@@ -201,6 +201,10 @@ int main()
     Texture p1cbaix = LoadTexture("cajupit.png");
     Texture p1cbaixe = LoadTexture("cajupite.png");
 
+    Font timerNums = LoadFont("nums1.png");
+    Font whiteFont = LoadFont("nums1.png");
+    Font yellowFont = LoadFont("nums1.png");
+
     int timerlife = 450;
     Timer vidaTimer = { 0 };
     startTimer(&vidaTimer, timerlife);
