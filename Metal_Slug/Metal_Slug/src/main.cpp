@@ -663,23 +663,20 @@ int main()
                 DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
                 DrawText(cix, s1.ex, s1.ey, 20, RED);
             }
-
             if (!inMenu && !winscreen && !lose)
             {
                 s1.enemyShootTimer += GetFrameTime();
 
-                // Main interval expired -> trigger a new barrage
                 if (s1.enemyShootTimer >= enemyShootInterval)
                 {
                     s1.enemyShootTimer = 0.0f;
-                    s1.burstCount = 5; // number of bullets per barrage
+                    s1.burstCount = 5;
                 }
 
-                // Fire one burst bullet per burstInterval tick
                 if (s1.burstCount > 0)
                 {
                     s1.burstTimer += GetFrameTime();
-                    if (s1.burstTimer >= s1.burstInterval)
+                    if (s1.burstTimer >= 0.4f)
                     {
                         s1.burstTimer = 0.0f;
                         s1.burstCount--;
@@ -692,17 +689,17 @@ int main()
                                 bulletse[i].y = s1.ey + 30;
 
                                 float gravity = 0.5f;
+                                float vy = -22.5f;
 
-                                // Spread: each bullet in burst gets a different arc height
-                                // burstCount goes 4 -> 0, maps vy from -8 (flat) to -20 (high arc)
-                                float t = (float)s1.burstCount / 4.0f; // 0.0 to 1.0
-                                float vy = -8.0f - t * 12.0f;           // -8 to -20
+                                float spread = 200.0f;
+                                float step = spread / 4.0f;
+                                float targetX = (p.x - spread / 2.0f) + s1.burstCount * step;
 
                                 float timeOfFlight = (-2.0f * vy) / gravity;
-                                bulletse[i].vx = (p.x - s1.ex) / timeOfFlight;
+                                bulletse[i].vx = (targetX - s1.ex) / timeOfFlight;
                                 bulletse[i].vy = vy;
 
-                                bulletse[i].useGravity = true;
+                                bulletse[i].useGravity = true; // TURNS ON GRAVITY GILIPOLLAS!
                                 bulletse[i].active = true;
                                 break;
                             }
