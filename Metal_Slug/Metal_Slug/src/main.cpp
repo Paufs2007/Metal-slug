@@ -767,7 +767,7 @@ int main()
             vpunts = vpunts + 1000;
             KevinTheFuckingBoss = false;
             PlaySound(soundArray[0]);
-            s1.ex = 10000000;
+            
             winscreen = true;
         }
 
@@ -1306,31 +1306,38 @@ int main()
             DrawText("PRESS P TO RETURN TO MENU\nPRESS R TO RESTART LEVEL", 375, 800, 40, RED);
             if (IsKeyPressed(KEY_P)) {
                 winscreen = false;
-                lose = false;
                 winSoundPlayed = false;
                 menuSoundPlayed = false;
+                lose = false;
                 vpunts -= vpunts;
                 KevinTheFuckingBoss = true;
                 bs2 = true;
                 bs3 = true;
+                bJorge = true;
                 os1 = true;
+                winscreen = false;
                 s1.ehp = 10;
                 s2.ehp = 1;
                 s3.ehp = 1;
                 o1.alive = 1;
-                s2.ex = 5450;
-                s2.evx = 0;
+                Jorge.ehp = 1;
+                Jorge.ex = 3200;
+                winSoundPlayed = false;
                 timerlife = 450;
                 startTimer(&vidaTimer, timerlife);
+
+                ResumeMusicStream(musicArray[0]);
+
                 p.x = 400;
                 p.y = 1220;
                 p.vx = 0;
                 p.vy = 0;
+                s2.ex = 5450;
+                s2.evx = 0;
+                s3.ehp = 1;
+
                 camera.target.x = p.x;
                 camera.target.y = 1100;
-                ResumeMusicStream(musicArray[0]);
-                inMenu = true;
-
             }
         }
         if (lose == true) {
@@ -1348,31 +1355,38 @@ int main()
             DrawText("PRESS P TO RETURN TO MENU\nPRESS R TO RESTART LEVEL", 375, 800, 40, RED);
             if (IsKeyPressed(KEY_P)) {
                 winscreen = false;
-                lose = false;
-                winSoundPlayed = false;
                 menuSoundPlayed = false;
-                vpunts = 0;
+                inMenu = true;
+                lose = false;
+                vpunts -= vpunts;
                 KevinTheFuckingBoss = true;
                 bs2 = true;
                 bs3 = true;
+                bJorge = true;
                 os1 = true;
+                winscreen = false;
                 s1.ehp = 10;
                 s2.ehp = 1;
                 s3.ehp = 1;
                 o1.alive = 1;
-                s2.ex = 5450;
-                s2.evx = 0;
+                Jorge.ehp = 1;
+                Jorge.ex = 3200;
+                winSoundPlayed = false;
                 timerlife = 450;
                 startTimer(&vidaTimer, timerlife);
+
+                ResumeMusicStream(musicArray[0]);
+
                 p.x = 400;
                 p.y = 1220;
                 p.vx = 0;
                 p.vy = 0;
+                s2.ex = 5450;
+                s2.evx = 0;
+                s3.ehp = 1;
+
                 camera.target.x = p.x;
                 camera.target.y = 1100;
-                ResumeMusicStream(musicArray[0]);
-                inMenu = true;
-
             }
         }
 
