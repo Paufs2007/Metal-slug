@@ -692,6 +692,7 @@ int main()
             vpunts = vpunts + 1000;
             KevinTheFuckingBoss = false;
             PlaySound(soundArray[0]);
+            s1.ex = 10000000;
             winscreen = true;
         }
 
@@ -737,8 +738,9 @@ int main()
         else if (bs2)
         {
             vpunts = vpunts + 10;
-            bs2 = false;
+            s2.ex = 100000000;
             PlaySound(soundArray[0]);
+            bs2 = false;
         }
 
         if (Jorge.ehp == 1)
@@ -783,8 +785,9 @@ int main()
         else if (bJorge)
         {
             vpunts = vpunts + 10;
-            bJorge = false;
             PlaySound(soundArray[0]);
+            Jorge.ex = 100000000;
+            bJorge = false;
         }
 
         if (s3.ehp == 1) {
@@ -817,8 +820,9 @@ int main()
         else if (bs3)
         {
             vpunts = vpunts + 10;
-            bs3 = false;
             PlaySound(soundArray[0]);
+            s3.ex = 100000000;
+            bs3 = false;
         }
 
         if (p.isajupit == -1) 
