@@ -124,6 +124,7 @@ struct Bullete {
     float x, y;
     float vx;
     float vy;
+
     bool useGravity;
     bool active;
 };
@@ -678,52 +679,97 @@ int main()
                 DrawText(cix, s1.ex, s1.ey, 20, RED);
             }
 
-            if (!inMenu && !winscreen && !lose)
+            if (s1.ehp > 5)
             {
-                s1.enemyShootTimer += GetFrameTime();
-
-                // Main interval expired -> trigger a new barrage
-                if (s1.enemyShootTimer >= enemyShootInterval)
+                if (!inMenu && !winscreen && !lose)
                 {
-                    s1.enemyShootTimer = 0.0f;
-                    s1.burstCount = 5; // number of bullets per barrage
-                }
+                    s1.enemyShootTimer += GetFrameTime();
 
-                // Fire one burst bullet per burstInterval tick
-                if (s1.burstCount > 0)
-                {
-                    s1.burstTimer += GetFrameTime();
-                    if (s1.burstTimer >= s1.burstInterval)
+                    // Main interval expired -> trigger a new barrage
+                    if (s1.enemyShootTimer >= enemyShootInterval)
                     {
-                        s1.burstTimer = 0.0f;
-                        s1.burstCount--;
+                        s1.enemyShootTimer = 0.0f;
+                        s1.burstCount = 5; // number of bullets per barrage
+                    }
+
+                    // Fire one burst bullet per burstInterval tick
+                    if (s1.burstCount > 0)
+                    {
+                        s1.burstTimer += GetFrameTime();
+                        if (s1.burstTimer >= s1.burstInterval)
+                        {
+                            s1.burstTimer = 0.0f;
+                            s1.burstCount--;
+
+                            for (int i = 0; i < MAX_BULLETSE; i++)
+                            {
+                                if (!bulletse[i].active)
+                                {
+                                    bulletse[i].x = s1.ex;
+                                    bulletse[i].y = s1.ey + 30;
+
+                                    float gravity = 0.5f;
+
+                                    // Spread: each bullet in burst gets a different arc height
+                                    // burstCount goes 4 -> 0, maps vy from -8 (flat) to -20 (high arc)
+                                    float t = (float)s1.burstCount / 4.0f; // 0.0 to 1.0
+                                    float vy = -8.0f - t * 12.0f;           // -8 to -20
+
+                                    float timeOfFlight = (-2.0f * vy) / gravity;
+                                    bulletse[i].vx = (p.x - s1.ex) / timeOfFlight;
+                                    bulletse[i].vy = vy;
+
+                                    bulletse[i].useGravity = true;
+                                    bulletse[i].active = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (s1.ehp <= 5)
+            {
+                if (!inMenu && !winscreen && !lose)
+                {
+                    s1.enemyShootTimer += GetFrameTime();
+
+                    // Dispara cada X segons
+                    if (s1.enemyShootTimer >= enemyShootInterval)
+                    {
+                        s1.enemyShootTimer = 0.0f;
 
                         for (int i = 0; i < MAX_BULLETSE; i++)
                         {
                             if (!bulletse[i].active)
                             {
+                                // Posició inicial
                                 bulletse[i].x = s1.ex;
                                 bulletse[i].y = s1.ey + 30;
 
-                                float gravity = 0.5f;
+                                // Direcció cap al jugador
+                                float dx = p.x - s1.ex;
+                                float dy = p.y - s1.ey;
 
-                                // Spread: each bullet in burst gets a different arc height
-                                // burstCount goes 4 -> 0, maps vy from -8 (flat) to -20 (high arc)
-                                float t = (float)s1.burstCount / 4.0f; // 0.0 to 1.0
-                                float vy = -8.0f - t * 12.0f;           // -8 to -20
+                                // Longitud del vector
+                                float length = sqrt(dx * dx + dy * dy);
 
-                                float timeOfFlight = (-2.0f * vy) / gravity;
-                                bulletse[i].vx = (p.x - s1.ex) / timeOfFlight;
-                                bulletse[i].vy = vy;
+                                // Normalitzar + velocitat lenta
+                                float speed = 3.0f;
 
-                                bulletse[i].useGravity = true;
+                                bulletse[i].vx = (dx / length) * speed;
+                                bulletse[i].vy = (dy / length) * speed;
+
                                 bulletse[i].active = true;
+                                bulletse[i].useGravity = false;
+
                                 break;
                             }
                         }
                     }
                 }
             }
+            
         }
 
 
