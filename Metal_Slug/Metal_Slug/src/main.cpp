@@ -340,6 +340,8 @@ int main()
         if (p.x > 5850 && p.x < 6470 && p.y <= 1000) FLOOR_Y = 1000;
         if (p.x > 6765 && p.x < 7515 && p.y <= 1000) FLOOR_Y = 1000;
         if (p.x > 7600 && p.x < 7870 && p.y <= 1220) FLOOR_Y = 1200;
+
+
         
         if (o1.ox >= p.x && o1.ox <= p.x + 100 && o1.oy >= p.y - 20 && o1.oy <= p.y + 200)
         {
@@ -487,6 +489,8 @@ int main()
         }
         float halfW = 975 / 2.0f;
         float halfH = 714 / 2.0f;
+
+        if (camera.target.x >  19000) camera.target.x = 19000; // LOCKS CAMERA ON BOSS AREA. - Aidan.
 
         if (camera.target.x < halfW)              camera.target.x = halfW;
         if (camera.target.x > worldWidth - halfW) camera.target.x = worldWidth - halfW;
@@ -1357,6 +1361,7 @@ int main()
             DrawText("PRESS P TO RETURN TO MENU\nPRESS R TO RESTART LEVEL", 375, 800, 40, RED);
             if (IsKeyPressed(KEY_P)) {
                 winscreen = false;
+                inMenu = true;
                 winSoundPlayed = false;
                 menuSoundPlayed = false;
                 lose = false;
