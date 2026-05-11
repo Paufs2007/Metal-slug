@@ -671,8 +671,6 @@ int main()
 
             os1 = false;
         }
-        
-
 
         if (s1.ehp >= 1) 
         {
@@ -758,7 +756,7 @@ int main()
                             {
                                 // Posici� inicial
                                 bulletse[i].x = s1.ex;
-                                bulletse[i].y = s1.ey + 30;
+                                bulletse[i].y = s1.ey + 90;
 
                                 // Direcci� cap al jugador
                                 float dx = p.x - s1.ex;
@@ -771,7 +769,6 @@ int main()
                                 float speed = 3.0f;
 
                                 bulletse[i].vx = (dx / length) * speed;
-                                bulletse[i].vy = (dy / length) * speed;
 
                                 bulletse[i].active = true;
                                 bulletse[i].useGravity = false;
