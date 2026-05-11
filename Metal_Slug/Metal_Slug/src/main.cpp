@@ -401,7 +401,9 @@ int main()
         if (p.x > 11850 && p.x < 11950 && p.y <= 825) FLOOR_Y = p.x * -0.4 + 5560;
         if (p.x > 11950 && p.x < 12600 && p.y <= 785) FLOOR_Y = 780; 
         if (p.x > 12850 && p.x < 13200 && p.y <= 980) FLOOR_Y = 980;
-        if (p.x > 13400 && p.x < 13600 && p.y <= 980) FLOOR_Y = 780;
+        if (p.x > 13400 && p.x < 13600 && p.y <= 780) FLOOR_Y = 780;
+        if (p.x > 19000 && p.x < 19100 && p.y <= 550) FLOOR_Y = 550;
+        if (p.x > 19150 && p.x < 19300 && p.y <= 400) FLOOR_Y = 400;
         if (p.x > 19700) p.x = 19700;
         if (IsKeyPressed(KEY_H)) p.y = 0;
         
@@ -434,9 +436,9 @@ int main()
         s1.ey += s1.vy;
         s1.vy += 4;
 
-        if (s1.ey >= FLOOR_Y)
+        if (s1.ey >= 700)
         {
-            s1.ey = FLOOR_Y;
+            s1.ey = 700;
             s1.vy = 0;
         }
 
