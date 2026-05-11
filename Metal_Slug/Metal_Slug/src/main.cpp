@@ -234,6 +234,7 @@ int main()
     Texture bulletee = LoadTexture("benemice.png");
     Texture p1cbaix = LoadTexture("cajupit.png");
     Texture p1cbaixe = LoadTexture("cajupite.png");
+    Texture mgun = LoadTexture("MACHINE GUN.png");
 
     Font timerNums = LoadFont("numeros_color.png");
     Font whiteFont = LoadFont("nums1.png");
@@ -305,15 +306,19 @@ int main()
     Rectangle frameRecdretacorrent = { 0, 0, (float)p1dretacorrentcames.width / 12, (float)p1dretacorrentcames.height };
     Rectangle frameRecidle = { 0, 0, (float)p1.width / 4, (float)p1.height };
 
+    Rectangle frameRecmgun = { 0, 0, (float)mgun.width / 2, (float)mgun.height };
+
     int currentFrameidle = 0;
     int currentFramcorrer = 0;
     int currentFramsalt = 0;
     int currentFramtir = 0;
     int currentFramajupit = 0;
+    int currentFrameobj = 0;
     int framesCounter = 0;
     int framesSpeed = 3;
     int framesSpeedtir = 4;
     int framesspeedajupit = 3;
+    int framesspeedobj = 2;
 
     const int MAX_BULLETSE = 100;
     Bullete bulletse[MAX_BULLETSE] = {};
@@ -341,6 +346,8 @@ int main()
             if (currentFramsalt >= 6) currentFramsalt = 0;
             currentFramajupit++;
             if (currentFramajupit >= 7) currentFramajupit = 0;
+            currentFrameobj++;
+            if (currentFrameobj >= 2) currentFrameobj = 0;
             
             frameRecidle.x = (float)currentFrameidle * (float)p1.width / 4;
             frameReccap.x = (float)currentFrameidle * (float)p1cap.width / 4;
@@ -361,6 +368,7 @@ int main()
             framerececorre.x = (float)currentFramcorrer * (float)score.width / 12;
             framereccajupit.x = (float)currentFramajupit * (float)p1cbaix.width / 7;
             framereccajupite.x = (float)currentFramajupit * (float)p1cbaixe.width / 7;
+            frameRecmgun.x = (float)currentFrameobj * (float)mgun.width / 2;
         }
 
         if (framesCounter >= (60 / framesSpeedtir))
@@ -833,16 +841,12 @@ int main()
             }
         }
 
-        //Item
-
-
-        if (shootCooldown > 0.0f) shootCooldown -= GetFrameTime();
-
+        //Item;
         if (o1.alive == 1)
         {
             Vector2 position = { 0.0f, 0.0f };
-            Rectangle posidles1 = { (float)o1.ox, (float)o1.oy, framereceidle.width * 5, framereceidle.height * 5 };
-            DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
+            Rectangle posmgun = { (float)o1.ox, (float)o1.oy, frameRecmgun.width * 5, frameRecmgun.height * 5 };
+            DrawTexturePro(mgun, frameRecmgun, posmgun, position, 0, WHITE);
         }
         else if (os1)
         {
@@ -1809,6 +1813,7 @@ int main()
     UnloadTexture(score);
     UnloadTexture(p1cbaix);
     UnloadTexture(p1cbaixe);
+    UnloadTexture(mgun);
     CloseWindow();
     return 0;
 }
