@@ -235,7 +235,7 @@ int main()
     Texture p1cbaix = LoadTexture("cajupit.png");
     Texture p1cbaixe = LoadTexture("cajupite.png");
 
-    Font timerNums = LoadFont("nums1.png");
+    Font timerNums = LoadFont("numeros_color.png");
     Font whiteFont = LoadFont("nums1.png");
     Font yellowFont = LoadFont("nums1.png");
 
@@ -603,8 +603,8 @@ int main()
         Rectangle dest = { 0, 0, bg.width * bgScale, bg.height * bgScale };
 
         DrawTexturePro(bg, src, dest, { 0,0 }, 0.0f, WHITE);
-
-        DrawText(cpunts, p.x, -10, 50, RED);
+        Vector2 positiont = { 0.0f, 0.0f };
+        DrawTextEx(timerNums, "9", positiont, 50, 0, WHITE); //-------------------------------------------------------------------------------------------------------------------------------------
 
         // bales jugador
 
