@@ -156,6 +156,13 @@ struct Bulleta3 {
     bool active;
 };
 
+
+//atacs jefe no eliminar
+int raig = 1;
+
+int bola = 0;
+
+
 int main()
 {
     SetConfigFlags(FLAG_VSYNC_HINT);
@@ -236,6 +243,11 @@ int main()
     Timer vidaTimer = { 0 };
     startTimer(&vidaTimer, timerlife);
 
+    float gunCooldown = 0.0f;
+
+    float shootCooldown = 0.0f;
+    int machineGunAmmo = 0;
+
     const float bgScale = 5.0f;
     const int   worldWidth = (int)(bg.width * bgScale);
     const int   worldHeight = (int)(bg.height * bgScale);
@@ -253,6 +265,7 @@ int main()
     objecte o1 = { 5250, 605 };
 
     bool os1 = true;
+    bool killhim = false;
 
     bool KevinTheFuckingBoss = true;
     bool bs2 = true;
@@ -374,10 +387,13 @@ int main()
         if (p.x > 5800 && p.x < 6470 && p.y <= 1000) FLOOR_Y = 1000;
         if (p.x > 6765 && p.x < 7515 && p.y <= 1000) FLOOR_Y = 1000;
         if (p.x > 7570 && p.x < 7900 && p.y <= 1220) FLOOR_Y = 1200;
-        if (p.x > 10750 && p.x < 10900 && p.y <= 1220) FLOOR_Y = 800;
-        if (p.x > 11250 && p.x < 11600 && p.y <= 1220) FLOOR_Y = 1020;
-        if (p.x > 11650 && p.x < 12600 && p.y <= 1220) FLOOR_Y = 1200; // afegir rampa?
-        if (p.x > 12850 && p.x < 13200 && p.y <= 1220) FLOOR_Y = 1200;
+        if (p.x > 10750 && p.x < 10900 && p.y <= 780) FLOOR_Y = 780;
+        if (p.x > 11250 && p.x < 11600 && p.y <= 1020) FLOOR_Y = 1020;
+        if (p.x > 11650 && p.x < 11850 && p.y <= 870) FLOOR_Y = 870; // -----------------------------------------------
+        if (p.x > 11650 && p.x < 11850 && p.y <= 870) FLOOR_Y = p.x * -0.8 + 14420;
+        if (p.x > 11650 && p.x < 12600 && p.y <= 870) FLOOR_Y = 870; // -----------------------------------------------
+        if (p.x > 12850 && p.x < 13200 && p.y <= 980) FLOOR_Y = 980;
+        if (p.x > 13400 && p.x < 13600 && p.y <= 980) FLOOR_Y = 980;
         if (p.x > 19700) p.x = 19700;
 
         
@@ -586,7 +602,7 @@ int main()
         const char* cpuntstext = puntstext.c_str();
         string punts = to_string(vpunts);
         const char* cpunts = punts.c_str();
-
+        
         BeginDrawing();
         ClearBackground(BLACK);
         if (hitCooldown > 0.0f) hitCooldown -= GetFrameTime();
@@ -749,6 +765,7 @@ int main()
                 p.isshooting = 1;
                 currentFramtir = 0;
                 if (p.facing == 1) {
+
                     for (int i = 0; i < MAX_BULLETS; i++) {
                         if (!bullets[i].active) {
                             bullets[i].x = (float)p.x + 175; 
@@ -816,6 +833,11 @@ int main()
             }
         }
 
+        //Item
+
+
+        if (shootCooldown > 0.0f) shootCooldown -= GetFrameTime();
+
         if (o1.alive == 1)
         {
             Vector2 position = { 0.0f, 0.0f };
@@ -825,14 +847,67 @@ int main()
         else if (os1)
         {
             vpunts = vpunts + 100;
-
             os1 = false;
+            killhim = true;
+            machineGunAmmo = 50;
         }
+
+        if (killhim) {
+            if (IsKeyDown(KEY_J) && shootCooldown <= 0.0f && machineGunAmmo > 0) {
+                PlaySound(soundArray[2]);
+                p.isshooting = 1;
+                currentFramtir = 0;
+                shootCooldown = 0.10f;
+                machineGunAmmo--;
+
+                for (int i = 0; i < MAX_BULLETS; i++) {
+                    if (!bullets[i].active) {
+                        if (p.facing == 1) {
+                            bullets[i].x = (float)p.x + 175;
+                        }
+                        else {
+                            bullets[i].x = (float)p.x;
+                        }
+                        bullets[i].y = (float)p.y + 55;
+
+                        if (p.isajupit == 1) {
+                            bullets[i].y = (float)p.y + 100;
+                            bullets[i].vx = 30.0f * p.facing;
+                            bullets[i].vy = 0;
+                            bullets[i].direction = 2 * p.facing;
+                        }
+                        else if (p.facingy == 1) {
+                            bullets[i].x = (float)p.x + (p.facing == 1 ? 35 : 50);
+                            bullets[i].y = (float)p.y - 55;
+                            bullets[i].vx = 0;
+                            bullets[i].vy = -30.0f;
+                            bullets[i].direction = 1;
+                        }
+                        else if (p.facingy == -1) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = 30.0f;
+                            bullets[i].direction = -1;
+                        }
+                        else {
+                            bullets[i].vx = 30.0f * p.facing;
+                            bullets[i].vy = 0;
+                            bullets[i].direction = 2 * p.facing;
+                        }
+
+                        bullets[i].active = true;
+                        break;
+                    }
+                }
+            }
+
+            if (machineGunAmmo <= 0) {
+                killhim = false;
+            }
+        }
+
 
         if (s1.ehp >= 1) 
         {
-            
-            
             if (s1.evx == 0)
             {
                 Vector2 position = { 0.0f, 0.0f };
@@ -894,43 +969,128 @@ int main()
                         }
                     }
                 }
-
             }
             else if (s1.ehp <= 5)
             {
-                if (!inMenu && !winscreen && !lose)
+                if (raig == 1 && bola == 0)
                 {
-                    s1.enemyShootTimer += GetFrameTime();
-
-                    // Dispara cada X segons
-                    if (s1.enemyShootTimer >= enemyShootInterval)
+                    if (!inMenu && !winscreen && !lose)
                     {
-                        s1.enemyShootTimer = 0.0f;
+                        s1.enemyShootTimer += GetFrameTime();
 
-                        for (int i = 0; i < MAX_BULLETSE; i++)
+                        // Dispara cada X segons
+                        if (s1.enemyShootTimer >= enemyShootInterval)
                         {
-                            if (!bulletse[i].active)
+                            s1.enemyShootTimer = 0.0f;
+                            s1.burstCount = 3;
+
+                            for (int i = 0; i < MAX_BULLETSE; i++)
                             {
-                                // Posici� inicial
-                                bulletse[i].x = s1.ex;
-                                bulletse[i].y = s1.ey + 90;
+                                
+                                if (!bulletse[i].active)
+                                {
+                                    // Posici� inicial
+                                    bulletse[i].x = s1.ex;
+                                    bulletse[i].y = s1.ey + 90;
 
-                                // Direcci� cap al jugador
-                                float dx = p.x - s1.ex;
-                                float dy = p.y - s1.ey;
+                                    // Direcci� cap al jugador
+                                    float dx = p.x - s1.ex;
+                                    float dy = p.y - s1.ey;
 
-                                // Longitud del vector
-                                float length = sqrt(dx * dx + dy * dy);
+                                    // Longitud del vector
+                                    float length = sqrt(dx * dx + dy * dy);
 
-                                // Normalitzar + velocitat lenta
-                                float speed = 3.0f;
+                                    // Normalitzar + velocitat lenta
+                                    float speed = 20.0f;
 
-                                bulletse[i].vx = (dx / length) * speed;
+                                    bulletse[i].vx = (dx / length) * speed;
 
-                                bulletse[i].active = true;
-                                bulletse[i].useGravity = false;
+                                    bulletse[i].active = true;
+                                    bulletse[i].useGravity = false;
+                                }
 
-                                break;
+                                if (s1.burstCount > 0)
+                                {
+                                    s1.burstTimer += GetFrameTime();
+                                    if (s1.burstTimer >= 0.4f)
+                                    {
+                                        s1.burstTimer = 0.0f;
+                                        s1.burstCount--;
+
+                                        for (int i = 0; i < MAX_BULLETSE; i++)
+                                        {
+                                            if (!bulletsa1[i].active)
+                                            {
+                                                bulletsa1[i].x = s1.ex;
+                                                bulletsa1[i].y = s1.ey + 30;
+
+                                                float gravity = 0.5f;
+                                                float vy = -22.5f;
+
+                                                float spread = 200.0f;
+                                                float step = spread / 4.0f;
+                                                float targetX = (p.x - spread / 2.0f) + s1.burstCount * step;
+
+                                                float timeOfFlight = (-2.0f * vy) / gravity;
+                                                bulletsa1[i].vx = (targetX - s1.ex) / timeOfFlight;
+                                                bulletsa1[i].vy = vy;
+
+                                                bulletsa1[i].useGravity = true; // TURNS ON GRAVITY GILIPOLLAS!
+                                                bulletsa1[i].active = true;
+
+                                                raig = 0;
+
+                                                bola = 1;
+
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }      
+                }
+                else if (raig == 0 && bola == 1)
+                {
+                    if (!inMenu && !winscreen && !lose)
+                    {
+                        s1.enemyShootTimer += GetFrameTime();
+
+                        // Dispara cada X segons
+                        if (s1.enemyShootTimer >= enemyShootInterval)
+                        {
+                            s1.enemyShootTimer = 0.0f;
+
+                            for (int i = 0; i < MAX_BULLETSE; i++)
+                            {
+                                if (!bulletse[i].active)
+                                {
+                                    // Posici� inicial
+                                    bulletse[i].x = s1.ex;
+                                    bulletse[i].y = s1.ey + 90;
+
+                                    // Direcci� cap al jugador
+                                    float dx = p.x - s1.ex;
+                                    float dy = p.y - s1.ey;
+
+                                    // Longitud del vector
+                                    float length = sqrt(dx * dx + dy * dy);
+
+                                    // Normalitzar + velocitat lenta
+                                    float speed = 3.0f;
+
+                                    bulletse[i].vx = (dx / length) * speed;
+
+                                    bulletse[i].active = true;
+                                    bulletse[i].useGravity = false;
+
+                                    raig = 1;
+
+                                    bola = 0;
+
+                                    break;
+                                }
                             }
                         }
                     }
