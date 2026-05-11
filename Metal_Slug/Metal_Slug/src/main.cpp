@@ -129,6 +129,33 @@ struct Bullete {
     bool active;
 };
 
+struct Bulleta1 {
+    float x, y;
+    float vx;
+    float vy;
+
+    bool useGravity;
+    bool active;
+};
+
+struct Bulleta2 {
+    float x, y;
+    float vx;
+    float vy;
+
+    bool useGravity;
+    bool active;
+};
+
+struct Bulleta3 {
+    float x, y;
+    float vx;
+    float vy;
+
+    bool useGravity;
+    bool active;
+};
+
 int main()
 {
     SetConfigFlags(FLAG_VSYNC_HINT);
@@ -275,10 +302,17 @@ int main()
     int framesSpeedtir = 4;
     int framesspeedajupit = 3;
 
-    const int MAX_BULLETSE = 20000;
+    const int MAX_BULLETSE = 100;
     Bullete bulletse[MAX_BULLETSE] = {};
-    const int MAX_BULLETS = 20000;
+    const int MAX_BULLETS = 100;
     Bullet bullets[MAX_BULLETS] = {};
+    const int MAX_BULLETSA1 = 3;
+    Bulleta1 bulletsa1[MAX_BULLETSE] = {};
+    const int MAX_BULLETSA2 = 1;
+    Bulleta2 bulletsa2[MAX_BULLETS] = {};
+    const int MAX_BULLETSA3 = 1;
+    Bulleta3 bulletsa3[MAX_BULLETS] = {};
+
 
     while (!WindowShouldClose())
     {
@@ -473,6 +507,53 @@ int main()
             }
         }
 
+        for (int i = 0; i < MAX_BULLETSA1; i++) {
+            if (!bulletsa1[i].active) continue;
+
+            if (bulletsa1[i].useGravity) {
+                bulletsa1[i].vy += 0.5f; //Gravity strength
+            }
+
+            bulletsa1[i].x += bulletsa1[i].vx;
+            bulletsa1[i].y += bulletsa1[i].vy;
+
+            if (bulletsa1[i].x < camLeft || bulletsa1[i].x > camRight ||
+                bulletsa1[i].y < camTop || bulletsa1[i].y > camBottom) {
+                bulletsa1[i].active = false;
+            }
+        }
+
+        for (int i = 0; i < MAX_BULLETSA2; i++) {
+            if (!bulletse[i].active) continue;
+
+            if (bulletsa2[i].useGravity) {
+                bulletsa2[i].vy += 0.5f; //Gravity strength
+            }
+
+            bulletsa2[i].x += bulletsa2[i].vx;
+            bulletsa2[i].y += bulletsa2[i].vy;
+
+            if (bulletsa2[i].x < camLeft || bulletsa2[i].x > camRight ||
+                bulletsa2[i].y < camTop || bulletsa2[i].y > camBottom) {
+                bulletsa2[i].active = false;
+            }
+        }
+
+        for (int i = 0; i < MAX_BULLETSA3; i++) {
+            if (!bulletsa3[i].active) continue;
+
+            if (bulletsa3[i].useGravity) {
+                bulletsa3[i].vy += 0.5f; //Gravity strength
+            }
+
+            bulletsa3[i].x += bulletsa3[i].vx;
+            bulletsa3[i].y += bulletsa3[i].vy;
+
+            if (bulletsa3[i].x < camLeft || bulletsa3[i].x > camRight ||
+                bulletsa3[i].y < camTop || bulletsa3[i].y > camBottom) {
+                bulletsa3[i].active = false;
+            }
+        }
 
         if (p.x < 0) { p.x = 0; if (p.vx < 0) p.vx = 0; }
         if (p.x > worldWidth) { p.x = worldWidth;  if (p.vx > 0) p.vx = 0; }
@@ -513,6 +594,8 @@ int main()
         DrawTexturePro(bg, src, dest, { 0,0 }, 0.0f, WHITE);
 
         DrawText(cpunts, p.x, -10, 50, RED);
+
+        // bales jugador
 
         for (int i = 0; i < MAX_BULLETS; i++) {
             if (!bullets[i].active) continue;
@@ -557,6 +640,8 @@ int main()
             }
         }
 
+        //bales enemic basic
+
         for (int i = 0; i < MAX_BULLETSE; i++) {
             if (!bulletse[i].active) continue;
             DrawTexture(bulletee, (int)bulletse[i].x, (int)bulletse[i].y, WHITE);
@@ -568,6 +653,78 @@ int main()
                 p.vx = (bulletse[i].vx > 0) ? 0 : 0;
                 p.vy = 20;
                 if (p.vides <= 0) 
+                {
+                    p.credits--;
+                    p.vides = 3;
+                    if (p.credits <= 0)
+                    {
+                        lose = true;
+                    }
+                }
+            }
+        }
+
+        //bales atac 1 jefe (morter)
+
+        for (int i = 0; i < MAX_BULLETSE; i++) {
+            if (!bulletsa1[i].active) continue;
+            DrawTexture(bulletee, (int)bulletsa1[i].x, (int)bulletsa1[i].y, WHITE);
+            if (bulletsa1[i].x >= p.x && bulletsa1[i].x <= p.x + 100 && bulletsa1[i].y >= p.y && bulletsa1[i].y <= p.y + 200 && p.isajupit == -1 || bulletsa1[i].x >= p.x && bulletsa1[i].x <= p.x + 100 && bulletsa1[i].y >= p.y + 100 && bulletsa1[i].y <= p.y + 200 && p.isajupit == 1)
+            {
+                bulletsa1[i].active = false;
+                hitCooldown = 1.5f;
+                p.vides--;
+                p.vx = (bulletsa1[i].vx > 0) ? 0 : 0;
+                p.vy = 20;
+                if (p.vides <= 0)
+                {
+                    p.credits--;
+                    p.vides = 3;
+                    if (p.credits <= 0)
+                    {
+                        lose = true;
+                    }
+                }
+            }
+        }
+
+        //bales atac 2 jefe (laser)
+
+        for (int i = 0; i < MAX_BULLETSE; i++) {
+            if (!bulletse[i].active) continue;
+            DrawTexture(bulletee, (int)bulletse[i].x, (int)bulletse[i].y, WHITE);
+            if (bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y && bulletse[i].y <= p.y + 200 && p.isajupit == -1 || bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y + 100 && bulletse[i].y <= p.y + 200 && p.isajupit == 1)
+            {
+                bulletse[i].active = false;
+                hitCooldown = 1.5f;
+                p.vides--;
+                p.vx = (bulletse[i].vx > 0) ? 0 : 0;
+                p.vy = 20;
+                if (p.vides <= 0)
+                {
+                    p.credits--;
+                    p.vides = 3;
+                    if (p.credits <= 0)
+                    {
+                        lose = true;
+                    }
+                }
+            }
+        }
+
+        //bales atac 3 jefe (bola terra)
+
+        for (int i = 0; i < MAX_BULLETSE; i++) {
+            if (!bulletsa3[i].active) continue;
+            DrawTexture(bulletee, (int)bulletsa3[i].x, (int)bulletsa3[i].y, WHITE);
+            if (bulletsa3[i].x >= p.x && bulletsa3[i].x <= p.x + 100 && bulletsa3[i].y >= p.y && bulletsa3[i].y <= p.y + 200 && p.isajupit == -1 || bulletsa3[i].x >= p.x && bulletsa3[i].x <= p.x + 100 && bulletsa3[i].y >= p.y + 100 && bulletsa3[i].y <= p.y + 200 && p.isajupit == 1)
+            {
+                bulletsa3[i].active = false;
+                hitCooldown = 1.5f;
+                p.vides--;
+                p.vx = (bulletsa3[i].vx > 0) ? 0 : 0;
+                p.vy = 20;
+                if (p.vides <= 0)
                 {
                     p.credits--;
                     p.vides = 3;
@@ -670,6 +827,8 @@ int main()
 
         if (s1.ehp >= 1) 
         {
+            
+            
             if (s1.evx == 0)
             {
                 Vector2 position = { 0.0f, 0.0f };
@@ -687,8 +846,6 @@ int main()
 
             if (s1.ehp > 5)
             {
-
-
                 if (!inMenu && !winscreen && !lose)
                 {
                     s1.enemyShootTimer += GetFrameTime();
@@ -696,7 +853,7 @@ int main()
                     if (s1.enemyShootTimer >= enemyShootInterval)
                     {
                         s1.enemyShootTimer = 0.0f;
-                        s1.burstCount = 5;
+                        s1.burstCount = 3;
                     }
 
                     if (s1.burstCount > 0)
@@ -709,10 +866,10 @@ int main()
 
                             for (int i = 0; i < MAX_BULLETSE; i++)
                             {
-                                if (!bulletse[i].active)
+                                if (!bulletsa1[i].active)
                                 {
-                                    bulletse[i].x = s1.ex;
-                                    bulletse[i].y = s1.ey + 30;
+                                    bulletsa1[i].x = s1.ex;
+                                    bulletsa1[i].y = s1.ey + 30;
 
                                     float gravity = 0.5f;
                                     float vy = -22.5f;
@@ -722,11 +879,11 @@ int main()
                                     float targetX = (p.x - spread / 2.0f) + s1.burstCount * step;
 
                                     float timeOfFlight = (-2.0f * vy) / gravity;
-                                    bulletse[i].vx = (targetX - s1.ex) / timeOfFlight;
-                                    bulletse[i].vy = vy;
+                                    bulletsa1[i].vx = (targetX - s1.ex) / timeOfFlight;
+                                    bulletsa1[i].vy = vy;
 
-                                    bulletse[i].useGravity = true; // TURNS ON GRAVITY GILIPOLLAS!
-                                    bulletse[i].active = true;
+                                    bulletsa1[i].useGravity = true; // TURNS ON GRAVITY GILIPOLLAS!
+                                    bulletsa1[i].active = true;
                                     break;
                                 }
                             }
@@ -775,7 +932,6 @@ int main()
                     }
                 }
             }
-            
         }
 
 
