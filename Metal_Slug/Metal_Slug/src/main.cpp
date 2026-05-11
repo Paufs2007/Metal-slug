@@ -243,6 +243,11 @@ int main()
     Timer vidaTimer = { 0 };
     startTimer(&vidaTimer, timerlife);
 
+    float gunCooldown = 0.0f;
+
+    float shootCooldown = 0.0f;
+    int machineGunAmmo = 0;
+
     const float bgScale = 5.0f;
     const int   worldWidth = (int)(bg.width * bgScale);
     const int   worldHeight = (int)(bg.height * bgScale);
@@ -260,6 +265,7 @@ int main()
     objecte o1 = { 5250, 605 };
 
     bool os1 = true;
+    bool killhim = false;
 
     bool KevinTheFuckingBoss = true;
     bool bs2 = true;
@@ -381,10 +387,13 @@ int main()
         if (p.x > 5800 && p.x < 6470 && p.y <= 1000) FLOOR_Y = 1000;
         if (p.x > 6765 && p.x < 7515 && p.y <= 1000) FLOOR_Y = 1000;
         if (p.x > 7570 && p.x < 7900 && p.y <= 1220) FLOOR_Y = 1200;
-        if (p.x > 10750 && p.x < 10900 && p.y <= 1220) FLOOR_Y = 800;
-        if (p.x > 11250 && p.x < 11600 && p.y <= 1220) FLOOR_Y = 1020;
-        if (p.x > 11650 && p.x < 12600 && p.y <= 1220) FLOOR_Y = 1200; // afegir rampa?
-        if (p.x > 12850 && p.x < 13200 && p.y <= 1220) FLOOR_Y = 1200;
+        if (p.x > 10750 && p.x < 10900 && p.y <= 780) FLOOR_Y = 780;
+        if (p.x > 11250 && p.x < 11600 && p.y <= 1020) FLOOR_Y = 1020;
+        if (p.x > 11650 && p.x < 11850 && p.y <= 870) FLOOR_Y = 870; // -----------------------------------------------
+        if (p.x > 11650 && p.x < 11850 && p.y <= 870) FLOOR_Y = p.x * -0.8 + 14420;
+        if (p.x > 11650 && p.x < 12600 && p.y <= 870) FLOOR_Y = 870; // -----------------------------------------------
+        if (p.x > 12850 && p.x < 13200 && p.y <= 980) FLOOR_Y = 980;
+        if (p.x > 13400 && p.x < 13600 && p.y <= 980) FLOOR_Y = 980;
         if (p.x > 19700) p.x = 19700;
 
         
@@ -756,6 +765,7 @@ int main()
                 p.isshooting = 1;
                 currentFramtir = 0;
                 if (p.facing == 1) {
+
                     for (int i = 0; i < MAX_BULLETS; i++) {
                         if (!bullets[i].active) {
                             bullets[i].x = (float)p.x + 175; 
@@ -823,6 +833,11 @@ int main()
             }
         }
 
+        //Item
+
+
+        if (shootCooldown > 0.0f) shootCooldown -= GetFrameTime();
+
         if (o1.alive == 1)
         {
             Vector2 position = { 0.0f, 0.0f };
@@ -832,9 +847,64 @@ int main()
         else if (os1)
         {
             vpunts = vpunts + 100;
-
             os1 = false;
+            killhim = true;
+            machineGunAmmo = 50;
         }
+
+        if (killhim) {
+            if (IsKeyDown(KEY_J) && shootCooldown <= 0.0f && machineGunAmmo > 0) {
+                PlaySound(soundArray[2]);
+                p.isshooting = 1;
+                currentFramtir = 0;
+                shootCooldown = 0.10f;
+                machineGunAmmo--;
+
+                for (int i = 0; i < MAX_BULLETS; i++) {
+                    if (!bullets[i].active) {
+                        if (p.facing == 1) {
+                            bullets[i].x = (float)p.x + 175;
+                        }
+                        else {
+                            bullets[i].x = (float)p.x;
+                        }
+                        bullets[i].y = (float)p.y + 55;
+
+                        if (p.isajupit == 1) {
+                            bullets[i].y = (float)p.y + 100;
+                            bullets[i].vx = 30.0f * p.facing;
+                            bullets[i].vy = 0;
+                            bullets[i].direction = 2 * p.facing;
+                        }
+                        else if (p.facingy == 1) {
+                            bullets[i].x = (float)p.x + (p.facing == 1 ? 35 : 50);
+                            bullets[i].y = (float)p.y - 55;
+                            bullets[i].vx = 0;
+                            bullets[i].vy = -30.0f;
+                            bullets[i].direction = 1;
+                        }
+                        else if (p.facingy == -1) {
+                            bullets[i].vx = 0;
+                            bullets[i].vy = 30.0f;
+                            bullets[i].direction = -1;
+                        }
+                        else {
+                            bullets[i].vx = 30.0f * p.facing;
+                            bullets[i].vy = 0;
+                            bullets[i].direction = 2 * p.facing;
+                        }
+
+                        bullets[i].active = true;
+                        break;
+                    }
+                }
+            }
+
+            if (machineGunAmmo <= 0) {
+                killhim = false;
+            }
+        }
+
 
         if (s1.ehp >= 1) 
         {
