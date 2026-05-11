@@ -986,29 +986,6 @@ int main()
 
                             for (int i = 0; i < MAX_BULLETSE; i++)
                             {
-                                
-                                if (!bulletse[i].active)
-                                {
-                                    // Posici� inicial
-                                    bulletse[i].x = s1.ex;
-                                    bulletse[i].y = s1.ey + 90;
-
-                                    // Direcci� cap al jugador
-                                    float dx = p.x - s1.ex;
-                                    float dy = p.y - s1.ey;
-
-                                    // Longitud del vector
-                                    float length = sqrt(dx * dx + dy * dy);
-
-                                    // Normalitzar + velocitat lenta
-                                    float speed = 20.0f;
-
-                                    bulletse[i].vx = (dx / length) * speed;
-
-                                    bulletse[i].active = true;
-                                    bulletse[i].useGravity = false;
-                                }
-
                                 if (s1.burstCount > 0)
                                 {
                                     s1.burstTimer += GetFrameTime();
@@ -1037,6 +1014,25 @@ int main()
 
                                                 bulletsa1[i].useGravity = true; // TURNS ON GRAVITY GILIPOLLAS!
                                                 bulletsa1[i].active = true;
+
+                                                // Posici� inicial
+                                                bulletse[i].x = s1.ex;
+                                                bulletse[i].y = s1.ey + 90;
+
+                                                // Direcci� cap al jugador
+                                                float dx = p.x - s1.ex - 20;
+                                                float dy = p.y - s1.ey;
+
+                                                // Longitud del vector
+                                                float length = sqrt(dx * dx + dy * dy);
+
+                                                // Normalitzar + velocitat lenta
+                                                float speed = 20.0f;
+
+                                                bulletse[i].vx = (dx / length) * speed;
+
+                                                bulletse[i].active = true;
+                                                bulletse[i].useGravity = false;
 
                                                 raig = 0;
 
@@ -1078,7 +1074,7 @@ int main()
                                     float length = sqrt(dx * dx + dy * dy);
 
                                     // Normalitzar + velocitat lenta
-                                    float speed = 3.0f;
+                                    float speed = 8.0f;
 
                                     bulletse[i].vx = (dx / length) * speed;
 
