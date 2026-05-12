@@ -191,6 +191,7 @@ int main()
     soundArray[5] = LoadSound("Game_Over.ogg");
     soundArray[6] = LoadSound("explode.mp3");
     soundArray[7] = LoadSound("Fahhhh.mp3");
+    soundArray[8] = LoadSound("MACHINE_GUN.mp3");
     SetSoundVolume(soundArray[7], 100.0f);
 
     musicArray[0] = LoadMusicStream("bo.mp3");
@@ -616,6 +617,7 @@ int main()
         BeginDrawing();
         ClearBackground(BLACK);
         if (hitCooldown > 0.0f) hitCooldown -= GetFrameTime();
+        if (shootCooldown > 0.0f) shootCooldown -= GetFrameTime();
 
         BeginMode2D(camera);
         Rectangle src = { 0, 0, (float)bg.width, (float)bg.height };
@@ -852,6 +854,7 @@ int main()
         }
         else if (os1)
         {
+            PlaySound(soundArray[8]);
             vpunts = vpunts + 100;
             os1 = false;
             killhim = true;
