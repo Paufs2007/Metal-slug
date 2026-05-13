@@ -191,6 +191,7 @@ int main()
     soundArray[5] = LoadSound("Game_Over.ogg");
     soundArray[6] = LoadSound("explode.mp3");
     soundArray[7] = LoadSound("Fahhhh.mp3");
+    soundArray[8] = LoadSound("MACHINE_GUN.mp3");
     SetSoundVolume(soundArray[7], 100.0f);
 
     musicArray[0] = LoadMusicStream("bo.mp3");
@@ -248,6 +249,7 @@ int main()
 
     float shootCooldown = 0.0f;
     int machineGunAmmo = 0;
+
 
     const float bgScale = 5.0f;
     const int   worldWidth = (int)(bg.width * bgScale);
@@ -852,11 +854,14 @@ int main()
         }
         else if (os1)
         {
+            PlaySound(soundArray[8]);
             vpunts = vpunts + 100;
             os1 = false;
             killhim = true;
             machineGunAmmo = 50;
         }
+
+        if (shootCooldown > 0.0f) shootCooldown -= GetFrameTime();
 
         if (killhim) {
             if (IsKeyDown(KEY_J) && shootCooldown <= 0.0f && machineGunAmmo > 0) {
@@ -1692,6 +1697,7 @@ int main()
                 os1 = true;
                 winscreen = false;
                 s1.ehp = 10;
+                p.vides = 3;
                 s2.ehp = 1;
                 s3.ehp = 1;
                 o1.alive = 1;
@@ -1743,6 +1749,7 @@ int main()
                 s1.ehp = 10;
                 s2.ehp = 1;
                 s3.ehp = 1;
+                p.vides = 3;
                 o1.alive = 1;
                 Jorge.ehp = 1;
                 Jorge.ex = 3200;
