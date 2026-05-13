@@ -772,9 +772,12 @@ int main()
 
             if (IsKeyPressed(KEY_L))p.x = 19000; // USED FOR TESTING THE BOSS YOU STUPID ASS HOES
 
-            if (IsKeyPressed(KEY_J)) {
+            if (gunCooldown > 0.0f) gunCooldown -= GetFrameTime();
+
+            if (IsKeyPressed(KEY_J) && gunCooldown <= 0.0f ) {
                 PlaySound(soundArray[2]);
                 p.isshooting = 1;
+                gunCooldown = 0.3f;
                 currentFramtir = 0;
                 if (p.facing == 1) {
 
@@ -858,12 +861,15 @@ int main()
             vpunts = vpunts + 100;
             os1 = false;
             killhim = true;
-            machineGunAmmo = 50;
+            machineGunAmmo = 200;
+
         }
 
-        if (shootCooldown > 0.0f) shootCooldown -= GetFrameTime();
 
         if (killhim) {
+
+
+
             if (IsKeyDown(KEY_J) && shootCooldown <= 0.0f && machineGunAmmo > 0) {
                 PlaySound(soundArray[2]);
                 p.isshooting = 1;
@@ -966,7 +972,7 @@ int main()
 
                                     float spread = 200.0f;
                                     float step = spread / 4.0f;
-                                    float targetX = (p.x - spread / 2.0f) + s1.burstCount * step;
+                                    float targetX = (p.x ) + s1.burstCount * step;
 
                                     float timeOfFlight = (-2.0f * vy) / gravity;
                                     bulletsa1[i].vx = (targetX - s1.ex) / timeOfFlight;
@@ -1009,6 +1015,8 @@ int main()
                                         {
                                             if (!bulletsa1[i].active)
                                             {
+                                                //TRIPLE TIR
+
                                                 bulletsa1[i].x = s1.ex;
                                                 bulletsa1[i].y = s1.ey + 30;
 
@@ -1017,7 +1025,7 @@ int main()
 
                                                 float spread = 200.0f;
                                                 float step = spread / 4.0f;
-                                                float targetX = (p.x - spread / 2.0f) + s1.burstCount * step;
+                                                float targetX = (p.x) + s1.burstCount * step;
 
                                                 float timeOfFlight = (-2.0f * vy) / gravity;
                                                 bulletsa1[i].vx = (targetX - s1.ex) / timeOfFlight;
@@ -1025,6 +1033,8 @@ int main()
 
                                                 bulletsa1[i].useGravity = true; // TURNS ON GRAVITY GILIPOLLAS!
                                                 bulletsa1[i].active = true;
+
+                                                // TRIPLE TIR
 
                                                 // Posici� inicial
                                                 bulletse[i].x = s1.ex;
@@ -1551,6 +1561,7 @@ int main()
 
             int textWidth = MeasureText(cpunts, 30);
 
+
             DrawText(TextFormat("%i", p.credits), 975 - textWidth - 100, 714 - 100, 40, RED);
             if (IsKeyPressed(KEY_C))
                 p.credits++;
@@ -1568,6 +1579,11 @@ int main()
             DrawText(cpuntstext, 975 - textWidth - 140, 20, 30, RED);
             DrawText(cpunts, 975 - textWidth - 40, 20, 30, RED);
             DrawText(TextFormat("%i", p.vides), 20, 20, 30, RED);
+
+            if (killhim) {
+
+                DrawText(TextFormat("Bullets: %i", machineGunAmmo), 50, 30, 20, RED);
+            }
 
             if (music == false) {
             }
@@ -1609,6 +1625,7 @@ int main()
                 winscreen = false;
                 s1.ehp = 10;
                 s2.ehp = 1;
+                killhim = false;
                 s3.ehp = 1;
                 o1.alive = 1;
                 Jorge.ehp = 1;
@@ -1696,6 +1713,7 @@ int main()
                 bJorge = true;
                 os1 = true;
                 winscreen = false;
+                killhim = false;
                 s1.ehp = 10;
                 p.vides = 3;
                 s2.ehp = 1;
@@ -1751,6 +1769,7 @@ int main()
                 s3.ehp = 1;
                 p.vides = 3;
                 o1.alive = 1;
+                killhim = false;
                 Jorge.ehp = 1;
                 Jorge.ex = 3200;
                 winSoundPlayed = false;
