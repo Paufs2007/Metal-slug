@@ -34,6 +34,9 @@
     <None Include="resources\Game_Over.ogg">
       <Filter>Game Resource Files</Filter>
     </None>
+    <None Include="resources\MACHINE_GUN.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
     <None Include="resources\Metal_Slug.mp3">
       <Filter>Game Resource Files</Filter>
     </None>
@@ -68,10 +71,28 @@
     <Image Include="resources\Game_Over.png">
       <Filter>Game Resource Files</Filter>
     </Image>
+    <Image Include="resources\MACHINE GUN.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
     <Image Include="resources\MetalSlug-Mission1.png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\Metal_Slug_Start.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\Neo Geo _ NGCD - Metal Slug - Miscellaneous - HUD & Interface.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\Neo Geo _ NGCD - Metal Slug - Miscellaneous - Player Status.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\Neo Geo _ NGCD - Metal Slug - Miscellaneous - Time Numbers.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\accelerant andevant.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\accelerant cap endarrere.png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\ajupit.png">
@@ -84,6 +105,24 @@
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\animació ajupir (quan dones al cap abaix 1 vegada).png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\at1b1.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\at1b2.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\at1b3.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\at1b4.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\at1b5.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\at1b6.png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\balaamunt.png">
@@ -99,6 +138,9 @@
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\benemice.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\boss1.png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\bullet.png">
@@ -179,10 +221,22 @@
     <Image Include="resources\mr.png">
       <Filter>Game Resource Files</Filter>
     </Image>
+    <Image Include="resources\numeros_color.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\nums1.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\p1 drivig.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
     <Image Include="resources\p1idle.png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\p1idlee.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\part de baix disparant.png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\scames.png">
