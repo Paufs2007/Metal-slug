@@ -247,7 +247,7 @@ int main()
     Texture at1b5 = LoadTexture("at1b5.png");
     Texture at1b6 = LoadTexture("at1b6.png");
 
-    Font timerNums = LoadFont("numeros_color.png");
+    Font timerNums = LoadFont("tipografia.png");
     Font whiteFont = LoadFont("nums1.png");
     Font yellowFont = LoadFont("nums1.png");
 
@@ -544,7 +544,7 @@ int main()
         if (p.x >= 10600 && p.x <= 10710 && p.y > 1021) p.x = 10715;
 
         if (IsKeyDown(KEY_W) && !IsKeyDown(KEY_S)) p.facingy = 1;
-        else if (IsKeyDown(KEY_S) && !IsKeyDown(KEY_W) && p.y <= FLOOR_Y) p.facingy = -1;
+        else if (IsKeyDown(KEY_S) && !IsKeyDown(KEY_W) && p.y < FLOOR_Y) p.facingy = -1;
         else p.facingy = 0;
 
         for (int i = 0; i < MAX_BULLETS; i++) {
@@ -659,8 +659,8 @@ int main()
         Rectangle dest = { 0, 0, bg.width * bgScale, bg.height * bgScale };
 
         DrawTexturePro(bg, src, dest, { 0,0 }, 0.0f, WHITE);
-        Vector2 positiont = { 0.0f, 0.0f };
-        DrawTextEx(timerNums, "3", positiont, 50, 0, WHITE); //-------------------------------------------------------------------------------------------------------------------------------------
+        Vector2 positiont = {p.x+100, p.y-100 };
+        DrawTextEx(timerNums, "0123456789", positiont, 50, 0, WHITE); //-------------------------------------------------------------------------------------------------------------------------------------
 
         // bales jugador
 
@@ -848,7 +848,7 @@ int main()
                                 bullets[i].vx = 30.0f;
                                 bullets[i].vy = 0;
                             }
-                            if (p.facingy == 1) {
+                            else if (p.facingy == 1) {
                                 bullets[i].x = (float)p.x + 35;
                                 bullets[i].y = (float)p.y - 55;
                                 bullets[i].vx = 0;
