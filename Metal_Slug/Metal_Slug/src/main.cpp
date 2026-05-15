@@ -240,6 +240,12 @@ int main()
     Texture p1cbaix = LoadTexture("cajupit.png");
     Texture p1cbaixe = LoadTexture("cajupite.png");
     Texture mgun = LoadTexture("MACHINE GUN.png");
+    Texture at1b1 = LoadTexture("at1b1.png");
+    Texture at1b2 = LoadTexture("at1b2.png");
+    Texture at1b3 = LoadTexture("at1b3.png");
+    Texture at1b4 = LoadTexture("at1b4.png");
+    Texture at1b5 = LoadTexture("at1b5.png");
+    Texture at1b6 = LoadTexture("at1b6.png");
 
     Font timerNums = LoadFont("numeros_color.png");
     Font whiteFont = LoadFont("nums1.png");
@@ -289,6 +295,14 @@ int main()
     Rectangle framerececorr = { 0, 0, (float)scor.width / 12, (float)scor.height };
     Rectangle framerececorre = { 0, 0, (float)score.width / 12, (float)score.height };
 
+    Rectangle framecrecat1b1 = { 0, 0, (float)at1b1.width / 3, (float)at1b1.height };
+    Rectangle framecrecat1b2 = { 0, 0, (float)at1b2.width / 3, (float)at1b2.height };
+    Rectangle framecrecat1b3 = { 0, 0, (float)at1b3.width / 3, (float)at1b3.height };
+    Rectangle framecrecat1b4 = { 0, 0, (float)at1b4.width / 3, (float)at1b4.height };
+    Rectangle framecrecat1b5 = { 0, 0, (float)at1b5.width / 3, (float)at1b5.height };
+    Rectangle framecrecat1b6 = { 0, 0, (float)at1b6.width / 3, (float)at1b6.height };
+
+
     Rectangle framereccajupite = { 0, 0, (float)p1cbaixe.width / 7, (float)p1cbaixe.height };
     Rectangle framereccajupit = { 0, 0, (float)p1cbaix.width / 7, (float)p1cbaix.height };
     Rectangle framerecalttire = { 0, 0, (float)p1alttire.width / 10, (float)p1alttire.height };
@@ -320,11 +334,11 @@ int main()
     int currentFramtir = 0;
     int currentFramajupit = 0;
     int currentFrameobj = 0;
+    int currentFrametirb1 = 0;
     int framesCounter = 0;
     int framesSpeed = 3;
     int framesSpeedtir = 4;
-    int framesspeedajupit = 3;
-    int framesspeedobj = 2;
+    int framesSpeedtirb = 4;
 
     const int MAX_BULLETSE = 100;
     Bullete bulletse[MAX_BULLETSE] = {};
@@ -393,6 +407,19 @@ int main()
             framerecbaixtire.x = (float)currentFramtir * (float)p1baixtire.width / 10;
             framerecalttir.x = (float)currentFramtir * (float)p1alttir.width / 10;
             framerecalttire.x = (float)currentFramtir * (float)p1alttire.width / 10;
+        }
+
+        if (framesCounter >= (60 / framesSpeedtirb))
+        {
+            currentFrametirb1++;
+            if (currentFrametirb1 >= 3) currentFrametirb1 = 0;
+
+            framecrecat1b1.x = (float)currentFrametirb1 * (float)at1b1.width / 3;
+            framecrecat1b2.x = (float)currentFrametirb1 * (float)at1b2.width / 3;
+            framecrecat1b3.x = (float)currentFrametirb1 * (float)at1b3.width / 3;
+            framecrecat1b4.x = (float)currentFrametirb1 * (float)at1b4.width / 3;
+            framecrecat1b5.x = (float)currentFrametirb1 * (float)at1b5.width / 3;
+            framecrecat1b6.x = (float)currentFrametirb1 * (float)at1b6.width / 3;
         }
 
         if (p.x > 4200 && p.x < 4510 && p.y <= 1220) FLOOR_Y = 1200;
@@ -708,7 +735,30 @@ int main()
 
         for (int i = 0; i < MAX_BULLETSE; i++) {
             if (!bulletsa1[i].active) continue;
-            DrawTexture(bulletee, (int)bulletsa1[i].x, (int)bulletsa1[i].y, WHITE);
+            //atac 1
+            Vector2 position = { framecrecat1b1.width * 4.75f / 2, framecrecat1b1.height * 4.75f / 2 };
+            Rectangle posat1b1 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y, framecrecat1b1.width * 4.75, framecrecat1b1.height * 4.75 };
+            DrawTexturePro(at1b1, framecrecat1b1, posat1b1, position, 0, WHITE);
+            //atac2
+            Vector2 position2 = { framecrecat1b2.width * 4.75f / 2, framecrecat1b2.height * 4.75f / 2 };
+            Rectangle posat1b2 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y + 5, framecrecat1b2.width * 4.75, framecrecat1b2.height * 4.75 };
+            DrawTexturePro(at1b2, framecrecat1b2, posat1b2, position2, 0, WHITE);
+            //atac3
+            Vector2 positio3 = { framecrecat1b3.width * 4.75f / 2, framecrecat1b3.height * 4.75f / 2 };
+            Rectangle posat1b3 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y + 10, framecrecat1b3.width * 4.75, framecrecat1b3.height * 4.75 };
+            DrawTexturePro(at1b3, framecrecat1b3, posat1b3, positio3, 0, WHITE);
+            //atac4
+            Vector2 position4 = { framecrecat1b4.width * 4.75f / 2, framecrecat1b4.height * 4.75f / 2 };
+            Rectangle posat1b4 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y, framecrecat1b4.width * 4.75, framecrecat1b4.height * 4.75 };
+            DrawTexturePro(at1b4, framecrecat1b4, posat1b4, position4, 0, WHITE);
+            //atac5
+            Vector2 position5 = { framecrecat1b5.width * 4.75f / 2, framecrecat1b5.height * 4.75f / 2 };
+            Rectangle posat1b5 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y, framecrecat1b5.width * 4.75, framecrecat1b5.height * 4.75 };
+            DrawTexturePro(at1b5, framecrecat1b5, posat1b5, position5, 0, WHITE);
+            //atac6
+            Vector2 position6 = { framecrecat1b6.width * 4.75f / 2, framecrecat1b6.height * 4.75f / 2 };
+            Rectangle posat1b6 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y, framecrecat1b6.width * 4.75, framecrecat1b6.height * 4.75 };
+            DrawTexturePro(at1b6, framecrecat1b6, posat1b6, position6, 0, WHITE);
             if (bulletsa1[i].x >= p.x && bulletsa1[i].x <= p.x + 100 && bulletsa1[i].y >= p.y && bulletsa1[i].y <= p.y + 200 && p.isajupit == -1 || bulletsa1[i].x >= p.x && bulletsa1[i].x <= p.x + 100 && bulletsa1[i].y >= p.y + 100 && bulletsa1[i].y <= p.y + 200 && p.isajupit == 1)
             {
                 bulletsa1[i].active = false;
@@ -1859,6 +1909,12 @@ int main()
     UnloadTexture(p1cbaix);
     UnloadTexture(p1cbaixe);
     UnloadTexture(mgun);
+    UnloadTexture(at1b1);
+    UnloadTexture(at1b2);
+    UnloadTexture(at1b3);
+    UnloadTexture(at1b4);
+    UnloadTexture(at1b5);
+    UnloadTexture(at1b6);
     CloseWindow();
     return 0;
 }
