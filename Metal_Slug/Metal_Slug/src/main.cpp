@@ -25,7 +25,7 @@ public:
     int hp = 1;
     bool menu = true;
     void jump() {
-        vy = 50;
+        vy = 45;
         canJump = false;
     }
 };
@@ -183,6 +183,7 @@ int main()
     bool gameOver = false;
     float hitCooldown = 0.0f;
     int vpunts = 0;
+    bool rampa = false;
     SearchAndSetResourceDir("resources");
     InitAudioDevice();
 
@@ -402,9 +403,9 @@ int main()
         if (p.x > 7570 && p.x < 7900 && p.y <= 1220) FLOOR_Y = 1200;
         if (p.x > 10750 && p.x < 10900 && p.y <= 780) FLOOR_Y = 780;
         if (p.x > 11250 && p.x < 11600 && p.y <= 1020) FLOOR_Y = 1020;
-        if (p.x > 11650 && p.x < 11850 && p.y <= 825) FLOOR_Y = 820; 
-        if (p.x > 11850 && p.x < 11950 && p.y <= 825) FLOOR_Y = p.x * -0.4 + 5560;
-        if (p.x > 11950 && p.x < 12600 && p.y <= 785) FLOOR_Y = 780; 
+        if (p.x > 11650 && p.x < 11850 && p.y <= 825) FLOOR_Y = 820;
+        if (p.x > 11850 && p.x < 11950 && p.y <= 825) FLOOR_Y = p.x * -0.4 + 5560, rampa = true;
+        if (p.x > 11950 && p.x < 12600 && p.y <= 785) FLOOR_Y = 780;
         else if (p.x > 12300 && p.x < 12400 && p.y <= 980) FLOOR_Y = 980;
         else if (p.x > 12150 && p.x < 12350 && p.y <= 1180) FLOOR_Y = 1180;
         if (p.x > 12850 && p.x < 13200 && p.y <= 980) FLOOR_Y = 980;
@@ -422,7 +423,7 @@ int main()
 
 
         p.x += p.vx;
-        p.y -= p.vy;
+        p.y -= p.vy/2;
 
         if (p.x >= 4500) s2.evx = -5;
         s2.ex += s2.evx;
@@ -431,8 +432,8 @@ int main()
 
         if (p.y < FLOOR_Y)
         {
-            if (p.canJump != false && p.y > FLOOR_Y - 10) p.y = FLOOR_Y;
-            if (p.vy > -20) p.vy -= 4;
+            if (p.canJump != false && p.y > FLOOR_Y - 10 && rampa) p.y = FLOOR_Y;
+            if (p.vy > -20) p.vy -= 2;
         }
         else
         {
@@ -492,27 +493,27 @@ int main()
         float camBottom = camera.target.y + (camera.offset.y) / camera.zoom;
 
         if (p.x > 0) FLOOR_Y = 1220;
-        if (p.x > 3370) FLOOR_Y = 1380;
-        if (p.x > 8900) FLOOR_Y = p.x * -0.8 + 8500;
-        if (p.x > 9050) FLOOR_Y = 1260;
+        if (p.x > 3370) FLOOR_Y = 1380, rampa = false;
+        if (p.x > 8900) FLOOR_Y = p.x * -0.8 + 8500, rampa = true;
+        if (p.x > 9050) FLOOR_Y = 1260, rampa = false;
         if (p.x > 9400) FLOOR_Y = 1380;
-        if (p.x > 10100) FLOOR_Y = 1220;
-        if (p.x > 10250) FLOOR_Y = 1020;
-        if (p.x > 10700) FLOOR_Y = 1380;
-        if (p.x > 16300) FLOOR_Y = p.x * -0.8 + 14420;
-        if (p.x > 16550) FLOOR_Y = 1180;
-        if (p.x > 16750) FLOOR_Y = p.x * -0.6 + 11230;
-        if (p.x > 17000) FLOOR_Y = 1030;
-        if (p.x > 17150) FLOOR_Y = p.x * -0.75 + 13892.5;
-        if (p.x > 17350) FLOOR_Y = 880;
-        if (p.x > 17550) FLOOR_Y = p.x * -0.9 + 16675;
-        if (p.x > 17750) FLOOR_Y = 700;
+        if (p.x > 10111) FLOOR_Y = 1220;
+        if (p.x > 10255) FLOOR_Y = 1020;
+        if (p.x > 10700) FLOOR_Y = 1380, rampa = false;
+        if (p.x > 16300) FLOOR_Y = p.x * -0.8 + 14420, rampa = true;
+        if (p.x > 16550) FLOOR_Y = 1180, rampa = false;
+        if (p.x > 16750) FLOOR_Y = p.x * -0.6 + 11230, rampa = true;
+        if (p.x > 17000) FLOOR_Y = 1030, rampa = false;
+        if (p.x > 17150) FLOOR_Y = p.x * -0.75 + 13892.5, rampa = true;
+        if (p.x > 17350) FLOOR_Y = 880, rampa = false;
+        if (p.x > 17550) FLOOR_Y = p.x * -0.9 + 16675, rampa = true;
+        if (p.x > 17750) FLOOR_Y = 700, rampa = false;
 
         if (p.x <= camLeft) p.x = camLeft + 5;
         if (p.x <= 3385 && p.y > 1220) p.x = 3390;
         if (p.x >= 9350 && p.x <= 9410 && p.y > 1260) p.x = 9415;
-        if (p.x >= 10095 && p.x <= 10150 && p.y > 1220) p.x = 10090;
-        if (p.x >= 10245 && p.x <= 10300 && p.y > 1021) p.x = 10240;
+        if (p.x >= 10095 && p.x <= 10150 && p.y > 1220) p.x = 10088;
+        if (p.x >= 10245 && p.x <= 10300 && p.y > 1021) p.x = 10238;
         if (p.x >= 10600 && p.x <= 10710 && p.y > 1021) p.x = 10715;
 
         if (IsKeyDown(KEY_W) && !IsKeyDown(KEY_S)) p.facingy = 1;
@@ -689,7 +690,7 @@ int main()
                 bulletse[i].active = false;
                 hitCooldown = 1.5f;
                 p.vides--;
-                p.vx = (bulletse[i].vx > 0) ? 0 : 0;
+                p.vx = 0;
                 p.vy = 20;
                 if (p.vides <= 0) 
                 {
@@ -713,7 +714,7 @@ int main()
                 bulletsa1[i].active = false;
                 hitCooldown = 1.5f;
                 p.vides--;
-                p.vx = (bulletsa1[i].vx > 0) ? 0 : 0;
+                p.vx = 0;
                 p.vy = 20;
                 if (p.vides <= 0)
                 {
@@ -737,7 +738,7 @@ int main()
                 bulletse[i].active = false;
                 hitCooldown = 1.5f;
                 p.vides--;
-                p.vx = (bulletse[i].vx > 0) ? 0 : 0;
+                p.vx = 0;
                 p.vy = 20;
                 if (p.vides <= 0)
                 {
@@ -761,7 +762,7 @@ int main()
                 bulletsa3[i].active = false;
                 hitCooldown = 1.5f;
                 p.vides--;
-                p.vx = (bulletsa3[i].vx > 0) ? 0 : 0;
+                p.vx = 0;
                 p.vy = 20;
                 if (p.vides <= 0)
                 {
@@ -1666,25 +1667,27 @@ int main()
             DrawText(TextFormat("%d", (int)vidaTimer.lifetime), 975 / 2, 20, 30, RED);
             updatetimer(&vidaTimer);
 
-            if ((int)vidaTimer.lifetime == 0) 
+            if ((int)vidaTimer.lifetime == 0)
             {
                 lose = true;
             }
 
-            float maxSpeed = (p.isajupit == 1) ? 4 : 10;
-            float accel = (p.isajupit == 1) ? 2 : 5;
+            float maxSpeed =
+                (p.isajupit == 1) ? 4 :
+                (!p.canJump) ? 10 :
+                8;
 
             if (p.vx > maxSpeed) p.vx = maxSpeed;
             if (p.vx < -maxSpeed) p.vx = -maxSpeed;
 
             if (IsKeyDown(KEY_D) && p.vx < maxSpeed && !IsKeyDown(KEY_A))
             {
-                p.vx += accel;
+                p.vx += 5;
                 p.facing = 1;
             }
             else if (IsKeyDown(KEY_A) && p.vx > -maxSpeed && !IsKeyDown(KEY_D))
             {
-                p.vx -= accel;
+                p.vx -= 5;
                 p.facing = -1;
             }
             else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A))
