@@ -107,6 +107,24 @@
     <Image Include="resources\animació ajupir (quan dones al cap abaix 1 vegada).png">
       <Filter>Game Resource Files</Filter>
     </Image>
+    <Image Include="resources\at1b1.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\at1b2.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\at1b3.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\at1b4.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\at1b5.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\at1b6.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
     <Image Include="resources\balaamunt.png">
       <Filter>Game Resource Files</Filter>
     </Image>

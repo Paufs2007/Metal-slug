@@ -544,7 +544,7 @@ int main()
         if (p.x >= 10600 && p.x <= 10710 && p.y > 1021) p.x = 10715;
 
         if (IsKeyDown(KEY_W) && !IsKeyDown(KEY_S)) p.facingy = 1;
-        else if (IsKeyDown(KEY_S) && !IsKeyDown(KEY_W) && p.y < FLOOR_Y) p.facingy = -1;
+        else if (IsKeyDown(KEY_S) && !IsKeyDown(KEY_W) && p.y <= FLOOR_Y) p.facingy = -1;
         else p.facingy = 0;
 
         for (int i = 0; i < MAX_BULLETS; i++) {
@@ -894,6 +894,7 @@ int main()
                             else {
                                 bullets[i].vx = 30.0f * p.facing;
                                 bullets[i].vy = 0;
+                                bullets[i].direction = 2 * p.facing;
                             }
                             bullets[i].active = true;
                             break;
