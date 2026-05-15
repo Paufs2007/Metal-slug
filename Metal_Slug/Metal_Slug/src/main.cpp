@@ -405,12 +405,15 @@ int main()
         if (p.x > 11650 && p.x < 11850 && p.y <= 825) FLOOR_Y = 820; 
         if (p.x > 11850 && p.x < 11950 && p.y <= 825) FLOOR_Y = p.x * -0.4 + 5560;
         if (p.x > 11950 && p.x < 12600 && p.y <= 785) FLOOR_Y = 780; 
+        else if (p.x > 12300 && p.x < 12400 && p.y <= 980) FLOOR_Y = 980;
+        else if (p.x > 12150 && p.x < 12350 && p.y <= 1180) FLOOR_Y = 1180;
         if (p.x > 12850 && p.x < 13200 && p.y <= 980) FLOOR_Y = 980;
         if (p.x > 13400 && p.x < 13600 && p.y <= 780) FLOOR_Y = 780;
-        if (p.x > 19000 && p.x < 19100 && p.y <= 550) FLOOR_Y = 550;
-        if (p.x > 19150 && p.x < 19300 && p.y <= 400) FLOOR_Y = 400;
+        if (p.x > 18600 && p.x < 19100 && p.y <= 230) FLOOR_Y = 230;
+        else if (p.x > 18950 && p.x < 19150 && p.y <= 550) FLOOR_Y = 550;
+        else if (p.x > 19150 && p.x < 19350 && p.y <= 400) FLOOR_Y = 400;
+        if (p.x > 19350 && p.x < 19750 && p.y <= 230) FLOOR_Y = 230;
         if (p.x > 19700) p.x = 19700;
-        if (IsKeyPressed(KEY_H)) p.y = 0;
         
         if (o1.ox >= p.x && o1.ox <= p.x + 100 && o1.oy >= p.y - 20 && o1.oy <= p.y + 200)
         {
