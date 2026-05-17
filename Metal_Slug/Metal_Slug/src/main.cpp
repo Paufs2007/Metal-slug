@@ -1120,7 +1120,7 @@ int main()
                                         if (!bulletse[i].active)
                                         {
                                             bulletse[i].x = s1.ex;
-                                            bulletse[i].y = s1.ey + 50;
+                                            bulletse[i].y = s1.ey - 25 ;
 
                                             // Direccio cap al jugador
                                             float dx = p.x - s1.ex - 20;
