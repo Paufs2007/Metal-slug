@@ -161,9 +161,9 @@ struct Bulleta3 {
 
 
 //atacs jefe no eliminar
-int raig = 1;
+bool raig = true;
 
-int bola = 0;
+bool bola = false;
 
 
 int main()
@@ -584,7 +584,7 @@ int main()
             bulletsa1[i].y += bulletsa1[i].vy;
 
             if (bulletsa1[i].x < camLeft || bulletsa1[i].x > camRight ||
-                bulletsa1[i].y < camTop || bulletsa1[i].y > camBottom) {
+                bulletsa1[i].y < camTop - 200 || bulletsa1[i].y > camBottom) {
                 bulletsa1[i].active = false;
             }
         }
@@ -1032,10 +1032,14 @@ int main()
                                     float spread = 200.0f;
                                     float step = spread / 4.0f;
                                     float targetX = (p.x ) + s1.burstCount * step;
+                                    float targetY = p.y;
+
+                                    float dy = targetY - bulletsa1[i].y;
+
 
                                     float timeOfFlight = (-2.0f * vy) / gravity;
                                     bulletsa1[i].vx = (targetX - s1.ex) / timeOfFlight;
-                                    bulletsa1[i].vy = vy;
+                                    bulletsa1[i].vy = (dy - 0.5f * gravity * timeOfFlight * timeOfFlight) / timeOfFlight;
 
                                     bulletsa1[i].useGravity = true; // TURNS ON GRAVITY GILIPOLLAS!
                                     bulletsa1[i].active = true;
@@ -1048,136 +1052,147 @@ int main()
             }
             else if (s1.ehp <= 5)
             {
-                if (raig == 1 && bola == 0)
-                {
+                
                     if (!inMenu && !winscreen && !lose)
                     {
-                        s1.enemyShootTimer += GetFrameTime();
+                        if (p.y <= 400) {
 
-                        // Dispara cada X segons
-                        if (s1.enemyShootTimer >= enemyShootInterval)
-                        {
-                            s1.enemyShootTimer = 0.0f;
 
-                            // TRIPLE TIR TIMER / TRIGGER 
-                            s1.phase2BurstCount = 3;
-                            s1.phase2BurstTimer = 0.0f;
+                            s1.enemyShootTimer += GetFrameTime();
 
-                            // Posicio inicial
-                            for (int i = 0; i < MAX_BULLETSE; i++)
+                            if (s1.enemyShootTimer >= enemyShootInterval)
                             {
-                                if (!bulletse[i].active)
+                                s1.enemyShootTimer = 0.0f;
+                                s1.burstCount = 3;
+                            }
+
+                            if (s1.burstCount > 0)
+                            {
+                                s1.burstTimer += GetFrameTime();
+                                if (s1.burstTimer >= 0.4f)
                                 {
-                                    bulletse[i].x = s1.ex;
-                                    bulletse[i].y = s1.ey + 90;
+                                    s1.burstTimer = 0.0f;
+                                    s1.burstCount--;
 
-                                    // Direccio cap al jugador
-                                    float dx = p.x - s1.ex - 20;
-                                    float dy = p.y - s1.ey;
+                                    for (int i = 0; i < MAX_BULLETSE; i++)
+                                    {
+                                        if (!bulletsa1[i].active)
+                                        {
+                                            bulletsa1[i].x = s1.ex;
+                                            bulletsa1[i].y = s1.ey + 30;
 
-                                    // Longitud del vector
-                                    float length = sqrt(dx * dx + dy * dy);
+                                            float gravity = 0.5f;
+                                            float vy = -22.5f;
+                                            float targetY = p.y;
 
-                                    // Normalitzar + velocitat lenta
-                                    float speed = 20.0f;
+                                            float dy = targetY - bulletsa1[i].y;
 
-                                    bulletse[i].vx = (dx / length) * speed;
+                                            float spread = 200.0f;
+                                            float step = spread / 4.0f;
+                                            float targetX = (p.x) + s1.burstCount * step;
 
-                                    bulletse[i].active = true;
-                                    bulletse[i].useGravity = false;
+                                            float timeOfFlight = (-2.0f * vy) / gravity;
+                                            bulletsa1[i].vx = (targetX - s1.ex) / timeOfFlight;
+                                            bulletsa1[i].vy = (dy - 0.5f * gravity * timeOfFlight * timeOfFlight) / timeOfFlight;
 
-                                    raig = 0;
-
-                                    bola = 1;
-
-                                    break;
+                                            bulletsa1[i].useGravity = true; // TURNS ON GRAVITY GILIPOLLAS!
+                                            bulletsa1[i].active = true;
+                                            break;
+                                        }
+                                    }
                                 }
                             }
                         }
+                        else {
+                            if (raig && !bola) {
 
-                        // HANDLER - runs every frame independently
-                        if (s1.phase2BurstCount > 0)
-                        {
-                            s1.phase2BurstTimer += GetFrameTime();
-                            if (s1.phase2BurstTimer >= 0.4f)
-                            {
-                                s1.phase2BurstTimer = 0.0f;
-                                s1.phase2BurstCount--;
+                                //------------------------- FAST
+                                s1.enemyShootTimer += GetFrameTime();
 
-                                //TRIPLE TIR
-
-                                float gravity = 0.5f;
-                                float vy = -22.5f;
-
-                                float spread = 200.0f;
-                                float step = spread / 4.0f;
-                                float timeOfFlight = (-2.0f * vy) / gravity;
-                                float targetX = p.x + s1.phase2BurstCount * step;
-
-                                // TURNS ON GRAVITY GILIPOLLAS!
-                                for (int j = 0; j < MAX_BULLETSE; j++)
+                                // Dispara cada X segons
+                                if (s1.enemyShootTimer >= enemyShootInterval)
                                 {
-                                    if (!bulletsa1[j].active)
+                                    s1.enemyShootTimer = 0.0f;
+
+                                    // Posicio inicial
+                                    for (int i = 0; i < MAX_BULLETSE; i++)
                                     {
-                                        bulletsa1[j].x = s1.ex;
-                                        bulletsa1[j].y = s1.ey + 30;
-                                        bulletsa1[j].vx = (targetX - s1.ex) / timeOfFlight;
-                                        bulletsa1[j].vy = vy;
-                                        bulletsa1[j].useGravity = true; // TURNS ON GRAVITY GILIPOLLAS!
-                                        bulletsa1[j].active = true;
-                                        break;
+                                        if (!bulletse[i].active)
+                                        {
+                                            bulletse[i].x = s1.ex;
+                                            bulletse[i].y = s1.ey + 50;
+
+                                            // Direccio cap al jugador
+                                            float dx = p.x - s1.ex - 20;
+                                            float dy = p.y - s1.ey;
+
+                                            // Longitud del vector
+                                            float length = sqrt(dx * dx + dy * dy);
+
+                                            // Normalitzar + velocitat lenta
+                                            float speed = 20.0f;
+
+                                            bulletse[i].vx = (dx / length) * speed;
+
+                                            bulletse[i].active = true;
+                                            bulletse[i].useGravity = false;
+
+                                            raig = false;
+                                            bola = true;
+                                            break;
+                                        }
                                     }
                                 }
 
-                                // TRIPLE TIR
                             }
-                        }
-                    }
-                }
-                else if (raig == 0 && bola == 1)
-                {
-                    if (!inMenu && !winscreen && !lose)
-                    {
-                        s1.enemyShootTimer += GetFrameTime();
+                            else if (bola && !raig) {
+                                s1.enemyShootTimer += GetFrameTime();
 
-                        // Dispara cada X segons
-                        if (s1.enemyShootTimer >= enemyShootInterval)
-                        {
-                            s1.enemyShootTimer = 0.0f;
-
-                            for (int i = 0; i < MAX_BULLETSE; i++)
-                            {
-                                if (!bulletse[i].active)
+                                // Dispara cada X segons
+                                if (s1.enemyShootTimer >= enemyShootInterval)
                                 {
-                                    // Posicio inicial
-                                    bulletse[i].x = s1.ex;
-                                    bulletse[i].y = s1.ey + 90;
+                                    s1.enemyShootTimer = 0.0f;
 
-                                    // Direccio cap al jugador
-                                    float dx = p.x - s1.ex;
-                                    float dy = p.y - s1.ey;
+                                    for (int i = 0; i < MAX_BULLETSE; i++)
+                                    {
+                                        if (!bulletse[i].active)
+                                        {
+                                            // Posicio inicial
+                                            bulletse[i].x = s1.ex;
+                                            bulletse[i].y = s1.ey + 100;
 
-                                    // Longitud del vector
-                                    float length = sqrt(dx * dx + dy * dy);
+                                            // Direccio cap al jugador
+                                            float dx = p.x - s1.ex;
+                                            float dy = p.y - s1.ey;
 
-                                    // Normalitzar + velocitat lenta
-                                    float speed = 8.0f;
+                                            // Longitud del vector
+                                            float length = sqrt(dx * dx + dy * dy);
 
-                                    bulletse[i].vx = (dx / length) * speed;
+                                            // Normalitzar + velocitat lenta
+                                            float speed = 8.0f;
 
-                                    bulletse[i].active = true;
-                                    bulletse[i].useGravity = false;
+                                            bulletse[i].vx = (dx / length) * speed;
 
-                                    raig = 1;
+                                            bulletse[i].active = true;
+                                            bulletse[i].useGravity = false;
 
-                                    bola = 0;
+                                            raig = true;
+                                            bola = false;
 
-                                    break;
+                                            break;
+                                        }
+                                    }
                                 }
                             }
+                            
+
                         }
+
                     }
-                }
+                
+
+
+                
             }
         }
 
