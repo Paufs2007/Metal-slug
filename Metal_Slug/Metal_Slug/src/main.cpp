@@ -683,8 +683,6 @@ int main()
 
         BeginDrawing();
 
-        g.Allahuakbar(p);
-
         ClearBackground(BLACK);
         if (hitCooldown > 0.0f) hitCooldown -= GetFrameTime();
         if (shootCooldown > 0.0f) shootCooldown -= GetFrameTime();
@@ -1918,7 +1916,8 @@ int main()
             }
         }
 
-
+        g.Allahuakbar(p);
+        DrawRectangle(p.x, p.y, 100, 100, RED);
 
         EndDrawing();
     }
