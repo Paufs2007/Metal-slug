@@ -122,6 +122,15 @@ struct Bullet {
     bool useGravity;
     bool active;
 };
+class granada {
+    
+    float x, y;
+    float vx;
+    float vy;
+    int direction
+    bool useGravity;
+    bool active;
+};
 
 struct Bullete {
     float x, y;
