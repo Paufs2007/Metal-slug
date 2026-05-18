@@ -140,7 +140,7 @@ class granada {
     public:
         float x, y;
         float vx;
-        float vy;
+        float vy;// velocitats
         int direction;
         bool useGravity;
         bool active;
