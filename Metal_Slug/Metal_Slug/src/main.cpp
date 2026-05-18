@@ -25,6 +25,7 @@ public:
     int vides = 3;
     int hp = 1;
     bool menu = true;
+    bool Omniman = false;
     void jump() {
         vy = 45;
         canJump = false;
@@ -202,6 +203,7 @@ int main()
     float hitCooldown = 0.0f;
     int vpunts = 0;
     bool rampa = false;
+    int konami = 0;
     SearchAndSetResourceDir("resources");
     InitAudioDevice();
 
@@ -751,7 +753,7 @@ while (!WindowShouldClose())
         for (int i = 0; i < MAX_BULLETSE; i++) {
             if (!bulletse[i].active) continue;
             DrawTexture(bulletee, (int)bulletse[i].x, (int)bulletse[i].y, WHITE);
-            if (bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y && bulletse[i].y <= p.y + 200 && p.isajupit == -1 || bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y + 100 && bulletse[i].y <= p.y + 200 && p.isajupit == 1)
+            if (!p.Omniman && bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y && bulletse[i].y <= p.y + 200 && p.isajupit == -1 || bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y + 100 && bulletse[i].y <= p.y + 200 && p.isajupit == 1)
             {
                 bulletse[i].active = false;
                 hitCooldown = 1.5f;
@@ -798,7 +800,7 @@ while (!WindowShouldClose())
             Vector2 position6 = { framecrecat1b6.width * 4.75f / 2, framecrecat1b6.height * 4.75f / 2 };
             Rectangle posat1b6 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y, framecrecat1b6.width * 4.75, framecrecat1b6.height * 4.75 };
             DrawTexturePro(at1b6, framecrecat1b6, posat1b6, position6, 0, WHITE);
-            if (bulletsa1[i].x >= p.x && bulletsa1[i].x <= p.x + 100 && bulletsa1[i].y >= p.y && bulletsa1[i].y <= p.y + 200 && p.isajupit == -1 || bulletsa1[i].x >= p.x && bulletsa1[i].x <= p.x + 100 && bulletsa1[i].y >= p.y + 100 && bulletsa1[i].y <= p.y + 200 && p.isajupit == 1)
+            if (!p.Omniman && bulletsa1[i].x >= p.x && bulletsa1[i].x <= p.x + 100 && bulletsa1[i].y >= p.y && bulletsa1[i].y <= p.y + 200 && p.isajupit == -1 || bulletsa1[i].x >= p.x && bulletsa1[i].x <= p.x + 100 && bulletsa1[i].y >= p.y + 100 && bulletsa1[i].y <= p.y + 200 && p.isajupit == 1)
             {
                 bulletsa1[i].active = false;
                 hitCooldown = 1.5f;
@@ -822,7 +824,7 @@ while (!WindowShouldClose())
         for (int i = 0; i < MAX_BULLETSE; i++) {
             if (!bulletse[i].active) continue;
             DrawTexture(bulletee, (int)bulletse[i].x, (int)bulletse[i].y, WHITE);
-            if (bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y && bulletse[i].y <= p.y + 200 && p.isajupit == -1 || bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y + 100 && bulletse[i].y <= p.y + 200 && p.isajupit == 1)
+            if (!p.Omniman && bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y && bulletse[i].y <= p.y + 200 && p.isajupit == -1 || bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y + 100 && bulletse[i].y <= p.y + 200 && p.isajupit == 1)
             {
                 bulletse[i].active = false;
                 hitCooldown = 1.5f;
@@ -846,7 +848,7 @@ while (!WindowShouldClose())
         for (int i = 0; i < MAX_BULLETSE; i++) {
             if (!bulletsa3[i].active) continue;
             DrawTexture(bulletee, (int)bulletsa3[i].x, (int)bulletsa3[i].y, WHITE);
-            if (bulletsa3[i].x >= p.x && bulletsa3[i].x <= p.x + 100 && bulletsa3[i].y >= p.y && bulletsa3[i].y <= p.y + 200 && p.isajupit == -1 || bulletsa3[i].x >= p.x && bulletsa3[i].x <= p.x + 100 && bulletsa3[i].y >= p.y + 100 && bulletsa3[i].y <= p.y + 200 && p.isajupit == 1)
+            if (!p.Omniman && bulletsa3[i].x >= p.x && bulletsa3[i].x <= p.x + 100 && bulletsa3[i].y >= p.y && bulletsa3[i].y <= p.y + 200 && p.isajupit == -1 || bulletsa3[i].x >= p.x && bulletsa3[i].x <= p.x + 100 && bulletsa3[i].y >= p.y + 100 && bulletsa3[i].y <= p.y + 200 && p.isajupit == 1)
             {
                 bulletsa3[i].active = false;
                 hitCooldown = 1.5f;
@@ -1878,6 +1880,28 @@ while (!WindowShouldClose())
             else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A))
             {
                 p.vx = 0;
+            }
+
+            if (IsKeyPressed(KEY_W)) {
+                if (konami == 0 || konami == 1) konami++;
+                else konami = 0;
+            } else if (IsKeyPressed(KEY_S)) {
+                if (konami == 2 || konami == 3) konami++;
+                else konami = 0;
+            } else if (IsKeyPressed(KEY_A)) {
+                if (konami == 4 || konami == 6) konami++;
+                else konami = 0;
+            } else if (IsKeyPressed(KEY_D)) {
+                if (konami == 5 || konami == 7) konami++;
+                else konami = 0;
+            } else if (IsKeyPressed(KEY_J)) {
+                if (konami == 8) konami++;
+                else konami = 0;
+            } else if (IsKeyPressed(KEY_SPACE)) {
+                if (konami == 9) {
+                    konami++;
+                    p.Omniman = true;
+                } else konami = 0;
             }
 
             else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
