@@ -651,11 +651,11 @@ while (!WindowShouldClose())
         if (p.x > worldWidth) { p.x = worldWidth;  if (p.vx > 0) p.vx = 0; }
 
         if (camera.target.x < p.x) camera.target.x = (float)p.x;
-        if (p.x >= 0 && p.x < 16000) {
+        if (p.x >= 0 && p.x < 16200) {
             camera.target.y = (float)1100;
         }
-        else if (p.x >= 16300 && p.x < 17800 && camera.target.y != 540) {
-            camera.target.y = -0.35 * camera.target.x + 6770;
+        else if (p.x >= 16200 && p.x < 17800 && camera.target.y != 540) {
+            camera.target.y = -0.35*p.x + 6770;
         }
         else {
             camera.target.y = (float)540;
