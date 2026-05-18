@@ -62,7 +62,7 @@ public:
     int ty;
     int tvy;
     int tvx;
-    int thp = 1;
+    int thp = 50;
     int tfacing = 1; // 1 = right, -1 = left
     int tfacingy = 1; // 1 = up, -1 = down
     float tankShootTimer = 0.0f;
@@ -301,7 +301,7 @@ int main()
     soldier s2 = { 5450, 605 };
     soldier s3 = { 10450, 605 };
     soldier Jorge = { 3200, 800 };
-    tank t1 = { 19000, 700 };
+    tank t1 = { 17000, 405 };
 
     objecte o1 = { 5250, 605 };
 
@@ -312,7 +312,7 @@ int main()
     bool bs2 = true;
     bool bs3 = true;
     bool bJorge = true;
-
+    bool bt1 = true;
 
     Camera2D camera = { 0 };
     camera.offset = { 315, 350 };
@@ -476,7 +476,6 @@ int main()
         {
             o1.alive--;
         }
-
 
         p.x += p.vx;
         p.y -= p.vy/2;
@@ -738,6 +737,11 @@ int main()
                 s3.ehp--;
                 bullets[i].active = false;
             }
+            if (bullets[i].x >= t1.tx && bullets[i].x <= t1.tx + 100 && bullets[i].y >= t1.ty && bullets[i].y <= t1.ty + 200)
+            {
+                t1.thp--;
+                bullets[i].active = false;
+            }
         }
 
         //bales enemic basic
@@ -958,10 +962,8 @@ int main()
         }
 
 
-        if (killhim) {
-
-
-
+        if (killhim) 
+        {
             if (IsKeyDown(KEY_J) && shootCooldown <= 0.0f && machineGunAmmo > 0) {
                 PlaySound(soundArray[2]);
                 p.isshooting = 1;
@@ -1433,6 +1435,53 @@ int main()
             PlaySound(soundArray[0]);
             s3.ex = 100000000;
             bs3 = false;
+        }
+
+
+        if (t1.thp == 50)
+        {
+            if (t1.tvx == 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posidles1 = { (float)t1.tx, (float)t1.ty, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
+                DrawText(cix, t1.tx, t1.ty, 20, RED);
+            }
+            else if (t1.tvx < 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle poscorr = { (float)t1.tx, (float)t1.ty, framerececorr.width * 5, framerececorr.height * 5 };
+                DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
+                DrawText(cix, t1.tx, t1.ty, 20, RED);
+            }
+
+            if (!inMenu && !winscreen && !lose)
+            {
+                t1.tankShootTimer += GetFrameTime();
+                if (t1.tankShootTimer >= enemyShootInterval)
+                {
+                    t1.tankShootTimer = 0.0f;
+                    for (int i = 0; i < MAX_BULLETSE; i++)
+                    {
+                        if (!bulletse[i].active) {
+                            bulletse[i].x = t1.tx;
+                            bulletse[i].y = t1.ty + 30;
+                            bulletse[i].vx = (p.x < t1.tx) ? -8.0f : 8.0f;
+                            bulletse[i].vy = 0;
+                            bulletse[i].useGravity = true;
+                            bulletse[i].active = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        else if (bt1)
+        {
+            vpunts = vpunts + 100;
+            t1.tx = 100000000;
+            PlaySound(soundArray[0]);
+            bt1 = false;
         }
 
         if (p.isajupit == -1) 
