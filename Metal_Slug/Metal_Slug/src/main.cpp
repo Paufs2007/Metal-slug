@@ -75,7 +75,7 @@ public:
     int ey;
     int vy;
     int evx;
-    int ehp = 10;
+    int ehp = 100;
     int efacing = 1; // 1 = right, -1 = left
     int efacingy = 1; // 1 = up, -1 = down
     float enemyShootTimer = 0.0f;
@@ -1032,7 +1032,7 @@ int main()
                 DrawText(cix, s1.ex, s1.ey, 20, RED);
             }
 
-            if (s1.ehp > 5)
+            if (s1.ehp > 75)
             {
                 if (!inMenu && !winscreen && !lose)
                 {
@@ -1083,7 +1083,7 @@ int main()
                     }
                 }
             }
-            else if (s1.ehp <= 5)
+            else if (s1.ehp <= 75)
             {
                 
                     if (!inMenu && !winscreen && !lose)
@@ -1294,23 +1294,34 @@ int main()
 
             if (!inMenu && !winscreen && !lose) 
             {
-                s2.enemyShootTimer += GetFrameTime();
-                if (s2.enemyShootTimer >= enemyShootInterval) 
-                {
-                    s2.enemyShootTimer = 0.0f;
-                    for (int i = 0; i < MAX_BULLETSE; i++) 
+                    s2.enemyShootTimer += GetFrameTime();
+                    if (s2.enemyShootTimer >= enemyShootInterval)
                     {
-                        if (!bulletse[i].active) {
-                            bulletse[i].x = s2.ex;
-                            bulletse[i].y = s2.ey + 30;
-                            bulletse[i].vx = (p.x < s2.ex) ? -8.0f : 8.0f;
-                            bulletse[i].vy = 0;
-                            bulletse[i].useGravity = true;
-                            bulletse[i].active = true;
-                            break;
+                        s2.enemyShootTimer = 0.0f;
+
+                        for (int i = 0; i < MAX_BULLETSE; i++)
+                        {
+                            if (!bulletse[i].active)
+                            {
+                                bulletse[i].x = s2.ex;
+                                bulletse[i].y = s2.ey + 30;
+
+                                float gravity = 0.5f;   // matches bullet update loop, WHY ARE YOU GAY?
+                                float vy = -12.0f; // Arc parabola
+
+                                // Frames until bullet returns to same Y
+                                float timeOfFlight = (-2.0f * vy) / gravity; // = 48 frames
+
+                                // vx needed to land exactly on player's X
+                                bulletse[i].vx = (p.x - s2.ex) / timeOfFlight;
+                                bulletse[i].vy = vy;
+
+                                bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
+                                bulletse[i].active = true;
+                                break;
+                            }
                         }
                     }
-                }
             }
         }
         else if (bs2)
@@ -1345,14 +1356,25 @@ int main()
                 if (Jorge.enemyShootTimer >= enemyShootInterval)
                 {
                     Jorge.enemyShootTimer = 0.0f;
+
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
-                        if (!bulletse[i].active) {
+                        if (!bulletse[i].active)
+                        {
                             bulletse[i].x = Jorge.ex;
                             bulletse[i].y = Jorge.ey + 30;
-                            bulletse[i].vx = (p.x < Jorge.ex) ? -8.0f : 8.0f;
-                            bulletse[i].vy = 0;
-                            bulletse[i].useGravity = true;
+
+                            float gravity = 0.5f;   // matches bullet update loop, WHY ARE YOU GAY?
+                            float vy = -12.0f; // Arc parabola
+
+                            // Frames until bullet returns to same Y
+                            float timeOfFlight = (-2.0f * vy) / gravity; // = 48 frames
+
+                            // vx needed to land exactly on player's X
+                            bulletse[i].vx = (p.x - Jorge.ex) / timeOfFlight;
+                            bulletse[i].vy = vy;
+
+                            bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
                             bulletse[i].active = true;
                             break;
                         }
@@ -1376,18 +1398,28 @@ int main()
             if (!inMenu && !winscreen && !lose) 
             {
                 s3.enemyShootTimer += GetFrameTime();
-                if (s3.enemyShootTimer >= enemyShootInterval) 
+                if (s3.enemyShootTimer >= enemyShootInterval)
                 {
                     s3.enemyShootTimer = 0.0f;
-                    for (int i = 0; i < MAX_BULLETSE; i++) 
+
+                    for (int i = 0; i < MAX_BULLETSE; i++)
                     {
-                        if (!bulletse[i].active) 
+                        if (!bulletse[i].active)
                         {
                             bulletse[i].x = s3.ex;
                             bulletse[i].y = s3.ey + 30;
-                            bulletse[i].vx = (p.x < s3.ex) ? -8.0f : 8.0f;
-                            bulletse[i].vy = 0;
-                            bulletse[i].useGravity = true;
+
+                            float gravity = 0.5f;   // matches bullet update loop, WHY ARE YOU GAY?
+                            float vy = -12.0f; // Arc parabola
+
+                            // Frames until bullet returns to same Y
+                            float timeOfFlight = (-2.0f * vy) / gravity; // = 48 frames
+
+                            // vx needed to land exactly on player's X
+                            bulletse[i].vx = (p.x - s3.ex) / timeOfFlight;
+                            bulletse[i].vy = vy;
+
+                            bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
                             bulletse[i].active = true;
                             break;
                         }
@@ -1830,7 +1862,7 @@ int main()
                 os1 = true;
                 winscreen = false;
                 killhim = false;
-                s1.ehp = 10;
+                s1.ehp = 100;
                 p.vides = 3;
                 s2.ehp = 1;
                 s3.ehp = 1;
@@ -1880,7 +1912,7 @@ int main()
                 bJorge = true;
                 os1 = true;
                 winscreen = false;
-                s1.ehp = 10;
+                s1.ehp = 100;
                 s2.ehp = 1;
                 s3.ehp = 1;
                 p.vides = 3;
