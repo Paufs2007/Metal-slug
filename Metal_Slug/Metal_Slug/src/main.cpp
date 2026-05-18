@@ -302,7 +302,6 @@ int main()
     Rectangle framecrecat1b5 = { 0, 0, (float)at1b5.width / 3, (float)at1b5.height };
     Rectangle framecrecat1b6 = { 0, 0, (float)at1b6.width / 3, (float)at1b6.height };
 
-
     Rectangle framereccajupite = { 0, 0, (float)p1cbaixe.width / 7, (float)p1cbaixe.height };
     Rectangle framereccajupit = { 0, 0, (float)p1cbaix.width / 7, (float)p1cbaix.height };
     Rectangle framerecalttire = { 0, 0, (float)p1alttire.width / 10, (float)p1alttire.height };
@@ -731,7 +730,7 @@ int main()
             }
         }
 
-        //bales atac 1 jefe (morter)
+        //bales atac 1 jefe (morter) // el fa durant primera fase i nomes si arribes a la segona plataforma durnat 2na fase
 
         for (int i = 0; i < MAX_BULLETSE; i++) {
             if (!bulletsa1[i].active) continue;
@@ -778,7 +777,7 @@ int main()
             }
         }
 
-        //bales atac 2 jefe (laser)
+        //bales atac 2 jefe (laser) // durant segona fase l'alterna entre raig i bola vaixa constantment sense importar la distancia
 
         for (int i = 0; i < MAX_BULLETSE; i++) {
             if (!bulletse[i].active) continue;
