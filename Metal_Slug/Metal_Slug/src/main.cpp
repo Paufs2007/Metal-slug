@@ -401,6 +401,7 @@ while (!WindowShouldClose())
         framereccamqe.x = (float)currentFrameidle * (float)p1camqe.width / 4;
         framerecbaix.x = (float)currentFrameidle * (float)p1baix.width / 4;
         framerecbaixe.x = (float)currentFrameidle * (float)p1baixe.width / 4;
+        framerectbase.x = (float)currentFrameidle * (float)tbase.width / 4;
         framerecscap.x = (float)currentFramsalt * (float)p1scap.width / 6;
         framerecscape.x = (float)currentFramsalt * (float)p1scape.width / 6;
         framerecscames.x = (float)currentFramsalt * (float)p1scames.width / 6;
@@ -2046,6 +2047,7 @@ while (!WindowShouldClose())
     UnloadTexture(at1b4);
     UnloadTexture(at1b5);
     UnloadTexture(at1b6);
+    UnloadTexture(tbase);
     CloseWindow();
     return 0;
 }
