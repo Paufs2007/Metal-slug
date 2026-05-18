@@ -2,6 +2,7 @@
 #include "resource_dir.h"
 #include <string>
 #include <raymath.h>
+#include <cmath>
 using namespace std;
 #define MAX_FRAME_SPEED 15
 #define MIN_FRAME_SPEED  1
@@ -134,17 +135,13 @@ struct Bullet {
     bool useGravity;
     bool active;
 };
-class granada {
-    public:
-        float x, y;
-        float vx;
-        float vy;
-        int direction;
-        bool useGravity;
-        bool active;
-        void Allahuakbar(player p) {
-            DrawRectangle(x, y, 10, 10, RED);
-        }
+struct granada {
+    float x, y;
+    float vx;
+    float vy;
+    int direction;
+    bool useGravity;
+    bool active;
 };
 
 struct Bullete {
@@ -379,101 +376,102 @@ int main()
     Bulleta3 bulletsa3[MAX_BULLETS] = {};
 
 
-    while (!WindowShouldClose())
+while (!WindowShouldClose())
+{
+    framesCounter++;
+    if (framesCounter >= (60 / framesSpeed))
     {
-        framesCounter++;
-        if (framesCounter >= (60 / framesSpeed))
+        framesCounter = 0;
+        currentFrameidle++;
+        if (currentFrameidle >= 4) currentFrameidle = 0;
+        currentFramcorrer++;
+        if (currentFramcorrer >= 12) currentFramcorrer = 0;
+        currentFramsalt++;
+        if (currentFramsalt >= 6) currentFramsalt = 0;
+        currentFramajupit++;
+        if (currentFramajupit >= 7) currentFramajupit = 0;
+        currentFrameobj++;
+        if (currentFrameobj >= 2) currentFrameobj = 0;
+
+        frameRecidle.x = (float)currentFrameidle * (float)p1.width / 4;
+        frameReccap.x = (float)currentFrameidle * (float)p1cap.width / 4;
+        framereceidle.x = (float)currentFrameidle * (float)sidle.width / 4;
+        frameReccape.x = (float)currentFrameidle * (float)p1cape.width / 4;
+        frameRecidlee.x = (float)currentFrameidle * (float)p1e.width / 4;
+        framereccamq.x = (float)currentFrameidle * (float)p1camq.width / 4;
+        framereccamqe.x = (float)currentFrameidle * (float)p1camqe.width / 4;
+        framerecbaix.x = (float)currentFrameidle * (float)p1baix.width / 4;
+        framerecbaixe.x = (float)currentFrameidle * (float)p1baixe.width / 4;
+        framerecscap.x = (float)currentFramsalt * (float)p1scap.width / 6;
+        framerecscape.x = (float)currentFramsalt * (float)p1scape.width / 6;
+        framerecscames.x = (float)currentFramsalt * (float)p1scames.width / 6;
+        framerecscamese.x = (float)currentFramsalt * (float)p1scamese.width / 6;
+        frameRecdretacorrent.x = (float)currentFramcorrer * (float)p1dretacorrentcames.width / 12;
+        frameesquerracorrent.x = (float)currentFramcorrer * (float)p1esquerracorrentcames.width / 12;
+        framerececorr.x = (float)currentFramcorrer * (float)scor.width / 12;
+        framerececorre.x = (float)currentFramcorrer * (float)score.width / 12;
+        framereccajupit.x = (float)currentFramajupit * (float)p1cbaix.width / 7;
+        framereccajupite.x = (float)currentFramajupit * (float)p1cbaixe.width / 7;
+        frameRecmgun.x = (float)currentFrameobj * (float)mgun.width / 2;
+    }
+
+    if (framesCounter >= (60 / framesSpeedtir))
+    {
+        currentFramtir++;
+
+        if (currentFramtir >= 10)
         {
-            framesCounter = 0;
-            currentFrameidle++;
-            if (currentFrameidle >= 4) currentFrameidle = 0;
-            currentFramcorrer++;
-            if (currentFramcorrer >= 12) currentFramcorrer = 0;
-            currentFramsalt++;
-            if (currentFramsalt >= 6) currentFramsalt = 0;
-            currentFramajupit++;
-            if (currentFramajupit >= 7) currentFramajupit = 0;
-            currentFrameobj++;
-            if (currentFrameobj >= 2) currentFrameobj = 0;
-            
-            frameRecidle.x = (float)currentFrameidle * (float)p1.width / 4;
-            frameReccap.x = (float)currentFrameidle * (float)p1cap.width / 4;
-            framereceidle.x = (float)currentFrameidle * (float)sidle.width / 4;
-            frameReccape.x = (float)currentFrameidle * (float)p1cape.width / 4;
-            frameRecidlee.x = (float)currentFrameidle * (float)p1e.width / 4;
-            framereccamq.x = (float)currentFrameidle * (float)p1camq.width / 4;
-            framereccamqe.x = (float)currentFrameidle * (float)p1camqe.width / 4;
-            framerecbaix.x = (float)currentFrameidle * (float)p1baix.width / 4;
-            framerecbaixe.x = (float)currentFrameidle * (float)p1baixe.width / 4;
-            framerecscap.x = (float)currentFramsalt * (float)p1scap.width / 6;
-            framerecscape.x = (float)currentFramsalt * (float)p1scape.width / 6;
-            framerecscames.x = (float)currentFramsalt * (float)p1scames.width / 6;
-            framerecscamese.x = (float)currentFramsalt * (float)p1scamese.width / 6;
-            frameRecdretacorrent.x = (float)currentFramcorrer * (float)p1dretacorrentcames.width / 12;
-            frameesquerracorrent.x = (float)currentFramcorrer * (float)p1esquerracorrentcames.width / 12;
-            framerececorr.x = (float)currentFramcorrer * (float)scor.width / 12;
-            framerececorre.x = (float)currentFramcorrer * (float)score.width / 12;
-            framereccajupit.x = (float)currentFramajupit * (float)p1cbaix.width / 7;
-            framereccajupite.x = (float)currentFramajupit * (float)p1cbaixe.width / 7;
-            frameRecmgun.x = (float)currentFrameobj * (float)mgun.width / 2;
+            currentFramtir = 0;
+            p.isshooting = -1;
         }
 
-        if (framesCounter >= (60 / framesSpeedtir))
-        {
-            currentFramtir++;
+        framerectir.x = (float)currentFramtir * (float)p1shot.width / 10;
+        framerectire.x = (float)currentFramtir * (float)p1shote.width / 10;
+        framerecbaixtir.x = (float)currentFramtir * (float)p1baixtir.width / 10;
+        framerecbaixtire.x = (float)currentFramtir * (float)p1baixtire.width / 10;
+        framerecalttir.x = (float)currentFramtir * (float)p1alttir.width / 10;
+        framerecalttire.x = (float)currentFramtir * (float)p1alttire.width / 10;
+    }
 
-            if (currentFramtir >= 10)
-            {
-                currentFramtir = 0;
-                p.isshooting = -1;
-            }
+    if (framesCounter >= (60 / framesSpeedtirb))
+    {
+        currentFrametirb1++;
+        if (currentFrametirb1 >= 3) currentFrametirb1 = 0;
 
-            framerectir.x = (float)currentFramtir * (float)p1shot.width / 10;
-            framerectire.x = (float)currentFramtir * (float)p1shote.width / 10;
-            framerecbaixtir.x = (float)currentFramtir * (float)p1baixtir.width / 10;
-            framerecbaixtire.x = (float)currentFramtir * (float)p1baixtire.width / 10;
-            framerecalttir.x = (float)currentFramtir * (float)p1alttir.width / 10;
-            framerecalttire.x = (float)currentFramtir * (float)p1alttire.width / 10;
-        }
+        framecrecat1b1.x = (float)currentFrametirb1 * (float)at1b1.width / 3;
+        framecrecat1b2.x = (float)currentFrametirb1 * (float)at1b2.width / 3;
+        framecrecat1b3.x = (float)currentFrametirb1 * (float)at1b3.width / 3;
+        framecrecat1b4.x = (float)currentFrametirb1 * (float)at1b4.width / 3;
+        framecrecat1b5.x = (float)currentFrametirb1 * (float)at1b5.width / 3;
+        framecrecat1b6.x = (float)currentFrametirb1 * (float)at1b6.width / 3;
+    }
 
-        if (framesCounter >= (60 / framesSpeedtirb))
-        {
-            currentFrametirb1++;
-            if (currentFrametirb1 >= 3) currentFrametirb1 = 0;
+    if (p.x > 4200 && p.x < 4510 && p.y <= 1220) FLOOR_Y = 1200;
+    if (p.x > 4600 && p.x < 5500 && p.y <= 1000) FLOOR_Y = 1000;
+    if (p.x > 5500 && p.x < 5785 && p.y <= 1220) FLOOR_Y = 1200;
+    if (p.x > 5800 && p.x < 6470 && p.y <= 1000) FLOOR_Y = 1000;
+    if (p.x > 6765 && p.x < 7515 && p.y <= 1000) FLOOR_Y = 1000;
+    if (p.x > 7570 && p.x < 7900 && p.y <= 1220) FLOOR_Y = 1200;
+    if (p.x > 10750 && p.x < 10900 && p.y <= 780) FLOOR_Y = 780;
+    if (p.x > 11250 && p.x < 11600 && p.y <= 1020) FLOOR_Y = 1020;
+    if (p.x > 11650 && p.x < 11850 && p.y <= 825) FLOOR_Y = 820;
+    if (p.x > 11850 && p.x < 11950 && p.y <= 825) FLOOR_Y = p.x * -0.4 + 5560, rampa = true;
+    if (p.x > 11950 && p.x < 12600 && p.y <= 785) FLOOR_Y = 780;
+    else if (p.x > 12300 && p.x < 12400 && p.y <= 980) FLOOR_Y = 980;
+    else if (p.x > 12150 && p.x < 12350 && p.y <= 1180) FLOOR_Y = 1180;
+    if (p.x > 12850 && p.x < 13200 && p.y <= 980) FLOOR_Y = 980;
+    if (p.x > 13400 && p.x < 13600 && p.y <= 780) FLOOR_Y = 780;
+    if (p.x > 18600 && p.x < 19100 && p.y <= 230) FLOOR_Y = 230;
+    else if (p.x > 18950 && p.x < 19150 && p.y <= 550) FLOOR_Y = 550;
+    else if (p.x > 19150 && p.x < 19350 && p.y <= 400) FLOOR_Y = 400;
+    if (p.x > 19350 && p.x < 19750 && p.y <= 230) FLOOR_Y = 230;
+    if (p.x > 19700) p.x = 19700;
 
-            framecrecat1b1.x = (float)currentFrametirb1 * (float)at1b1.width / 3;
-            framecrecat1b2.x = (float)currentFrametirb1 * (float)at1b2.width / 3;
-            framecrecat1b3.x = (float)currentFrametirb1 * (float)at1b3.width / 3;
-            framecrecat1b4.x = (float)currentFrametirb1 * (float)at1b4.width / 3;
-            framecrecat1b5.x = (float)currentFrametirb1 * (float)at1b5.width / 3;
-            framecrecat1b6.x = (float)currentFrametirb1 * (float)at1b6.width / 3;
-        }
+    if (o1.ox >= p.x && o1.ox <= p.x + 100 && o1.oy >= p.y - 20 && o1.oy <= p.y + 200)
+    {
+        o1.alive--;
+    }
 
-        if (p.x > 4200 && p.x < 4510 && p.y <= 1220) FLOOR_Y = 1200;
-        if (p.x > 4600 && p.x < 5500 && p.y <= 1000) FLOOR_Y = 1000;
-        if (p.x > 5500 && p.x < 5785 && p.y <= 1220) FLOOR_Y = 1200;
-        if (p.x > 5800 && p.x < 6470 && p.y <= 1000) FLOOR_Y = 1000;
-        if (p.x > 6765 && p.x < 7515 && p.y <= 1000) FLOOR_Y = 1000;
-        if (p.x > 7570 && p.x < 7900 && p.y <= 1220) FLOOR_Y = 1200;
-        if (p.x > 10750 && p.x < 10900 && p.y <= 780) FLOOR_Y = 780;
-        if (p.x > 11250 && p.x < 11600 && p.y <= 1020) FLOOR_Y = 1020;
-        if (p.x > 11650 && p.x < 11850 && p.y <= 825) FLOOR_Y = 820;
-        if (p.x > 11850 && p.x < 11950 && p.y <= 825) FLOOR_Y = p.x * -0.4 + 5560, rampa = true;
-        if (p.x > 11950 && p.x < 12600 && p.y <= 785) FLOOR_Y = 780;
-        else if (p.x > 12300 && p.x < 12400 && p.y <= 980) FLOOR_Y = 980;
-        else if (p.x > 12150 && p.x < 12350 && p.y <= 1180) FLOOR_Y = 1180;
-        if (p.x > 12850 && p.x < 13200 && p.y <= 980) FLOOR_Y = 980;
-        if (p.x > 13400 && p.x < 13600 && p.y <= 780) FLOOR_Y = 780;
-        if (p.x > 18600 && p.x < 19100 && p.y <= 230) FLOOR_Y = 230;
-        else if (p.x > 18950 && p.x < 19150 && p.y <= 550) FLOOR_Y = 550;
-        else if (p.x > 19150 && p.x < 19350 && p.y <= 400) FLOOR_Y = 400;
-        if (p.x > 19350 && p.x < 19750 && p.y <= 230) FLOOR_Y = 230;
-        if (p.x > 19700) p.x = 19700;
-        
-        if (o1.ox >= p.x && o1.ox <= p.x + 100 && o1.oy >= p.y - 20 && o1.oy <= p.y + 200)
-        {
-            o1.alive--;
-        }
 
 
         p.x += p.vx;
@@ -652,15 +650,24 @@ int main()
         if (p.x > worldWidth) { p.x = worldWidth;  if (p.vx > 0) p.vx = 0; }
 
         if (camera.target.x < p.x) camera.target.x = (float)p.x;
-        if (p.x >= 0 && p.x < 16200) {
+        if (p.x >= 0 && p.x < 16000) {
             camera.target.y = (float)1100;
         }
-        else if (p.x >= 16200 && p.x < 17800 && camera.target.y != 540) {
+        else if (p.x >= 16300 && p.x < 17800 && camera.target.y != 540) {
             camera.target.y = -0.35 * camera.target.x + 6770;
         }
         else {
             camera.target.y = (float)540;
         }
+        //if (p.x >= 0 && p.x < 16200) {
+        //    camera.target.y = (float)1100;
+        //}
+        //else if (p.x >= 16200 && p.x < 17800 && camera.target.y != 540) {
+        //    camera.target.y = -0.35 * camera.target.x + 6770;
+        //}
+        //else {
+        //    camera.target.y = (float)540;
+        //}
         float halfW = 975 / 2.0f;
         float halfH = 714 / 2.0f;
 
@@ -675,9 +682,6 @@ int main()
         const char* cpuntstext = puntstext.c_str();
         string punts = to_string(vpunts);
         const char* cpunts = punts.c_str();
-        
-        g.x = p.x;
-        g.y = p.y;
 
         BeginDrawing();
 
@@ -737,7 +741,7 @@ int main()
                 bullets[i].active = false;
             }
         }
-
+        DrawCircle(2000, 1100, 200, RED);
         //bales enemic basic
 
         for (int i = 0; i < MAX_BULLETSE; i++) {
@@ -1913,10 +1917,6 @@ int main()
                 bulletse[i].active = false;
             }
         }
-
-        g.Allahuakbar(p);
-        DrawRectangle(p.x, p.y, 100, 100, RED);
-
         EndDrawing();
     }
     CloseAudioDevice();
