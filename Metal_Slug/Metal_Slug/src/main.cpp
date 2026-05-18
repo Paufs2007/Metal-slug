@@ -30,7 +30,7 @@ public:
         canJump = false;
     }
 };
-
+    
 class Raig
 {
 public:
@@ -179,12 +179,10 @@ struct Bulleta3 {
     bool active;
 };
 
-
 //atacs jefe no eliminar
 bool raig = true;
 
 bool bola = false;
-
 
 int main()
 {
