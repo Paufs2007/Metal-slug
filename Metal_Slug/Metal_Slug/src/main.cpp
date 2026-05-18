@@ -301,7 +301,7 @@ int main()
     soldier s2 = { 5450, 605 };
     soldier s3 = { 10450, 605 };
     soldier Jorge = { 3200, 800 };
-    tank t1 = { 17000, 405 };
+    tank t1 = { 17000, 1000 };
 
     objecte o1 = { 5250, 605 };
 
@@ -318,6 +318,8 @@ int main()
     camera.offset = { 315, 350 };
     camera.rotation = 0.0f;
     camera.zoom = 0.65f;
+
+    Rectangle framerectbase = { 0, 0, (float)tbase.width / 4, (float)tbase.height };
 
     Rectangle framereceidle = { 0, 0, (float)sidle.width / 4, (float)sidle.height };
     Rectangle framerececorr = { 0, 0, (float)scor.width / 12, (float)scor.height };
@@ -407,6 +409,7 @@ int main()
             framereccamqe.x = (float)currentFrameidle * (float)p1camqe.width / 4;
             framerecbaix.x = (float)currentFrameidle * (float)p1baix.width / 4;
             framerecbaixe.x = (float)currentFrameidle * (float)p1baixe.width / 4;
+            framerectbase.x = (float)currentFrameidle * (float)tbase.width / 4;
             framerecscap.x = (float)currentFramsalt * (float)p1scap.width / 6;
             framerecscape.x = (float)currentFramsalt * (float)p1scape.width / 6;
             framerecscames.x = (float)currentFramsalt * (float)p1scames.width / 6;
@@ -739,8 +742,8 @@ int main()
             }
             if (bullets[i].x >= t1.tx && bullets[i].x <= t1.tx + 100 && bullets[i].y >= t1.ty && bullets[i].y <= t1.ty + 200)
             {
-                t1.thp--;
                 bullets[i].active = false;
+                t1.thp--;
             }
         }
 
@@ -866,6 +869,7 @@ int main()
         if (!inMenu && !winscreen && !lose) {
 
             if (IsKeyPressed(KEY_L))p.x = 19000; // USED FOR TESTING THE BOSS YOU STUPID ASS HOES
+            if (IsKeyPressed(KEY_X))p.x = 16500;
 
             if (gunCooldown > 0.0f) gunCooldown -= GetFrameTime();
 
@@ -1406,13 +1410,13 @@ int main()
         }
 
 
-        if (t1.thp == 50)
+        if (t1.thp >= 1)
         {
             if (t1.tvx == 0)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posidles1 = { (float)t1.tx, (float)t1.ty, framereceidle.width * 5, framereceidle.height * 5 };
-                DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
+                Rectangle posidles1 = { (float)t1.tx, (float)t1.ty, framerectbase.width * 5, framerectbase.height * 5 };
+                DrawTexturePro(tbase, framerectbase, posidles1, position, 0, WHITE);
                 DrawText(cix, t1.tx, t1.ty, 20, RED);
             }
             else if (t1.tvx < 0)
@@ -1790,6 +1794,8 @@ int main()
                 s2.ehp = 1;
                 killhim = false;
                 s3.ehp = 1;
+                t1.thp = 50;
+                bt1 = true;
                 o1.alive = 1;
                 Jorge.ehp = 1;
                 Jorge.ex = 3200;
