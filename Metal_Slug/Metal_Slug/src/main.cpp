@@ -62,7 +62,7 @@ public:
     int ty;
     int tvy;
     int tvx;
-    int thp = 50;
+    int thp = 20;
     int tfacing = 1; // 1 = right, -1 = left
     int tfacingy = 1; // 1 = up, -1 = down
     float tankShootTimer = 0.0f;
