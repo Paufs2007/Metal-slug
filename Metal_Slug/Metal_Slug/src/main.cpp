@@ -142,6 +142,16 @@ class granada {
     int direction;
     bool useGravity;
     bool active;
+    public:
+        float x, y;
+        float vx;
+        float vy;
+        int direction;
+        bool useGravity;
+        bool active;
+        void Allahuakbar(player p) {
+            DrawRectangle(x, y, 10, 10, RED);
+        }
 };
 
 struct Bullete {
@@ -349,6 +359,8 @@ int main()
     Rectangle frameRecidle = { 0, 0, (float)p1.width / 4, (float)p1.height };
 
     Rectangle frameRecmgun = { 0, 0, (float)mgun.width / 2, (float)mgun.height };
+
+    granada g;
 
     int currentFrameidle = 0;
     int currentFramcorrer = 0;
@@ -671,7 +683,13 @@ int main()
         string punts = to_string(vpunts);
         const char* cpunts = punts.c_str();
         
+        g.x = p.x;
+        g.y = p.y;
+
         BeginDrawing();
+
+        g.Allahuakbar(p);
+
         ClearBackground(BLACK);
         if (hitCooldown > 0.0f) hitCooldown -= GetFrameTime();
         if (shootCooldown > 0.0f) shootCooldown -= GetFrameTime();
