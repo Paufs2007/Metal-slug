@@ -216,6 +216,7 @@ int main()
     soundArray[6] = LoadSound("explode.mp3");
     soundArray[7] = LoadSound("Fahhhh.mp3");
     soundArray[8] = LoadSound("MACHINE_GUN.mp3");
+    soundArray[9] = LoadSound("LONG.mp3");
     SetSoundVolume(soundArray[7], 100.0f);
 
     musicArray[0] = LoadMusicStream("bo.mp3");
@@ -1901,6 +1902,7 @@ while (!WindowShouldClose())
                 if (konami == 9) {
                     konami++;
                     p.Omniman = true;
+                    PlaySound(soundArray[9]);
                 } else konami = 0;
             }
 
