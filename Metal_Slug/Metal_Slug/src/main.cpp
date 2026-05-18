@@ -53,7 +53,19 @@ public:
     int efacing = 1; // 1 = right, -1 = left
     int efacingy = 1; // 1 = up, -1 = down
     float enemyShootTimer = 0.0f;
+};
 
+class tank
+{
+public:
+    float tx;
+    int ty;
+    int tvy;
+    int tvx;
+    int thp = 1;
+    int tfacing = 1; // 1 = right, -1 = left
+    int tfacingy = 1; // 1 = up, -1 = down
+    float tankShootTimer = 0.0f;
 };
 
 class boss
@@ -127,7 +139,7 @@ class granada {
     float x, y;
     float vx;
     float vy;
-    int direction
+    int direction;
     bool useGravity;
     bool active;
 };
@@ -255,6 +267,7 @@ int main()
     Texture at1b4 = LoadTexture("at1b4.png");
     Texture at1b5 = LoadTexture("at1b5.png");
     Texture at1b6 = LoadTexture("at1b6.png");
+    Texture tbase = LoadTexture("tankbaix.png");
 
     Font timerNums = LoadFont("tipografia.png");
     Font whiteFont = LoadFont("nums1.png");
@@ -283,6 +296,7 @@ int main()
     soldier s2 = { 5450, 605 };
     soldier s3 = { 10450, 605 };
     soldier Jorge = { 3200, 800 };
+    tank t1 = { 19000, 700 };
 
     objecte o1 = { 5250, 605 };
 
@@ -1280,7 +1294,7 @@ int main()
                             bulletse[i].y = s2.ey + 30;
                             bulletse[i].vx = (p.x < s2.ex) ? -8.0f : 8.0f;
                             bulletse[i].vy = 0;
-                            bulletse[i].useGravity = false;
+                            bulletse[i].useGravity = true;
                             bulletse[i].active = true;
                             break;
                         }
@@ -1327,7 +1341,7 @@ int main()
                             bulletse[i].y = Jorge.ey + 30;
                             bulletse[i].vx = (p.x < Jorge.ex) ? -8.0f : 8.0f;
                             bulletse[i].vy = 0;
-                            bulletse[i].useGravity = false;
+                            bulletse[i].useGravity = true;
                             bulletse[i].active = true;
                             break;
                         }
@@ -1362,7 +1376,7 @@ int main()
                             bulletse[i].y = s3.ey + 30;
                             bulletse[i].vx = (p.x < s3.ex) ? -8.0f : 8.0f;
                             bulletse[i].vy = 0;
-                            bulletse[i].useGravity = false;
+                            bulletse[i].useGravity = true;
                             bulletse[i].active = true;
                             break;
                         }
