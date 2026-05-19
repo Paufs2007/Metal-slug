@@ -352,8 +352,6 @@ int main()
 
     Rectangle frameRecmgun = { 0, 0, (float)mgun.width / 2, (float)mgun.height };
 
-    granada g;
-
     int currentFrameidle = 0;
     int currentFramcorrer = 0;
     int currentFramsalt = 0;
@@ -748,7 +746,6 @@ while (!WindowShouldClose())
                 t1.thp--;
             }
         }
-        DrawCircle(2000, 1100, 200, RED);
         //bales enemic basic
 
         for (int i = 0; i < MAX_BULLETSE; i++) {
@@ -1361,7 +1358,7 @@ while (!WindowShouldClose())
             if (!inMenu && !winscreen && !lose)
             {
                 Jorge.enemyShootTimer += GetFrameTime();
-                if (Jorge.enemyShootTimer >= enemyShootInterval)
+                if (Jorge.enemyShootTimer >= enemyShootInterval && sqrt((p.x - Jorge.ex) * (p.x - Jorge.ex) + (p.y - Jorge.ey) * (p.y - Jorge.ey)) < 400)
                 {
                     Jorge.enemyShootTimer = 0.0f;
 
@@ -1384,6 +1381,11 @@ while (!WindowShouldClose())
 
                             bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
                             bulletse[i].active = true;
+
+                            if (bulletse[i].y >= 1300){
+                                PlaySound(soundArray[6]);
+                                if (sqrt((p.x - bulletse[i].x) * (p.x - bulletse[i].x) + (p.y - bulletse[i].y) * (p.y - bulletse[i].y)) < 400) p.vides--;
+                            }
                             break;
                         }
                     }
