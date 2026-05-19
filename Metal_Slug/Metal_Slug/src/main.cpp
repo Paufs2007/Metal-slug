@@ -151,6 +151,7 @@ struct Bullete {
 
     bool useGravity;
     bool active;
+    bool boom;
 };
 
 struct Bulleta1 {
@@ -595,6 +596,12 @@ while (!WindowShouldClose())
             if (bulletse[i].x < camLeft || bulletse[i].x > camRight ||
                 bulletse[i].y < camTop || bulletse[i].y > camBottom) {
                 bulletse[i].active = false;
+            }
+
+            if (bulletse[i].y >= FLOOR_Y+200 && !bulletse[i].boom) {
+                bulletse[i].boom = true;
+                PlaySound(soundArray[6]);
+                if (sqrt((p.x - bulletse[i].x) * (p.x - bulletse[i].x) + (p.y - bulletse[i].y) * (p.y - bulletse[i].y)) < 400) p.vides--;
             }
         }
 
@@ -1358,7 +1365,7 @@ while (!WindowShouldClose())
             if (!inMenu && !winscreen && !lose)
             {
                 Jorge.enemyShootTimer += GetFrameTime();
-                if (Jorge.enemyShootTimer >= enemyShootInterval && sqrt((p.x - Jorge.ex) * (p.x - Jorge.ex) + (p.y - Jorge.ey) * (p.y - Jorge.ey)) < 400)
+                if (Jorge.enemyShootTimer >= enemyShootInterval /* && sqrt((p.x - Jorge.ex) * (p.x - Jorge.ex) + (p.y - Jorge.ey) * (p.y - Jorge.ey)) < 1000*/)
                 {
                     Jorge.enemyShootTimer = 0.0f;
 
@@ -1366,6 +1373,7 @@ while (!WindowShouldClose())
                     {
                         if (!bulletse[i].active)
                         {
+                            bulletse[i].boom = false;
                             bulletse[i].x = Jorge.ex;
                             bulletse[i].y = Jorge.ey + 30;
 
@@ -1381,11 +1389,6 @@ while (!WindowShouldClose())
 
                             bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
                             bulletse[i].active = true;
-
-                            if (bulletse[i].y >= 1300){
-                                PlaySound(soundArray[6]);
-                                if (sqrt((p.x - bulletse[i].x) * (p.x - bulletse[i].x) + (p.y - bulletse[i].y) * (p.y - bulletse[i].y)) < 400) p.vides--;
-                            }
                             break;
                         }
                     }
