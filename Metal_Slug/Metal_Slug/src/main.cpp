@@ -590,8 +590,10 @@ while (!WindowShouldClose())
                 bulletse[i].vy += 0.5f; //Gravity strength
             }
 
-            bulletse[i].x += bulletse[i].vx;
-            bulletse[i].y += bulletse[i].vy;
+            if (!bulletse[i].boom) {
+                bulletse[i].x += bulletse[i].vx;
+                bulletse[i].y += bulletse[i].vy;
+            }
 
             if (bulletse[i].x < camLeft || bulletse[i].x > camRight ||
                 bulletse[i].y < camTop || bulletse[i].y > camBottom) {
@@ -602,6 +604,11 @@ while (!WindowShouldClose())
                 bulletse[i].boom = true;
                 PlaySound(soundArray[6]);
                 if (sqrt((p.x - bulletse[i].x) * (p.x - bulletse[i].x) + (p.y - bulletse[i].y) * (p.y - bulletse[i].y)) < 400) p.vides--;
+                while (IsSoundPlaying(soundArray[6]))
+                {
+                    bulletse[i].active = true;
+                }
+                bulletse[i].active = false;
             }
         }
 
