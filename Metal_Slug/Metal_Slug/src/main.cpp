@@ -1816,6 +1816,7 @@ while (!WindowShouldClose())
             if (IsKeyPressed(KEY_C)) p.credits++;
 
             if (IsKeyPressed(KEY_R)) {
+                p.Omniman = false;
                 lose = false;
                 vpunts -= vpunts;
                 KevinTheFuckingBoss = true;
@@ -1838,6 +1839,7 @@ while (!WindowShouldClose())
                 startTimer(&vidaTimer, timerlife);
 
                 ResumeMusicStream(musicArray[0]);
+                StopSound(soundArray[9]);
 
                 p.x = 400;
                 p.y = 1220;
@@ -1930,6 +1932,7 @@ while (!WindowShouldClose())
             DrawTexturePro(win, src3, dest3, { 0, 0 }, 0.0f, WHITE);
             DrawText("PRESS P TO RETURN TO MENU\nPRESS R TO RESTART LEVEL", 375, 800, 40, RED);
             if (IsKeyPressed(KEY_P)) {
+                p.Omniman = false;
                 winscreen = false;
                 inMenu = true;
                 winSoundPlayed = false;
@@ -1954,6 +1957,7 @@ while (!WindowShouldClose())
                 timerlife = 450;
                 startTimer(&vidaTimer, timerlife);
 
+                StopSound(soundArray[9]);
                 ResumeMusicStream(musicArray[0]);
 
                 p.x = 400;
