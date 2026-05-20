@@ -2,7 +2,6 @@
 #include "resource_dir.h"
 #include <string>
 #include <raymath.h>
-#include <cmath>
 using namespace std;
 #define MAX_FRAME_SPEED 15
 #define MIN_FRAME_SPEED  1
@@ -603,7 +602,7 @@ while (!WindowShouldClose())
             if (bulletse[i].y >= FLOOR_Y+200 && !bulletse[i].boom) {
                 bulletse[i].boom = true;
                 PlaySound(soundArray[6]);
-                if (sqrt((p.x - bulletse[i].x) * (p.x - bulletse[i].x) + (p.y - bulletse[i].y) * (p.y - bulletse[i].y)) < 400) p.vides--;
+                if (!p.Omniman && sqrt((p.x - bulletse[i].x) * (p.x - bulletse[i].x) + (p.y - bulletse[i].y) * (p.y - bulletse[i].y)) < 400) p.vides--;
                 while (IsSoundPlaying(soundArray[6]))
                 {
                     bulletse[i].active = true;
@@ -1372,10 +1371,10 @@ while (!WindowShouldClose())
             if (!inMenu && !winscreen && !lose)
             {
                 Jorge.enemyShootTimer += GetFrameTime();
-                if (Jorge.enemyShootTimer >= enemyShootInterval /* && sqrt((p.x - Jorge.ex) * (p.x - Jorge.ex) + (p.y - Jorge.ey) * (p.y - Jorge.ey)) < 1000*/)
+                if (Jorge.enemyShootTimer >= enemyShootInterval)
                 {
                     Jorge.enemyShootTimer = 0.0f;
-
+                    //Jorge.evx = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
                         if (!bulletse[i].active)
