@@ -269,6 +269,7 @@ int main()
     Texture at1b6 = LoadTexture("at1b6.png");
     Texture tbase = LoadTexture("tankbaix.png");
     Texture porxoavio = LoadTexture("avioporxos.png");
+    Texture peix = LoadTexture("peix.png");
 
     Font timerNums = LoadFont("prova 2 tipografia.png");
     Font whiteFont = LoadFont("nums1.png");
@@ -314,6 +315,8 @@ int main()
     camera.offset = { 315, 350 };
     camera.rotation = 0.0f;
     camera.zoom = 0.65f;
+
+    Rectangle framerectpeix = { 0, 0, (float)peix.width / 3, (float)peix.height };
 
     Rectangle framerectbase = { 0, 0, (float)tbase.width / 4, (float)tbase.height };
 
@@ -370,11 +373,11 @@ int main()
     const int MAX_BULLETS = 100;
     Bullet bullets[MAX_BULLETS] = {};
     const int MAX_BULLETSA1 = 3;
-    Bulleta1 bulletsa1[MAX_BULLETSE] = {};
+    Bulleta1 bulletsa1[MAX_BULLETSA1] = {};
     const int MAX_BULLETSA2 = 1;
-    Bulleta2 bulletsa2[MAX_BULLETS] = {};
+    Bulleta2 bulletsa2[MAX_BULLETSA2] = {};
     const int MAX_BULLETSA3 = 1;
-    Bulleta3 bulletsa3[MAX_BULLETS] = {};
+    Bulleta3 bulletsa3[MAX_BULLETSA3] = {};
 
 
 while (!WindowShouldClose())
@@ -446,6 +449,8 @@ while (!WindowShouldClose())
         framecrecat1b4.x = (float)currentFrametirb1 * (float)at1b4.width / 3;
         framecrecat1b5.x = (float)currentFrametirb1 * (float)at1b5.width / 3;
         framecrecat1b6.x = (float)currentFrametirb1 * (float)at1b6.width / 3;
+
+        framerectpeix.x = (float)currentFrametirb1 * (float)peix.width / 3;
     }
 
     if (p.x > 4200 && p.x < 4510 && p.y <= 1220) FLOOR_Y = 1200;
@@ -794,7 +799,7 @@ while (!WindowShouldClose())
 
         //bales atac 1 jefe (morter) // el fa durant primera fase i nomes si arribes a la segona plataforma durnat 2na fase
 
-        for (int i = 0; i < MAX_BULLETSE; i++) {
+        for (int i = 0; i < MAX_BULLETSA1; i++) {
             if (!bulletsa1[i].active) continue;
             //atac 1
             Vector2 position = { framecrecat1b1.width * 4.75f / 2, framecrecat1b1.height * 4.75f / 2 };
@@ -841,12 +846,12 @@ while (!WindowShouldClose())
 
         //bales atac 2 jefe (laser) // durant segona fase l'alterna entre raig i bola vaixa constantment sense importar la distancia
 
-        for (int i = 0; i < MAX_BULLETSE; i++) {
-            if (!bulletse[i].active) continue;
-            DrawTexture(bulletee, (int)bulletse[i].x, (int)bulletse[i].y, WHITE);
-            if (!p.Omniman && bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y && bulletse[i].y <= p.y + 200 && p.isajupit == -1 || !p.Omniman && bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y + 100 && bulletse[i].y <= p.y + 200 && p.isajupit == 1)
+        for (int i = 0; i < MAX_BULLETSA2; i++) {
+            if (!bulletsa2[i].active) continue;
+            DrawTexture(bulletee, (int)bulletsa2[i].x, (int)bulletsa2[i].y, WHITE);
+            if (!p.Omniman && bulletsa2[i].x >= p.x && bulletsa2[i].x <= p.x + 100 && bulletsa2[i].y >= p.y && bulletsa2[i].y <= p.y + 200 && p.isajupit == -1 || !p.Omniman && bulletsa2[i].x >= p.x && bulletsa2[i].x <= p.x + 100 && bulletsa2[i].y >= p.y + 100 && bulletsa2[i].y <= p.y + 200 && p.isajupit == 1)
             {
-                bulletse[i].active = false;
+                bulletsa2[i].active = false;
                 hitCooldown = 1.5f;
                 p.vides--;
                 p.vx = 0;
@@ -865,7 +870,7 @@ while (!WindowShouldClose())
 
         //bales atac 3 jefe (bola terra)
 
-        for (int i = 0; i < MAX_BULLETSE; i++) {
+        for (int i = 0; i < MAX_BULLETSA3; i++) {
             if (!bulletsa3[i].active) continue;
             DrawTexture(bulletee, (int)bulletsa3[i].x, (int)bulletsa3[i].y, WHITE);
             if (!p.Omniman && bulletsa3[i].x >= p.x && bulletsa3[i].x <= p.x + 100 && bulletsa3[i].y >= p.y && bulletsa3[i].y <= p.y + 200 && p.isajupit == -1 || !p.Omniman && bulletsa3[i].x >= p.x && bulletsa3[i].x <= p.x + 100 && bulletsa3[i].y >= p.y + 100 && bulletsa3[i].y <= p.y + 200 && p.isajupit == 1)
@@ -1079,7 +1084,7 @@ while (!WindowShouldClose())
                             s1.burstTimer = 0.0f;
                             s1.burstCount--;
 
-                            for (int i = 0; i < MAX_BULLETSE; i++)
+                            for (int i = 0; i < MAX_BULLETSA1; i++)
                             {
                                 if (!bulletsa1[i].active)
                                 {
@@ -1134,7 +1139,7 @@ while (!WindowShouldClose())
                                     s1.burstTimer = 0.0f;
                                     s1.burstCount--;
 
-                                    for (int i = 0; i < MAX_BULLETSE; i++)
+                                    for (int i = 0; i < MAX_BULLETSA1; i++)
                                     {
                                         if (!bulletsa1[i].active)
                                         {
@@ -1175,12 +1180,12 @@ while (!WindowShouldClose())
                                     s1.enemyShootTimer = 0.0f;
 
                                     // Posicio inicial
-                                    for (int i = 0; i < MAX_BULLETSE; i++)
+                                    for (int i = 0; i < MAX_BULLETSA2; i++)
                                     {
-                                        if (!bulletse[i].active)
+                                        if (!bulletsa2[i].active)
                                         {
-                                            bulletse[i].x = s1.ex;
-                                            bulletse[i].y = s1.ey - 25 ;
+                                            bulletsa2[i].x = s1.ex;
+                                            bulletsa2[i].y = s1.ey - 25 ;
 
                                             // Direccio cap al jugador
                                             float dx = p.x - s1.ex - 20;
@@ -1192,10 +1197,10 @@ while (!WindowShouldClose())
                                             // Normalitzar + velocitat lenta
                                             float speed = 20.0f;
 
-                                            bulletse[i].vx = (dx / length) * speed;
+                                            bulletsa2[i].vx = (dx / length) * speed;
 
-                                            bulletse[i].active = true;
-                                            bulletse[i].useGravity = false;
+                                            bulletsa2[i].active = true;
+                                            bulletsa2[i].useGravity = false;
 
                                             raig = false;
                                             bola = true;
@@ -1213,13 +1218,13 @@ while (!WindowShouldClose())
                                 {
                                     s1.enemyShootTimer = 0.0f;
 
-                                    for (int i = 0; i < MAX_BULLETSE; i++)
+                                    for (int i = 0; i < MAX_BULLETSA3; i++)
                                     {
-                                        if (!bulletse[i].active)
+                                        if (!bulletsa3[i].active)
                                         {
                                             // Posicio inicial
-                                            bulletse[i].x = s1.ex;
-                                            bulletse[i].y = s1.ey + 100;
+                                            bulletsa3[i].x = s1.ex;
+                                            bulletsa3[i].y = s1.ey + 100;
 
                                             // Direccio cap al jugador
                                             float dx = p.x - s1.ex;
@@ -1231,10 +1236,10 @@ while (!WindowShouldClose())
                                             // Normalitzar + velocitat lenta
                                             float speed = 8.0f;
 
-                                            bulletse[i].vx = (dx / length) * speed;
+                                            bulletsa3[i].vx = (dx / length) * speed;
 
-                                            bulletse[i].active = true;
-                                            bulletse[i].useGravity = false;
+                                            bulletsa3[i].active = true;
+                                            bulletsa3[i].useGravity = false;
 
                                             raig = true;
                                             bola = false;
@@ -1736,12 +1741,15 @@ while (!WindowShouldClose())
         //escenari davant jugador
 
         //porxo
-        Rectangle p1 = { 0, 0, porxoavio.width, porxoavio.height };
-        Rectangle p2 = { 6800, 1180, porxoavio.width * 5, porxoavio.height * 5};
-        Vector2 origin = { 0, 0 };
-        DrawTexturePro(porxoavio, p1, p2, origin, 0.0f, WHITE);
+        Rectangle p1porxo = { 0, 0, porxoavio.width, porxoavio.height };
+        Rectangle p2porxo = { 6800, 1180, porxoavio.width * 5, porxoavio.height * 5};
+        Vector2 originporxo = { 0, 0 };
+        DrawTexturePro(porxoavio, p1porxo, p2porxo, originporxo, 0.0f, WHITE);
         
-
+        // peix
+        //Rectangle p2peix = { 13400, 1280, porxoavio.width * 0.75, porxoavio.height * 1.75 };
+        //Vector2 originpeix = { 0, 0 };
+        //DrawTexturePro(peix, framerectpeix, p2peix, originpeix, 0.0f, WHITE);
 
         EndMode2D();
 
@@ -1857,7 +1865,7 @@ while (!WindowShouldClose())
                 bJorge = true;
                 os1 = true;
                 winscreen = false;
-                s1.ehp = 10;
+                s1.ehp = 100;
                 s2.ehp = 1;
                 killhim = false;
                 s3.ehp = 1;
@@ -2062,6 +2070,15 @@ while (!WindowShouldClose())
             for (int i = 0; i < MAX_BULLETSE; i++) {
                 bulletse[i].active = false;
             }
+            for (int i = 0; i < MAX_BULLETSA1; i++) {
+                bulletsa1[i].active = false;
+            }
+            for (int i = 0; i < MAX_BULLETSA2; i++) {
+                bulletsa2[i].active = false;
+            }
+            for (int i = 0; i < MAX_BULLETSA3; i++) {
+                bulletsa3[i].active = false;
+            }
         }
         EndDrawing();
     }
@@ -2111,6 +2128,7 @@ while (!WindowShouldClose())
     UnloadTexture(at1b6);
     UnloadTexture(tbase);
     UnloadTexture(porxoavio);
+    UnloadTexture(peix);
     CloseWindow();
     return 0;
 }
