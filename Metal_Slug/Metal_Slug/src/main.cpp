@@ -668,7 +668,7 @@ while (!WindowShouldClose())
         }
 
         for (int i = 0; i < MAX_BULLETSA2; i++) {
-            if (!bulletse[i].active) continue;
+            if (!bulletsa2[i].active) continue;
 
             if (bulletsa2[i].useGravity) {
                 bulletsa2[i].vy += 0.5f; //Gravity strength
@@ -1921,23 +1921,15 @@ while (!WindowShouldClose())
                 UpdateMusicStream(musicArray[0]);
             }
             if (IsKeyPressed(KEY_M)) {
-                SetSoundVolume(soundArray[0], 0.0f);
-                SetSoundVolume(soundArray[1], 0.0f);
-                SetSoundVolume(soundArray[2], 0.0f);
-                SetSoundVolume(soundArray[4], 0.0f);
-                SetSoundVolume(soundArray[5], 0.0f);
-
+                for (int i = 0; i < 10; i++)
+                    SetSoundVolume(soundArray[i], 0.0f);
                 PauseMusicStream(musicArray[0]);
                 music = false;
             }
             if (IsKeyPressed(KEY_N)) {
-
-                SetSoundVolume(soundArray[0], 1.0f);
-                SetSoundVolume(soundArray[1], 1.0f);
-                SetSoundVolume(soundArray[2], 1.0f);
-                SetSoundVolume(soundArray[4], 1.0f);
-                SetSoundVolume(soundArray[5], 1.0f);
-
+                for (int i = 0; i < 10; i++)
+                    SetSoundVolume(soundArray[i], 1.0f);
+                SetSoundVolume(soundArray[7], 100.0f); // restore Fahhhh's original loud volume
                 ResumeMusicStream(musicArray[0]);
                 music = true;
             }
@@ -1977,6 +1969,10 @@ while (!WindowShouldClose())
                 s2.ex = 5450;
                 s2.evx = 0;
                 s3.ehp = 1;
+
+                t1.tx = 17000;
+                t1.ty = 1000;
+                t1.tvy = 0;
 
                 camera.target.x = p.x;
                 camera.target.y = 1100;
@@ -2071,6 +2067,7 @@ while (!WindowShouldClose())
                 bs2 = true;
                 bs3 = true;
                 bJorge = true;
+                bt1 = true;
                 os1 = true;
                 winscreen = false;
                 killhim = false;
@@ -2096,6 +2093,10 @@ while (!WindowShouldClose())
                 s2.ex = 5450;
                 s2.evx = 0;
                 s3.ehp = 1;
+
+                t1.tx = 17000;
+                t1.ty = 1000;
+                t1.tvy = 0;
 
                 camera.target.x = p.x;
                 camera.target.y = 1100;
@@ -2130,6 +2131,7 @@ while (!WindowShouldClose())
                 s2.ehp = 1;
                 s3.ehp = 1;
                 p.vides = 3;
+                bt1 = true;
                 o1.alive = 1;
                 t1.thp = 25;
                 killhim = false;
@@ -2148,6 +2150,10 @@ while (!WindowShouldClose())
                 s2.ex = 5450;
                 s2.evx = 0;
                 s3.ehp = 1;
+
+                t1.tx = 17000;
+                t1.ty = 1000;
+                t1.tvy = 0;
 
                 camera.target.x = p.x;
                 camera.target.y = 1100;
