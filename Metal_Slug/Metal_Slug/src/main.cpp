@@ -470,7 +470,7 @@ while (!WindowShouldClose())
     if (p.x > 5800 && p.x < 6470 && p.y <= 1000) FLOOR_Y = 1000;
     if (p.x > 6765 && p.x < 7515 && p.y <= 1000) FLOOR_Y = 1000;
     if (p.x > 7570 && p.x < 7900 && p.y <= 1220) FLOOR_Y = 1200;
-    if (p.x > 6765 && p.x < 7515 && p.y <= 1300 && p.y > 1000)  p.vy = -5;
+    if (p.x > 6765 && p.x < 7515 && p.y <= 1300 && p.y > 1295)  p.vy = -5;
     if (p.x > 10750 && p.x < 10900 && p.y <= 780) FLOOR_Y = 780;
     if (p.x > 11250 && p.x < 11600 && p.y <= 1020) FLOOR_Y = 1020;
     if (p.x > 11650 && p.x < 11850 && p.y <= 825) FLOOR_Y = 820;
