@@ -269,8 +269,9 @@ int main()
     Texture at1b6 = LoadTexture("at1b6.png");
     Texture tbase = LoadTexture("tankbaix.png");
     Texture porxoavio = LoadTexture("avioporxos.png");
+    Texture peix = LoadTexture("peix.png");
 
-    Font timerNums = LoadFont("tipografia.png");
+    Font timerNums = LoadFont("prova 2 tipografia.png");
     Font whiteFont = LoadFont("nums1.png");
     Font yellowFont = LoadFont("nums1.png");
 
@@ -314,6 +315,8 @@ int main()
     camera.offset = { 315, 350 };
     camera.rotation = 0.0f;
     camera.zoom = 0.65f;
+
+    Rectangle framerectpeix = { 0, 0, (float)peix.width / 3, (float)peix.height };
 
     Rectangle framerectbase = { 0, 0, (float)tbase.width / 4, (float)tbase.height };
 
@@ -446,6 +449,8 @@ while (!WindowShouldClose())
         framecrecat1b4.x = (float)currentFrametirb1 * (float)at1b4.width / 3;
         framecrecat1b5.x = (float)currentFrametirb1 * (float)at1b5.width / 3;
         framecrecat1b6.x = (float)currentFrametirb1 * (float)at1b6.width / 3;
+
+        framerectpeix.x = (float)currentFrametirb1 * (float)peix.width / 3;
     }
 
     if (p.x > 4200 && p.x < 4510 && p.y <= 1220) FLOOR_Y = 1200;
@@ -690,10 +695,13 @@ while (!WindowShouldClose())
         if (camera.target.x < halfW)              camera.target.x = halfW;
         if (camera.target.x > worldWidth - halfW) camera.target.x = worldWidth - halfW;
 
+        int vitimi = (int)vidaTimer.lifetime;
         string ix = to_string(p.x);
         string iy = to_string(p.y);
+        string viti = to_string(vitimi);
         const char* cix = ix.c_str();
         const char* ciy = iy.c_str();
+        const char* cviti = viti.c_str();
         string puntstext = "Punts: ";
         const char* cpuntstext = puntstext.c_str();
         string punts = to_string(vpunts);
@@ -711,8 +719,7 @@ while (!WindowShouldClose())
 
         DrawTexturePro(bg, src, dest, { 0,0 }, 0.0f, WHITE);
         Vector2 positiont = {p.x+100, p.y-100 };
-        DrawTextEx(timerNums, "0123456789", positiont, 50, 0, WHITE); //-------------------------------------------------------------------------------------------------------------------------------------
-
+        
         //escenari
         
         
@@ -1734,12 +1741,15 @@ while (!WindowShouldClose())
         //escenari davant jugador
 
         //porxo
-        Rectangle p1 = { 0, 0, porxoavio.width, porxoavio.height };
-        Rectangle p2 = { 6800, 1180, porxoavio.width * 5, porxoavio.height * 5};
-        Vector2 origin = { 0, 0 };
-        DrawTexturePro(porxoavio, p1, p2, origin, 0.0f, WHITE);
+        Rectangle p1porxo = { 0, 0, porxoavio.width, porxoavio.height };
+        Rectangle p2porxo = { 6800, 1180, porxoavio.width * 5, porxoavio.height * 5};
+        Vector2 originporxo = { 0, 0 };
+        DrawTexturePro(porxoavio, p1porxo, p2porxo, originporxo, 0.0f, WHITE);
         
-
+        // peix
+        //Rectangle p2peix = { 13400, 1280, porxoavio.width * 0.75, porxoavio.height * 1.75 };
+        //Vector2 originpeix = { 0, 0 };
+        //DrawTexturePro(peix, framerectpeix, p2peix, originpeix, 0.0f, WHITE);
 
         EndMode2D();
 
@@ -1882,9 +1892,8 @@ while (!WindowShouldClose())
                 camera.target.x = p.x;
                 camera.target.y = 1100;
             }
-
-
-            DrawText(TextFormat("%d", (int)vidaTimer.lifetime), 975 / 2, 20, 30, RED);
+            Vector2 clock = {340, 0};
+            DrawTextEx(timerNums, TextFormat("%d", (int)vidaTimer.lifetime), clock, 120, -60, WHITE);
             updatetimer(&vidaTimer);
 
             if ((int)vidaTimer.lifetime == 0)
@@ -2119,6 +2128,7 @@ while (!WindowShouldClose())
     UnloadTexture(at1b6);
     UnloadTexture(tbase);
     UnloadTexture(porxoavio);
+    UnloadTexture(peix);
     CloseWindow();
     return 0;
 }
