@@ -287,6 +287,7 @@ int main()
     int timerlife = 450;
     Timer vidaTimer = { 0 };
     startTimer(&vidaTimer, timerlife);
+    Timer omnimanTimer = { 0 };
 
     float gunCooldown = 0.0f;
 
@@ -307,11 +308,15 @@ int main()
     soldier s2 = { 5450, 605 };
     soldier s3 = { 10450, 605 };
     soldier Jorge = { 3200, 800 };
-    tank t1 = { 17000, 1000 };
+    tank t1 = { 17500, 400 };
 
     objecte o1 = { 5250, 605 };
 
+    objecte o2 = { 8250, 605 };
+
+
     bool os1 = true;
+    bool os2 = true;
     bool killhim = false;
 
     bool KevinTheFuckingBoss = true;
@@ -491,6 +496,11 @@ while (!WindowShouldClose())
         o1.alive--;
     }
 
+    if (o2.ox >= p.x && o2.ox <= p.x + 100 && o2.oy >= p.y - 20 && o2.oy <= p.y + 200)
+    {
+        o2.alive--;
+    }
+
 
         p.x += p.vx;
         p.y -= p.vy/2;
@@ -548,6 +558,15 @@ while (!WindowShouldClose())
             o1.ovy = 0;
         }
 
+        o2.oy += o2.ovy;
+        o2.ovy += 4;
+
+        if (o2.oy >= FLOOR_Y)
+        {
+            o2.oy = FLOOR_Y;
+            o2.ovy = 0;
+        }
+
         s3.ey += s3.vy;
         s3.vy += 4;
 
@@ -557,28 +576,43 @@ while (!WindowShouldClose())
             s3.vy = 0;
         }
 
+
+        int tankFloor = 1380;
+
+        if (t1.tx > 16300) tankFloor = t1.tx * -0.8 + 14420;
+        if (t1.tx > 16550) tankFloor = 1180;
+        if (t1.tx > 16750) tankFloor = t1.tx * -0.6 + 11230;
+        if (t1.tx > 17000) tankFloor = 1030;
+        if (t1.tx > 17150) tankFloor = t1.tx * -0.75 + 13892.5;
+        if (t1.tx > 17350) tankFloor = 880;
+        if (t1.tx > 17550) tankFloor = t1.tx * -0.9 + 16675;
+        if (t1.tx > 17750) tankFloor = 700;
+
         t1.ty += t1.tvy;
         t1.tvy += 4;
 
-        if (t1.ty >= 880)  
+        if (t1.tvy >= 0 && t1.ty > tankFloor - 10) t1.ty = tankFloor;
+
+        if (t1.ty >= tankFloor)
         {
-            t1.ty = 880;
+            t1.ty = tankFloor;
             t1.tvy = 0;
         }
 
-        //const float tankStopDistance = 00.0f; 
-        //float distToPlayer = p.x - t1.tx;
+        const float tankStopDistance = 350.00f;
+        float distToPlayer = p.x - t1.tx;
 
-        //if (abs(distToPlayer) > tankStopDistance)
-        //{
-        //    t1.tvx = (distToPlayer > 0) ? 3 : -3; 
-        //}
-        //else
-        //{
-        //    t1.tvx = 0;
-        //}
+        if (p.x > 16000 && distToPlayer < -tankStopDistance)
+        {
+            t1.tvx = -3;
+        }
+        else if (abs(distToPlayer) <= tankStopDistance || p.x <= 16000)
+        {
+            t1.tvx = 0;
+        }
 
-        //t1.tx += t1.tvx;
+        t1.tx += t1.tvx;
+
 
         float camLeft = camera.target.x - (camera.offset.x) / camera.zoom;
         float camRight = camera.target.x + 975;
@@ -640,14 +674,10 @@ while (!WindowShouldClose())
                 bulletse[i].active = false;
             }
 
-            if (bulletse[i].y >= FLOOR_Y+200 && !bulletse[i].boom) {
+            if (bulletse[i].y >= FLOOR_Y + 200 && !bulletse[i].boom) {
                 bulletse[i].boom = true;
                 PlaySound(soundArray[6]);
                 if (!p.Omniman && sqrt((p.x - bulletse[i].x) * (p.x - bulletse[i].x) + (p.y - bulletse[i].y) * (p.y - bulletse[i].y)) < 400) p.vides--;
-                while (IsSoundPlaying(soundArray[6]))
-                {
-                    bulletse[i].active = true;
-                }
                 bulletse[i].active = false;
             }
         }
@@ -1063,7 +1093,23 @@ while (!WindowShouldClose())
             os1 = false;
             killhim = true;
             machineGunAmmo = 200;
+        }
 
+        if (o2.alive == 1)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posmgun = { (float)o2.ox, 1380, frameRecmgun.width * 5, frameRecmgun.height * 5 };
+            DrawTexturePro(mgun, frameRecmgun, posmgun, position, 0, WHITE);
+        }
+        else if (os2)
+        {
+            PlaySound(soundArray[9]);
+            PauseMusicStream(musicArray[0]);
+            vpunts = vpunts + 100;
+            os2 = false;
+            p.Omniman = true;
+
+            startTimer(&omnimanTimer, 20.0f);
         }
 
 
@@ -1410,6 +1456,7 @@ while (!WindowShouldClose())
                         {
                             if (!bulletse[i].active)
                             {
+                                bulletse[i].boom = false;
                                 bulletse[i].x = s2.ex;
                                 bulletse[i].y = s2.ey + 30;
 
@@ -1514,6 +1561,7 @@ while (!WindowShouldClose())
                     {
                         if (!bulletse[i].active)
                         {
+                            bulletse[i].boom = false;
                             bulletse[i].x = s3.ex;
                             bulletse[i].y = s3.ey + 30;
 
@@ -1826,6 +1874,17 @@ while (!WindowShouldClose())
 
         }
 
+        if (p.Omniman)
+        {
+            updatetimer(&omnimanTimer);
+            if (TimerDone(&omnimanTimer))
+            {
+                p.Omniman = false;
+                PauseSound(soundArray[9]);
+                ResumeMusicStream(musicArray[0]);
+            }
+        }
+
         //escenari davant jugador
 
         //porxo
@@ -1946,6 +2005,7 @@ while (!WindowShouldClose())
                 bs3 = true;
                 bJorge = true;
                 os1 = true;
+                os2 = true;
                 winscreen = false;
                 s1.ehp = 100;
                 s2.ehp = 1;
@@ -1954,10 +2014,12 @@ while (!WindowShouldClose())
                 t1.thp = 25;
                 bt1 = true;
                 o1.alive = 1;
+                o2.alive = 1;
                 Jorge.ehp = 1;
                 Jorge.ex = 3200;
                 winSoundPlayed = false;
                 timerlife = 450;
+                omnimanTimer = { 0 };
                 startTimer(&vidaTimer, timerlife);
 
                 ResumeMusicStream(musicArray[0]);
@@ -1970,10 +2032,13 @@ while (!WindowShouldClose())
                 s2.ex = 5450;
                 s2.evx = 0;
                 s3.ehp = 1;
+                s3.ex = 10450;
 
-                t1.tx = 17000;
-                t1.ty = 1000;
+
+                t1.tx = 17500;
+                t1.ty = 880;
                 t1.tvy = 0;
+                t1.tvx = 0;
 
                 camera.target.x = p.x;
                 camera.target.y = 1100;
@@ -2070,6 +2135,7 @@ while (!WindowShouldClose())
                 bJorge = true;
                 bt1 = true;
                 os1 = true;
+                os2 = true;
                 winscreen = false;
                 killhim = false;
                 s1.ehp = 100;
@@ -2077,11 +2143,13 @@ while (!WindowShouldClose())
                 s2.ehp = 1;
                 s3.ehp = 1;
                 o1.alive = 1;
+                o2.alive = 1;
                 Jorge.ehp = 1;
                 t1.thp = 25;
                 Jorge.ex = 3200;
                 winSoundPlayed = false;
                 timerlife = 450;
+                omnimanTimer = { 0 };
                 startTimer(&vidaTimer, timerlife);
 
                 StopSound(soundArray[9]);
@@ -2094,10 +2162,12 @@ while (!WindowShouldClose())
                 s2.ex = 5450;
                 s2.evx = 0;
                 s3.ehp = 1;
+                s3.ex = 10450;
 
-                t1.tx = 17000;
-                t1.ty = 1000;
+                t1.tx = 17500;
+                t1.ty = 880;
                 t1.tvy = 0;
+                t1.tvx = 0;
 
                 camera.target.x = p.x;
                 camera.target.y = 1100;
@@ -2127,6 +2197,7 @@ while (!WindowShouldClose())
                 bs3 = true;
                 bJorge = true;
                 os1 = true;
+                os2 = true;
                 winscreen = false;
                 s1.ehp = 100;
                 s2.ehp = 1;
@@ -2134,12 +2205,14 @@ while (!WindowShouldClose())
                 p.vides = 3;
                 bt1 = true;
                 o1.alive = 1;
+                o2.alive = 1;
                 t1.thp = 25;
                 killhim = false;
                 Jorge.ehp = 1;
                 Jorge.ex = 3200;
                 winSoundPlayed = false;
                 timerlife = 450;
+                omnimanTimer = { 0 };
                 startTimer(&vidaTimer, timerlife);
 
                 ResumeMusicStream(musicArray[0]);
@@ -2151,10 +2224,13 @@ while (!WindowShouldClose())
                 s2.ex = 5450;
                 s2.evx = 0;
                 s3.ehp = 1;
+                s3.ex = 10450;
 
-                t1.tx = 17000;
-                t1.ty = 1000;
+
+                t1.tx = 17500;
+                t1.ty = 880;
                 t1.tvy = 0;
+                t1.tvx = 0;
 
                 camera.target.x = p.x;
                 camera.target.y = 1100;
