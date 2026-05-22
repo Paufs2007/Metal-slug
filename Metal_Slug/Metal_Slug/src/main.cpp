@@ -272,7 +272,7 @@ int main()
     Texture peix = LoadTexture("peix.png");
 
     Font timerNums = LoadFont("prova 2 tipografia.png");
-    Font whiteFont = LoadFont("nums1.png");
+    Font whiteFont = LoadFont("tipografia gris.png");
     Font yellowFont = LoadFont("nums1.png");
 
     int timerlife = 450;
@@ -1802,8 +1802,8 @@ while (!WindowShouldClose())
 
             int textWidth = MeasureText(cpunts, 30);
 
-
-            DrawText(TextFormat("%i", p.credits), 975 - textWidth - 100, 714 - 100, 40, RED);
+            Vector2 cartera = { 975 - textWidth - 100, 714 - 100 };
+            DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera, 100, -60, WHITE); //Afegir imatge "CREDIT "
             if (IsKeyPressed(KEY_C))
                 p.credits++;
             if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
@@ -1816,14 +1816,16 @@ while (!WindowShouldClose())
 
             int textWidth = MeasureText(cpunts, 30);
 
-            DrawText(TextFormat("%i", p.credits), 975 - textWidth - 100, 714 - 100, 40, RED);
-            DrawText(cpuntstext, 975 - textWidth - 140, 20, 30, RED);
-            DrawText(cpunts, 975 - textWidth - 40, 20, 30, RED);
-            DrawText(TextFormat("%i", p.vides), 20, 20, 30, RED);
+            Vector2 cartera2 = { 975 - textWidth - 100, 714 - 100 };
+            DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera2, 100, -60, WHITE); //Afegir imatge "CREDIT "
+            Vector2 health2 = { 100, -30 };
+            DrawTextEx(whiteFont, cpunts, health2, 100, -60, WHITE);
+            Vector2 health = { 100, 40 };
+            DrawTextEx(yellowFont, TextFormat("%d", p.vides), health, 100, -60, WHITE);
 
             if (killhim) {
-
-                DrawText(TextFormat("Bullets: %i", machineGunAmmo), 50, 30, 20, RED);
+                Vector2 health = { 50, 30 };
+                DrawTextEx(yellowFont, TextFormat("%d", machineGunAmmo), health, 100, -60, WHITE);
             }
 
             if (music == false) {
