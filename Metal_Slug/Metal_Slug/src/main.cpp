@@ -278,8 +278,9 @@ int main()
     Texture at1b6 = LoadTexture("at1b6.png");
     Texture tbase = LoadTexture("tankbaix.png");
     Texture porxoavio = LoadTexture("avioporxos.png");
+    Texture peix = LoadTexture("peix.png");
 
-    Font timerNums = LoadFont("tipografia.png");
+    Font timerNums = LoadFont("prova 2 tipografia.png");
     Font whiteFont = LoadFont("nums1.png");
     Font yellowFont = LoadFont("nums1.png");
 
@@ -323,6 +324,8 @@ int main()
     camera.offset = { 315, 350 };
     camera.rotation = 0.0f;
     camera.zoom = 0.65f;
+
+    Rectangle framerectpeix = { 0, 0, (float)peix.width / 3, (float)peix.height };
 
     Rectangle framerectbase = { 0, 0, (float)tbase.width / 4, (float)tbase.height };
 
@@ -457,6 +460,8 @@ while (!WindowShouldClose())
         framecrecat1b4.x = (float)currentFrametirb1 * (float)at1b4.width / 3;
         framecrecat1b5.x = (float)currentFrametirb1 * (float)at1b5.width / 3;
         framecrecat1b6.x = (float)currentFrametirb1 * (float)at1b6.width / 3;
+
+        framerectpeix.x = (float)currentFrametirb1 * (float)peix.width / 3;
     }
 
     if (p.x > 4200 && p.x < 4510 && p.y <= 1220) FLOOR_Y = 1200;
@@ -742,10 +747,13 @@ while (!WindowShouldClose())
         if (camera.target.x < halfW)              camera.target.x = halfW;
         if (camera.target.x > worldWidth - halfW) camera.target.x = worldWidth - halfW;
 
+        int vitimi = (int)vidaTimer.lifetime;
         string ix = to_string(p.x);
         string iy = to_string(p.y);
+        string viti = to_string(vitimi);
         const char* cix = ix.c_str();
         const char* ciy = iy.c_str();
+        const char* cviti = viti.c_str();
         string puntstext = "Punts: ";
         const char* cpuntstext = puntstext.c_str();
         string punts = to_string(vpunts);
@@ -763,8 +771,7 @@ while (!WindowShouldClose())
 
         DrawTexturePro(bg, src, dest, { 0,0 }, 0.0f, WHITE);
         Vector2 positiont = {p.x+100, p.y-100 };
-        DrawTextEx(timerNums, "0123456789", positiont, 50, 0, WHITE); //-------------------------------------------------------------------------------------------------------------------------------------
-
+        
         //escenari
         
         
@@ -847,28 +854,28 @@ while (!WindowShouldClose())
         for (int i = 0; i < MAX_BULLETSA1; i++) {
             if (!bulletsa1[i].active) continue;
             //atac 1
-            Vector2 position = { framecrecat1b1.width * 4.75f / 2, framecrecat1b1.height * 4.75f / 2 };
+            Vector2 position = { 0.0f, 0.0f };
             Rectangle posat1b1 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y, framecrecat1b1.width * 4.75, framecrecat1b1.height * 4.75 };
             DrawTexturePro(at1b1, framecrecat1b1, posat1b1, position, 0, WHITE);
             //atac2
-            Vector2 position2 = { framecrecat1b2.width * 4.75f / 2, framecrecat1b2.height * 4.75f / 2 };
-            Rectangle posat1b2 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y + 5, framecrecat1b2.width * 4.75, framecrecat1b2.height * 4.75 };
+            Vector2 position2 = { 0.0f, 0.0f };
+            Rectangle posat1b2 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y - 10, framecrecat1b2.width * 4.75, framecrecat1b2.height * 4.75 };
             DrawTexturePro(at1b2, framecrecat1b2, posat1b2, position2, 0, WHITE);
             //atac3
-            Vector2 positio3 = { framecrecat1b3.width * 4.75f / 2, framecrecat1b3.height * 4.75f / 2 };
-            Rectangle posat1b3 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y + 10, framecrecat1b3.width * 4.75, framecrecat1b3.height * 4.75 };
+            Vector2 positio3 = { 0.0f, 0.0f };
+            Rectangle posat1b3 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y - 20, framecrecat1b3.width * 4.75, framecrecat1b3.height * 4.75 };
             DrawTexturePro(at1b3, framecrecat1b3, posat1b3, positio3, 0, WHITE);
             //atac4
-            Vector2 position4 = { framecrecat1b4.width * 4.75f / 2, framecrecat1b4.height * 4.75f / 2 };
-            Rectangle posat1b4 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y, framecrecat1b4.width * 4.75, framecrecat1b4.height * 4.75 };
+            Vector2 position4 = { 0.0f, 0.0f };
+            Rectangle posat1b4 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y - 30, framecrecat1b4.width * 4.75, framecrecat1b4.height * 4.75 };
             DrawTexturePro(at1b4, framecrecat1b4, posat1b4, position4, 0, WHITE);
             //atac5
-            Vector2 position5 = { framecrecat1b5.width * 4.75f / 2, framecrecat1b5.height * 4.75f / 2 };
-            Rectangle posat1b5 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y, framecrecat1b5.width * 4.75, framecrecat1b5.height * 4.75 };
+            Vector2 position5 = { 0.0f, 0.0f };
+            Rectangle posat1b5 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y - 40, framecrecat1b5.width * 4.75, framecrecat1b5.height * 4.75 };
             DrawTexturePro(at1b5, framecrecat1b5, posat1b5, position5, 0, WHITE);
             //atac6
-            Vector2 position6 = { framecrecat1b6.width * 4.75f / 2, framecrecat1b6.height * 4.75f / 2 };
-            Rectangle posat1b6 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y, framecrecat1b6.width * 4.75, framecrecat1b6.height * 4.75 };
+            Vector2 position6 = { 0.0f, 0.0f };
+            Rectangle posat1b6 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y - 45, framecrecat1b6.width * 4.75, framecrecat1b6.height * 4.75 };
             DrawTexturePro(at1b6, framecrecat1b6, posat1b6, position6, 0, WHITE);
             if (!p.Omniman && bulletsa1[i].x >= p.x && bulletsa1[i].x <= p.x + 100 && bulletsa1[i].y >= p.y && bulletsa1[i].y <= p.y + 200 && p.isajupit == -1 || !p.Omniman && bulletsa1[i].x >= p.x && bulletsa1[i].x <= p.x + 100 && bulletsa1[i].y >= p.y + 100 && bulletsa1[i].y <= p.y + 200 && p.isajupit == 1)
             {
@@ -1821,12 +1828,15 @@ while (!WindowShouldClose())
         //escenari davant jugador
 
         //porxo
-        Rectangle p1 = { 0, 0, porxoavio.width, porxoavio.height };
-        Rectangle p2 = { 6800, 1180, porxoavio.width * 5, porxoavio.height * 5};
-        Vector2 origin = { 0, 0 };
-        DrawTexturePro(porxoavio, p1, p2, origin, 0.0f, WHITE);
+        Rectangle p1porxo = { 0, 0, porxoavio.width, porxoavio.height };
+        Rectangle p2porxo = { 6800, 1180, porxoavio.width * 5, porxoavio.height * 5};
+        Vector2 originporxo = { 0, 0 };
+        DrawTexturePro(porxoavio, p1porxo, p2porxo, originporxo, 0.0f, WHITE);
         
-
+        // peix
+        //Rectangle p2peix = { 13400, 1280, porxoavio.width * 0.75, porxoavio.height * 1.75 };
+        //Vector2 originpeix = { 0, 0 };
+        //DrawTexturePro(peix, framerectpeix, p2peix, originpeix, 0.0f, WHITE);
 
         EndMode2D();
 
@@ -1969,9 +1979,8 @@ while (!WindowShouldClose())
                 camera.target.x = p.x;
                 camera.target.y = 1100;
             }
-
-
-            DrawText(TextFormat("%d", (int)vidaTimer.lifetime), 975 / 2, 20, 30, RED);
+            Vector2 clock = {340, 0};
+            DrawTextEx(timerNums, TextFormat("%d", (int)vidaTimer.lifetime), clock, 120, -60, WHITE);
             updatetimer(&vidaTimer);
 
             if ((int)vidaTimer.lifetime == 0)
@@ -2208,6 +2217,7 @@ while (!WindowShouldClose())
     UnloadTexture(at1b6);
     UnloadTexture(tbase);
     UnloadTexture(porxoavio);
+    UnloadTexture(peix);
     CloseWindow();
     return 0;
 }
