@@ -180,6 +180,15 @@ struct Bulleta3 {
     bool active;
 };
 
+struct BulletsTank {
+    float x, y;
+    float vx;
+    float vy;
+
+    bool useGravity;
+    bool active;
+};
+
 //atacs jefe no eliminar
 bool raig = true;
 
@@ -375,6 +384,8 @@ int main()
     Bulleta2 bulletsa2[MAX_BULLETSA2] = {};
     const int MAX_BULLETSA3 = 1;
     Bulleta3 bulletsa3[MAX_BULLETSA3] = {};
+    const int MAX_BULLETSTANK = 1;
+    Bulleta3 bulletstank[MAX_BULLETSA3] = {};
 
 
 while (!WindowShouldClose())
@@ -540,6 +551,29 @@ while (!WindowShouldClose())
             s3.vy = 0;
         }
 
+        t1.ty += t1.tvy;
+        t1.tvy += 4;
+
+        if (t1.ty >= 880)  
+        {
+            t1.ty = 880;
+            t1.tvy = 0;
+        }
+
+        //const float tankStopDistance = 00.0f; 
+        //float distToPlayer = p.x - t1.tx;
+
+        //if (abs(distToPlayer) > tankStopDistance)
+        //{
+        //    t1.tvx = (distToPlayer > 0) ? 3 : -3; 
+        //}
+        //else
+        //{
+        //    t1.tvx = 0;
+        //}
+
+        //t1.tx += t1.tvx;
+
         float camLeft = camera.target.x - (camera.offset.x) / camera.zoom;
         float camRight = camera.target.x + 975;
         float camTop = camera.target.y - (camera.offset.y) / camera.zoom;
@@ -659,6 +693,24 @@ while (!WindowShouldClose())
                 bulletsa3[i].active = false;
             }
         }
+
+        for (int i = 0; i < MAX_BULLETSTANK; i++) {
+            if (!bulletstank[i].active) continue;
+
+            if (bulletstank[i].useGravity) {
+                bulletstank[i].vy += 0.5f; //Gravity strength
+            }
+
+            bulletstank[i].x += bulletstank[i].vx;
+            bulletstank[i].y += bulletstank[i].vy;
+
+            if (bulletstank[i].x < camLeft || bulletstank[i].x > camRight ||
+                bulletstank[i].y < camTop || bulletstank[i].y > camBottom) {
+                bulletstank[i].active = false;
+            }
+        }
+
+
 
         if (p.x < 0) { p.x = 0; if (p.vx < 0) p.vx = 0; }
         if (p.x > worldWidth) { p.x = worldWidth;  if (p.vx > 0) p.vx = 0; }
@@ -881,6 +933,28 @@ while (!WindowShouldClose())
                     {
                         lose = true;
                     }
+                }
+            }
+        }
+
+        for (int i = 0; i < MAX_BULLETSTANK; i++) {
+            if (!bulletstank[i].active) continue;
+            DrawTexture(bulletee, (int)bulletstank[i].x, (int)bulletstank[i].y, WHITE);
+
+            if (!p.Omniman &&
+                bulletstank[i].x >= p.x && bulletstank[i].x <= p.x + 100 &&
+                bulletstank[i].y >= p.y && bulletstank[i].y <= p.y + 200)
+            {
+                bulletstank[i].active = false;
+                hitCooldown = 1.5f;
+                p.vides--;
+                p.vx = 0;
+                p.vy = 20;
+                if (p.vides <= 0)
+                {
+                    p.credits--;
+                    p.vides = 3;
+                    if (p.credits <= 0) lose = true;
                 }
             }
         }
@@ -1485,19 +1559,32 @@ while (!WindowShouldClose())
                 if (t1.tankShootTimer >= enemyShootInterval)
                 {
                     t1.tankShootTimer = 0.0f;
-                    for (int i = 0; i < MAX_BULLETSE; i++)
+
+                    for (int i = 0; i < MAX_BULLETSTANK; i++)
                     {
-                        if (!bulletse[i].active) {
-                            bulletse[i].x = t1.tx;
-                            bulletse[i].y = t1.ty + 30;
-                            bulletse[i].vx = (p.x < t1.tx) ? -8.0f : 8.0f;
-                            bulletse[i].vy = 0;
-                            bulletse[i].useGravity = true;
-                            bulletse[i].active = true;
+                        if (!bulletstank[i].active)
+                        {
+                            bulletstank[i].x = t1.tx;
+                            bulletstank[i].y = t1.ty + 30;
+
+                            float gravity = 0.3f;   // matches bullet update loop, WHY ARE YOU GAY?
+                            float vy = -12.0f; // Arc parabola
+
+                            // Frames until bullet returns to same Y
+                            float timeOfFlight = (-2.0f * vy) / gravity; // = 48 frames
+
+                            // vx needed to land exactly on player's X
+                            bulletstank[i].vx = (p.x - t1.tx) / timeOfFlight;
+                            bulletstank[i].vy = vy;
+
+                            bulletstank[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
+                            bulletstank[i].active = true;
                             break;
                         }
                     }
                 }
+
+
             }
         }
         else if (bt1)
@@ -1859,7 +1946,7 @@ while (!WindowShouldClose())
                 s2.ehp = 1;
                 killhim = false;
                 s3.ehp = 1;
-                t1.thp = 50;
+                t1.thp = 25;
                 bt1 = true;
                 o1.alive = 1;
                 Jorge.ehp = 1;
@@ -1982,6 +2069,7 @@ while (!WindowShouldClose())
                 s3.ehp = 1;
                 o1.alive = 1;
                 Jorge.ehp = 1;
+                t1.thp = 25;
                 Jorge.ex = 3200;
                 winSoundPlayed = false;
                 timerlife = 450;
@@ -2032,6 +2120,7 @@ while (!WindowShouldClose())
                 s3.ehp = 1;
                 p.vides = 3;
                 o1.alive = 1;
+                t1.thp = 25;
                 killhim = false;
                 Jorge.ehp = 1;
                 Jorge.ex = 3200;
