@@ -271,7 +271,7 @@ int main()
     Texture porxoavio = LoadTexture("avioporxos.png");
     Texture peix = LoadTexture("peix.png");
 
-    Font timerNums = LoadFont("tipografia.png");
+    Font timerNums = LoadFont("prova 2 tipografia.png");
     Font whiteFont = LoadFont("nums1.png");
     Font yellowFont = LoadFont("nums1.png");
 
@@ -695,10 +695,13 @@ while (!WindowShouldClose())
         if (camera.target.x < halfW)              camera.target.x = halfW;
         if (camera.target.x > worldWidth - halfW) camera.target.x = worldWidth - halfW;
 
+        int vitimi = (int)vidaTimer.lifetime;
         string ix = to_string(p.x);
         string iy = to_string(p.y);
+        string viti = to_string(vitimi);
         const char* cix = ix.c_str();
         const char* ciy = iy.c_str();
+        const char* cviti = viti.c_str();
         string puntstext = "Punts: ";
         const char* cpuntstext = puntstext.c_str();
         string punts = to_string(vpunts);
@@ -716,8 +719,7 @@ while (!WindowShouldClose())
 
         DrawTexturePro(bg, src, dest, { 0,0 }, 0.0f, WHITE);
         Vector2 positiont = {p.x+100, p.y-100 };
-        DrawTextEx(timerNums, "0123456789", positiont, 50, 0, WHITE); //-------------------------------------------------------------------------------------------------------------------------------------
-
+        
         //escenari
         
         
@@ -1890,9 +1892,8 @@ while (!WindowShouldClose())
                 camera.target.x = p.x;
                 camera.target.y = 1100;
             }
-
-
-            DrawText(TextFormat("%d", (int)vidaTimer.lifetime), 975 / 2, 20, 30, RED);
+            Vector2 clock = {340, 0};
+            DrawTextEx(timerNums, TextFormat("%d", (int)vidaTimer.lifetime), clock, 120, -60, WHITE);
             updatetimer(&vidaTimer);
 
             if ((int)vidaTimer.lifetime == 0)
