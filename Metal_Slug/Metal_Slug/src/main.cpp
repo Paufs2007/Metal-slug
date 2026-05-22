@@ -268,6 +268,7 @@ int main()
     Texture at1b5 = LoadTexture("at1b5.png");
     Texture at1b6 = LoadTexture("at1b6.png");
     Texture tbase = LoadTexture("tankbaix.png");
+    Texture porxoavio = LoadTexture("avioporxos.png");
 
     Font timerNums = LoadFont("tipografia.png");
     Font whiteFont = LoadFont("nums1.png");
@@ -690,7 +691,9 @@ while (!WindowShouldClose())
         if (camera.target.x > worldWidth - halfW) camera.target.x = worldWidth - halfW;
 
         string ix = to_string(p.x);
+        string iy = to_string(p.y);
         const char* cix = ix.c_str();
+        const char* ciy = iy.c_str();
         string puntstext = "Punts: ";
         const char* cpuntstext = puntstext.c_str();
         string punts = to_string(vpunts);
@@ -709,6 +712,10 @@ while (!WindowShouldClose())
         DrawTexturePro(bg, src, dest, { 0,0 }, 0.0f, WHITE);
         Vector2 positiont = {p.x+100, p.y-100 };
         DrawTextEx(timerNums, "0123456789", positiont, 50, 0, WHITE); //-------------------------------------------------------------------------------------------------------------------------------------
+
+        //escenari
+        
+        
 
         // bales jugador
 
@@ -964,7 +971,7 @@ while (!WindowShouldClose())
         if (o1.alive == 1)
         {
             Vector2 position = { 0.0f, 0.0f };
-            Rectangle posmgun = { (float)o1.ox, (float)o1.oy, frameRecmgun.width * 5, frameRecmgun.height * 5 };
+            Rectangle posmgun = { (float)o1.ox, 1380, frameRecmgun.width * 5, frameRecmgun.height * 5 };
             DrawTexturePro(mgun, frameRecmgun, posmgun, position, 0, WHITE);
         }
         else if (os1)
@@ -1509,6 +1516,7 @@ while (!WindowShouldClose())
                 Rectangle posidle = { (float)p.x, (float)p.y, frameRecidle.width * 5, frameRecidle.height * 5 };
                 DrawTexturePro(p1, frameRecidle, posidle, position, 0, WHITE);
                 DrawText(cix, p.x, p.y, 20, RED);
+                DrawText(ciy, p.x, p.y + 30, 20, RED);
             }
             else if (p.vx > 0 && p.facing == 1 && p.canJump == true && p.isshooting == -1)
             {
@@ -1722,6 +1730,17 @@ while (!WindowShouldClose())
             }
 
         }
+
+        //escenari davant jugador
+
+        //porxo
+        Rectangle p1 = { 0, 0, porxoavio.width, porxoavio.height };
+        Rectangle p2 = { 6800, 1180, porxoavio.width * 5, porxoavio.height * 5};
+        Vector2 origin = { 0, 0 };
+        DrawTexturePro(porxoavio, p1, p2, origin, 0.0f, WHITE);
+        
+
+
         EndMode2D();
 
         if (logoscreen) {
@@ -2090,6 +2109,7 @@ while (!WindowShouldClose())
     UnloadTexture(at1b5);
     UnloadTexture(at1b6);
     UnloadTexture(tbase);
+    UnloadTexture(porxoavio);
     CloseWindow();
     return 0;
 }
