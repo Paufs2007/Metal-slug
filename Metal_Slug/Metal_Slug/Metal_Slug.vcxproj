@@ -310,11 +310,13 @@
     <None Include="resources\06.-Stage-Clear.ogg" />
     <None Include="resources\Fahhhh.mp3" />
     <None Include="resources\Game_Over.ogg" />
+    <None Include="resources\LONG.mp3" />
     <None Include="resources\MACHINE_GUN.mp3" />
     <None Include="resources\Metal_Slug.mp3" />
     <None Include="resources\bo.mp3" />
     <None Include="resources\explode.mp3" />
     <None Include="resources\mission_complete.mp3" />
+    <None Include="resources\numeros_color.png-autosave.kra" />
     <None Include="resources\pipa.mp3" />
     <None Include="resources\sexy_death.mp3" />
     <None Include="resources\vaca.mp3" />
@@ -380,7 +382,6 @@
     <Image Include="resources\p1 drivig.png" />
     <Image Include="resources\p1idle.png" />
     <Image Include="resources\p1idlee.png" />
-    <Image Include="resources\part de baix disparant.png" />
     <Image Include="resources\scames.png" />
     <Image Include="resources\scamese.png" />
     <Image Include="resources\scap.png" />
@@ -388,6 +389,8 @@
     <Image Include="resources\scorr.png" />
     <Image Include="resources\scorre.png" />
     <Image Include="resources\soldatidle.png" />
+    <Image Include="resources\tankbaix.png" />
+    <Image Include="resources\tipografia.png" />
     <Image Include="resources\tirajupit.png" />
     <Image Include="resources\tirajupite.png" />
     <Image Include="resources\tiramunt.png" />

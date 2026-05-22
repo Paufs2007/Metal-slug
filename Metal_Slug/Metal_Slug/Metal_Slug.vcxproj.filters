@@ -34,6 +34,9 @@
     <None Include="resources\Game_Over.ogg">
       <Filter>Game Resource Files</Filter>
     </None>
+    <None Include="resources\LONG.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
     <None Include="resources\MACHINE_GUN.mp3">
       <Filter>Game Resource Files</Filter>
     </None>
@@ -47,6 +50,9 @@
       <Filter>Game Resource Files</Filter>
     </None>
     <None Include="resources\mission_complete.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
+    <None Include="resources\numeros_color.png-autosave.kra">
       <Filter>Game Resource Files</Filter>
     </None>
     <None Include="resources\pipa.mp3">
@@ -236,9 +242,6 @@
     <Image Include="resources\p1idlee.png">
       <Filter>Game Resource Files</Filter>
     </Image>
-    <Image Include="resources\part de baix disparant.png">
-      <Filter>Game Resource Files</Filter>
-    </Image>
     <Image Include="resources\scames.png">
       <Filter>Game Resource Files</Filter>
     </Image>
@@ -258,6 +261,12 @@
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\soldatidle.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\tankbaix.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\tipografia.png">
       <Filter>Game Resource Files</Filter>
     </Image>
     <Image Include="resources\tirajupit.png">
