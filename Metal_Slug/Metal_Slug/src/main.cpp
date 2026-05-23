@@ -5,7 +5,7 @@
 using namespace std;
 #define MAX_FRAME_SPEED 15
 #define MIN_FRAME_SPEED  1
-Sound soundArray[10];
+Sound soundArray[20];
 Music musicArray[10];
 
 class player
@@ -213,6 +213,8 @@ int main()
     int vpunts = 0;
     bool rampa = false;
     int konami = 0;
+    int missionSoundStep = -1;
+    float missionSoundDelay = 0.0f;
     SearchAndSetResourceDir("resources");
     InitAudioDevice();
 
@@ -226,6 +228,9 @@ int main()
     soundArray[7] = LoadSound("Fahhhh.mp3");
     soundArray[8] = LoadSound("MACHINE_GUN.mp3");
     soundArray[9] = LoadSound("LONG.mp3");
+    soundArray[10] = LoadSound("MISSION.mp3");
+    soundArray[11] = LoadSound("one.mp3");
+    soundArray[12] = LoadSound("START.mp3");
     SetSoundVolume(soundArray[7], 100.0f);
 
     musicArray[0] = LoadMusicStream("bo.mp3");
@@ -289,6 +294,7 @@ int main()
     startTimer(&vidaTimer, timerlife);
     Timer omnimanTimer = { 0 };
 
+
     float gunCooldown = 0.0f;
 
     float shootCooldown = 0.0f;
@@ -312,7 +318,7 @@ int main()
 
     objecte o1 = { 5250, 605 };
 
-    objecte o2 = { 8250, 605 };
+    objecte o2 = { 12300, 605 };
 
 
     bool os1 = true;
@@ -998,6 +1004,9 @@ while (!WindowShouldClose())
         }
 
         if (!inMenu && !winscreen && !lose) {
+
+
+
 
             if (IsKeyPressed(KEY_L))p.x = 19000; // USED FOR TESTING THE BOSS YOU STUPID ASS HOES
             if (IsKeyPressed(KEY_X))p.x = 16500;
@@ -1900,6 +1909,23 @@ while (!WindowShouldClose())
 
         EndMode2D();
 
+        if (missionSoundDelay > 0.0f) missionSoundDelay -= GetFrameTime();
+
+        if (missionSoundStep == 0) {
+            PlaySound(soundArray[10]);
+            missionSoundStep++;
+            missionSoundDelay = 1.0f;
+        }
+        else if (missionSoundStep == 1 && missionSoundDelay <= 0.0f) {
+            PlaySound(soundArray[11]);
+            missionSoundStep++;
+            missionSoundDelay = 0.6f;
+        }
+        else if (missionSoundStep == 2 && missionSoundDelay <= 0.0f) {
+            PlaySound(soundArray[12]);
+            missionSoundStep++;
+        }
+
         if (logoscreen) {
 
             float width = logo.width * 2;
@@ -1957,6 +1983,8 @@ while (!WindowShouldClose())
             {
                 p.credits--;
                 inMenu = false;
+                missionSoundStep = 0;
+
             }
         }
         else if (!inMenu && !logoscreen) {
@@ -1969,6 +1997,7 @@ while (!WindowShouldClose())
             DrawTextEx(whiteFont, cpunts, health2, 100, -60, WHITE);
             Vector2 health = { 100, 40 };
             DrawTextEx(yellowFont, TextFormat("%d", p.vides), health, 100, -60, WHITE);
+
 
             if (killhim) {
                 Vector2 health = { 50, 30 };
