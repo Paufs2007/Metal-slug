@@ -96,6 +96,14 @@ public:
     int alive = 1;
 };
 
+class edificis
+{
+public:
+    float edx;
+    int edy;
+    int edhp;
+};
+
 struct Timer
 {
     float lifetime;
@@ -284,6 +292,13 @@ int main()
     Texture tbase = LoadTexture("tankbaix.png");
     Texture porxoavio = LoadTexture("avioporxos.png");
     Texture peix = LoadTexture("peix.png");
+    Texture edg1 = LoadTexture("edg1.png");
+    Texture edg2 = LoadTexture("edg2.png");
+    Texture edg3 = LoadTexture("edg3.png");
+    Texture edg4 = LoadTexture("edg4.png");
+    Texture edv1 = LoadTexture("edv1.png");
+    Texture edv2 = LoadTexture("edv2.png");
+    Texture edv3 = LoadTexture("edv3.png");
 
     Font timerNums = LoadFont("prova 2 tipografia.png");
     Font whiteFont = LoadFont("tipografia gris.png");
@@ -320,6 +335,9 @@ int main()
 
     objecte o2 = { 12300, 605 };
 
+    edificis ed1 = { 13300 , 605 , 30};
+
+    bool ed1b = true;
 
     bool os1 = true;
     bool os2 = true;
@@ -619,7 +637,6 @@ while (!WindowShouldClose())
 
         t1.tx += t1.tvx;
 
-
         float camLeft = camera.target.x - (camera.offset.x) / camera.zoom;
         float camRight = camera.target.x + 975;
         float camTop = camera.target.y - (camera.offset.y) / camera.zoom;
@@ -861,6 +878,11 @@ while (!WindowShouldClose())
                 bullets[i].active = false;
                 t1.thp--;
             }
+            if (bullets[i].x >= ed1.edx && bullets[i].x <= ed1.edx + 100 && bullets[i].y >= ed1.edy && bullets[i].y <= ed1.edy + 200)
+            {
+                bullets[i].active = false;
+                ed1.edhp--;
+            }
         }
         //bales enemic basic
 
@@ -1010,6 +1032,7 @@ while (!WindowShouldClose())
 
             if (IsKeyPressed(KEY_L))p.x = 19000; // USED FOR TESTING THE BOSS YOU STUPID ASS HOES
             if (IsKeyPressed(KEY_X))p.x = 16500;
+            if (IsKeyPressed(KEY_K))p.x = 12500;
 
             if (gunCooldown > 0.0f) gunCooldown -= GetFrameTime();
 
@@ -1121,6 +1144,23 @@ while (!WindowShouldClose())
             startTimer(&omnimanTimer, 20.0f);
         }
 
+        //edificis destructibles
+        if (ed1.edhp >= 1)
+        {
+            if (ed1.edhp >= 20)
+            {
+                Rectangle edg11 = { 0, 0, edg1.width, edg1.height };
+                Rectangle edg12 = { 14400, 1280, edg1.width * 5, edg1.height * 5 };
+                Vector2 originedg1 = { 0, 0 };
+                DrawTexturePro(edg1, edg11, edg12, originedg1, 0.0f, WHITE);
+            }
+        }
+        else if (ed1b)
+        {
+            ed1.edx = 100000000;
+            PlaySound(soundArray[0]);
+            ed1b = false;
+        }
 
         if (killhim) 
         {
@@ -1384,10 +1424,6 @@ while (!WindowShouldClose())
                         }
 
                     }
-                
-
-
-                
             }
         }
 
@@ -1425,8 +1461,6 @@ while (!WindowShouldClose())
         //    }
         //}
         //}
-
-
         else if (KevinTheFuckingBoss)
         {
             vpunts = vpunts + 1000;
@@ -2332,6 +2366,13 @@ while (!WindowShouldClose())
     UnloadTexture(tbase);
     UnloadTexture(porxoavio);
     UnloadTexture(peix);
+    UnloadTexture(edg1);
+    UnloadTexture(edg2);
+    UnloadTexture(edg3);
+    UnloadTexture(edg4);
+    UnloadTexture(edv1);
+    UnloadTexture(edv2);
+    UnloadTexture(edv3);
     CloseWindow();
     return 0;
 }
