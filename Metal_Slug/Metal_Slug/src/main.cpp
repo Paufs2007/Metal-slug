@@ -337,6 +337,10 @@ int main()
 
     edificis ed1 = { 13850, 680 , 40};
 
+    edificis ed2 = { 14500, 550 , 30 };
+
+    bool ed2b = true;
+
     bool ed1b = true;
 
     bool os1 = true;
@@ -796,11 +800,17 @@ while (!WindowShouldClose())
         float halfW = 975 / 2.0f;
         float halfH = 714 / 2.0f;
 
-        if (camera.target.x >  19000) camera.target.x = 19000; // LOCKS CAMERA ON BOSS AREA. - Aidan.
+        if (camera.target.x >  19000) camera.target.x = 19000; // LOCKS CAMERA ON BOSS AREA. - Aidan. /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /* apagat per testing
         if (ed1.edhp >= 1)
         {
             if (camera.target.x > 13550) camera.target.x = 13550;
 
+        }
+        */
+        if (ed2.edhp >= 1)
+        {
+            if (camera.target.x > 14700) camera.target.x = 14700;
         }
 
         if (camera.target.x < halfW)              camera.target.x = halfW;
@@ -887,6 +897,11 @@ while (!WindowShouldClose())
             {
                 bullets[i].active = false;
                 ed1.edhp--;
+            }
+            if (bullets[i].x >= ed2.edx && bullets[i].x <= ed2.edx && bullets[i].y >= ed2.edy && bullets[i].y <= ed2.edy + 1000)
+            {
+                bullets[i].active = false;
+                ed2.edhp--;
             }
         }
         //bales enemic basic
@@ -1039,6 +1054,7 @@ while (!WindowShouldClose())
             if (IsKeyPressed(KEY_L))p.x = 19000; // USED FOR TESTING THE BOSS YOU STUPID ASS HOES
             if (IsKeyPressed(KEY_X))p.x = 16500;
             if (IsKeyPressed(KEY_K))p.x = 12500;
+            if (IsKeyPressed(KEY_O))p.x = 14000;
 
             if (gunCooldown > 0.0f) gunCooldown -= GetFrameTime();
 
@@ -1188,6 +1204,37 @@ while (!WindowShouldClose())
             ed1.edx = 100000000;
             PlaySound(soundArray[0]);
             ed1b = false;
+        }
+
+        if (ed2.edhp >= 1)
+        {
+            if (ed2.edhp >= 20)
+            {
+                Vector2 originedv1 = { 0.0f, 0.0f };
+                Rectangle edv11 = { 0, 0, edv1.width, edv1.height };
+                Rectangle edv12 = { (float)ed2.edx, ed2.edy, edv1.width * 5.5, edv1.height * 5.5 };
+                DrawTexturePro(edv1, edv11, edv12, originedv1, 0.0f, WHITE);
+            }
+            else if (ed2.edhp >= 10)
+            {
+                Vector2 originedv2 = { 0.0f, 0.0f };
+                Rectangle edv21 = { 0, 0, edv2.width, edv2.height };
+                Rectangle edv22 = { (float)ed2.edx, ed2.edy, edv2.width * 5.5, edv2.height * 5.5 };
+                DrawTexturePro(edv2, edv21, edv22, originedv2, 0.0f, WHITE);
+            }
+            else if (ed2.edhp >= 1)
+            {
+                Vector2 originedv3 = { 0.0f, 0.0f };
+                Rectangle edv31 = { 0, 0, edv3.width, edv3.height };
+                Rectangle edv32 = { (float)ed2.edx, ed2.edy, edv3.width * 5.5, edv3.height * 5.5 };
+                DrawTexturePro(edv3, edv31, edv32, originedv3, 0.0f, WHITE);
+            }
+        }
+        else if (ed2b)
+        {
+            ed2.edx = 100000000;
+            PlaySound(soundArray[0]);
+            ed2b = false;
         }
 
         if (killhim) 
