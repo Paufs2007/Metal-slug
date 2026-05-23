@@ -225,7 +225,7 @@ int main()
     soundArray[4] = LoadSound("mission_complete.mp3");
     soundArray[5] = LoadSound("Game_Over.ogg");
     soundArray[6] = LoadSound("explode.mp3");
-    //soundArray[7] = LoadSound("Fahhhh.mp3");
+    soundArray[7] = LoadSound("Fahhhh.mp3");
     soundArray[8] = LoadSound("MACHINE_GUN.mp3");
     soundArray[9] = LoadSound("LONG.mp3");
     soundArray[10] = LoadSound("MISSION.mp3");
@@ -1005,7 +1005,8 @@ while (!WindowShouldClose())
 
         if (!inMenu && !winscreen && !lose) {
 
-
+            PauseSound(soundArray[7]);
+            winSoundPlayed = false;
 
 
             if (IsKeyPressed(KEY_L))p.x = 19000; // USED FOR TESTING THE BOSS YOU STUPID ASS HOES
@@ -2010,13 +2011,13 @@ while (!WindowShouldClose())
                 UpdateMusicStream(musicArray[0]);
             }
             if (IsKeyPressed(KEY_M)) {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 20; i++)
                     SetSoundVolume(soundArray[i], 0.0f);
                 PauseMusicStream(musicArray[0]);
                 music = false;
             }
             if (IsKeyPressed(KEY_N)) {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 20; i++)
                     SetSoundVolume(soundArray[i], 1.0f);
                 SetSoundVolume(soundArray[7], 100.0f); // restore Fahhhh's original loud volume
                 ResumeMusicStream(musicArray[0]);
@@ -2051,7 +2052,14 @@ while (!WindowShouldClose())
                 omnimanTimer = { 0 };
                 startTimer(&vidaTimer, timerlife);
 
-                ResumeMusicStream(musicArray[0]);
+                StopMusicStream(musicArray[0]);
+                menuSoundPlayed = false;
+                if (!menuSoundPlayed) {
+                    PlaySound(soundArray[3]);
+                    menuSoundPlayed = true;
+                }
+
+                PlayMusicStream(musicArray[0]);
                 StopSound(soundArray[9]);
 
                 p.x = 400;
@@ -2146,6 +2154,8 @@ while (!WindowShouldClose())
                 PlaySound(soundArray[4]);
                 winSoundPlayed = true;
             }
+            killhim = false;
+
             Rectangle src3 = { 0, 0, (float)win.width, (float)win.height };
             Rectangle dest3 = { 0, 0, 975, 714 };
             DrawTexturePro(win, src3, dest3, { 0, 0 }, 0.0f, WHITE);
@@ -2166,7 +2176,6 @@ while (!WindowShouldClose())
                 os1 = true;
                 os2 = true;
                 winscreen = false;
-                killhim = false;
                 s1.ehp = 100;
                 p.vides = 3;
                 s2.ehp = 1;
@@ -2176,13 +2185,15 @@ while (!WindowShouldClose())
                 Jorge.ehp = 1;
                 t1.thp = 25;
                 Jorge.ex = 3200;
-                winSoundPlayed = false;
                 timerlife = 450;
                 omnimanTimer = { 0 };
                 startTimer(&vidaTimer, timerlife);
 
+                StopMusicStream(musicArray[0]);                
+                menuSoundPlayed = false;
+                PlayMusicStream(musicArray[0]);
                 StopSound(soundArray[9]);
-                ResumeMusicStream(musicArray[0]);
+
 
                 p.x = 400;
                 p.y = 1220;
@@ -2211,6 +2222,8 @@ while (!WindowShouldClose())
                 PlaySound(soundArray[5]);
                 winSoundPlayed = true;
             }
+            killhim = false;
+
             Rectangle src3 = { 0, 0, (float)gameover.width, (float)gameover.height };
             Rectangle dest3 = { 0, 0, 975, 714 };
             DrawTexturePro(gameover, src3, dest3, { 0, 0 }, 0.0f, WHITE);
@@ -2236,7 +2249,6 @@ while (!WindowShouldClose())
                 o1.alive = 1;
                 o2.alive = 1;
                 t1.thp = 25;
-                killhim = false;
                 Jorge.ehp = 1;
                 Jorge.ex = 3200;
                 winSoundPlayed = false;
@@ -2244,7 +2256,12 @@ while (!WindowShouldClose())
                 omnimanTimer = { 0 };
                 startTimer(&vidaTimer, timerlife);
 
-                ResumeMusicStream(musicArray[0]);
+
+                StopMusicStream(musicArray[0]);
+                menuSoundPlayed = false;
+                PlayMusicStream(musicArray[0]);
+                StopSound(soundArray[9]);
+
 
                 p.x = 400;
                 p.y = 1220;
