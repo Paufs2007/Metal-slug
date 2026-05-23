@@ -225,7 +225,7 @@ int main()
     soundArray[4] = LoadSound("mission_complete.mp3");
     soundArray[5] = LoadSound("Game_Over.ogg");
     soundArray[6] = LoadSound("explode.mp3");
-    soundArray[7] = LoadSound("Fahhhh.mp3");
+    //soundArray[7] = LoadSound("Fahhhh.mp3");
     soundArray[8] = LoadSound("MACHINE_GUN.mp3");
     soundArray[9] = LoadSound("LONG.mp3");
     soundArray[10] = LoadSound("MISSION.mp3");
@@ -497,12 +497,12 @@ while (!WindowShouldClose())
     if (p.x > 19350 && p.x < 19750 && p.y <= 230) FLOOR_Y = 230;
     if (p.x > 19700) p.x = 19700;
 
-    if (o1.ox >= p.x && o1.ox <= p.x + 100 && o1.oy >= p.y - 20 && o1.oy <= p.y + 200)
+    if (sqrt((p.x - o1.ox) * (p.x - o1.ox) + (p.y - o1.oy) * (p.y - o1.oy)) < 50)
     {
         o1.alive--;
     }
 
-    if (o2.ox >= p.x && o2.ox <= p.x + 100 && o2.oy >= p.y - 20 && o2.oy <= p.y + 200)
+    if (sqrt((p.x - o2.ox) * (p.x - o2.ox) + (p.y - o2.oy) * (p.y - o2.oy)) < 50)
     {
         o2.alive--;
     }
@@ -558,9 +558,9 @@ while (!WindowShouldClose())
         o1.oy += o1.ovy;
         o1.ovy += 4;
 
-        if (o1.oy >= FLOOR_Y)
+        if (o1.oy >= 1400)
         {
-            o1.oy = FLOOR_Y;
+            o1.oy = 1400;
             o1.ovy = 0;
         }
 
@@ -1092,7 +1092,7 @@ while (!WindowShouldClose())
         if (o1.alive == 1)
         {
             Vector2 position = { 0.0f, 0.0f };
-            Rectangle posmgun = { (float)o1.ox, 1380, frameRecmgun.width * 5, frameRecmgun.height * 5 };
+            Rectangle posmgun = { (float)o1.ox, o1.oy, frameRecmgun.width * 5, frameRecmgun.height * 5 };
             DrawTexturePro(mgun, frameRecmgun, posmgun, position, 0, WHITE);
         }
         else if (os1)
