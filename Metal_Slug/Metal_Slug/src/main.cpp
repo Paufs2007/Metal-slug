@@ -335,7 +335,7 @@ int main()
 
     objecte o2 = { 12300, 605 };
 
-    edificis ed1 = { 13300 , 605 , 30};
+    edificis ed1 = { 13850, 680 , 40};
 
     bool ed1b = true;
 
@@ -797,6 +797,11 @@ while (!WindowShouldClose())
         float halfH = 714 / 2.0f;
 
         if (camera.target.x >  19000) camera.target.x = 19000; // LOCKS CAMERA ON BOSS AREA. - Aidan.
+        if (ed1.edhp >= 1)
+        {
+            if (camera.target.x > 13550) camera.target.x = 13550;
+
+        }
 
         if (camera.target.x < halfW)              camera.target.x = halfW;
         if (camera.target.x > worldWidth - halfW) camera.target.x = worldWidth - halfW;
@@ -878,7 +883,7 @@ while (!WindowShouldClose())
                 bullets[i].active = false;
                 t1.thp--;
             }
-            if (bullets[i].x >= ed1.edx && bullets[i].x <= ed1.edx + 100 && bullets[i].y >= ed1.edy && bullets[i].y <= ed1.edy + 200)
+            if (bullets[i].x >= ed1.edx && bullets[i].x <= ed1.edx + 500 && bullets[i].y >= ed1.edy && bullets[i].y <= ed1.edy + 1000)
             {
                 bullets[i].active = false;
                 ed1.edhp--;
@@ -1025,11 +1030,8 @@ while (!WindowShouldClose())
             }
         }
 
-        if (!inMenu && !winscreen && !lose) {
-
-
-
-
+        if (!inMenu && !winscreen && !lose) 
+        {
             if (IsKeyPressed(KEY_L))p.x = 19000; // USED FOR TESTING THE BOSS YOU STUPID ASS HOES
             if (IsKeyPressed(KEY_X))p.x = 16500;
             if (IsKeyPressed(KEY_K))p.x = 12500;
@@ -1147,13 +1149,35 @@ while (!WindowShouldClose())
         //edificis destructibles
         if (ed1.edhp >= 1)
         {
-            if (ed1.edhp >= 20)
+            if (ed1.edhp >= 30)
             {
+                Vector2 originedg4 = { 0.0f, 0.0f };
+                Rectangle edg41 = { 0, 0, edg4.width, edg4.height };
+                Rectangle edg42 = { (float)ed1.edx, ed1.edy, edg4.width * 5.5, edg4.height * 5.5 };
+                DrawTexturePro(edg4, edg41, edg42, originedg4, 0.0f, WHITE);
+            }
+            else if (ed1.edhp >= 20)
+            {
+                Vector2 originedg3 = { 0.0f, 0.0f };
+                Rectangle edg31 = { 0, 0, edg3.width, edg3.height };
+                Rectangle edg32 = { (float)ed1.edx, ed1.edy, edg3.width * 5.5, edg3.height * 5.5 };
+                DrawTexturePro(edg3, edg31, edg32, originedg3, 0.0f, WHITE);
+            }
+            else if (ed1.edhp >= 10)
+            {
+                Vector2 originedg2 = { 0.0f, 0.0f };
+                Rectangle edg21 = { 0, 0, edg2.width, edg2.height };
+                Rectangle edg22 = { (float)ed1.edx, ed1.edy, edg2.width * 5.5, edg2.height * 5.5 };
+                DrawTexturePro(edg2, edg21, edg22, originedg2, 0.0f, WHITE);
+            }
+            else if (ed1.edhp >= 1)
+            {
+                Vector2 originedg1 = { 0.0f, 0.0f };
                 Rectangle edg11 = { 0, 0, edg1.width, edg1.height };
-                Rectangle edg12 = { 14400, 1280, edg1.width * 5, edg1.height * 5 };
-                Vector2 originedg1 = { 0, 0 };
+                Rectangle edg12 = { (float)ed1.edx, ed1.edy, edg1.width * 5.5, edg1.height * 5.5 };
                 DrawTexturePro(edg1, edg11, edg12, originedg1, 0.0f, WHITE);
             }
+
         }
         else if (ed1b)
         {
