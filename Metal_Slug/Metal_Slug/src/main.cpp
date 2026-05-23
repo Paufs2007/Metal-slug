@@ -567,9 +567,9 @@ while (!WindowShouldClose())
         o2.oy += o2.ovy;
         o2.ovy += 4;
 
-        if (o2.oy >= FLOOR_Y)
+        if (o2.oy >= 1400)
         {
-            o2.oy = FLOOR_Y;
+            o2.oy = 1400;
             o2.ovy = 0;
         }
 
@@ -1092,7 +1092,7 @@ while (!WindowShouldClose())
         if (o1.alive == 1)
         {
             Vector2 position = { 0.0f, 0.0f };
-            Rectangle posmgun = { (float)o1.ox, o1.oy, frameRecmgun.width * 5, frameRecmgun.height * 5 };
+            Rectangle posmgun = { (float)o1.ox, o1.oy+50, frameRecmgun.width * 5, frameRecmgun.height * 5 };
             DrawTexturePro(mgun, frameRecmgun, posmgun, position, 0, WHITE);
         }
         else if (os1)
@@ -1107,7 +1107,7 @@ while (!WindowShouldClose())
         if (o2.alive == 1)
         {
             Vector2 position = { 0.0f, 0.0f };
-            Rectangle posmgun = { (float)o2.ox, 1380, frameRecmgun.width * 5, frameRecmgun.height * 5 };
+            Rectangle posmgun = { (float)o2.ox, o2.oy+50, frameRecmgun.width * 5, frameRecmgun.height * 5 };
             DrawTexturePro(mgun, frameRecmgun, posmgun, position, 0, WHITE);
         }
         else if (os2)
