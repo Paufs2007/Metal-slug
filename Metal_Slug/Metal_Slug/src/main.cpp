@@ -677,6 +677,18 @@ while (!WindowShouldClose())
         if (p.x >= 10245 && p.x <= 10300 && p.y > 1021) p.x = 10238;
         if (p.x >= 10600 && p.x <= 10710 && p.y > 1021) p.x = 10715;
 
+        if (ed1.edhp >= 1)
+        {
+            if (p.x >= ed1.edx - 100 && p.x <= ed1.edx + 1000 && p.y >= ed1.edy && p.y <= ed1.edy + 1000)
+                p.x = ed1.edx - 100;
+        }
+
+        if (ed2.edhp >= 1)
+        {
+            if (p.x >= ed2.edx + 500 && p.x <= ed2.edx + 1600 && p.y >= ed2.edy && p.y <= ed2.edy + 1000)
+                p.x = ed2.edx + 500;
+        }
+
         if (IsKeyDown(KEY_W) && !IsKeyDown(KEY_S)) p.facingy = 1;
         else if (IsKeyDown(KEY_S) && !IsKeyDown(KEY_W) && p.y < FLOOR_Y) p.facingy = -1;
         else p.facingy = 0;
@@ -808,13 +820,13 @@ while (!WindowShouldClose())
         float halfH = 714 / 2.0f;
 
         if (camera.target.x >  19000) camera.target.x = 19000; // LOCKS CAMERA ON BOSS AREA. - Aidan. /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /* apagat per testing
+         //apagat per testing
         if (ed1.edhp >= 1)
         {
             if (camera.target.x > 13550) camera.target.x = 13550;
 
         }
-        */
+        
         if (ed2.edhp >= 1)
         {
             if (camera.target.x > 14700) camera.target.x = 14700;
@@ -900,12 +912,12 @@ while (!WindowShouldClose())
                 bullets[i].active = false;
                 t1.thp--;
             }
-            if (bullets[i].x >= ed1.edx && bullets[i].x <= ed1.edx + 500 && bullets[i].y >= ed1.edy && bullets[i].y <= ed1.edy + 1000)
+            if (bullets[i].x >= ed1.edx + 500 && bullets[i].x <= ed1.edx + 1000 && bullets[i].y >= ed1.edy && bullets[i].y <= ed1.edy + 1000)
             {
                 bullets[i].active = false;
                 ed1.edhp--;
             }
-            if (bullets[i].x >= ed2.edx && bullets[i].x <= ed2.edx && bullets[i].y >= ed2.edy && bullets[i].y <= ed2.edy + 1000)
+            if (bullets[i].x >= ed2.edx + 1100 && bullets[i].x <= ed2.edx + 1600 && bullets[i].y >= ed2.edy && bullets[i].y <= ed2.edy + 1000)
             {
                 bullets[i].active = false;
                 ed2.edhp--;
@@ -1058,10 +1070,10 @@ while (!WindowShouldClose())
             winSoundPlayed = false;
 
 
-            if (IsKeyPressed(KEY_L))p.x = 19000; // USED FOR TESTING THE BOSS YOU STUPID ASS HOES
+            if (IsKeyPressed(KEY_L))p.x = 19000, ed1.edhp = 0, ed2.edhp = 0; // USED FOR TESTING THE BOSS YOU STUPID ASS HOES
             if (IsKeyPressed(KEY_X))p.x = 16500;
             if (IsKeyPressed(KEY_K))p.x = 12500;
-            if (IsKeyPressed(KEY_O))p.x = 14000;
+            if (IsKeyPressed(KEY_O))p.x = 14000;            
 
             if (gunCooldown > 0.0f) gunCooldown -= GetFrameTime();
 
