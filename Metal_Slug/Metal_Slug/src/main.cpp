@@ -2291,6 +2291,12 @@ while (!WindowShouldClose())
                 winSoundPlayed = false;
                 timerlife = 450;
                 omnimanTimer = { 0 };
+                ed1.edhp = 40;
+                ed2.edhp = 1;
+                ed1b = true;
+                ed2b = true;
+                ed1.edx = 13850;
+                ed2.edx = 14500;
                 startTimer(&vidaTimer, timerlife);
 
                 StopMusicStream(musicArray[0]);
@@ -2430,6 +2436,12 @@ while (!WindowShouldClose())
                 Jorge.ex = 3200;
                 timerlife = 450;
                 omnimanTimer = { 0 };
+                ed1.edhp = 40;
+                ed2.edhp = 1;
+                ed1b = true;
+                ed2b = true;
+                ed1.edx = 13850;
+                ed2.edx = 14500;                
                 startTimer(&vidaTimer, timerlife);
 
                 StopMusicStream(musicArray[0]);                
@@ -2501,6 +2513,12 @@ while (!WindowShouldClose())
                 winSoundPlayed = false;
                 timerlife = 450;
                 omnimanTimer = { 0 };
+                ed1.edhp = 40;
+                ed2.edhp = 1;
+                ed1b = true;
+                ed2b = true;
+                ed1.edx = 13850;
+                ed2.edx = 14500;
                 startTimer(&vidaTimer, timerlife);
 
 
