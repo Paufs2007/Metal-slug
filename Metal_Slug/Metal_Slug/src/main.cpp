@@ -334,8 +334,8 @@ int main()
     tank t1 = { 17500, 400 };
     soldier s4 = { 4750, 1000 };
     soldier s5 = { 6000, 1000 };
-    //soldier s6 = { 5450, 605 };
-    //soldier s7 = { 5450, 605 };
+    soldier s6 = { 8850, 1380 };
+    soldier s7 = { 12250, 780 };
     //soldier s8 = { 5450, 605 };
     //soldier s9 = { 5450, 605 };
     //soldier s10 = { 5450, 605 };
@@ -363,6 +363,8 @@ int main()
     bool bt1 = true;
     bool bs4 = true;
     bool bs5 = true;
+    bool bs6 = true;
+    bool bs7 = true;
 
     Camera2D camera = { 0 };
     camera.offset = { 315, 350 };
@@ -555,6 +557,8 @@ while (!WindowShouldClose())
         if (s5.ex > 5500 && s5.ey > 1202) s5.vy = 0; 
         if (s5.ex > 3500 && s5.ey > 1382) s5.vy = 0;
         s5.ey -= s5.vy;
+        if (p.x > 8000) s6.evx = -5;
+        s6.ex += s6.evx;
 
         if (p.y < FLOOR_Y)
         {
@@ -926,6 +930,16 @@ while (!WindowShouldClose())
             if (bullets[i].x >= s5.ex && bullets[i].x <= s5.ex + 100 && bullets[i].y >= s5.ey && bullets[i].y <= s5.ey + 200)
             {
                 s5.ehp--;
+                bullets[i].active = false;
+            }
+            if (bullets[i].x >= s6.ex && bullets[i].x <= s6.ex + 100 && bullets[i].y >= s6.ey && bullets[i].y <= s6.ey + 200)
+            {
+                s6.ehp--;
+                bullets[i].active = false;
+            }
+            if (bullets[i].x >= s7.ex && bullets[i].x <= s7.ex + 100 && bullets[i].y >= s7.ey && bullets[i].y <= s7.ey + 200)
+            {
+                s7.ehp--;
                 bullets[i].active = false;
             }
             if (bullets[i].x >= t1.tx && bullets[i].x <= t1.tx + 100 && bullets[i].y >= t1.ty && bullets[i].y <= t1.ty + 200)
@@ -1841,8 +1855,96 @@ while (!WindowShouldClose())
             s5.ex = 100000000;
             bs5 = false;
         }
+        if (s6.ehp == 1) {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posidles6 = { (float)s6.ex, (float)s6.ey, framereceidle.width * 5, framereceidle.height * 5 };
+            DrawTexturePro(sidle, framereceidle, posidles6, position, 0, WHITE);
+            DrawText(cix, s6.ex, s6.ey, 20, RED);
+            if (!inMenu && !winscreen && !lose)
+            {
+                s6.enemyShootTimer += GetFrameTime();
+                if (s6.enemyShootTimer >= enemyShootInterval)
+                {
+                    s6.enemyShootTimer = 0.0f;
 
+                    for (int i = 0; i < MAX_BULLETSE; i++)
+                    {
+                        if (!bulletse[i].active)
+                        {
+                            bulletse[i].boom = false;
+                            bulletse[i].x = s6.ex;
+                            bulletse[i].y = s6.ey + 30;
 
+                            float gravity = 0.5f;   // matches bullet update loop, WHY ARE YOU GAY?
+                            float vy = -12.0f; // Arc parabola
+
+                            // Frames until bullet returns to same Y
+                            float timeOfFlight = (-2.0f * vy) / gravity; // = 48 frames
+
+                            // vx needed to land exactly on player's X
+                            bulletse[i].vx = (p.x - s6.ex) / timeOfFlight;
+                            bulletse[i].vy = vy;
+
+                            bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
+                            bulletse[i].active = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        else if (bs6)
+        {
+            vpunts = vpunts + 10;
+            PlaySound(soundArray[0]);
+            s6.ex = 100000000;
+            bs6 = false;
+        }
+        if (s7.ehp == 1) {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posidles7 = { (float)s7.ex, (float)s7.ey, framereceidle.width * 5, framereceidle.height * 5 };
+            DrawTexturePro(sidle, framereceidle, posidles7, position, 0, WHITE);
+            DrawText(cix, s7.ex, s7.ey, 20, RED);
+            if (!inMenu && !winscreen && !lose)
+            {
+                s7.enemyShootTimer += GetFrameTime();
+                if (s7.enemyShootTimer >= enemyShootInterval)
+                {
+                    s7.enemyShootTimer = 0.0f;
+
+                    for (int i = 0; i < MAX_BULLETSE; i++)
+                    {
+                        if (!bulletse[i].active)
+                        {
+                            bulletse[i].boom = false;
+                            bulletse[i].x = s7.ex;
+                            bulletse[i].y = s7.ey + 30;
+
+                            float gravity = 0.5f;   // matches bullet update loop, WHY ARE YOU GAY?
+                            float vy = -12.0f; // Arc parabola
+
+                            // Frames until bullet returns to same Y
+                            float timeOfFlight = (-2.0f * vy) / gravity; // = 48 frames
+
+                            // vx needed to land exactly on player's X
+                            bulletse[i].vx = (p.x - s7.ex) / timeOfFlight;
+                            bulletse[i].vy = vy;
+
+                            bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
+                            bulletse[i].active = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        else if (bs7)
+        {
+            vpunts = vpunts + 10;
+            PlaySound(soundArray[0]);
+            s7.ex = 100000000;
+            bs7 = false;
+        }
         if (t1.thp >= 1)
         {
             if (t1.tvx == 0)
@@ -2276,6 +2378,8 @@ while (!WindowShouldClose())
                 bs3 = true;
                 bs4 = true;
                 bs5 = true;
+                bs6 = true;
+                bs7 = true;
                 bJorge = true;
                 os1 = true;
                 os2 = true;
@@ -2286,6 +2390,8 @@ while (!WindowShouldClose())
                 s3.ehp = 1;
                 s4.ehp = 1;
                 s5.ehp = 1;
+                s6.ehp = 1;
+                s7.ehp = 1;
                 t1.thp = 25;
                 bt1 = true;
                 o1.alive = 1;
@@ -2324,6 +2430,9 @@ while (!WindowShouldClose())
                 s3.ex = 10450;
                 s4.ex = 4750;
                 s5.ex = 6000;
+                s6.ex = 8850;
+                s7.ex = 12250;
+                s5.ey = 1000;
 
 
                 t1.tx = 17500;
@@ -2468,6 +2577,11 @@ while (!WindowShouldClose())
                 s4.ex = 4750;
                 s5.ehp = 1;
                 s5.ex = 6000;
+                s6.ehp = 1;
+                s6.ex = 8850;
+                s7.ehp = 1;
+                s7.ex = 12250;
+                s5.ey = 1000;
 
                 t1.tx = 17500;
                 t1.ty = 880;
@@ -2547,6 +2661,10 @@ while (!WindowShouldClose())
                 s4.ex = 4750;
                 s5.ehp = 1;
                 s5.ex = 6000;
+                s6.ehp = 1;
+                s6.ex = 8850;
+                s7.ehp = 1;
+                s7.ex = 12250;
 
 
                 t1.tx = 17500;
