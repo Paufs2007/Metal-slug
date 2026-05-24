@@ -219,6 +219,7 @@ int main()
     bool gameOver = false;
     float hitCooldown = 0.0f;
     int vpunts = 0;
+    bool potatoBullets = false;
     bool rampa = false;
     int konami = 0;
     int missionSoundStep = -1;
@@ -277,6 +278,7 @@ int main()
     Texture scor = LoadTexture("scorr.png");
     Texture score = LoadTexture("scorre.png");
     Texture bulletes = LoadTexture("balae.png");
+    Texture potato = LoadTexture("bullet_the_OG.png");
     Texture bulleta = LoadTexture("balaamunt.png");
     Texture bulletb = LoadTexture("balaball.png");
     Texture bulletee = LoadTexture("benemice.png");
@@ -880,19 +882,19 @@ while (!WindowShouldClose())
             
             if (bullets[i].direction == 2)
             {
-                DrawTexture(bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
+                DrawTexture(potatoBullets ? potato : bullet, (int)bullets[i].x, (int)bullets[i].y, WHITE);
             }
             else if (bullets[i].direction == -2)
             {
-                DrawTexture(bulletes, (int)bullets[i].x, (int)bullets[i].y, WHITE);
+                DrawTexture(potatoBullets ? potato : bulletes, (int)bullets[i].x, (int)bullets[i].y, WHITE);
             }
             else if (bullets[i].direction == 1)
             {
-                DrawTexture(bulleta, (int)bullets[i].x, (int)bullets[i].y, WHITE);
+                DrawTexture(potatoBullets ? potato : bulleta, (int)bullets[i].x, (int)bullets[i].y, WHITE);
             }
             else if (bullets[i].direction == -1)
             {
-                DrawTexture(bulletb, (int)bullets[i].x, (int)bullets[i].y, WHITE);
+                DrawTexture(potatoBullets ? potato : bulletb, (int)bullets[i].x, (int)bullets[i].y, WHITE);
             }
 
             if (bullets[i].x >= s1.ex && bullets[i].x <= s1.ex + 100 && bullets[i].y >= s1.ey && bullets[i].y <= s1.ey + 200)
@@ -1092,7 +1094,9 @@ while (!WindowShouldClose())
             if (IsKeyPressed(KEY_L))p.x = 19000, ed1.edhp = 0, ed2.edhp = 0; // USED FOR TESTING THE BOSS YOU STUPID ASS HOES
             if (IsKeyPressed(KEY_X))p.x = 16500;
             if (IsKeyPressed(KEY_K))p.x = 12500;
-            if (IsKeyPressed(KEY_O))p.x = 14000;            
+            if (IsKeyPressed(KEY_O))p.x = 14000;
+            if (IsKeyPressed(KEY_B)) potatoBullets = !potatoBullets;
+
 
             if (gunCooldown > 0.0f) gunCooldown -= GetFrameTime();
 
@@ -2295,6 +2299,7 @@ while (!WindowShouldClose())
                 ed2.edhp = 1;
                 ed1b = true;
                 ed2b = true;
+                potatoBullets = false;
                 ed1.edx = 13850;
                 ed2.edx = 14500;
                 startTimer(&vidaTimer, timerlife);
@@ -2441,7 +2446,8 @@ while (!WindowShouldClose())
                 ed1b = true;
                 ed2b = true;
                 ed1.edx = 13850;
-                ed2.edx = 14500;                
+                ed2.edx = 14500;
+                potatoBullets = false;
                 startTimer(&vidaTimer, timerlife);
 
                 StopMusicStream(musicArray[0]);                
@@ -2519,6 +2525,7 @@ while (!WindowShouldClose())
                 ed2b = true;
                 ed1.edx = 13850;
                 ed2.edx = 14500;
+                potatoBullets = false;
                 startTimer(&vidaTimer, timerlife);
 
 
@@ -2599,6 +2606,7 @@ while (!WindowShouldClose())
     UnloadTexture(gameover);
     UnloadTexture(bullete);
     UnloadTexture(logo);
+    UnloadTexture(potato);
     UnloadTexture(bullete); 
     UnloadTexture(scor);
     UnloadTexture(bulletes);
