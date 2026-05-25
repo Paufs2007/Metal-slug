@@ -1663,7 +1663,7 @@ while (!WindowShouldClose())
             if (!inMenu && !winscreen && !lose) 
             {
                     s2.enemyShootTimer += GetFrameTime();
-                    if (s2.enemyShootTimer >= enemyShootInterval)
+                    if (s2.enemyShootTimer >= enemyShootInterval && sqrt((p.x - s2.ex) * (p.x - s2.ex) + (p.y - s2.ey) * (p.y - s2.ey)) < 925)
                     {
                         s2.isshooting = 1;
                         s2.enemyShootTimer = 0.0f;
@@ -1730,7 +1730,7 @@ while (!WindowShouldClose())
             if (!inMenu && !winscreen && !lose)
             {
                 Jorge.enemyShootTimer += GetFrameTime();
-                if (Jorge.enemyShootTimer >= enemyShootInterval)
+                if (Jorge.enemyShootTimer >= enemyShootInterval && sqrt((p.x - Jorge.ex) * (p.x - Jorge.ex) + (p.y - Jorge.ey) * (p.y - Jorge.ey)) < 925)
                 {
                     Jorge.isshooting = 1;
                     Jorge.enemyShootTimer = 0.0f;
@@ -1790,7 +1790,7 @@ while (!WindowShouldClose())
             if (!inMenu && !winscreen && !lose) 
             {
                 s3.enemyShootTimer += GetFrameTime();
-                if (s3.enemyShootTimer >= enemyShootInterval)
+                if (s3.enemyShootTimer >= enemyShootInterval && sqrt((p.x - s3.ex) * (p.x - s3.ex) + (p.y - s3.ey) * (p.y - s3.ey)) < 925)
                 {
                     s3.isshooting = 1;
                     s3.enemyShootTimer = 0.0f;
@@ -1850,7 +1850,7 @@ while (!WindowShouldClose())
             if (!inMenu && !winscreen && !lose)
             {
                 s4.enemyShootTimer += GetFrameTime();
-                if (s4.enemyShootTimer >= enemyShootInterval)
+                if (s4.enemyShootTimer >= enemyShootInterval && sqrt((p.x - s4.ex) * (p.x - s4.ex) + (p.y - s4.ey) * (p.y - s4.ey)) < 925)
                 {
                     s4.isshooting = 1;
                     s4.enemyShootTimer = 0.0f;
@@ -1910,7 +1910,7 @@ while (!WindowShouldClose())
             if (!inMenu && !winscreen && !lose)
             {
                 s5.enemyShootTimer += GetFrameTime();
-                if (s5.enemyShootTimer >= enemyShootInterval)
+                if (s5.enemyShootTimer >= enemyShootInterval && sqrt((p.x - s5.ex) * (p.x - s5.ex) + (p.y - s5.ey) * (p.y - s5.ey)) < 925)
                 {
                     s5.isshooting = 1;
                     s5.enemyShootTimer = 0.0f;
@@ -1970,7 +1970,7 @@ while (!WindowShouldClose())
             if (!inMenu && !winscreen && !lose)
             {
                 s6.enemyShootTimer += GetFrameTime();
-                if (s6.enemyShootTimer >= enemyShootInterval)
+                if (s6.enemyShootTimer >= enemyShootInterval && sqrt((p.x - s6.ex) * (p.x - s6.ex) + (p.y - s6.ey) * (p.y - s6.ey)) < 925)
                 {
                     s6.isshooting = 1;
                     s6.enemyShootTimer = 0.0f;
@@ -2030,7 +2030,7 @@ while (!WindowShouldClose())
             if (!inMenu && !winscreen && !lose)
             {
                 s7.enemyShootTimer += GetFrameTime();
-                if (s7.enemyShootTimer >= enemyShootInterval)
+                if (s7.enemyShootTimer >= enemyShootInterval && sqrt((p.x - s7.ex) * (p.x - s7.ex) + (p.y - s7.ey) * (p.y - s7.ey)) < 925)
                 {
                     s7.isshooting = 1;
                     s7.enemyShootTimer = 0.0f;
@@ -2517,6 +2517,8 @@ while (!WindowShouldClose())
                 s5.ehp = 1;
                 s6.ehp = 1;
                 s7.ehp = 1;
+                s5.evx = 0; 
+                s6.evx = 0;
                 t1.thp = 25;
                 bt1 = true;
                 o1.alive = 1;
