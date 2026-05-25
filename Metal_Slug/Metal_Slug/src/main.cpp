@@ -1701,10 +1701,10 @@ while (!WindowShouldClose())
                     s2.enemyShootTimer += GetFrameTime();
                     if (s2.enemyShootTimer >= enemyShootInterval)
                     {
-                        s2.isshooting = 1;
                         s2.enemyShootTimer = 0.0f;
                         s2.evx = 0;
                         s2.shootPauseTimer = 1.0f;
+                        s2.isshooting = 1;
                         currentFramegranada = 0;
                         for (int i = 0; i < MAX_BULLETSE; i++)
                         {
@@ -1769,10 +1769,10 @@ while (!WindowShouldClose())
                 Jorge.enemyShootTimer += GetFrameTime();
                 if (Jorge.enemyShootTimer >= enemyShootInterval)
                 {
-                    Jorge.isshooting = 1;
                     Jorge.enemyShootTimer = 0.0f;
                     Jorge.evx = 0;
                     Jorge.shootPauseTimer = 1.0f;
+                    Jorge.isshooting = 1;
                     currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
@@ -1830,10 +1830,10 @@ while (!WindowShouldClose())
                 s3.enemyShootTimer += GetFrameTime();
                 if (s3.enemyShootTimer >= enemyShootInterval)
                 {
-                    s3.isshooting = 1;
                     s3.enemyShootTimer = 0.0f;
                     s3.evx = 0;
                     s3.shootPauseTimer = 1.0f;
+                    s3.isshooting = 1;
                     currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
@@ -1891,10 +1891,10 @@ while (!WindowShouldClose())
                 s4.enemyShootTimer += GetFrameTime();
                 if (s4.enemyShootTimer >= enemyShootInterval)
                 {
-                    s4.isshooting = 1;
                     s4.enemyShootTimer = 0.0f;
                     s4.evx = 0;
                     s4.shootPauseTimer = 1.0f;
+                    s4.isshooting = 1;
                     currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
@@ -1952,10 +1952,10 @@ while (!WindowShouldClose())
                 s5.enemyShootTimer += GetFrameTime();
                 if (s5.enemyShootTimer >= enemyShootInterval)
                 {
-                    s5.isshooting = 1;
                     s5.enemyShootTimer = 0.0f;
                     s5.evx = 0;
                     s5.shootPauseTimer = 1.0f;
+                    s5.isshooting = 1;
                     currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
@@ -2013,10 +2013,10 @@ while (!WindowShouldClose())
                 s6.enemyShootTimer += GetFrameTime();
                 if (s6.enemyShootTimer >= enemyShootInterval)
                 {
-                    s6.isshooting = 1;
                     s6.enemyShootTimer = 0.0f;
                     s6.evx = 0;
                     s6.shootPauseTimer = 1.0f;
+                    s6.isshooting = 1;
                     currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
@@ -2074,10 +2074,10 @@ while (!WindowShouldClose())
                 s7.enemyShootTimer += GetFrameTime();
                 if (s7.enemyShootTimer >= enemyShootInterval)
                 {
-                    s7.isshooting = 1;
                     s7.enemyShootTimer = 0.0f;
                     s7.evx = 0;
                     s7.shootPauseTimer = 1.0f;
+                    s7.isshooting = 1;
                     currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
