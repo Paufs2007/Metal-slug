@@ -346,7 +346,7 @@ int main()
 
     Raig r = {1985, 605};
 
-    boss s1 = { 19755, 605 };
+    boss s1 = { 19750, 605 };
     soldier s2 = { 5450, 605 };
     soldier s3 = { 10450, 605 };
     soldier Jorge = { 3200, 800 };
@@ -460,7 +460,8 @@ int main()
     // BOSS 
     int   currentFrameBoss = 0;
     float bossFrameTimer = 0.0f;
-    float bossFrameSpeed = 12.0f;   // frames per second — fast, fluid
+    float bossFrameSpeed = 4.0f;   // frames per second — fast, fluid
+    float bossFrameSpeedLaser = 3.0f;
     int   bossAnim = 0;             // 0=morter_up, 1=morter_down, 2=laser, 3=bola
     int   bossLastAnim = -1;        // track anim switches to reset frame counter
     bool  bossBulletFired = false;  // fire bullet once per animation cycle
@@ -523,8 +524,10 @@ while (!WindowShouldClose())
 
     }
 
+    float currentBossSpeed = (bossAnim == 2 || bossAnim == 3) ? bossFrameSpeedLaser : bossFrameSpeed;
+
     bossFrameTimer += GetFrameTime();
-    if (bossFrameTimer >= 1.0f / bossFrameSpeed)
+    if (bossFrameTimer >= 1.0f / currentBossSpeed)
     {
         bossFrameTimer = 0.0f;
 
@@ -1681,7 +1684,7 @@ while (!WindowShouldClose())
                 DrawTexture(potatoBullets ? potato : bulletb, (int)bullets[i].x, (int)bullets[i].y, WHITE);
             }
 
-            if (bullets[i].x >= s1.ex && bullets[i].x <= s1.ex + 100 && bullets[i].y >= s1.ey && bullets[i].y <= s1.ey + 200)
+            if (bullets[i].x >= s1.ex && bullets[i].x <= s1.ex + 100 && bullets[i].y >= s1.ey && bullets[i].y <= s1.ey + 400)
             {
                 s1.ehp--;
                 vpunts += 10;
@@ -2157,8 +2160,13 @@ while (!WindowShouldClose())
             // --- Determine which animation to play ---
             if (s1.ehp > 75 || (s1.ehp <= 75 && p.y <= 400))
             {
-                // Phase 1 OR player on upper platform in phase 2: mortar
-                bossAnim = (p.y < s1.ey) ? 0 : 1;   // 0 = morter_up, 1 = morter_down
+                static float morterTimer = 0.0f;
+                morterTimer += GetFrameTime();
+                if (morterTimer >= 4.0f)
+                {
+                    morterTimer = 0.0f;
+                    bossAnim = (bossAnim == 0) ? 1 : 0;
+                }
             }
             else
             {
