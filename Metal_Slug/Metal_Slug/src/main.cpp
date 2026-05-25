@@ -2572,7 +2572,7 @@ while (!WindowShouldClose())
                 timerlife = 450;
                 omnimanTimer = { 0 };
                 ed1.edhp = 40;
-                ed2.edhp = 1;
+                ed2.edhp = 30;
                 ed1b = true;
                 ed2b = true;
                 potatoBullets = false;
@@ -2716,7 +2716,7 @@ while (!WindowShouldClose())
                 timerlife = 450;
                 omnimanTimer = { 0 };
                 ed1.edhp = 40;
-                ed2.edhp = 1;
+                ed2.edhp = 30;
                 ed1b = true;
                 ed2b = true;
                 ed1.edx = 13850;
@@ -2799,7 +2799,7 @@ while (!WindowShouldClose())
                 timerlife = 450;
                 omnimanTimer = { 0 };
                 ed1.edhp = 40;
-                ed2.edhp = 1;
+                ed2.edhp = 30;
                 ed1b = true;
                 ed2b = true;
                 ed1.edx = 13850;
