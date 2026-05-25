@@ -2708,6 +2708,8 @@ while (!WindowShouldClose())
                 p.vides = 3;
                 s2.ehp = 1;
                 s3.ehp = 1;
+                s5.evx = 0;
+                s6.evx = 0;
                 o1.alive = 1;
                 o2.alive = 1;
                 Jorge.ehp = 1;
