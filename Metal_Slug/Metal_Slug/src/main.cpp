@@ -53,6 +53,7 @@ public:
     int efacing = 1; // 1 = right, -1 = left
     int efacingy = 1; // 1 = up, -1 = down
     float enemyShootTimer = 0.0f;
+    float shootPauseTimer = 0.0f;
     int isshooting = -1; // 1 = si, -1 = no
 };
 
@@ -572,19 +573,54 @@ while (!WindowShouldClose())
         p.x += p.vx;
         p.y -= p.vy/2;
 
-        if (p.x >= 4500) s2.evx = -5;
+        if (s2.shootPauseTimer > 0.0f)
+        {
+            s2.shootPauseTimer -= GetFrameTime();
+            s2.evx = 0;
+        }
+        else if (p.x >= 4500)
+        {
+            s2.evx = -5;
+        }
         s2.ex += s2.evx;
-        if (!inMenu) Jorge.evx = -5;
+
+        if (Jorge.shootPauseTimer > 0.0f)
+        {
+            Jorge.shootPauseTimer -= GetFrameTime();
+            Jorge.evx = 0;
+        }
+        else if (!inMenu)
+        {
+            Jorge.evx = -5;
+        }
         Jorge.ex += Jorge.evx;
-        if (p.x > 5400) s5.evx = -5;
+
+        if (s5.shootPauseTimer > 0.0f)
+        {
+            s5.shootPauseTimer -= GetFrameTime();
+            s5.evx = 0;
+        }
+        else if (p.x > 5400)
+        {
+            s5.evx = -5;
+        }
         s5.ex += s5.evx;
         s5.vy = -8;
         if (s5.ex > 5760) s5.vy = 0;
-        if (s5.ex > 5500 && s5.ey > 1202) s5.vy = 0; 
+        if (s5.ex > 5500 && s5.ey > 1202) s5.vy = 0;
         if (s5.ex > 3500 && s5.ey > 1382) s5.vy = 0;
         s5.ey -= s5.vy;
-        if (p.x > 8000) s6.evx = -5;
-        s6.ex += s6.evx;
+
+        if (s6.shootPauseTimer > 0.0f)
+        {
+            s6.shootPauseTimer -= GetFrameTime();
+            s6.evx = 0;
+        }
+        else if (p.x > 8000)
+        {
+            s6.evx = -5;
+        }
+        s6.ex += s6.evx;    
 
         if (p.y < FLOOR_Y)
         {
@@ -1668,6 +1704,7 @@ while (!WindowShouldClose())
                         s2.isshooting = 1;
                         s2.enemyShootTimer = 0.0f;
                         s2.evx = 0;
+                        s2.shootPauseTimer = 1.0f;
                         currentFramegranada = 0;
                         for (int i = 0; i < MAX_BULLETSE; i++)
                         {
@@ -1735,6 +1772,7 @@ while (!WindowShouldClose())
                     Jorge.isshooting = 1;
                     Jorge.enemyShootTimer = 0.0f;
                     Jorge.evx = 0;
+                    Jorge.shootPauseTimer = 1.0f;
                     currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
@@ -1795,6 +1833,7 @@ while (!WindowShouldClose())
                     s3.isshooting = 1;
                     s3.enemyShootTimer = 0.0f;
                     s3.evx = 0;
+                    s3.shootPauseTimer = 1.0f;
                     currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
@@ -1855,6 +1894,7 @@ while (!WindowShouldClose())
                     s4.isshooting = 1;
                     s4.enemyShootTimer = 0.0f;
                     s4.evx = 0;
+                    s4.shootPauseTimer = 1.0f;
                     currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
@@ -1915,6 +1955,7 @@ while (!WindowShouldClose())
                     s5.isshooting = 1;
                     s5.enemyShootTimer = 0.0f;
                     s5.evx = 0;
+                    s5.shootPauseTimer = 1.0f;
                     currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
@@ -1975,6 +2016,7 @@ while (!WindowShouldClose())
                     s6.isshooting = 1;
                     s6.enemyShootTimer = 0.0f;
                     s6.evx = 0;
+                    s6.shootPauseTimer = 1.0f;
                     currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
@@ -2035,6 +2077,7 @@ while (!WindowShouldClose())
                     s7.isshooting = 1;
                     s7.enemyShootTimer = 0.0f;
                     s7.evx = 0;
+                    s7.shootPauseTimer = 1.0f;
                     currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
