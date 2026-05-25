@@ -457,11 +457,13 @@ int main()
     int framesSpeedexplosio = 6;
 
 
-    //BOSS 
+    // BOSS 
     int   currentFrameBoss = 0;
     float bossFrameTimer = 0.0f;
-    float bossFrameSpeed = 10.0f;
-    int   bossAnim = 0; // 0=morter_up, 1=morter_down, 2=laser, 3=bola
+    float bossFrameSpeed = 12.0f;   // frames per second — fast, fluid
+    int   bossAnim = 0;             // 0=morter_up, 1=morter_down, 2=laser, 3=bola
+    int   bossLastAnim = -1;        // track anim switches to reset frame counter
+    bool  bossBulletFired = false;  // fire bullet once per animation cycle
 
     const int MAX_BULLETSE = 100;
     Bullete bulletse[MAX_BULLETSE] = {};
@@ -518,20 +520,35 @@ while (!WindowShouldClose())
         framereccajupite.x = (float)currentFramajupit * (float)p1cbaixe.width / 7;
         frameRecmgun.x = (float)currentFrameobj * (float)mgun.width / 2;
         framrecsgranadex.x = (float)currentframeexplo * (float)sgranadaex.width / 6;
-        bossFrameTimer += GetFrameTime();
-        if (bossFrameTimer >= 1.0f / bossFrameSpeed)
+
+    }
+
+    bossFrameTimer += GetFrameTime();
+    if (bossFrameTimer >= 1.0f / bossFrameSpeed)
+    {
+        bossFrameTimer = 0.0f;
+
+        // Reset frame counter when animation changes
+        if (bossAnim != bossLastAnim)
         {
-            bossFrameTimer = 0.0f;
-            currentFrameBoss++;
-
-            int maxFrames = (bossAnim == 2 || bossAnim == 3) ? 10 : 17;
-            if (currentFrameBoss >= maxFrames) currentFrameBoss = 0;
-
-            framerecmorterup.x = (float)currentFrameBoss * morter_up.width / 17;
-            framerecmorterdown.x = (float)currentFrameBoss * morter_down.width / 17;
-            framerecLaser.x = (float)currentFrameBoss * laser.width / 10;
-            framerecBola.x = (float)currentFrameBoss * bolaa.width / 10;
+            currentFrameBoss = 0;
+            bossBulletFired = false;
+            bossLastAnim = bossAnim;
         }
+
+        int maxFrames = (bossAnim == 2 || bossAnim == 3) ? 10 : 17;
+        currentFrameBoss++;
+        if (currentFrameBoss >= maxFrames)
+        {
+            currentFrameBoss = 0;
+            bossBulletFired = false;  // allow next cycle to fire again
+        }
+
+        // Update the correct rectangle for whichever anim is active
+        framerecmorterup.x = (float)currentFrameBoss * morter_up.width / 17;
+        framerecmorterdown.x = (float)currentFrameBoss * morter_down.width / 17;
+        framerecLaser.x = (float)currentFrameBoss * laser.width / 10;
+        framerecBola.x = (float)currentFrameBoss * bolaa.width / 10;
     }
 
     if (framesCounter >= (60 / framesSpeedtir))
@@ -2150,35 +2167,70 @@ while (!WindowShouldClose())
         }
 
 
-        if (s1.ehp >= 1) 
+        if (s1.ehp >= 1)
         {
-            if (s1.evx == 0)
+            // --- Determine which animation to play ---
+            if (s1.ehp > 75 || (s1.ehp <= 75 && p.y <= 400))
             {
-                Vector2 position = { 0.0f, 0.0f };
-                Rectangle posidles1 = { (float)s1.ex, (float)s1.ey, framerecmorterup.width * 5, framerecmorterup.height * 5 };
-                DrawTexturePro(morter_up, framerecmorterup, posidles1, position, 0, WHITE);
-                DrawText(cix, s1.ex, s1.ey, 20, RED);
+                // Phase 1 OR player on upper platform in phase 2: mortar
+                bossAnim = (p.y < s1.ey) ? 0 : 1;   // 0 = morter_up, 1 = morter_down
             }
-            else if (s1.evx < 0)
+            else
             {
-                Vector2 position = { 0.0f, 0.0f };
-                Rectangle posidles1 = { (float)s1.ex, (float)s1.ey, framerecmorterup.width * 5, framerecmorterup.height * 5 };
-                DrawTexturePro(morter_up, framerecmorterup, posidles1, position, 0, WHITE);
-                DrawText(cix, s1.ex, s1.ey, 20, RED);
+                // Phase 2, player on lower platform: alternate laser / bola
+                if (raig && !bola)  bossAnim = 2;
+                else                bossAnim = 3;
             }
 
-            if (s1.ehp > 75)
+            // --- Draw the correct sprite at the correct Y ---
+            // morter_up   (bossAnim 0): boss at normal height (s1.ey)
+            // morter_down (bossAnim 1): boss lower  (+150 px to Y so feet stay grounded)
+            // laser       (bossAnim 2): boss at normal height
+            // bola        (bossAnim 3): boss crouched (+150 px)
+
+            Vector2 bossOrigin = { 0.0f, 0.0f };
+
+            if (bossAnim == 0)
             {
-                if (!inMenu && !winscreen && !lose)
+                Rectangle dest_boss = { (float)s1.ex, (float)s1.ey,
+                                         framerecmorterup.width * 5.0f,
+                                         framerecmorterup.height * 5.0f };
+                DrawTexturePro(morter_up, framerecmorterup, dest_boss, bossOrigin, 0, WHITE);
+            }
+            else if (bossAnim == 1)
+            {
+                Rectangle dest_boss = { (float)s1.ex, (float)s1.ey + 150.0f,
+                                         framerecmorterdown.width * 5.0f,
+                                         framerecmorterdown.height * 5.0f };
+                DrawTexturePro(morter_down, framerecmorterdown, dest_boss, bossOrigin, 0, WHITE);
+            }
+            else if (bossAnim == 2)
+            {
+                Rectangle dest_boss = { (float)s1.ex, (float)s1.ey,
+                                         framerecLaser.width * 5.0f,
+                                         framerecLaser.height * 5.0f };
+                DrawTexturePro(laser, framerecLaser, dest_boss, bossOrigin, 0, WHITE);
+            }
+            else if (bossAnim == 3)
+            {
+                Rectangle dest_boss = { (float)s1.ex, (float)s1.ey + 150.0f,
+                                         framerecBola.width * 5.0f,
+                                         framerecBola.height * 5.0f };
+                DrawTexturePro(bolaa, framerecBola, dest_boss, bossOrigin, 0, WHITE);
+            }
+
+            // --- Fire bullet tied to animation frame, not a separate timer ---
+            if (!inMenu && !winscreen && !lose)
+            {
+                // Phase 1: mortar barrage (unchanged logic, driven by burstCount)
+                if (s1.ehp > 75)
                 {
                     s1.enemyShootTimer += GetFrameTime();
-
                     if (s1.enemyShootTimer >= enemyShootInterval)
                     {
                         s1.enemyShootTimer = 0.0f;
                         s1.burstCount = 3;
                     }
-
                     if (s1.burstCount > 0)
                     {
                         s1.burstTimer += GetFrameTime();
@@ -2193,23 +2245,17 @@ while (!WindowShouldClose())
                                 {
                                     bulletsa1[i].x = s1.ex;
                                     bulletsa1[i].y = s1.ey + 30;
-
                                     float gravity = 0.5f;
                                     float vy = -22.5f;
-
                                     float spread = 200.0f;
                                     float step = spread / 4.0f;
-                                    float targetX = (p.x ) + s1.burstCount * step;
+                                    float targetX = p.x + s1.burstCount * step;
                                     float targetY = p.y;
-
                                     float dy = targetY - bulletsa1[i].y;
-
-
                                     float timeOfFlight = (-2.0f * vy) / gravity;
                                     bulletsa1[i].vx = (targetX - s1.ex) / timeOfFlight;
                                     bulletsa1[i].vy = (dy - 0.5f * gravity * timeOfFlight * timeOfFlight) / timeOfFlight;
-
-                                    bulletsa1[i].useGravity = true; // TURNS ON GRAVITY GILIPOLLAS!
+                                    bulletsa1[i].useGravity = true;
                                     bulletsa1[i].active = true;
                                     break;
                                 }
@@ -2217,158 +2263,108 @@ while (!WindowShouldClose())
                         }
                     }
                 }
-            }
-            else if (s1.ehp <= 75)
-            {
-                
-                    if (!inMenu && !winscreen && !lose)
+                // Phase 2, player on upper platform: same mortar
+                else if (s1.ehp <= 75 && p.y <= 400)
+                {
+                    s1.enemyShootTimer += GetFrameTime();
+                    if (s1.enemyShootTimer >= enemyShootInterval)
                     {
-                        if (p.y <= 400) {
-
-
-                            s1.enemyShootTimer += GetFrameTime();
-
-                            if (s1.enemyShootTimer >= enemyShootInterval)
-                            {
-                                s1.enemyShootTimer = 0.0f;
-                                s1.burstCount = 3;
-                            }
-
-                            if (s1.burstCount > 0)
-                            {
-                                s1.burstTimer += GetFrameTime();
-                                if (s1.burstTimer >= 0.4f)
-                                {
-                                    s1.burstTimer = 0.0f;
-                                    s1.burstCount--;
-
-                                    for (int i = 0; i < MAX_BULLETSA1; i++)
-                                    {
-                                        if (!bulletsa1[i].active)
-                                        {
-                                            bulletsa1[i].x = s1.ex;
-                                            bulletsa1[i].y = s1.ey + 30;
-
-                                            float gravity = 0.5f;
-                                            float vy = -22.5f;
-                                            float targetY = p.y;
-
-                                            float dy = targetY - bulletsa1[i].y;
-
-                                            float spread = 200.0f;
-                                            float step = spread / 4.0f;
-                                            float targetX = (p.x) + s1.burstCount * step;
-
-                                            float timeOfFlight = (-2.0f * vy) / gravity;
-                                            bulletsa1[i].vx = (targetX - s1.ex) / timeOfFlight;
-                                            bulletsa1[i].vy = (dy - 0.5f * gravity * timeOfFlight * timeOfFlight) / timeOfFlight;
-
-                                            bulletsa1[i].useGravity = true; // TURNS ON GRAVITY GILIPOLLAS!
-                                            bulletsa1[i].active = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        else {
-                            if (raig && !bola) {
-
-                                //------------------------- FAST
-                                s1.enemyShootTimer += GetFrameTime();
-
-                                // Dispara cada X segons
-                                if (s1.enemyShootTimer >= enemyShootInterval)
-                                {
-                                    s1.enemyShootTimer = 0.0f;
-
-                                    // Posicio inicial
-                                    for (int i = 0; i < MAX_BULLETSA2; i++)
-                                    {
-                                        if (!bulletsa2[i].active)
-                                        {
-                                            bulletsa2[i].x = s1.ex;
-                                            bulletsa2[i].y = 650 ;
-
-                                            // Direccio cap al jugador
-                                            float dx = p.x - s1.ex - 20;
-                                            float dy = p.y - s1.ey;
-
-                                            // Longitud del vector
-                                            float length = sqrt(dx * dx + dy * dy);
-
-                                            // Normalitzar + velocitat lenta
-                                            float speed = 20.0f;
-
-                                            bulletsa2[i].vx = (dx / length) * speed;
-
-                                            bulletsa2[i].active = true;
-                                            bulletsa2[i].useGravity = false;
-
-                                            raig = false;
-                                            bola = true;
-                                            break;
-                                        }
-                                    }
-                                }
-
-                            }
-                            else if (bola && !raig) {
-                                s1.enemyShootTimer += GetFrameTime();
-
-                                // Dispara cada X segons
-                                if (s1.enemyShootTimer >= enemyShootInterval)
-                                {
-                                    s1.enemyShootTimer = 0.0f;
-
-                                    for (int i = 0; i < MAX_BULLETSA3; i++)
-                                    {
-                                        if (!bulletsa3[i].active)
-                                        {
-                                            // Posicio inicial
-                                            bulletsa3[i].x = s1.ex;
-                                            bulletsa3[i].y = 825;
-
-                                            // Direccio cap al jugador
-                                            float dx = p.x - s1.ex;
-                                            float dy = p.y - s1.ey;
-
-                                            // Longitud del vector
-                                            float length = sqrt(dx * dx + dy * dy);
-
-                                            // Normalitzar + velocitat lenta
-                                            float speed = 8.0f;
-
-                                            bulletsa3[i].vx = (dx / length) * speed;
-
-                                            bulletsa3[i].active = true;
-                                            bulletsa3[i].useGravity = false;
-
-                                            raig = true;
-                                            bola = false;
-
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                            
-
-                        }
-
+                        s1.enemyShootTimer = 0.0f;
+                        s1.burstCount = 3;
                     }
+                    if (s1.burstCount > 0)
+                    {
+                        s1.burstTimer += GetFrameTime();
+                        if (s1.burstTimer >= 0.4f)
+                        {
+                            s1.burstTimer = 0.0f;
+                            s1.burstCount--;
+
+                            for (int i = 0; i < MAX_BULLETSA1; i++)
+                            {
+                                if (!bulletsa1[i].active)
+                                {
+                                    bulletsa1[i].x = s1.ex;
+                                    bulletsa1[i].y = s1.ey + 30;
+                                    float gravity = 0.5f;
+                                    float vy = -22.5f;
+                                    float targetX = p.x + s1.burstCount * (200.0f / 4.0f);
+                                    float targetY = p.y;
+                                    float dy = targetY - bulletsa1[i].y;
+                                    float timeOfFlight = (-2.0f * vy) / gravity;
+                                    bulletsa1[i].vx = (targetX - s1.ex) / timeOfFlight;
+                                    bulletsa1[i].vy = (dy - 0.5f * gravity * timeOfFlight * timeOfFlight) / timeOfFlight;
+                                    bulletsa1[i].useGravity = true;
+                                    bulletsa1[i].active = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    // Original timer-based firing — unchanged
+                    s1.enemyShootTimer += GetFrameTime();
+
+                    if (s1.enemyShootTimer >= enemyShootInterval)
+                    {
+                        s1.enemyShootTimer = 0.0f;
+
+                        if (raig && !bola)
+                        {
+                            for (int i = 0; i < MAX_BULLETSA2; i++)
+                            {
+                                if (!bulletsa2[i].active)
+                                {
+                                    bulletsa2[i].x = s1.ex;
+                                    bulletsa2[i].y = 650;
+                                    float dx = p.x - s1.ex - 20;
+                                    float dy = p.y - s1.ey;
+                                    float length = sqrtf(dx * dx + dy * dy);
+                                    bulletsa2[i].vx = (dx / length) * 20.0f;
+                                    bulletsa2[i].vy = 0;
+                                    bulletsa2[i].active = true;
+                                    bulletsa2[i].useGravity = false;
+                                    raig = false;
+                                    bola = true;
+                                    break;
+                                }
+                            }
+                        }
+                        else if (bola && !raig)
+                        {
+                            for (int i = 0; i < MAX_BULLETSA3; i++)
+                            {
+                                if (!bulletsa3[i].active)
+                                {
+                                    bulletsa3[i].x = s1.ex;
+                                    bulletsa3[i].y = 825;
+                                    float dx = p.x - s1.ex;
+                                    float dy = p.y - s1.ey;
+                                    float length = sqrtf(dx * dx + dy * dy);
+                                    bulletsa3[i].vx = (dx / length) * 8.0f;
+                                    bulletsa3[i].vy = 0;
+                                    bulletsa3[i].active = true;
+                                    bulletsa3[i].useGravity = false;
+                                    raig = true;
+                                    bola = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
-
-
         else if (KevinTheFuckingBoss)
         {
-            vpunts = vpunts + 1000;
+            vpunts += 1000;
             KevinTheFuckingBoss = false;
             PlaySound(soundArray[0]);
-            
             winscreen = true;
         }
+
 
         if (s2.ehp == 1) 
         {
