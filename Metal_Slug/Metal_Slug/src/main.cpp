@@ -308,6 +308,14 @@ int main()
     Texture edv3 = LoadTexture("edv3.png");
     Texture sgranada = LoadTexture("soldat granada.png");
 
+    //BOSS
+    Texture laser = LoadTexture("dixparar laser (ha d'estar a dalt).png");
+    Texture bolaa = LoadTexture("disparar bola de terra.png");
+    Texture morter_down = LoadTexture("disparar boss (quan es troba a baix).png");
+    Texture morter_up = LoadTexture("disparar boss (quan es troba a dalt).png");
+
+
+
     Font timerNums = LoadFont("prova 2 tipografia.png");
     Font whiteFont = LoadFont("tipografia gris.png");
     Font yellowFont = LoadFont("nums1.png");
@@ -333,7 +341,7 @@ int main()
 
     Raig r = {1985, 605};
 
-    boss s1 = { 19895, 605 };
+    boss s1 = { 19755, 605 };
     soldier s2 = { 5450, 605 };
     soldier s3 = { 10450, 605 };
     soldier Jorge = { 3200, 800 };
@@ -380,7 +388,6 @@ int main()
     Rectangle framerectpeix = { 0, 0, (float)peix.width / 3, (float)peix.height };
 
     Rectangle framerectbase = { 0, 0, (float)tbase.width / 4, (float)tbase.height };
-
     Rectangle framereceidle = { 0, 0, (float)sidle.width / 4, (float)sidle.height };
     Rectangle framerececorr = { 0, 0, (float)scor.width / 12, (float)scor.height };
     Rectangle framerececorre = { 0, 0, (float)score.width / 12, (float)score.height };
@@ -416,7 +423,13 @@ int main()
     Rectangle frameRecdretacorrent = { 0, 0, (float)p1dretacorrentcames.width / 12, (float)p1dretacorrentcames.height };
     Rectangle frameRecidle = { 0, 0, (float)p1.width / 4, (float)p1.height };
 
+
     Rectangle frameRecmgun = { 0, 0, (float)mgun.width / 2, (float)mgun.height };
+
+    Rectangle framerecmorterup = { 0, 0, (float)morter_up.width / 17, (float)morter_up.height };
+    Rectangle framerecmorterdown = { 0, 0, (float)morter_down.width / 17, (float)morter_down.height };
+    Rectangle framerecLaser = { 0, 0, (float)laser.width / 10, (float)laser.height };
+    Rectangle framerecBola = { 0, 0, (float)bolaa.width / 10, (float)bolaa.height };
 
     int currentFrameidle = 0;
     int currentFramcorrer = 0;
@@ -430,6 +443,13 @@ int main()
     int framesSpeedtir = 4;
     int framesSpeedtirb = 4;
     int framesSpeedgranada = 6.1;
+
+
+    //BOSS 
+    int   currentFrameBoss = 0;
+    float bossFrameTimer = 0.0f;
+    float bossFrameSpeed = 10.0f;
+    int   bossAnim = 0; // 0=morter_up, 1=morter_down, 2=laser, 3=bola
 
     const int MAX_BULLETSE = 100;
     Bullete bulletse[MAX_BULLETSE] = {};
@@ -483,6 +503,23 @@ while (!WindowShouldClose())
         framereccajupit.x = (float)currentFramajupit * (float)p1cbaix.width / 7;
         framereccajupite.x = (float)currentFramajupit * (float)p1cbaixe.width / 7;
         frameRecmgun.x = (float)currentFrameobj * (float)mgun.width / 2;
+
+
+        bossFrameTimer += GetFrameTime();
+        if (bossFrameTimer >= 1.0f / bossFrameSpeed)
+        {
+            bossFrameTimer = 0.0f;
+            currentFrameBoss++;
+
+            int maxFrames = (bossAnim == 2 || bossAnim == 3) ? 10 : 17;
+            if (currentFrameBoss >= maxFrames) currentFrameBoss = 0;
+
+            framerecmorterup.x = (float)currentFrameBoss * morter_up.width / 17;
+            framerecmorterdown.x = (float)currentFrameBoss * morter_down.width / 17;
+            framerecLaser.x = (float)currentFrameBoss * laser.width / 10;
+            framerecBola.x = (float)currentFrameBoss * bolaa.width / 10;
+        }
+
     }
 
     if (framesCounter >= (60 / framesSpeedtir))
@@ -834,7 +871,6 @@ while (!WindowShouldClose())
                     }
                 }
             }
-
             if (s5.currentframegranada >= 16)
             {
                 s5.currentframegranada = 0;
@@ -1076,9 +1112,9 @@ while (!WindowShouldClose())
         s1.ey += s1.vy;
         s1.vy += 4;
 
-        if (s1.ey >= 700)
+        if (s1.ey >= 450)
         {
-            s1.ey = 700;
+            s1.ey = 450;
             s1.vy = 0;
         }
 
@@ -1865,15 +1901,15 @@ while (!WindowShouldClose())
             if (s1.evx == 0)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posidles1 = { (float)s1.ex, (float)s1.ey, framereceidle.width * 5, framereceidle.height * 5 };
-                DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
+                Rectangle posidles1 = { (float)s1.ex, (float)s1.ey, framerecmorterup.width * 5, framerecmorterup.height * 5 };
+                DrawTexturePro(morter_up, framerecmorterup, posidles1, position, 0, WHITE);
                 DrawText(cix, s1.ex, s1.ey, 20, RED);
             }
             else if (s1.evx < 0)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posidles1 = { (float)s1.ex, (float)s1.ey, framereceidle.width * 5, framereceidle.height * 5 };
-                DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
+                Rectangle posidles1 = { (float)s1.ex, (float)s1.ey, framerecmorterup.width * 5, framerecmorterup.height * 5 };
+                DrawTexturePro(morter_up, framerecmorterup, posidles1, position, 0, WHITE);
                 DrawText(cix, s1.ex, s1.ey, 20, RED);
             }
 
@@ -1998,7 +2034,7 @@ while (!WindowShouldClose())
                                         if (!bulletsa2[i].active)
                                         {
                                             bulletsa2[i].x = s1.ex;
-                                            bulletsa2[i].y = s1.ey - 25 ;
+                                            bulletsa2[i].y = 650 ;
 
                                             // Direccio cap al jugador
                                             float dx = p.x - s1.ex - 20;
@@ -2037,7 +2073,7 @@ while (!WindowShouldClose())
                                         {
                                             // Posicio inicial
                                             bulletsa3[i].x = s1.ex;
-                                            bulletsa3[i].y = s1.ey + 100;
+                                            bulletsa3[i].y = 825;
 
                                             // Direccio cap al jugador
                                             float dx = p.x - s1.ex;
@@ -2071,39 +2107,6 @@ while (!WindowShouldClose())
         }
 
 
-        // BERNAT DO NOT DELETE, ES FARA SERVIR PER ELS ENEMICS.
-        //if (!inMenu && !winscreen && !lose)
-        //{
-        //    s1.enemyShootTimer += GetFrameTime();
-        //    if (s1.enemyShootTimer >= enemyShootInterval)
-        //    {
-        //        s1.enemyShootTimer = 0.0f;
-
-        //        for (int i = 0; i < MAX_BULLETSE; i++)
-        //        {
-        //            if (!bulletse[i].active)
-        //            {
-        //                bulletse[i].x = s1.ex;
-        //                bulletse[i].y = s1.ey + 30;
-
-        //                float gravity = 0.5f;   // matches bullet update loop, WHY ARE YOU GAY?
-        //                float vy = -12.0f; // Arc parabola
-
-        //                // Frames until bullet returns to same Y
-        //                float timeOfFlight = (-2.0f * vy) / gravity; // = 48 frames
-
-        //                // vx needed to land exactly on player's X
-        //                bulletse[i].vx = (p.x - s1.ex) / timeOfFlight;
-        //                bulletse[i].vy = vy;
-
-        //                bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
-        //                bulletse[i].active = true;
-        //                break;
-        //            }
-        //        }
-        //    }
-        //}
-        //}
         else if (KevinTheFuckingBoss)
         {
             vpunts = vpunts + 1000;
@@ -2676,6 +2679,20 @@ while (!WindowShouldClose())
 
         if (logoscreen) {
 
+            if (IsKeyPressed(KEY_M)) {
+                for (int i = 0; i < 20; i++)
+                    SetSoundVolume(soundArray[i], 0.0f);
+                PauseMusicStream(musicArray[0]);
+                music = false;
+            }
+            if (IsKeyPressed(KEY_N)) {
+                for (int i = 0; i < 20; i++)
+                    SetSoundVolume(soundArray[i], 1.0f);
+                SetSoundVolume(soundArray[7], 100.0f); // restore Fahhhh's original loud volume
+                ResumeMusicStream(musicArray[0]);
+                music = true;
+            }
+
             float width = logo.width * 2;
             float height = logo.height * 2;
 
@@ -2709,6 +2726,19 @@ while (!WindowShouldClose())
         }
         else if (inMenu && !logoscreen) {
 
+            if (IsKeyPressed(KEY_M)) {
+                for (int i = 0; i < 20; i++)
+                    SetSoundVolume(soundArray[i], 0.0f);
+                PauseMusicStream(musicArray[0]);
+                music = false;
+            }
+            if (IsKeyPressed(KEY_N)) {
+                for (int i = 0; i < 20; i++)
+                    SetSoundVolume(soundArray[i], 1.0f);
+                SetSoundVolume(soundArray[7], 100.0f); // restore Fahhhh's original loud volume
+                ResumeMusicStream(musicArray[0]);
+                music = true;
+            }
 
 
             if (!menuSoundPlayed) {
@@ -3155,6 +3185,10 @@ while (!WindowShouldClose())
     UnloadTexture(edv2);
     UnloadTexture(edv3);
     UnloadTexture(sgranada);
+    UnloadTexture(laser);
+    UnloadTexture(bolaa);
+    UnloadTexture(morter_down);
+    UnloadTexture(morter_up);
     CloseWindow();
     return 0;
 }
