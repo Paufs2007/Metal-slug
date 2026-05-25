@@ -312,11 +312,13 @@
     <None Include="resources\Game_Over.ogg" />
     <None Include="resources\LONG.mp3" />
     <None Include="resources\MACHINE_GUN.mp3" />
+    <None Include="resources\MISSION.mp3" />
     <None Include="resources\Metal_Slug.mp3" />
+    <None Include="resources\START.mp3" />
     <None Include="resources\bo.mp3" />
     <None Include="resources\explode.mp3" />
     <None Include="resources\mission_complete.mp3" />
-    <None Include="resources\numeros_color.png-autosave.kra" />
+    <None Include="resources\one.mp3" />
     <None Include="resources\pipa.mp3" />
     <None Include="resources\sexy_death.mp3" />
     <None Include="resources\vaca.mp3" />
@@ -332,7 +334,6 @@
     <Image Include="resources\Metal_Slug_Start.png" />
     <Image Include="resources\Neo Geo _ NGCD - Metal Slug - Miscellaneous - HUD &amp; Interface.png" />
     <Image Include="resources\Neo Geo _ NGCD - Metal Slug - Miscellaneous - Player Status.png" />
-    <Image Include="resources\Neo Geo _ NGCD - Metal Slug - Miscellaneous - Time Numbers.png" />
     <Image Include="resources\accelerant andevant.png" />
     <Image Include="resources\accelerant cap endarrere.png" />
     <Image Include="resources\ajupit.png" />
@@ -345,6 +346,7 @@
     <Image Include="resources\at1b4.png" />
     <Image Include="resources\at1b5.png" />
     <Image Include="resources\at1b6.png" />
+    <Image Include="resources\avioporxos.png" />
     <Image Include="resources\balaamunt.png" />
     <Image Include="resources\balaball.png" />
     <Image Include="resources\balae.png" />
@@ -374,28 +376,48 @@
     <Image Include="resources\capquiete.png" />
     <Image Include="resources\captir.png" />
     <Image Include="resources\captire.png" />
+    <Image Include="resources\edg1.png" />
+    <Image Include="resources\edg2.png" />
+    <Image Include="resources\edg3.png" />
+    <Image Include="resources\edg4.png" />
+    <Image Include="resources\edifici 2 final.png" />
+    <Image Include="resources\edv1.png" />
+    <Image Include="resources\edv2.png" />
+    <Image Include="resources\edv3.png" />
+    <Image Include="resources\exposio granada.png" />
+    <Image Include="resources\granada 1.png" />
+    <Image Include="resources\granada 2.png" />
+    <Image Include="resources\granada 3.png" />
     <Image Include="resources\logoExplota.png" />
     <Image Include="resources\mission-1-complete.png" />
+    <Image Include="resources\moviment vertical boss.png" />
     <Image Include="resources\mr.png" />
-    <Image Include="resources\numeros_color.png" />
     <Image Include="resources\nums1.png" />
     <Image Include="resources\p1 drivig.png" />
     <Image Include="resources\p1idle.png" />
     <Image Include="resources\p1idlee.png" />
+    <Image Include="resources\peix.png" />
+    <Image Include="resources\prova 2 tipografia.png" />
     <Image Include="resources\scames.png" />
     <Image Include="resources\scamese.png" />
     <Image Include="resources\scap.png" />
     <Image Include="resources\scape.png" />
     <Image Include="resources\scorr.png" />
     <Image Include="resources\scorre.png" />
+    <Image Include="resources\soldat granada.png" />
     <Image Include="resources\soldatidle.png" />
     <Image Include="resources\tankbaix.png" />
-    <Image Include="resources\tipografia.png" />
+    <Image Include="resources\tipografia gris.png" />
     <Image Include="resources\tirajupit.png" />
     <Image Include="resources\tirajupite.png" />
     <Image Include="resources\tiramunt.png" />
     <Image Include="resources\tiramunte.png" />
     <Image Include="resources\wabbit_alpha.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="raylib.vcxproj">
+      <Project>{8898EA18-743A-15EF-5DF5-284349369C3F}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,100 +1,339 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\main.cpp" />
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{E9C7FDCE-D52A-8D73-7EB0-C5296AF258F6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{21EB8090-0D4E-1035-B6D3-48EBA215DCB7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Resource Files">
+      <UniqueIdentifier>{BAF00917-2652-E724-AFBF-2DD71B201EE4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows Resource Files">
+      <UniqueIdentifier>{6B659E97-575F-C7E9-40CC-5DFA2C652D56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\resource_dir.h" />
+    <ClInclude Include="include\resource_dir.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="src\application.rc" />
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="resources\Game_Over.png" />
-    <Image Include="resources\MACHINE GUN.png" />
-    <Image Include="resources\MetalSlug-Mission1.png" />
-    <Image Include="resources\Metal_Slug_Start.png" />
-    <Image Include="resources\Neo Geo _ NGCD - Metal Slug - Miscellaneous - HUD &amp; Interface.png" />
-    <Image Include="resources\Neo Geo _ NGCD - Metal Slug - Miscellaneous - Player Status.png" />
-    <Image Include="resources\Neo Geo _ NGCD - Metal Slug - Miscellaneous - Time Numbers.png" />
-    <Image Include="resources\accelerant andevant.png" />
-    <Image Include="resources\accelerant cap endarrere.png" />
-    <Image Include="resources\ajupit.png" />
-    <Image Include="resources\ajupite.png" />
-    <Image Include="resources\animacio de reviure ( despres de morir).png" />
-    <Image Include="resources\animació ajupir (quan dones al cap abaix 1 vegada).png" />
-    <Image Include="resources\at1b1.png" />
-    <Image Include="resources\at1b2.png" />
-    <Image Include="resources\at1b3.png" />
-    <Image Include="resources\at1b4.png" />
-    <Image Include="resources\at1b5.png" />
-    <Image Include="resources\at1b6.png" />
-    <Image Include="resources\balaamunt.png" />
-    <Image Include="resources\balaball.png" />
-    <Image Include="resources\balae.png" />
-    <Image Include="resources\benemic.png" />
-    <Image Include="resources\benemice.png" />
-    <Image Include="resources\boss1.png" />
-    <Image Include="resources\bullet.png" />
-    <Image Include="resources\bullet_the_OG.png" />
-    <Image Include="resources\cajupit.png" />
-    <Image Include="resources\cajupite.png" />
-    <Image Include="resources\cames caminant versio girada.png" />
-    <Image Include="resources\cames quietes.png" />
-    <Image Include="resources\camescaminant.png" />
-    <Image Include="resources\camescorrent.png" />
-    <Image Include="resources\camescorrente.png" />
-    <Image Include="resources\camesquiet.png" />
-    <Image Include="resources\camesquiete.png" />
-    <Image Include="resources\cap apuntant cap amunt pistola versio girada .png" />
-    <Image Include="resources\cap apuntant cap amunt pistola.png" />
-    <Image Include="resources\cap atack ganivet versio girada .png" />
-    <Image Include="resources\cap atack ganivet.png" />
-    <Image Include="resources\cap recarega pistola versio girada.png" />
-    <Image Include="resources\cap recarega pistola.png" />
-    <Image Include="resources\cap suspirant ( versio girada .png" />
-    <Image Include="resources\cap suspirant.png" />
-    <Image Include="resources\capquiet.png" />
-    <Image Include="resources\capquiete.png" />
-    <Image Include="resources\captir.png" />
-    <Image Include="resources\captire.png" />
-    <Image Include="resources\logoExplota.png" />
-    <Image Include="resources\mission-1-complete.png" />
-    <Image Include="resources\mr.png" />
-    <Image Include="resources\numeros_color.png" />
-    <Image Include="resources\nums1.png" />
-    <Image Include="resources\p1 drivig.png" />
-    <Image Include="resources\p1idle.png" />
-    <Image Include="resources\p1idlee.png" />
-    <Image Include="resources\scames.png" />
-    <Image Include="resources\scamese.png" />
-    <Image Include="resources\scap.png" />
-    <Image Include="resources\scape.png" />
-    <Image Include="resources\scorr.png" />
-    <Image Include="resources\scorre.png" />
-    <Image Include="resources\soldatidle.png" />
-    <Image Include="resources\tankbaix.png" />
-    <Image Include="resources\tipografia.png" />
-    <Image Include="resources\tirajupit.png" />
-    <Image Include="resources\tirajupite.png" />
-    <Image Include="resources\tiramunt.png" />
-    <Image Include="resources\tiramunte.png" />
-    <Image Include="resources\wabbit_alpha.png" />
+    <None Include="resources\06.-Stage-Clear.ogg">
+      <Filter>Game Resource Files</Filter>
+    </None>
+    <None Include="resources\Fahhhh.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
+    <None Include="resources\Game_Over.ogg">
+      <Filter>Game Resource Files</Filter>
+    </None>
+    <None Include="resources\LONG.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
+    <None Include="resources\MACHINE_GUN.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
+    <None Include="resources\MISSION.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
+    <None Include="resources\Metal_Slug.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
+    <None Include="resources\START.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
+    <None Include="resources\bo.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
+    <None Include="resources\explode.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
+    <None Include="resources\mission_complete.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
+    <None Include="resources\one.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
+    <None Include="resources\pipa.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
+    <None Include="resources\sexy_death.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
+    <None Include="resources\vaca.mp3">
+      <Filter>Game Resource Files</Filter>
+    </None>
+    <None Include="src\icon.ico">
+      <Filter>Windows Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="resources\06.-Stage-Clear.ogg" />
-    <None Include="resources\Fahhhh.mp3" />
-    <None Include="resources\Game_Over.ogg" />
-    <None Include="resources\LONG.mp3" />
-    <None Include="resources\MACHINE_GUN.mp3" />
-    <None Include="resources\Metal_Slug.mp3" />
-    <None Include="resources\bo.mp3" />
-    <None Include="resources\explode.mp3" />
-    <None Include="resources\mission_complete.mp3" />
-    <None Include="resources\numeros_color.png-autosave.kra" />
-    <None Include="resources\pipa.mp3" />
-    <None Include="resources\sexy_death.mp3" />
-    <None Include="resources\vaca.mp3" />
-    <None Include="src\icon.ico" />
+    <ResourceCompile Include="src\application.rc">
+      <Filter>Windows Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\Game_Over.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\MACHINE GUN.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\MetalSlug-Mission1.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\Metal_Slug_Start.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\Neo Geo _ NGCD - Metal Slug - Miscellaneous - HUD & Interface.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\Neo Geo _ NGCD - Metal Slug - Miscellaneous - Player Status.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\accelerant andevant.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\accelerant cap endarrere.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\ajupit.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\ajupite.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\animacio de reviure ( despres de morir).png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\animació ajupir (quan dones al cap abaix 1 vegada).png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\at1b1.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\at1b2.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\at1b3.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\at1b4.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\at1b5.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\at1b6.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\avioporxos.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\balaamunt.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\balaball.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\balae.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\benemic.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\benemice.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\boss1.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\bullet.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\bullet_the_OG.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cajupit.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cajupite.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cames caminant versio girada.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cames quietes.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\camescaminant.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\camescorrent.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\camescorrente.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\camesquiet.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\camesquiete.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cap apuntant cap amunt pistola versio girada .png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cap apuntant cap amunt pistola.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cap atack ganivet versio girada .png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cap atack ganivet.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cap recarega pistola versio girada.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cap recarega pistola.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cap suspirant ( versio girada .png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\cap suspirant.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\capquiet.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\capquiete.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\captir.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\captire.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\edg1.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\edg2.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\edg3.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\edg4.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\edifici 2 final.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\edv1.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\edv2.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\edv3.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\exposio granada.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\granada 1.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\granada 2.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\granada 3.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\logoExplota.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\mission-1-complete.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\moviment vertical boss.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\mr.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\nums1.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\p1 drivig.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\p1idle.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\p1idlee.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\peix.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\prova 2 tipografia.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\scames.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\scamese.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\scap.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\scape.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\scorr.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\scorre.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\soldat granada.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\soldatidle.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\tankbaix.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\tipografia gris.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\tirajupit.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\tirajupite.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\tiramunt.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\tiramunte.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
+    <Image Include="resources\wabbit_alpha.png">
+      <Filter>Game Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

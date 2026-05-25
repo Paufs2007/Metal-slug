@@ -985,6 +985,15 @@ while (!WindowShouldClose())
         //bales atac 1 jefe (morter) // el fa durant primera fase i nomes si arribes a la segona plataforma durnat 2na fase
 
         for (int i = 0; i < MAX_BULLETSA1; i++) {
+
+            float len = sqrtf(bulletsa1[i].vx * bulletsa1[i].vx + bulletsa1[i].vy * bulletsa1[i].vy);
+
+            float dirX = bulletsa1[i].vx / len;
+            float dirY = bulletsa1[i].vy / len;
+
+            // separació entre boles
+            float spacing = 18.0f;
+
             if (!bulletsa1[i].active) continue;
             //atac 1
             Vector2 position = { 0.0f, 0.0f };
@@ -992,23 +1001,23 @@ while (!WindowShouldClose())
             DrawTexturePro(at1b1, framecrecat1b1, posat1b1, position, 0, WHITE);
             //atac2
             Vector2 position2 = { 0.0f, 0.0f };
-            Rectangle posat1b2 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y - 10, framecrecat1b2.width * 4.75, framecrecat1b2.height * 4.75 };
+            Rectangle posat1b2 = { (int)bulletsa1[i].x - dirX * spacing, (int)bulletsa1[i].y - dirY * spacing, framecrecat1b2.width * 4.75, framecrecat1b2.height * 4.75 };
             DrawTexturePro(at1b2, framecrecat1b2, posat1b2, position2, 0, WHITE);
             //atac3
             Vector2 positio3 = { 0.0f, 0.0f };
-            Rectangle posat1b3 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y - 20, framecrecat1b3.width * 4.75, framecrecat1b3.height * 4.75 };
+            Rectangle posat1b3 = { (int)bulletsa1[i].x - dirX * spacing * 2, (int)bulletsa1[i].y - dirY * spacing * 2, framecrecat1b3.width * 4.75, framecrecat1b3.height * 4.75 };
             DrawTexturePro(at1b3, framecrecat1b3, posat1b3, positio3, 0, WHITE);
             //atac4
             Vector2 position4 = { 0.0f, 0.0f };
-            Rectangle posat1b4 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y - 30, framecrecat1b4.width * 4.75, framecrecat1b4.height * 4.75 };
+            Rectangle posat1b4 = { (int)bulletsa1[i].x - dirX * spacing * 2.5, (int)bulletsa1[i].y - dirY * spacing * 2.5, framecrecat1b4.width * 4.75, framecrecat1b4.height * 4.75 };
             DrawTexturePro(at1b4, framecrecat1b4, posat1b4, position4, 0, WHITE);
             //atac5
             Vector2 position5 = { 0.0f, 0.0f };
-            Rectangle posat1b5 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y - 40, framecrecat1b5.width * 4.75, framecrecat1b5.height * 4.75 };
+            Rectangle posat1b5 = { (int)bulletsa1[i].x - dirX * spacing * 3, (int)bulletsa1[i].y - dirY * spacing * 3, framecrecat1b5.width * 4.75, framecrecat1b5.height * 4.75 };
             DrawTexturePro(at1b5, framecrecat1b5, posat1b5, position5, 0, WHITE);
             //atac6
             Vector2 position6 = { 0.0f, 0.0f };
-            Rectangle posat1b6 = { (int)bulletsa1[i].x, (int)bulletsa1[i].y - 45, framecrecat1b6.width * 4.75, framecrecat1b6.height * 4.75 };
+            Rectangle posat1b6 = { (int)bulletsa1[i].x - dirX * spacing * 3.5, (int)bulletsa1[i].y - dirY * spacing * 3.5, framecrecat1b6.width * 4.75, framecrecat1b6.height * 4.75 };
             DrawTexturePro(at1b6, framecrecat1b6, posat1b6, position6, 0, WHITE);
             if (!p.Omniman && bulletsa1[i].x >= p.x && bulletsa1[i].x <= p.x + 100 && bulletsa1[i].y >= p.y && bulletsa1[i].y <= p.y + 200 && p.isajupit == -1 || !p.Omniman && bulletsa1[i].x >= p.x && bulletsa1[i].x <= p.x + 100 && bulletsa1[i].y >= p.y + 100 && bulletsa1[i].y <= p.y + 200 && p.isajupit == 1)
             {
