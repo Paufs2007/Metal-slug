@@ -582,6 +582,400 @@ while (!WindowShouldClose())
         }
     }
 
+    if (Jorge.isshooting == -1)
+    {
+        Jorge.enemyShootTimer += GetFrameTime();
+
+        float dist = sqrt((p.x - Jorge.ex) * (p.x - Jorge.ex) + (p.y - Jorge.ey) * (p.y - Jorge.ey));
+
+        if (Jorge.enemyShootTimer >= enemyShootInterval && dist < 925)
+        {
+            Jorge.enemyShootTimer = 0.0f;
+
+            Jorge.isshooting = 1;
+            Jorge.currentframegranada = 0;
+            Jorge.tirgrenada = false;
+
+            Jorge.shootPauseTimer = 16.0f / framesSpeedgranada;
+            Jorge.evx = 0;
+        }
+    }
+
+    if (Jorge.isshooting == 1)
+    {
+        Jorge.grenadetimer += GetFrameTime();
+
+        if (Jorge.grenadetimer >= 1.0f / framesSpeedgranada)
+        {
+            Jorge.grenadetimer = 0;
+            Jorge.currentframegranada++;
+
+            if (Jorge.currentframegranada == 10 && !Jorge.tirgrenada)
+            {
+                Jorge.tirgrenada = true;
+
+                for (int i = 0; i < MAX_BULLETSE; i++)
+                {
+                    if (!bulletse[i].active)
+                    {
+                        bulletse[i].boom = false;
+                        bulletse[i].x = Jorge.ex;
+                        bulletse[i].y = Jorge.ey + 30;
+
+                        float gravity = 0.5f;
+                        float vy = -12.0f;
+
+                        float timeOfFlight = (-2.0f * vy) / gravity;
+
+                        bulletse[i].vx = (p.x - Jorge.ex) / timeOfFlight;
+                        bulletse[i].vy = vy;
+
+                        bulletse[i].useGravity = true;
+                        bulletse[i].active = true;
+                        break;
+                    }
+                }
+            }
+
+            if (Jorge.currentframegranada >= 16)
+            {
+                Jorge.currentframegranada = 0;
+                Jorge.isshooting = -1;
+                Jorge.tirgrenada = false;
+            }
+        }
+    }
+
+    // ================= s3 =================
+
+    if (s3.isshooting == -1)
+    {
+        s3.enemyShootTimer += GetFrameTime();
+
+        float dist = sqrt((p.x - s3.ex) * (p.x - s3.ex) + (p.y - s3.ey) * (p.y - s3.ey));
+
+        if (s3.enemyShootTimer >= enemyShootInterval && dist < 925)
+        {
+            s3.enemyShootTimer = 0.0f;
+
+            s3.isshooting = 1;
+            s3.currentframegranada = 0;
+            s3.tirgrenada = false;
+
+            s3.shootPauseTimer = 16.0f / framesSpeedgranada;
+            s3.evx = 0;
+        }
+    }
+
+    if (s3.isshooting == 1)
+    {
+        s3.grenadetimer += GetFrameTime();
+
+        if (s3.grenadetimer >= 1.0f / framesSpeedgranada)
+        {
+            s3.grenadetimer = 0;
+            s3.currentframegranada++;
+
+            if (s3.currentframegranada == 10 && !s3.tirgrenada)
+            {
+                s3.tirgrenada = true;
+
+                for (int i = 0; i < MAX_BULLETSE; i++)
+                {
+                    if (!bulletse[i].active)
+                    {
+                        bulletse[i].boom = false;
+                        bulletse[i].x = s3.ex;
+                        bulletse[i].y = s3.ey + 30;
+
+                        float gravity = 0.5f;
+                        float vy = -12.0f;
+
+                        float timeOfFlight = (-2.0f * vy) / gravity;
+
+                        bulletse[i].vx = (p.x - s3.ex) / timeOfFlight;
+                        bulletse[i].vy = vy;
+
+                        bulletse[i].useGravity = true;
+                        bulletse[i].active = true;
+                        break;
+                    }
+                }
+            }
+
+            if (s3.currentframegranada >= 16)
+            {
+                s3.currentframegranada = 0;
+                s3.isshooting = -1;
+                s3.tirgrenada = false;
+            }
+        }
+    }
+
+    // ================= s4 =================
+
+    if (s4.isshooting == -1)
+    {
+        s4.enemyShootTimer += GetFrameTime();
+
+        float dist = sqrt((p.x - s4.ex) * (p.x - s4.ex) + (p.y - s4.ey) * (p.y - s4.ey));
+
+        if (s4.enemyShootTimer >= enemyShootInterval && dist < 925)
+        {
+            s4.enemyShootTimer = 0.0f;
+
+            s4.isshooting = 1;
+            s4.currentframegranada = 0;
+            s4.tirgrenada = false;
+
+            s4.shootPauseTimer = 16.0f / framesSpeedgranada;
+            s4.evx = 0;
+        }
+    }
+
+    if (s4.isshooting == 1)
+    {
+        s4.grenadetimer += GetFrameTime();
+
+        if (s4.grenadetimer >= 1.0f / framesSpeedgranada)
+        {
+            s4.grenadetimer = 0;
+            s4.currentframegranada++;
+
+            if (s4.currentframegranada == 10 && !s4.tirgrenada)
+            {
+                s4.tirgrenada = true;
+
+                for (int i = 0; i < MAX_BULLETSE; i++)
+                {
+                    if (!bulletse[i].active)
+                    {
+                        bulletse[i].boom = false;
+                        bulletse[i].x = s4.ex;
+                        bulletse[i].y = s4.ey + 30;
+
+                        float gravity = 0.5f;
+                        float vy = -12.0f;
+
+                        float timeOfFlight = (-2.0f * vy) / gravity;
+
+                        bulletse[i].vx = (p.x - s4.ex) / timeOfFlight;
+                        bulletse[i].vy = vy;
+
+                        bulletse[i].useGravity = true;
+                        bulletse[i].active = true;
+                        break;
+                    }
+                }
+            }
+
+            if (s4.currentframegranada >= 16)
+            {
+                s4.currentframegranada = 0;
+                s4.isshooting = -1;
+                s4.tirgrenada = false;
+            }
+        }
+    }
+
+    // ================= s5 =================
+
+    if (s5.isshooting == -1)
+    {
+        s5.enemyShootTimer += GetFrameTime();
+
+        float dist = sqrt((p.x - s5.ex) * (p.x - s5.ex) + (p.y - s5.ey) * (p.y - s5.ey));
+
+        if (s5.enemyShootTimer >= enemyShootInterval && dist < 925)
+        {
+            s5.enemyShootTimer = 0.0f;
+
+            s5.isshooting = 1;
+            s5.currentframegranada = 0;
+            s5.tirgrenada = false;
+
+            s5.shootPauseTimer = 16.0f / framesSpeedgranada;
+            s5.evx = 0;
+        }
+    }
+
+    if (s5.isshooting == 1)
+    {
+        s5.grenadetimer += GetFrameTime();
+
+        if (s5.grenadetimer >= 1.0f / framesSpeedgranada)
+        {
+            s5.grenadetimer = 0;
+            s5.currentframegranada++;
+
+            if (s5.currentframegranada == 10 && !s5.tirgrenada)
+            {
+                s5.tirgrenada = true;
+
+                for (int i = 0; i < MAX_BULLETSE; i++)
+                {
+                    if (!bulletse[i].active)
+                    {
+                        bulletse[i].boom = false;
+                        bulletse[i].x = s5.ex;
+                        bulletse[i].y = s5.ey + 30;
+
+                        float gravity = 0.5f;
+                        float vy = -12.0f;
+
+                        float timeOfFlight = (-2.0f * vy) / gravity;
+
+                        bulletse[i].vx = (p.x - s5.ex) / timeOfFlight;
+                        bulletse[i].vy = vy;
+
+                        bulletse[i].useGravity = true;
+                        bulletse[i].active = true;
+                        break;
+                    }
+                }
+            }
+
+            if (s5.currentframegranada >= 16)
+            {
+                s5.currentframegranada = 0;
+                s5.isshooting = -1;
+                s5.tirgrenada = false;
+            }
+        }
+    }
+
+    // ================= s6 =================
+
+    if (s6.isshooting == -1)
+    {
+        s6.enemyShootTimer += GetFrameTime();
+
+        float dist = sqrt((p.x - s6.ex) * (p.x - s6.ex) + (p.y - s6.ey) * (p.y - s6.ey));
+
+        if (s6.enemyShootTimer >= enemyShootInterval && dist < 925)
+        {
+            s6.enemyShootTimer = 0.0f;
+
+            s6.isshooting = 1;
+            s6.currentframegranada = 0;
+            s6.tirgrenada = false;
+
+            s6.shootPauseTimer = 16.0f / framesSpeedgranada;
+            s6.evx = 0;
+        }
+    }
+
+    if (s6.isshooting == 1)
+    {
+        s6.grenadetimer += GetFrameTime();
+
+        if (s6.grenadetimer >= 1.0f / framesSpeedgranada)
+        {
+            s6.grenadetimer = 0;
+            s6.currentframegranada++;
+
+            if (s6.currentframegranada == 10 && !s6.tirgrenada)
+            {
+                s6.tirgrenada = true;
+
+                for (int i = 0; i < MAX_BULLETSE; i++)
+                {
+                    if (!bulletse[i].active)
+                    {
+                        bulletse[i].boom = false;
+                        bulletse[i].x = s6.ex;
+                        bulletse[i].y = s6.ey + 30;
+
+                        float gravity = 0.5f;
+                        float vy = -12.0f;
+
+                        float timeOfFlight = (-2.0f * vy) / gravity;
+
+                        bulletse[i].vx = (p.x - s6.ex) / timeOfFlight;
+                        bulletse[i].vy = vy;
+
+                        bulletse[i].useGravity = true;
+                        bulletse[i].active = true;
+                        break;
+                    }
+                }
+            }
+
+            if (s6.currentframegranada >= 16)
+            {
+                s6.currentframegranada = 0;
+                s6.isshooting = -1;
+                s6.tirgrenada = false;
+            }
+        }
+    }
+
+    // ================= s7 =================
+
+    if (s7.isshooting == -1)
+    {
+        s7.enemyShootTimer += GetFrameTime();
+
+        float dist = sqrt((p.x - s7.ex) * (p.x - s7.ex) + (p.y - s7.ey) * (p.y - s7.ey));
+
+        if (s7.enemyShootTimer >= enemyShootInterval && dist < 925)
+        {
+            s7.enemyShootTimer = 0.0f;
+
+            s7.isshooting = 1;
+            s7.currentframegranada = 0;
+            s7.tirgrenada = false;
+
+            s7.shootPauseTimer = 16.0f / framesSpeedgranada;
+            s7.evx = 0;
+        }
+    }
+
+    if (s7.isshooting == 1)
+    {
+        s7.grenadetimer += GetFrameTime();
+
+        if (s7.grenadetimer >= 1.0f / framesSpeedgranada)
+        {
+            s7.grenadetimer = 0;
+            s7.currentframegranada++;
+
+            if (s7.currentframegranada == 10 && !s7.tirgrenada)
+            {
+                s7.tirgrenada = true;
+
+                for (int i = 0; i < MAX_BULLETSE; i++)
+                {
+                    if (!bulletse[i].active)
+                    {
+                        bulletse[i].boom = false;
+                        bulletse[i].x = s7.ex;
+                        bulletse[i].y = s7.ey + 30;
+
+                        float gravity = 0.5f;
+                        float vy = -12.0f;
+
+                        float timeOfFlight = (-2.0f * vy) / gravity;
+
+                        bulletse[i].vx = (p.x - s7.ex) / timeOfFlight;
+                        bulletse[i].vy = vy;
+
+                        bulletse[i].useGravity = true;
+                        bulletse[i].active = true;
+                        break;
+                    }
+                }
+            }
+
+            if (s7.currentframegranada >= 16)
+            {
+                s7.currentframegranada = 0;
+                s7.isshooting = -1;
+                s7.tirgrenada = false;
+            }
+        }
+    }
+
     if (p.x > 4200 && p.x < 4510 && p.y <= 1220) FLOOR_Y = 1200;
     if (p.x > 4600 && p.x < 5500 && p.y <= 1000) FLOOR_Y = 1000;
     if (p.x > 5500 && p.x < 5785 && p.y <= 1220) FLOOR_Y = 1200;
@@ -1070,6 +1464,8 @@ while (!WindowShouldClose())
         for (int i = 0; i < MAX_BULLETSE; i++) {
             if (!bulletse[i].active) continue;
             DrawTexture(bulletee, (int)bulletse[i].x, (int)bulletse[i].y, WHITE);
+
+
             if (!p.Omniman && bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y && bulletse[i].y <= p.y + 200 && p.isajupit == -1 || !p.Omniman && bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y + 100 && bulletse[i].y <= p.y + 200 && p.isajupit == 1)
             {
                 bulletse[i].active = false;
@@ -1755,15 +2151,16 @@ while (!WindowShouldClose())
             if (Jorge.evx == 0 && Jorge.isshooting == 1)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posgranad = { (float)Jorge.ex, (float)Jorge.ey, framerecsgranad.width * 5, framerecsgranad.height * 5 };
-                DrawTexturePro(sgranada, framerecsgranad, posgranad, position, 0, WHITE);
-                DrawText(cix, Jorge.ex, Jorge.ey, 20, RED);
+                Rectangle src = framerecsgranad;
+                src.x = Jorge.currentframegranada * (sgranada.width / 16);
+                Rectangle posgranad = { (float)Jorge.ex, (float)Jorge.ey, src.width * 5, src.height * 5 };
+                DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (Jorge.evx == 0)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posidles1 = { (float)Jorge.ex, (float)Jorge.ey, framereceidle.width * 5, framereceidle.height * 5 };
-                DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
+                Rectangle posidle = { (float)Jorge.ex, (float)Jorge.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidle, position, 0, WHITE);
                 DrawText(cix, Jorge.ex, Jorge.ey, 20, RED);
             }
             else if (Jorge.evx < 0)
@@ -1772,40 +2169,6 @@ while (!WindowShouldClose())
                 Rectangle poscorr = { (float)Jorge.ex, (float)Jorge.ey, framerececorr.width * 5, framerececorr.height * 5 };
                 DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
                 DrawText(cix, Jorge.ex, Jorge.ey, 20, RED);
-            }
-            
-            if (!inMenu && !winscreen && !lose)
-            {
-                Jorge.enemyShootTimer += GetFrameTime();
-                if (Jorge.enemyShootTimer >= enemyShootInterval && sqrt((p.x - Jorge.ex) * (p.x - Jorge.ex) + (p.y - Jorge.ey) * (p.y - Jorge.ey)) < 925)
-                {
-                    Jorge.enemyShootTimer = 0.0f;
-                    Jorge.shootPauseTimer = 1.0f;
-                    Jorge.isshooting = 1;
-                    for (int i = 0; i < MAX_BULLETSE; i++)
-                    {
-                        if (!bulletse[i].active)
-                        {
-                            bulletse[i].boom = false;
-                            bulletse[i].x = Jorge.ex;
-                            bulletse[i].y = Jorge.ey + 30;
-
-                            float gravity = 0.5f;   // matches bullet update loop, WHY ARE YOU GAY?
-                            float vy = -12.0f; // Arc parabola
-
-                            // Frames until bullet returns to same Y
-                            float timeOfFlight = (-2.0f * vy) / gravity; // = 48 frames
-
-                            // vx needed to land exactly on player's X
-                            bulletse[i].vx = (p.x - Jorge.ex) / timeOfFlight;
-                            bulletse[i].vy = vy;
-
-                            bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
-                            bulletse[i].active = true;
-                            break;
-                        }
-                    }
-                }
             }
         }
         else if (bJorge)
@@ -1821,50 +2184,25 @@ while (!WindowShouldClose())
             if (s3.evx == 0 && s3.isshooting == 1)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posgranad = { (float)s3.ex, (float)s3.ey, framerecsgranad.width * 5, framerecsgranad.height * 5 };
-                DrawTexturePro(sgranada, framerecsgranad, posgranad, position, 0, WHITE);
-                DrawText(cix, s3.ex, s3.ey, 20, RED);
+                Rectangle src = framerecsgranad;
+                src.x = s3.currentframegranada * (sgranada.width / 16);
+                Rectangle posgranad = { (float)s3.ex, (float)s3.ey, src.width * 5, src.height * 5 };
+                DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s3.evx == 0)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posidles3 = { (float)s3.ex, (float)s3.ey, framereceidle.width * 5, framereceidle.height * 5 };
-                DrawTexturePro(sidle, framereceidle, posidles3, position, 0, WHITE);
+                Rectangle posidle = { (float)s3.ex, (float)s3.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidle, position, 0, WHITE);
                 DrawText(cix, s3.ex, s3.ey, 20, RED);
             }
 
-            if (!inMenu && !winscreen && !lose) 
+            else if (s3.evx < 0)
             {
-                s3.enemyShootTimer += GetFrameTime();
-                if (s3.enemyShootTimer >= enemyShootInterval && sqrt((p.x - s3.ex) * (p.x - s3.ex) + (p.y - s3.ey) * (p.y - s3.ey)) < 925)
-                {
-                    s3.enemyShootTimer = 0.0f;
-                    s3.shootPauseTimer = 1.0f;
-                    s3.isshooting = 1;
-                    for (int i = 0; i < MAX_BULLETSE; i++)
-                    {
-                        if (!bulletse[i].active)
-                        {
-                            bulletse[i].boom = false;
-                            bulletse[i].x = s3.ex;
-                            bulletse[i].y = s3.ey + 30;
-
-                            float gravity = 0.5f;   // matches bullet update loop, WHY ARE YOU GAY?
-                            float vy = -12.0f; // Arc parabola
-
-                            // Frames until bullet returns to same Y
-                            float timeOfFlight = (-2.0f * vy) / gravity; // = 48 frames
-
-                            // vx needed to land exactly on player's X
-                            bulletse[i].vx = (p.x - s3.ex) / timeOfFlight;
-                            bulletse[i].vy = vy;
-
-                            bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
-                            bulletse[i].active = true;
-                            break;
-                        }
-                    }
-                }
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle poscorr = { (float)s3.ex, (float)s3.ey, framerececorr.width * 5, framerececorr.height * 5 };
+                DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
+                DrawText(cix, s3.ex, s3.ey, 20, RED);
             }
         }
         else if (bs3)
@@ -1880,50 +2218,25 @@ while (!WindowShouldClose())
             if (s4.evx == 0 && s4.isshooting == 1)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posgranad = { (float)s4.ex, (float)s4.ey, framerecsgranad.width * 5, framerecsgranad.height * 5 };
-                DrawTexturePro(sgranada, framerecsgranad, posgranad, position, 0, WHITE);
-                DrawText(cix, s4.ex, s4.ey, 20, RED);
+                Rectangle src = framerecsgranad;
+                src.x = s4.currentframegranada * (sgranada.width / 16);
+                Rectangle posgranad = { (float)s4.ex, (float)s4.ey, src.width * 5, src.height * 5 };
+                DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s4.evx == 0)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posidles4 = { (float)s4.ex, (float)s4.ey, framereceidle.width * 5, framereceidle.height * 5 };
-                DrawTexturePro(sidle, framereceidle, posidles4, position, 0, WHITE);
+                Rectangle posidle = { (float)s4.ex, (float)s4.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidle, position, 0, WHITE);
                 DrawText(cix, s4.ex, s4.ey, 20, RED);
             }
 
-            if (!inMenu && !winscreen && !lose)
+            else if (s4.evx < 0)
             {
-                s4.enemyShootTimer += GetFrameTime();
-                if (s4.enemyShootTimer >= enemyShootInterval && sqrt((p.x - s4.ex) * (p.x - s4.ex) + (p.y - s4.ey) * (p.y - s4.ey)) < 925)
-                {
-                    s4.enemyShootTimer = 0.0f;
-                    s4.shootPauseTimer = 1.0f;
-                    s4.isshooting = 1;
-                    for (int i = 0; i < MAX_BULLETSE; i++)
-                    {
-                        if (!bulletse[i].active)
-                        {
-                            bulletse[i].boom = false;
-                            bulletse[i].x = s4.ex;
-                            bulletse[i].y = s4.ey + 30;
-
-                            float gravity = 0.5f;   // matches bullet update loop, WHY ARE YOU GAY?
-                            float vy = -12.0f; // Arc parabola
-
-                            // Frames until bullet returns to same Y
-                            float timeOfFlight = (-2.0f * vy) / gravity; // = 48 frames
-
-                            // vx needed to land exactly on player's X
-                            bulletse[i].vx = (p.x - s4.ex) / timeOfFlight;
-                            bulletse[i].vy = vy;
-
-                            bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
-                            bulletse[i].active = true;
-                            break;
-                        }
-                    }
-                }
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle poscorr = { (float)s4.ex, (float)s4.ey, framerececorr.width * 5, framerececorr.height * 5 };
+                DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
+                DrawText(cix, s4.ex, s4.ey, 20, RED);
             }
         }
         else if (bs4)
@@ -1939,50 +2252,25 @@ while (!WindowShouldClose())
             if (s5.evx == 0 && s5.isshooting == 1)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posgranad = { (float)s5.ex, (float)s5.ey, framerecsgranad.width * 5, framerecsgranad.height * 5 };
-                DrawTexturePro(sgranada, framerecsgranad, posgranad, position, 0, WHITE);
-                DrawText(cix, s5.ex, s5.ey, 20, RED);
+                Rectangle src = framerecsgranad;
+                src.x = s5.currentframegranada * (sgranada.width / 16);
+                Rectangle posgranad = { (float)s5.ex, (float)s5.ey, src.width * 5, src.height * 5 };
+                DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s5.evx == 0)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posidles5 = { (float)s5.ex, (float)s5.ey, framereceidle.width * 5, framereceidle.height * 5 };
-                DrawTexturePro(sidle, framereceidle, posidles5, position, 0, WHITE);
+                Rectangle posidle = { (float)s5.ex, (float)s5.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidle, position, 0, WHITE);
                 DrawText(cix, s5.ex, s5.ey, 20, RED);
             }
 
-            if (!inMenu && !winscreen && !lose)
+            else if (s5.evx < 0)
             {
-                s5.enemyShootTimer += GetFrameTime();
-                if (s5.enemyShootTimer >= enemyShootInterval && sqrt((p.x - s5.ex) * (p.x - s5.ex) + (p.y - s5.ey) * (p.y - s5.ey)) < 925)
-                {
-                    s5.enemyShootTimer = 0.0f;
-                    s5.shootPauseTimer = 1.0f;
-                    s5.isshooting = 1;
-                    for (int i = 0; i < MAX_BULLETSE; i++)
-                    {
-                        if (!bulletse[i].active)
-                        {
-                            bulletse[i].boom = false;
-                            bulletse[i].x = s5.ex;
-                            bulletse[i].y = s5.ey + 30;
-
-                            float gravity = 0.5f;   // matches bullet update loop, WHY ARE YOU GAY?
-                            float vy = -12.0f; // Arc parabola
-
-                            // Frames until bullet returns to same Y
-                            float timeOfFlight = (-2.0f * vy) / gravity; // = 48 frames
-
-                            // vx needed to land exactly on player's X
-                            bulletse[i].vx = (p.x - s5.ex) / timeOfFlight;
-                            bulletse[i].vy = vy;
-
-                            bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
-                            bulletse[i].active = true;
-                            break;
-                        }
-                    }
-                }
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle poscorr = { (float)s5.ex, (float)s5.ey, framerececorr.width * 5, framerececorr.height * 5 };
+                DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
+                DrawText(cix, s5.ex, s5.ey, 20, RED);
             }
         }
         else if (bs5)
@@ -1993,55 +2281,30 @@ while (!WindowShouldClose())
             bs5 = false;
         }
 
-        if (s6.ehp == 1) {
-            
+        if (s6.ehp == 1)
+        {
             if (s6.evx == 0 && s6.isshooting == 1)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posgranad = { (float)s6.ex, (float)s6.ey, framerecsgranad.width * 5, framerecsgranad.height * 5 };
-                DrawTexturePro(sgranada, framerecsgranad, posgranad, position, 0, WHITE);
-                DrawText(cix, s6.ex, s6.ey, 20, RED);
+                Rectangle src = framerecsgranad;
+                src.x = s6.currentframegranada * (sgranada.width / 16);
+                Rectangle posgranad = { (float)s6.ex, (float)s6.ey, src.width * 5, src.height * 5 };
+                DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s6.evx == 0)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posidles6 = { (float)s6.ex, (float)s6.ey, framereceidle.width * 5, framereceidle.height * 5 };
-                DrawTexturePro(sidle, framereceidle, posidles6, position, 0, WHITE);
+                Rectangle posidle = { (float)s6.ex, (float)s6.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidle, position, 0, WHITE);
                 DrawText(cix, s6.ex, s6.ey, 20, RED);
             }
 
-            if (!inMenu && !winscreen && !lose)
+            else if (s6.evx < 0)
             {
-                s6.enemyShootTimer += GetFrameTime();
-                if (s6.enemyShootTimer >= enemyShootInterval && sqrt((p.x - s6.ex) * (p.x - s6.ex) + (p.y - s6.ey) * (p.y - s6.ey)) < 925)
-                {
-                    s6.enemyShootTimer = 0.0f;
-                    s6.shootPauseTimer = 1.0f;
-                    s6.isshooting = 1;
-                    for (int i = 0; i < MAX_BULLETSE; i++)
-                    {
-                        if (!bulletse[i].active)
-                        {
-                            bulletse[i].boom = false;
-                            bulletse[i].x = s6.ex;
-                            bulletse[i].y = s6.ey + 30;
-
-                            float gravity = 0.5f;   // matches bullet update loop, WHY ARE YOU GAY?
-                            float vy = -12.0f; // Arc parabola
-
-                            // Frames until bullet returns to same Y
-                            float timeOfFlight = (-2.0f * vy) / gravity; // = 48 frames
-
-                            // vx needed to land exactly on player's X
-                            bulletse[i].vx = (p.x - s6.ex) / timeOfFlight;
-                            bulletse[i].vy = vy;
-
-                            bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
-                            bulletse[i].active = true;
-                            break;
-                        }
-                    }
-                }
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle poscorr = { (float)s6.ex, (float)s6.ey, framerececorr.width * 5, framerececorr.height * 5 };
+                DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
+                DrawText(cix, s6.ex, s6.ey, 20, RED);
             }
         }
         else if (bs6)
@@ -2052,55 +2315,30 @@ while (!WindowShouldClose())
             bs6 = false;
         }
         
-        if (s7.ehp == 1) {
-
+        if (s7.ehp == 1)
+        {
             if (s7.evx == 0 && s7.isshooting == 1)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posgranad = { (float)s7.ex, (float)s7.ey, framerecsgranad.width * 5, framerecsgranad.height * 5 };
-                DrawTexturePro(sgranada, framerecsgranad, posgranad, position, 0, WHITE);
-                DrawText(cix, s7.ex, s7.ey, 20, RED);
+                Rectangle src = framerecsgranad;
+                src.x = s7.currentframegranada * (sgranada.width / 16);
+                Rectangle posgranad = { (float)s7.ex, (float)s7.ey, src.width * 5, src.height * 5 };
+                DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s7.evx == 0)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posidles7 = { (float)s7.ex, (float)s7.ey, framereceidle.width * 5, framereceidle.height * 5 };
-                DrawTexturePro(sidle, framereceidle, posidles7, position, 0, WHITE);
+                Rectangle posidle = { (float)s7.ex, (float)s7.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidle, position, 0, WHITE);
                 DrawText(cix, s7.ex, s7.ey, 20, RED);
             }
 
-            if (!inMenu && !winscreen && !lose)
+            else if (s7.evx < 0)
             {
-                s7.enemyShootTimer += GetFrameTime();
-                if (s7.enemyShootTimer >= enemyShootInterval && sqrt((p.x - s7.ex) * (p.x - s7.ex) + (p.y - s7.ey) * (p.y - s7.ey)) < 925)
-                {
-                    s7.enemyShootTimer = 0.0f;
-                    s7.shootPauseTimer = 1.0f;
-                    s7.isshooting = 1;
-                    for (int i = 0; i < MAX_BULLETSE; i++)
-                    {
-                        if (!bulletse[i].active)
-                        {
-                            bulletse[i].boom = false;
-                            bulletse[i].x = s7.ex;
-                            bulletse[i].y = s7.ey + 30;
-
-                            float gravity = 0.5f;   // matches bullet update loop, WHY ARE YOU GAY?
-                            float vy = -12.0f; // Arc parabola
-
-                            // Frames until bullet returns to same Y
-                            float timeOfFlight = (-2.0f * vy) / gravity; // = 48 frames
-
-                            // vx needed to land exactly on player's X
-                            bulletse[i].vx = (p.x - s7.ex) / timeOfFlight;
-                            bulletse[i].vy = vy;
-
-                            bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
-                            bulletse[i].active = true;
-                            break;
-                        }
-                    }
-                }
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle poscorr = { (float)s7.ex, (float)s7.ey, framerececorr.width * 5, framerececorr.height * 5 };
+                DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
+                DrawText(cix, s7.ex, s7.ey, 20, RED);
             }
         }
         else if (bs7)
