@@ -164,6 +164,9 @@ struct Bullete {
     bool useGravity;
     bool active;
     bool boom;
+
+    int currentframeexplo = 0;
+    float timerexplo = 0.0f;
 };
 
 struct Bulleta1 {
@@ -307,6 +310,8 @@ int main()
     Texture edv2 = LoadTexture("edv2.png");
     Texture edv3 = LoadTexture("edv3.png");
     Texture sgranada = LoadTexture("soldat granada.png");
+    Texture sgranadap = LoadTexture("granada 2.png");
+    Texture sgranadaex = LoadTexture("exposio granada.png");
 
     Font timerNums = LoadFont("prova 2 tipografia.png");
     Font whiteFont = LoadFont("tipografia gris.png");
@@ -385,6 +390,8 @@ int main()
     Rectangle framerececorr = { 0, 0, (float)scor.width / 12, (float)scor.height };
     Rectangle framerececorre = { 0, 0, (float)score.width / 12, (float)score.height };
     Rectangle framerecsgranad = { 0, 0, (float)sgranada.width / 16, (float)sgranada.height };
+    Rectangle framerecsgranadp = { 0, 0, (float)sgranadap.width / 3, (float)sgranadap.height };
+    Rectangle framrecsgranadex = { 0, 0, (float)sgranadaex.width / 6, (float)sgranadaex.height };
 
     Rectangle framecrecat1b1 = { 0, 0, (float)at1b1.width / 3, (float)at1b1.height };
     Rectangle framecrecat1b2 = { 0, 0, (float)at1b2.width / 3, (float)at1b2.height };
@@ -425,11 +432,13 @@ int main()
     int currentFramajupit = 0;
     int currentFrameobj = 0;
     int currentFrametirb1 = 0;
+    int currentframeexplo = 0;
     int framesCounter = 0;
     int framesSpeed = 3;
     int framesSpeedtir = 4;
     int framesSpeedtirb = 4;
     int framesSpeedgranada = 6.1;
+    int framesSpeedexplosio = 6;
 
     const int MAX_BULLETSE = 100;
     Bullete bulletse[MAX_BULLETSE] = {};
@@ -461,6 +470,8 @@ while (!WindowShouldClose())
         if (currentFramajupit >= 7) currentFramajupit = 0;
         currentFrameobj++;
         if (currentFrameobj >= 2) currentFrameobj = 0;
+        currentframeexplo++;
+        if (currentframeexplo >= 6) currentframeexplo = 0;
 
         frameRecidle.x = (float)currentFrameidle * (float)p1.width / 4;
         frameReccap.x = (float)currentFrameidle * (float)p1cap.width / 4;
@@ -483,6 +494,7 @@ while (!WindowShouldClose())
         framereccajupit.x = (float)currentFramajupit * (float)p1cbaix.width / 7;
         framereccajupite.x = (float)currentFramajupit * (float)p1cbaixe.width / 7;
         frameRecmgun.x = (float)currentFrameobj * (float)mgun.width / 2;
+        framrecsgranadex.x = (float)currentframeexplo * (float)sgranadaex.width / 6;
     }
 
     if (framesCounter >= (60 / framesSpeedtir))
@@ -514,6 +526,8 @@ while (!WindowShouldClose())
         framecrecat1b4.x = (float)currentFrametirb1 * (float)at1b4.width / 3;
         framecrecat1b5.x = (float)currentFrametirb1 * (float)at1b5.width / 3;
         framecrecat1b6.x = (float)currentFrametirb1 * (float)at1b6.width / 3;
+
+        framerecsgranadp.x = (float)currentFrametirb1 * (float)sgranadap.width / 3;
 
         framerectpeix.x = (float)currentFrametirb1 * (float)peix.width / 3;
     }
@@ -646,8 +660,6 @@ while (!WindowShouldClose())
         }
     }
 
-    // ================= s3 =================
-
     if (s3.isshooting == -1)
     {
         s3.enemyShootTimer += GetFrameTime();
@@ -711,8 +723,6 @@ while (!WindowShouldClose())
             }
         }
     }
-
-    // ================= s4 =================
 
     if (s4.isshooting == -1)
     {
@@ -778,8 +788,6 @@ while (!WindowShouldClose())
         }
     }
 
-    // ================= s5 =================
-
     if (s5.isshooting == -1)
     {
         s5.enemyShootTimer += GetFrameTime();
@@ -844,8 +852,6 @@ while (!WindowShouldClose())
         }
     }
 
-    // ================= s6 =================
-
     if (s6.isshooting == -1)
     {
         s6.enemyShootTimer += GetFrameTime();
@@ -909,8 +915,6 @@ while (!WindowShouldClose())
             }
         }
     }
-
-    // ================= s7 =================
 
     if (s7.isshooting == -1)
     {
@@ -1238,11 +1242,44 @@ while (!WindowShouldClose())
 
             if (bulletse[i].y >= FLOOR_Y + 200 && !bulletse[i].boom) {
                 bulletse[i].boom = true;
+                currentframeexplo = 0;
+                bulletse[i].timerexplo = 0.0f;
                 PlaySound(soundArray[6]);
                 if (!p.Omniman && sqrt((p.x - bulletse[i].x) * (p.x - bulletse[i].x) + (p.y - bulletse[i].y) * (p.y - bulletse[i].y)) < 400) p.vides--;
-                bulletse[i].active = false;
+                if (p.vides <= 0)
+                {
+                    p.credits--;
+                    p.vides = 3;
+                    if (p.credits <= 0)
+                    {
+                        lose = true;
+                    }
+                }
+            }
+
+            if (bulletse[i].boom)
+            {
+                bulletse[i].timerexplo += GetFrameTime();
+
+                const float frameTime = 0.08f;
+
+                while (bulletse[i].timerexplo >= frameTime)
+                {
+                    bulletse[i].timerexplo -= frameTime;
+                    bulletse[i].currentframeexplo++;
+
+                    if (bulletse[i].currentframeexplo >= 6)
+                    {
+                        bulletse[i].boom = false;
+                        bulletse[i].active = false;
+                        bulletse[i].currentframeexplo = 0;
+                        break;
+                    }
+                }
             }
         }
+
+
 
         for (int i = 0; i < MAX_BULLETSA1; i++) {
             if (!bulletsa1[i].active) continue;
@@ -1307,8 +1344,6 @@ while (!WindowShouldClose())
                 bulletstank[i].active = false;
             }
         }
-
-
 
         if (p.x < 0) { p.x = 0; if (p.vx < 0) p.vx = 0; }
         if (p.x > worldWidth) { p.x = worldWidth;  if (p.vx > 0) p.vx = 0; }
@@ -1377,8 +1412,6 @@ while (!WindowShouldClose())
         Vector2 positiont = {p.x+100, p.y-100 };
         
         //escenari
-        
-        
 
         // bales jugador
 
@@ -1463,9 +1496,22 @@ while (!WindowShouldClose())
 
         for (int i = 0; i < MAX_BULLETSE; i++) {
             if (!bulletse[i].active) continue;
-            DrawTexture(bulletee, (int)bulletse[i].x, (int)bulletse[i].y, WHITE);
-
-
+            if (!bulletse[i].boom)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posbullete = { (int)bulletse[i].x, (int)bulletse[i].y, framerecsgranadp.width * 5, framerecsgranadp.height * 5 };
+                DrawTexturePro(sgranadap, framerecsgranadp, posbullete, position, 0, WHITE);
+            }
+            if (bulletse[i].boom)
+            {
+                Rectangle src;
+                src.width = sgranadaex.width / 6; 
+                src.height = sgranadaex.height;
+                src.x = bulletse[i].currentframeexplo * src.width;
+                src.y = 0;
+                Rectangle dest = { bulletse[i].x - 50,bulletse[i].y - 400,src.width * 12, src.height * 12};
+                DrawTexturePro(sgranadaex, src, dest, { 0,0 }, 0, WHITE);
+            }
             if (!p.Omniman && bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y && bulletse[i].y <= p.y + 200 && p.isajupit == -1 || !p.Omniman && bulletse[i].x >= p.x && bulletse[i].x <= p.x + 100 && bulletse[i].y >= p.y + 100 && bulletse[i].y <= p.y + 200 && p.isajupit == 1)
             {
                 bulletse[i].active = false;
@@ -3155,6 +3201,8 @@ while (!WindowShouldClose())
     UnloadTexture(edv2);
     UnloadTexture(edv3);
     UnloadTexture(sgranada);
+    UnloadTexture(sgranadap);
+    UnloadTexture(sgranadaex);
     CloseWindow();
     return 0;
 }
