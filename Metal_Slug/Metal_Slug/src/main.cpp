@@ -1115,7 +1115,7 @@ while (!WindowShouldClose())
 
 
             if (IsKeyPressed(KEY_L))p.x = 19000, ed1.edhp = 0, ed2.edhp = 0; // USED FOR TESTING THE BOSS YOU STUPID ASS HOES
-            if (IsKeyPressed(KEY_X))p.x = 16500;
+            if (IsKeyPressed(KEY_X))p.x = 16500, ed1.edhp = 0, ed2.edhp = 0;
             if (IsKeyPressed(KEY_K))p.x = 12500;
             if (IsKeyPressed(KEY_O))p.x = 14000;
             if (IsKeyPressed(KEY_B)) potatoBullets = !potatoBullets;
@@ -2420,12 +2420,7 @@ while (!WindowShouldClose())
                 startTimer(&vidaTimer, timerlife);
 
                 StopMusicStream(musicArray[0]);
-                menuSoundPlayed = false;
-                if (!menuSoundPlayed) {
-                    PlaySound(soundArray[3]);
-                    menuSoundPlayed = true;
-                }
-
+                missionSoundStep = 0;
                 PlayMusicStream(musicArray[0]);
                 StopSound(soundArray[9]);
 
