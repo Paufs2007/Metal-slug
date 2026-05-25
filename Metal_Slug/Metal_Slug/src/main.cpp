@@ -1304,7 +1304,7 @@ while (!WindowShouldClose())
             p.vy = 0;
         }
 
-        if (IsKeyPressed(KEY_Z)) cheat.ex = p.x, cheat.ey = p.y;
+        if (IsKeyPressed(KEY_Z)) cheat.ex = p.x, cheat.ey = p.y, bcheat = true, cheat.ehp = 1;
 
         s1.ey += s1.vy;
         s1.vy += 4;
@@ -1703,6 +1703,21 @@ while (!WindowShouldClose())
             if (bullets[i].x >= s7.ex && bullets[i].x <= s7.ex + 100 && bullets[i].y >= s7.ey && bullets[i].y <= s7.ey + 200)
             {
                 s7.ehp--;
+                bullets[i].active = false;
+            }
+            if (bullets[i].x >= s8.ex && bullets[i].x <= s8.ex + 100 && bullets[i].y >= s8.ey && bullets[i].y <= s8.ey + 200)
+            {
+                s8.ehp--;
+                bullets[i].active = false;
+            }
+            if (bullets[i].x >= s9.ex && bullets[i].x <= s9.ex + 100 && bullets[i].y >= s9.ey && bullets[i].y <= s9.ey + 200)
+            {
+                s9.ehp--;
+                bullets[i].active = false;
+            }
+            if (bullets[i].x >= cheat.ex && bullets[i].x <= cheat.ex + 100 && bullets[i].y >= cheat.ey && bullets[i].y <= cheat.ey + 200)
+            {
+                cheat.ehp--;
                 bullets[i].active = false;
             }
             if (bullets[i].x >= t1.tx && bullets[i].x <= t1.tx + 100 && bullets[i].y >= t1.ty && bullets[i].y <= t1.ty + 200)
@@ -2591,6 +2606,106 @@ while (!WindowShouldClose())
             bs7 = false;
         }
 
+        if (s8.ehp == 1)
+        {
+            if (s8.evx == 0 && s8.isshooting == 1)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle src = framerecsgranad;
+                src.x = s8.currentframegranada * (sgranada.width / 16);
+                Rectangle posgranad = { (float)s8.ex, (float)s8.ey, src.width * 5, src.height * 5 };
+                DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
+            }
+            else if (s8.evx == 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posidle = { (float)s8.ex, (float)s8.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidle, position, 0, WHITE);
+                DrawText(cix, s8.ex, s8.ey, 20, RED);
+            }
+
+            else if (s8.evx < 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle poscorr = { (float)s8.ex, (float)s8.ey, framerececorr.width * 5, framerececorr.height * 5 };
+                DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
+                DrawText(cix, s8.ex, s8.ey, 20, RED);
+            }
+        }
+        else if (bs8)
+        {
+            vpunts = vpunts + 10;
+            PlaySound(soundArray[0]);
+            s8.ex = 100000000;
+            bs8 = false;
+        }
+        if (s9.ehp == 1)
+        {
+            if (s9.evx == 0 && s9.isshooting == 1)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle src = framerecsgranad;
+                src.x = s9.currentframegranada * (sgranada.width / 16);
+                Rectangle posgranad = { (float)s9.ex, (float)s9.ey, src.width * 5, src.height * 5 };
+                DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
+            }
+            else if (s9.evx == 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posidle = { (float)s9.ex, (float)s9.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidle, position, 0, WHITE);
+                DrawText(cix, s9.ex, s9.ey, 20, RED);
+            }
+
+            else if (s9.evx < 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle poscorr = { (float)s9.ex, (float)s9.ey, framerececorr.width * 5, framerececorr.height * 5 };
+                DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
+                DrawText(cix, s9.ex, s9.ey, 20, RED);
+            }
+        }
+        else if (bs9)
+        {
+            vpunts = vpunts + 10;
+            PlaySound(soundArray[0]);
+            s9.ex = 100000000;
+            bs9 = false;
+        }
+
+        if (cheat.ehp == 1)
+        {
+            if (cheat.evx == 0 && cheat.isshooting == 1)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle src = framerecsgranad;
+                src.x = cheat.currentframegranada * (sgranada.width / 16);
+                Rectangle posgranad = { (float)cheat.ex, (float)cheat.ey, src.width * 5, src.height * 5 };
+                DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
+            }
+            else if (cheat.evx == 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posidle = { (float)cheat.ex, (float)cheat.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidle, position, 0, WHITE);
+                DrawText(cix, cheat.ex, cheat.ey, 20, RED);
+            }
+
+            else if (cheat.evx < 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle poscorr = { (float)cheat.ex, (float)cheat.ey, framerececorr.width * 5, framerececorr.height * 5 };
+                DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
+                DrawText(cix, cheat.ex, cheat.ey, 20, RED);
+            }
+        }
+        else if (bcheat)
+        {
+            vpunts = vpunts + 10;
+            PlaySound(soundArray[0]);
+            cheat.ex = 100000000;
+            bcheat = false;
+        }
         if (t1.thp >= 1)
         {
             if (t1.tvx == 0)
