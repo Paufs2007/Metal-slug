@@ -55,6 +55,9 @@ public:
     float enemyShootTimer = 0.0f;
     float shootPauseTimer = 0.0f;
     int isshooting = -1; // 1 = si, -1 = no
+    float grenadetimer = 0.0f;
+    int currentframegranada = 0;
+    bool tirgrenada = false;
 };
 
 class tank
@@ -422,12 +425,11 @@ int main()
     int currentFramajupit = 0;
     int currentFrameobj = 0;
     int currentFrametirb1 = 0;
-    int currentFramegranada = 0;
     int framesCounter = 0;
     int framesSpeed = 3;
     int framesSpeedtir = 4;
     int framesSpeedtirb = 4;
-    int framesSpeedgranada = 3;
+    int framesSpeedgranada = 6.1;
 
     const int MAX_BULLETSE = 100;
     Bullete bulletse[MAX_BULLETSE] = {};
@@ -516,25 +518,68 @@ while (!WindowShouldClose())
         framerectpeix.x = (float)currentFrametirb1 * (float)peix.width / 3;
     }
 
-    if (framesCounter >= (60 / framesSpeedgranada))
+    if (s2.isshooting == -1)
     {
-        currentFramegranada++;
-        if (currentFramegranada >= 16)
-        {
-            currentFramegranada = 0;
-            s2.isshooting = -1;
-            s3.isshooting = -1;
-            Jorge.isshooting = -1;
-            s4.isshooting = -1;
-            s5.isshooting = -1;
-            s6.isshooting = -1;
-            s7.isshooting = -1;
-            //s8.isshooting = -1;
-            //s9.isshooting = -1;
-            //s10.isshooting = -1;
-        }
+        s2.enemyShootTimer += GetFrameTime();
 
-        framerecsgranad.x = (float)currentFramegranada * (float)sgranada.width / 16;
+        float dist = sqrt((p.x - s2.ex) * (p.x - s2.ex) + (p.y - s2.ey) * (p.y - s2.ey));
+
+        if (s2.enemyShootTimer >= enemyShootInterval && dist < 925)
+        {
+            s2.enemyShootTimer = 0.0f;
+
+            s2.isshooting = 1;
+            s2.currentframegranada = 0;
+            s2.tirgrenada = false;
+
+            s2.shootPauseTimer = 16.0f / framesSpeedgranada;
+            s2.evx = 0;
+        }
+    }
+
+    if (s2.isshooting == 1)
+    {
+        s2.grenadetimer += GetFrameTime();
+
+        if (s2.grenadetimer >= 1.0f / framesSpeedgranada)
+        {
+            s2.grenadetimer = 0;
+            s2.currentframegranada++;
+
+            if (s2.currentframegranada == 10 && !s2.tirgrenada)
+            {
+                s2.tirgrenada = true;
+
+                for (int i = 0; i < MAX_BULLETSE; i++)
+                {
+                    if (!bulletse[i].active)
+                    {
+                        bulletse[i].boom = false;
+                        bulletse[i].x = s2.ex;
+                        bulletse[i].y = s2.ey + 30;
+
+                        float gravity = 0.5f;
+                        float vy = -12.0f;
+
+                        float timeOfFlight = (-2.0f * vy) / gravity;
+
+                        bulletse[i].vx = (p.x - s2.ex) / timeOfFlight;
+                        bulletse[i].vy = vy;
+
+                        bulletse[i].useGravity = true;
+                        bulletse[i].active = true;
+                        break;
+                    }
+                }
+            }
+
+            if (s2.currentframegranada >= 16)
+            {
+                s2.currentframegranada = 0;
+                s2.isshooting = -1;
+                s2.tirgrenada = false;
+            }
+        }
     }
 
     if (p.x > 4200 && p.x < 4510 && p.y <= 1220) FLOOR_Y = 1200;
@@ -1677,9 +1722,10 @@ while (!WindowShouldClose())
             if (s2.evx == 0 && s2.isshooting == 1)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle posgranad = { (float)s2.ex, (float)s2.ey, framerecsgranad.width * 5, framerecsgranad.height * 5 };
-                DrawTexturePro(sgranada, framerecsgranad, posgranad, position, 0, WHITE);
-                DrawText(cix, s2.ex, s2.ey, 20, RED);
+                Rectangle src = framerecsgranad; 
+                src.x = s2.currentframegranada * (sgranada.width / 16);
+                Rectangle posgranad = { (float)s2.ex, (float)s2.ey, src.width * 5, src.height * 5 };
+                DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s2.evx == 0)
             {
@@ -1694,42 +1740,6 @@ while (!WindowShouldClose())
                 Rectangle poscorr = { (float)s2.ex, (float)s2.ey, framerececorr.width * 5, framerececorr.height * 5 };
                 DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
                 DrawText(cix, s2.ex, s2.ey, 20, RED);
-            }
-            
-            if (!inMenu && !winscreen && !lose) 
-            {
-                    s2.enemyShootTimer += GetFrameTime();
-                    if (s2.enemyShootTimer >= enemyShootInterval && sqrt((p.x - s2.ex) * (p.x - s2.ex) + (p.y - s2.ey) * (p.y - s2.ey)) < 925)
-                    {
-                        s2.enemyShootTimer = 0.0f;
-                        s2.evx = 0;
-                        s2.shootPauseTimer = 1.0f;
-                        s2.isshooting = 1;
-                        currentFramegranada = 0;
-                        for (int i = 0; i < MAX_BULLETSE; i++)
-                        {
-                            if (!bulletse[i].active)
-                            {
-                                bulletse[i].boom = false;
-                                bulletse[i].x = s2.ex;
-                                bulletse[i].y = s2.ey + 30;
-
-                                float gravity = 0.5f;   // matches bullet update loop, WHY ARE YOU GAY?
-                                float vy = -12.0f; // Arc parabola
-
-                                // Frames until bullet returns to same Y
-                                float timeOfFlight = (-2.0f * vy) / gravity; // = 48 frames
-
-                                // vx needed to land exactly on player's X
-                                bulletse[i].vx = (p.x - s2.ex) / timeOfFlight;
-                                bulletse[i].vy = vy;
-
-                                bulletse[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
-                                bulletse[i].active = true;
-                                break;
-                            }
-                        }
-                    }
             }
         }
         else if (bs2)
@@ -1770,10 +1780,8 @@ while (!WindowShouldClose())
                 if (Jorge.enemyShootTimer >= enemyShootInterval && sqrt((p.x - Jorge.ex) * (p.x - Jorge.ex) + (p.y - Jorge.ey) * (p.y - Jorge.ey)) < 925)
                 {
                     Jorge.enemyShootTimer = 0.0f;
-                    Jorge.evx = 0;
                     Jorge.shootPauseTimer = 1.0f;
                     Jorge.isshooting = 1;
-                    currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
                         if (!bulletse[i].active)
@@ -1831,10 +1839,8 @@ while (!WindowShouldClose())
                 if (s3.enemyShootTimer >= enemyShootInterval && sqrt((p.x - s3.ex) * (p.x - s3.ex) + (p.y - s3.ey) * (p.y - s3.ey)) < 925)
                 {
                     s3.enemyShootTimer = 0.0f;
-                    s3.evx = 0;
                     s3.shootPauseTimer = 1.0f;
                     s3.isshooting = 1;
-                    currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
                         if (!bulletse[i].active)
@@ -1892,10 +1898,8 @@ while (!WindowShouldClose())
                 if (s4.enemyShootTimer >= enemyShootInterval && sqrt((p.x - s4.ex) * (p.x - s4.ex) + (p.y - s4.ey) * (p.y - s4.ey)) < 925)
                 {
                     s4.enemyShootTimer = 0.0f;
-                    s4.evx = 0;
                     s4.shootPauseTimer = 1.0f;
                     s4.isshooting = 1;
-                    currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
                         if (!bulletse[i].active)
@@ -1953,10 +1957,8 @@ while (!WindowShouldClose())
                 if (s5.enemyShootTimer >= enemyShootInterval && sqrt((p.x - s5.ex) * (p.x - s5.ex) + (p.y - s5.ey) * (p.y - s5.ey)) < 925)
                 {
                     s5.enemyShootTimer = 0.0f;
-                    s5.evx = 0;
                     s5.shootPauseTimer = 1.0f;
                     s5.isshooting = 1;
-                    currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
                         if (!bulletse[i].active)
@@ -2014,10 +2016,8 @@ while (!WindowShouldClose())
                 if (s6.enemyShootTimer >= enemyShootInterval && sqrt((p.x - s6.ex) * (p.x - s6.ex) + (p.y - s6.ey) * (p.y - s6.ey)) < 925)
                 {
                     s6.enemyShootTimer = 0.0f;
-                    s6.evx = 0;
                     s6.shootPauseTimer = 1.0f;
                     s6.isshooting = 1;
-                    currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
                         if (!bulletse[i].active)
@@ -2051,7 +2051,7 @@ while (!WindowShouldClose())
             s6.ex = 100000000;
             bs6 = false;
         }
-
+        
         if (s7.ehp == 1) {
 
             if (s7.evx == 0 && s7.isshooting == 1)
@@ -2075,10 +2075,8 @@ while (!WindowShouldClose())
                 if (s7.enemyShootTimer >= enemyShootInterval && sqrt((p.x - s7.ex) * (p.x - s7.ex) + (p.y - s7.ey) * (p.y - s7.ey)) < 925)
                 {
                     s7.enemyShootTimer = 0.0f;
-                    s7.evx = 0;
                     s7.shootPauseTimer = 1.0f;
                     s7.isshooting = 1;
-                    currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
                         if (!bulletse[i].active)
