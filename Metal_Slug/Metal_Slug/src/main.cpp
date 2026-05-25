@@ -335,7 +335,7 @@ int main()
 
     float shootCooldown = 0.0f;
     int machineGunAmmo = 0;
-
+    
 
     const float bgScale = 5.0f;
     const int   worldWidth = (int)(bg.width * bgScale);
@@ -355,9 +355,9 @@ int main()
     soldier s5 = { 6000, 1000 };
     soldier s6 = { 8850, 1380 };
     soldier s7 = { 12250, 780 };
-    //soldier s8 = { 5450, 605 }; el que descomenti aixo ha de anar a animacions i descomentar els 3 dels enemics
-    //soldier s9 = { 5450, 605 };
-    //soldier s10 = { 5450, 605 };
+    soldier s8 = { 5450, 605 }; 
+    soldier s9 = { 5450, 605 };
+    soldier cheat = { -10000, 0 };
 
     objecte o1 = { 5250, 605 };
 
@@ -384,6 +384,9 @@ int main()
     bool bs5 = true;
     bool bs6 = true;
     bool bs7 = true;
+    bool bs8 = true;
+    bool bs9 = true;
+    bool bcheat = true;
 
     Camera2D camera = { 0 };
     camera.offset = { 315, 350 };
@@ -1012,6 +1015,195 @@ while (!WindowShouldClose())
             }
         }
     }
+    if (s8.isshooting == -1)
+    {
+        s8.enemyShootTimer += GetFrameTime();
+
+        float dist = sqrt((p.x - s8.ex) * (p.x - s8.ex) + (p.y - s8.ey) * (p.y - s8.ey));
+
+        if (s8.enemyShootTimer >= enemyShootInterval && dist < 925)
+        {
+            s8.enemyShootTimer = 0.0f;
+
+            s8.isshooting = 1;
+            s8.currentframegranada = 0;
+            s8.tirgrenada = false;
+
+            s8.shootPauseTimer = 16.0f / framesSpeedgranada;
+            s8.evx = 0;
+        }
+    }
+
+    if (s8.isshooting == 1)
+    {
+        s8.grenadetimer += GetFrameTime();
+
+        if (s8.grenadetimer >= 1.0f / framesSpeedgranada)
+        {
+            s8.grenadetimer = 0;
+            s8.currentframegranada++;
+
+            if (s8.currentframegranada == 10 && !s8.tirgrenada)
+            {
+                s8.tirgrenada = true;
+
+                for (int i = 0; i < MAX_BULLETSE; i++)
+                {
+                    if (!bulletse[i].active)
+                    {
+                        bulletse[i].boom = false;
+                        bulletse[i].x = s8.ex;
+                        bulletse[i].y = s8.ey + 30;
+
+                        float gravity = 0.5f;
+                        float vy = -12.0f;
+
+                        float timeOfFlight = (-2.0f * vy) / gravity;
+
+                        bulletse[i].vx = (p.x - s8.ex) / timeOfFlight;
+                        bulletse[i].vy = vy;
+
+                        bulletse[i].useGravity = true;
+                        bulletse[i].active = true;
+                        break;
+                    }
+                }
+            }
+
+            if (s8.currentframegranada >= 16)
+            {
+                s8.currentframegranada = 0;
+                s8.isshooting = -1;
+                s8.tirgrenada = false;
+            }
+        }
+    }
+    if (s9.isshooting == -1)
+    {
+        s9.enemyShootTimer += GetFrameTime();
+
+        float dist = sqrt((p.x - s9.ex) * (p.x - s9.ex) + (p.y - s9.ey) * (p.y - s9.ey));
+
+        if (s9.enemyShootTimer >= enemyShootInterval && dist < 925)
+        {
+            s9.enemyShootTimer = 0.0f;
+
+            s9.isshooting = 1;
+            s9.currentframegranada = 0;
+            s9.tirgrenada = false;
+
+            s9.shootPauseTimer = 16.0f / framesSpeedgranada;
+            s9.evx = 0;
+        }
+    }
+
+    if (s9.isshooting == 1)
+    {
+        s9.grenadetimer += GetFrameTime();
+
+        if (s9.grenadetimer >= 1.0f / framesSpeedgranada)
+        {
+            s9.grenadetimer = 0;
+            s9.currentframegranada++;
+
+            if (s9.currentframegranada == 10 && !s9.tirgrenada)
+            {
+                s9.tirgrenada = true;
+
+                for (int i = 0; i < MAX_BULLETSE; i++)
+                {
+                    if (!bulletse[i].active)
+                    {
+                        bulletse[i].boom = false;
+                        bulletse[i].x = s9.ex;
+                        bulletse[i].y = s9.ey + 30;
+
+                        float gravity = 0.5f;
+                        float vy = -12.0f;
+
+                        float timeOfFlight = (-2.0f * vy) / gravity;
+
+                        bulletse[i].vx = (p.x - s9.ex) / timeOfFlight;
+                        bulletse[i].vy = vy;
+
+                        bulletse[i].useGravity = true;
+                        bulletse[i].active = true;
+                        break;
+                    }
+                }
+            }
+
+            if (s9.currentframegranada >= 16)
+            {
+                s9.currentframegranada = 0;
+                s9.isshooting = -1;
+                s9.tirgrenada = false;
+            }
+        }
+    }
+    if (cheat.isshooting == -1)
+    {
+        cheat.enemyShootTimer += GetFrameTime();
+
+        float dist = sqrt((p.x - cheat.ex) * (p.x - cheat.ex) + (p.y - cheat.ey) * (p.y - cheat.ey));
+
+        if (cheat.enemyShootTimer >= enemyShootInterval && dist < 925)
+        {
+            cheat.enemyShootTimer = 0.0f;
+
+            cheat.isshooting = 1;
+            cheat.currentframegranada = 0;
+            cheat.tirgrenada = false;
+
+            cheat.shootPauseTimer = 16.0f / framesSpeedgranada;
+            cheat.evx = 0;
+        }
+    }
+
+    if (cheat.isshooting == 1)
+    {
+        cheat.grenadetimer += GetFrameTime();
+
+        if (cheat.grenadetimer >= 1.0f / framesSpeedgranada)
+        {
+            cheat.grenadetimer = 0;
+            cheat.currentframegranada++;
+
+            if (cheat.currentframegranada == 10 && !cheat.tirgrenada)
+            {
+                cheat.tirgrenada = true;
+
+                for (int i = 0; i < MAX_BULLETSE; i++)
+                {
+                    if (!bulletse[i].active)
+                    {
+                        bulletse[i].boom = false;
+                        bulletse[i].x = cheat.ex;
+                        bulletse[i].y = cheat.ey + 30;
+
+                        float gravity = 0.5f;
+                        float vy = -12.0f;
+
+                        float timeOfFlight = (-2.0f * vy) / gravity;
+
+                        bulletse[i].vx = (p.x - cheat.ex) / timeOfFlight;
+                        bulletse[i].vy = vy;
+
+                        bulletse[i].useGravity = true;
+                        bulletse[i].active = true;
+                        break;
+                    }
+                }
+            }
+
+            if (cheat.currentframegranada >= 16)
+            {
+                cheat.currentframegranada = 0;
+                cheat.isshooting = -1;
+                cheat.tirgrenada = false;
+            }
+        }
+    }
 
     if (p.x > 4200 && p.x < 4510 && p.y <= 1220) FLOOR_Y = 1200;
     if (p.x > 4600 && p.x < 5500 && p.y <= 1000) FLOOR_Y = 1000;
@@ -1109,6 +1301,8 @@ while (!WindowShouldClose())
             p.canJump = true;
             p.vy = 0;
         }
+
+        if (IsKeyPressed(KEY_Z)) cheat.ex = p.x, cheat.ey = p.y;
 
         s1.ey += s1.vy;
         s1.vy += 4;
