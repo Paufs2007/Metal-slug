@@ -363,6 +363,8 @@ int main()
 
     objecte o2 = { 12300, 605 };
 
+    objecte ocheat = { -10000, 0 };
+
     edificis ed1 = { 13850, 680 , 40};
 
     edificis ed2 = { 14500, 550 , 30 };
@@ -372,6 +374,7 @@ int main()
     bool ed1b = true;
 
     bool os1 = true;
+    bool bocheat = true;
     bool os2 = true;
     bool killhim = false;
 
@@ -1249,6 +1252,11 @@ while (!WindowShouldClose())
         o1.alive--;
     }
 
+    if (sqrt((p.x - ocheat.ox) * (p.x - ocheat.ox) + (p.y - ocheat.oy) * (p.y - ocheat.oy)) < 50)
+    {
+        ocheat.alive--;
+    }
+
     if (sqrt((p.x - o2.ox) * (p.x - o2.ox) + (p.y - o2.oy) * (p.y - o2.oy)) < 50)
     {
         o2.alive--;
@@ -1322,6 +1330,7 @@ while (!WindowShouldClose())
         }
 
         if (IsKeyPressed(KEY_Z)) cheat.ex = p.x, cheat.ey = p.y, bcheat = true, cheat.ehp = 1;
+        if (IsKeyPressed(KEY_I)) bocheat = true, ocheat.alive = 1, ocheat.ox = p.x + 55, ocheat.oy = p.y - 55;
 
         s1.ey += s1.vy;
         s1.vy += 4;
@@ -1357,6 +1366,15 @@ while (!WindowShouldClose())
         {
             o1.oy = 1400;
             o1.ovy = 0;
+        }
+
+        ocheat.oy += ocheat.ovy;
+        ocheat.ovy += 4;
+
+        if (ocheat.oy >= FLOOR_Y)
+        {
+            ocheat.oy = FLOOR_Y;
+            ocheat.ovy = 0;
         }
 
         o2.oy += o2.ovy;
@@ -2020,6 +2038,21 @@ while (!WindowShouldClose())
             PlaySound(soundArray[8]);
             vpunts = vpunts + 100;
             os1 = false;
+            killhim = true;
+            machineGunAmmo = 200;
+        }
+
+        if (ocheat.alive == 1)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posmgun = { (float)ocheat.ox, ocheat.oy + 50, frameRecmgun.width * 5, frameRecmgun.height * 5 };
+            DrawTexturePro(mgun, frameRecmgun, posmgun, position, 0, WHITE);
+        }
+        else if (bocheat)
+        {
+            PlaySound(soundArray[8]);
+            vpunts = vpunts + 100;
+            bocheat = false;
             killhim = true;
             machineGunAmmo = 200;
         }
