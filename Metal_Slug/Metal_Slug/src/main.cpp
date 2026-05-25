@@ -555,6 +555,41 @@ while (!WindowShouldClose())
         framerecmorterdown.x = (float)currentFrameBoss * morter_down.width / 17;
         framerecLaser.x = (float)currentFrameBoss * laser.width / 10;
         framerecBola.x = (float)currentFrameBoss * bolaa.width / 10;
+
+        if (s1.ehp >= 1 && !inMenu && !winscreen && !lose &&
+            (bossAnim == 0 || bossAnim == 1) &&
+            (currentFrameBoss == 11 || currentFrameBoss == 12 || currentFrameBoss == 13))
+        {
+            for (int i = 0; i < MAX_BULLETSA1; i++)
+            {
+                if (!bulletsa1[i].active)
+                {
+                    if (bossAnim == 0)  // morter_up: cannon tip is high on the sprite
+                    {
+                        bulletsa1[i].x = s1.ex + 200.0f;
+                        bulletsa1[i].y = s1.ey - 100.0f;
+                    }
+                    else  // morter_down: cannon tip is lower (sprite drawn at s1.ey + 150)
+                    {
+                        bulletsa1[i].x = s1.ex + 150.0f;
+                        bulletsa1[i].y = s1.ey + 400.0f;
+                    }
+                    float gravity = 0.5f;
+                    float vy = -22.5f;
+                    float timeOfFlight = (-2.0f * vy) / gravity;
+                    float spread = 200.0f;
+                    float step = spread / 4.0f;
+                    float targetX = p.x + step;
+                    float targetY = p.y;
+                    float dy = targetY - bulletsa1[i].y;
+                    bulletsa1[i].vx = (targetX - bulletsa1[i].x) / timeOfFlight;
+                    bulletsa1[i].vy = (dy - 0.5f * gravity * timeOfFlight * timeOfFlight) / timeOfFlight;
+                    bulletsa1[i].useGravity = true;
+                    bulletsa1[i].active = true;
+                    break;
+                }
+            }
+        }
     }
 
     if (framesCounter >= (60 / framesSpeedtir))
@@ -1559,7 +1594,7 @@ while (!WindowShouldClose())
             bulletsa1[i].y += bulletsa1[i].vy;
 
             if (bulletsa1[i].x < camLeft || bulletsa1[i].x > camRight ||
-                bulletsa1[i].y < camTop - 200 || bulletsa1[i].y > camBottom) {
+                bulletsa1[i].y < camTop - 800 || bulletsa1[i].y > camBottom) {
                 bulletsa1[i].active = false;
             }
         }
@@ -2263,87 +2298,7 @@ while (!WindowShouldClose())
             // --- Fire bullet tied to animation frame, not a separate timer ---
             if (!inMenu && !winscreen && !lose)
             {
-                // Phase 1: mortar barrage (unchanged logic, driven by burstCount)
-                if (s1.ehp > 75)
-                {
-                    s1.enemyShootTimer += GetFrameTime();
-                    if (s1.enemyShootTimer >= enemyShootInterval)
-                    {
-                        s1.enemyShootTimer = 0.0f;
-                        s1.burstCount = 3;
-                    }
-                    if (s1.burstCount > 0)
-                    {
-                        s1.burstTimer += GetFrameTime();
-                        if (s1.burstTimer >= 0.4f)
-                        {
-                            s1.burstTimer = 0.0f;
-                            s1.burstCount--;
-
-                            for (int i = 0; i < MAX_BULLETSA1; i++)
-                            {
-                                if (!bulletsa1[i].active)
-                                {
-                                    bulletsa1[i].x = s1.ex;
-                                    bulletsa1[i].y = s1.ey + 30;
-                                    float gravity = 0.5f;
-                                    float vy = -22.5f;
-                                    float spread = 200.0f;
-                                    float step = spread / 4.0f;
-                                    float targetX = p.x + s1.burstCount * step;
-                                    float targetY = p.y;
-                                    float dy = targetY - bulletsa1[i].y;
-                                    float timeOfFlight = (-2.0f * vy) / gravity;
-                                    bulletsa1[i].vx = (targetX - s1.ex) / timeOfFlight;
-                                    bulletsa1[i].vy = (dy - 0.5f * gravity * timeOfFlight * timeOfFlight) / timeOfFlight;
-                                    bulletsa1[i].useGravity = true;
-                                    bulletsa1[i].active = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-                // Phase 2, player on upper platform: same mortar
-                else if (s1.ehp <= 75 && p.y <= 400)
-                {
-                    s1.enemyShootTimer += GetFrameTime();
-                    if (s1.enemyShootTimer >= enemyShootInterval)
-                    {
-                        s1.enemyShootTimer = 0.0f;
-                        s1.burstCount = 3;
-                    }
-                    if (s1.burstCount > 0)
-                    {
-                        s1.burstTimer += GetFrameTime();
-                        if (s1.burstTimer >= 0.4f)
-                        {
-                            s1.burstTimer = 0.0f;
-                            s1.burstCount--;
-
-                            for (int i = 0; i < MAX_BULLETSA1; i++)
-                            {
-                                if (!bulletsa1[i].active)
-                                {
-                                    bulletsa1[i].x = s1.ex;
-                                    bulletsa1[i].y = s1.ey + 30;
-                                    float gravity = 0.5f;
-                                    float vy = -22.5f;
-                                    float targetX = p.x + s1.burstCount * (200.0f / 4.0f);
-                                    float targetY = p.y;
-                                    float dy = targetY - bulletsa1[i].y;
-                                    float timeOfFlight = (-2.0f * vy) / gravity;
-                                    bulletsa1[i].vx = (targetX - s1.ex) / timeOfFlight;
-                                    bulletsa1[i].vy = (dy - 0.5f * gravity * timeOfFlight * timeOfFlight) / timeOfFlight;
-                                    bulletsa1[i].useGravity = true;
-                                    bulletsa1[i].active = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-                else
+                if (s1.ehp <= 75 && p.y > 400)
                 {
                     // Original timer-based firing — unchanged
                     s1.enemyShootTimer += GetFrameTime();
