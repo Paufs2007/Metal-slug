@@ -355,8 +355,8 @@ int main()
     soldier s5 = { 6000, 1000 };
     soldier s6 = { 8850, 1380 };
     soldier s7 = { 12250, 780 };
-    soldier s8 = { 5450, 605 }; 
-    soldier s9 = { 5450, 605 };
+    soldier s8 = { 13600, 780 }; 
+    soldier s9 = { 15250, 900 };
     soldier cheat = { -10000, 0 };
 
     objecte o1 = { 5250, 605 };
@@ -1262,6 +1262,8 @@ while (!WindowShouldClose())
             Jorge.evx = -5;
         }
         Jorge.ex += Jorge.evx;
+
+        if (IsKeyPressed(KEY_Y)) p.y = 0;
 
         if (s5.shootPauseTimer > 0.0f)
         {
