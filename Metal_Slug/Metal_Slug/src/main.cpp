@@ -53,6 +53,7 @@ public:
     int efacing = 1; // 1 = right, -1 = left
     int efacingy = 1; // 1 = up, -1 = down
     float enemyShootTimer = 0.0f;
+    int isshooting = -1; // 1 = si, -1 = no
 };
 
 class tank
@@ -301,6 +302,7 @@ int main()
     Texture edv1 = LoadTexture("edv1.png");
     Texture edv2 = LoadTexture("edv2.png");
     Texture edv3 = LoadTexture("edv3.png");
+    Texture sgranada = LoadTexture("soldat granada.png");
 
     Font timerNums = LoadFont("prova 2 tipografia.png");
     Font whiteFont = LoadFont("tipografia gris.png");
@@ -336,7 +338,7 @@ int main()
     soldier s5 = { 6000, 1000 };
     soldier s6 = { 8850, 1380 };
     soldier s7 = { 12250, 780 };
-    //soldier s8 = { 5450, 605 };
+    //soldier s8 = { 5450, 605 }; el que descomenti aixo ha de anar a animacions i descomentar els 3 dels enemics
     //soldier s9 = { 5450, 605 };
     //soldier s10 = { 5450, 605 };
 
@@ -378,6 +380,7 @@ int main()
     Rectangle framereceidle = { 0, 0, (float)sidle.width / 4, (float)sidle.height };
     Rectangle framerececorr = { 0, 0, (float)scor.width / 12, (float)scor.height };
     Rectangle framerececorre = { 0, 0, (float)score.width / 12, (float)score.height };
+    Rectangle framerecsgranad = { 0, 0, (float)sgranada.width / 16, (float)sgranada.height };
 
     Rectangle framecrecat1b1 = { 0, 0, (float)at1b1.width / 3, (float)at1b1.height };
     Rectangle framecrecat1b2 = { 0, 0, (float)at1b2.width / 3, (float)at1b2.height };
@@ -418,10 +421,12 @@ int main()
     int currentFramajupit = 0;
     int currentFrameobj = 0;
     int currentFrametirb1 = 0;
+    int currentFramegranada = 0;
     int framesCounter = 0;
     int framesSpeed = 3;
     int framesSpeedtir = 4;
     int framesSpeedtirb = 4;
+    int framesSpeedgranada = 3;
 
     const int MAX_BULLETSE = 100;
     Bullete bulletse[MAX_BULLETSE] = {};
@@ -508,6 +513,27 @@ while (!WindowShouldClose())
         framecrecat1b6.x = (float)currentFrametirb1 * (float)at1b6.width / 3;
 
         framerectpeix.x = (float)currentFrametirb1 * (float)peix.width / 3;
+    }
+
+    if (framesCounter >= (60 / framesSpeedgranada))
+    {
+        currentFramegranada++;
+        if (currentFramegranada >= 16)
+        {
+            currentFramegranada = 0;
+            s2.isshooting = -1;
+            s3.isshooting = -1;
+            Jorge.isshooting = -1;
+            s4.isshooting = -1;
+            s5.isshooting = -1;
+            s6.isshooting = -1;
+            s7.isshooting = -1;
+            //s8.isshooting = -1;
+            //s9.isshooting = -1;
+            //s10.isshooting = -1;
+        }
+
+        framerecsgranad.x = (float)currentFramegranada * (float)sgranada.width / 16;
     }
 
     if (p.x > 4200 && p.x < 4510 && p.y <= 1220) FLOOR_Y = 1200;
@@ -1612,8 +1638,14 @@ while (!WindowShouldClose())
 
         if (s2.ehp == 1) 
         {
-            
-            if (s2.evx == 0)
+            if (s2.evx == 0 && s2.isshooting == 1)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posgranad = { (float)s2.ex, (float)s2.ey, framerecsgranad.width * 5, framerecsgranad.height * 5 };
+                DrawTexturePro(sgranada, framerecsgranad, posgranad, position, 0, WHITE);
+                DrawText(cix, s2.ex, s2.ey, 20, RED);
+            }
+            else if (s2.evx == 0)
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posidles1 = { (float)s2.ex, (float)s2.ey, framereceidle.width * 5, framereceidle.height * 5 };
@@ -1627,14 +1659,16 @@ while (!WindowShouldClose())
                 DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
                 DrawText(cix, s2.ex, s2.ey, 20, RED);
             }
-
+            
             if (!inMenu && !winscreen && !lose) 
             {
                     s2.enemyShootTimer += GetFrameTime();
                     if (s2.enemyShootTimer >= enemyShootInterval)
                     {
+                        s2.isshooting = 1;
                         s2.enemyShootTimer = 0.0f;
-
+                        s2.evx = 0;
+                        currentFramegranada = 0;
                         for (int i = 0; i < MAX_BULLETSE; i++)
                         {
                             if (!bulletse[i].active)
@@ -1671,8 +1705,14 @@ while (!WindowShouldClose())
 
         if (Jorge.ehp == 1)
         {
-
-            if (Jorge.evx == 0)
+            if (Jorge.evx == 0 && Jorge.isshooting == 1)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posgranad = { (float)Jorge.ex, (float)Jorge.ey, framerecsgranad.width * 5, framerecsgranad.height * 5 };
+                DrawTexturePro(sgranada, framerecsgranad, posgranad, position, 0, WHITE);
+                DrawText(cix, Jorge.ex, Jorge.ey, 20, RED);
+            }
+            else if (Jorge.evx == 0)
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posidles1 = { (float)Jorge.ex, (float)Jorge.ey, framereceidle.width * 5, framereceidle.height * 5 };
@@ -1686,14 +1726,16 @@ while (!WindowShouldClose())
                 DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
                 DrawText(cix, Jorge.ex, Jorge.ey, 20, RED);
             }
-
+            
             if (!inMenu && !winscreen && !lose)
             {
                 Jorge.enemyShootTimer += GetFrameTime();
                 if (Jorge.enemyShootTimer >= enemyShootInterval)
                 {
+                    Jorge.isshooting = 1;
                     Jorge.enemyShootTimer = 0.0f;
-                    //Jorge.evx = 0;
+                    Jorge.evx = 0;
+                    currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
                         if (!bulletse[i].active)
@@ -1729,17 +1771,31 @@ while (!WindowShouldClose())
         }
 
         if (s3.ehp == 1) {
-            Vector2 position = { 0.0f, 0.0f };
-            Rectangle posidles3 = { (float)s3.ex, (float)s3.ey, framereceidle.width * 5, framereceidle.height * 5 };
-            DrawTexturePro(sidle, framereceidle, posidles3, position, 0, WHITE);
-            DrawText(cix, s3.ex, s3.ey, 20, RED);
+            
+            if (s3.evx == 0 && s3.isshooting == 1)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posgranad = { (float)s3.ex, (float)s3.ey, framerecsgranad.width * 5, framerecsgranad.height * 5 };
+                DrawTexturePro(sgranada, framerecsgranad, posgranad, position, 0, WHITE);
+                DrawText(cix, s3.ex, s3.ey, 20, RED);
+            }
+            else if (s3.evx == 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posidles3 = { (float)s3.ex, (float)s3.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidles3, position, 0, WHITE);
+                DrawText(cix, s3.ex, s3.ey, 20, RED);
+            }
+
             if (!inMenu && !winscreen && !lose) 
             {
                 s3.enemyShootTimer += GetFrameTime();
                 if (s3.enemyShootTimer >= enemyShootInterval)
                 {
+                    s3.isshooting = 1;
                     s3.enemyShootTimer = 0.0f;
-
+                    s3.evx = 0;
+                    currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
                         if (!bulletse[i].active)
@@ -1775,17 +1831,31 @@ while (!WindowShouldClose())
         }
 
         if (s4.ehp == 1) {
-            Vector2 position = { 0.0f, 0.0f };
-            Rectangle posidles4 = { (float)s4.ex, (float)s4.ey, framereceidle.width * 5, framereceidle.height * 5 };
-            DrawTexturePro(sidle, framereceidle, posidles4, position, 0, WHITE);
-            DrawText(cix, s4.ex, s4.ey, 20, RED);
+
+            if (s4.evx == 0 && s4.isshooting == 1)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posgranad = { (float)s4.ex, (float)s4.ey, framerecsgranad.width * 5, framerecsgranad.height * 5 };
+                DrawTexturePro(sgranada, framerecsgranad, posgranad, position, 0, WHITE);
+                DrawText(cix, s4.ex, s4.ey, 20, RED);
+            }
+            else if (s4.evx == 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posidles4 = { (float)s4.ex, (float)s4.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidles4, position, 0, WHITE);
+                DrawText(cix, s4.ex, s4.ey, 20, RED);
+            }
+
             if (!inMenu && !winscreen && !lose)
             {
                 s4.enemyShootTimer += GetFrameTime();
                 if (s4.enemyShootTimer >= enemyShootInterval)
                 {
+                    s4.isshooting = 1;
                     s4.enemyShootTimer = 0.0f;
-
+                    s4.evx = 0;
+                    currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
                         if (!bulletse[i].active)
@@ -1819,18 +1889,33 @@ while (!WindowShouldClose())
             s4.ex = 100000000;
             bs4 = false;
         }
+
         if (s5.ehp == 1) {
-            Vector2 position = { 0.0f, 0.0f };
-            Rectangle posidles5 = { (float)s5.ex, (float)s5.ey, framereceidle.width * 5, framereceidle.height * 5 };
-            DrawTexturePro(sidle, framereceidle, posidles5, position, 0, WHITE);
-            DrawText(cix, s5.ex, s5.ey, 20, RED);
+            
+            if (s5.evx == 0 && s5.isshooting == 1)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posgranad = { (float)s5.ex, (float)s5.ey, framerecsgranad.width * 5, framerecsgranad.height * 5 };
+                DrawTexturePro(sgranada, framerecsgranad, posgranad, position, 0, WHITE);
+                DrawText(cix, s5.ex, s5.ey, 20, RED);
+            }
+            else if (s5.evx == 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posidles5 = { (float)s5.ex, (float)s5.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidles5, position, 0, WHITE);
+                DrawText(cix, s5.ex, s5.ey, 20, RED);
+            }
+
             if (!inMenu && !winscreen && !lose)
             {
                 s5.enemyShootTimer += GetFrameTime();
                 if (s5.enemyShootTimer >= enemyShootInterval)
                 {
+                    s5.isshooting = 1;
                     s5.enemyShootTimer = 0.0f;
-
+                    s5.evx = 0;
+                    currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
                         if (!bulletse[i].active)
@@ -1864,18 +1949,33 @@ while (!WindowShouldClose())
             s5.ex = 100000000;
             bs5 = false;
         }
+
         if (s6.ehp == 1) {
-            Vector2 position = { 0.0f, 0.0f };
-            Rectangle posidles6 = { (float)s6.ex, (float)s6.ey, framereceidle.width * 5, framereceidle.height * 5 };
-            DrawTexturePro(sidle, framereceidle, posidles6, position, 0, WHITE);
-            DrawText(cix, s6.ex, s6.ey, 20, RED);
+            
+            if (s6.evx == 0 && s6.isshooting == 1)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posgranad = { (float)s6.ex, (float)s6.ey, framerecsgranad.width * 5, framerecsgranad.height * 5 };
+                DrawTexturePro(sgranada, framerecsgranad, posgranad, position, 0, WHITE);
+                DrawText(cix, s6.ex, s6.ey, 20, RED);
+            }
+            else if (s6.evx == 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posidles6 = { (float)s6.ex, (float)s6.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidles6, position, 0, WHITE);
+                DrawText(cix, s6.ex, s6.ey, 20, RED);
+            }
+
             if (!inMenu && !winscreen && !lose)
             {
                 s6.enemyShootTimer += GetFrameTime();
                 if (s6.enemyShootTimer >= enemyShootInterval)
                 {
+                    s6.isshooting = 1;
                     s6.enemyShootTimer = 0.0f;
-
+                    s6.evx = 0;
+                    currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
                         if (!bulletse[i].active)
@@ -1909,18 +2009,33 @@ while (!WindowShouldClose())
             s6.ex = 100000000;
             bs6 = false;
         }
+
         if (s7.ehp == 1) {
-            Vector2 position = { 0.0f, 0.0f };
-            Rectangle posidles7 = { (float)s7.ex, (float)s7.ey, framereceidle.width * 5, framereceidle.height * 5 };
-            DrawTexturePro(sidle, framereceidle, posidles7, position, 0, WHITE);
-            DrawText(cix, s7.ex, s7.ey, 20, RED);
+
+            if (s7.evx == 0 && s7.isshooting == 1)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posgranad = { (float)s7.ex, (float)s7.ey, framerecsgranad.width * 5, framerecsgranad.height * 5 };
+                DrawTexturePro(sgranada, framerecsgranad, posgranad, position, 0, WHITE);
+                DrawText(cix, s7.ex, s7.ey, 20, RED);
+            }
+            else if (s7.evx == 0)
+            {
+                Vector2 position = { 0.0f, 0.0f };
+                Rectangle posidles7 = { (float)s7.ex, (float)s7.ey, framereceidle.width * 5, framereceidle.height * 5 };
+                DrawTexturePro(sidle, framereceidle, posidles7, position, 0, WHITE);
+                DrawText(cix, s7.ex, s7.ey, 20, RED);
+            }
+
             if (!inMenu && !winscreen && !lose)
             {
                 s7.enemyShootTimer += GetFrameTime();
                 if (s7.enemyShootTimer >= enemyShootInterval)
                 {
+                    s7.isshooting = 1;
                     s7.enemyShootTimer = 0.0f;
-
+                    s7.evx = 0;
+                    currentFramegranada = 0;
                     for (int i = 0; i < MAX_BULLETSE; i++)
                     {
                         if (!bulletse[i].active)
@@ -1954,6 +2069,7 @@ while (!WindowShouldClose())
             s7.ex = 100000000;
             bs7 = false;
         }
+
         if (t1.thp >= 1)
         {
             if (t1.tvx == 0)
@@ -2760,6 +2876,7 @@ while (!WindowShouldClose())
     UnloadTexture(edv1);
     UnloadTexture(edv2);
     UnloadTexture(edv3);
+    UnloadTexture(sgranada);
     CloseWindow();
     return 0;
 }
