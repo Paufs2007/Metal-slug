@@ -2488,7 +2488,7 @@ while (!WindowShouldClose())
             int textWidth = MeasureText(cpunts, 30);
 
             Vector2 cartera = { 975 - textWidth - 150, 652 };
-            DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera, 98, -60, WHITE); //Afegir imatge "CREDIT "
+            DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera, 98, -70, WHITE); //Afegir imatge "CREDIT "
             if (IsKeyPressed(KEY_C))
                 p.credits++;
             if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
@@ -2504,7 +2504,7 @@ while (!WindowShouldClose())
             int textWidth = MeasureText(cpunts, 30);
 
             Vector2 cartera2 = { 975 - textWidth - 150, 652 };
-            DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera2, 98, -60, WHITE); //Afegir imatge "CREDIT "
+            DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera2, 98, -70, WHITE); //Afegir imatge "CREDIT "
             Vector2 health2 = { 100, -30 };
             DrawTextEx(whiteFont, cpunts, health2, 100, -60, WHITE);
             Vector2 health = { 100, 40 };
