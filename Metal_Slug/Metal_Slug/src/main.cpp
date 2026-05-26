@@ -2354,7 +2354,7 @@ while (!WindowShouldClose())
         }
         else if (os3)
         {
-            PlaySound(soundArray[8]); // canviar per el item pick up sound
+            PlaySound(soundArray[17]); 
             vpunts = vpunts + 1000;
             os3 = false;
         }
@@ -2365,7 +2365,7 @@ while (!WindowShouldClose())
         }
         else if (os4)
         {
-            PlaySound(soundArray[8]); // canviar per el item pick up sound
+            PlaySound(soundArray[17]);
             vpunts = vpunts + 2000;
             os4 = false;
         }
@@ -2376,7 +2376,7 @@ while (!WindowShouldClose())
         }
         else if (os5)
         {
-            PlaySound(soundArray[8]); // canviar per el item pick up sound
+            PlaySound(soundArray[17]);
             vpunts = vpunts + 1000;
             os5 = false;
         }
@@ -2387,7 +2387,7 @@ while (!WindowShouldClose())
         }
         else if (os6)
         {
-            PlaySound(soundArray[8]); // canviar per el item pick up sound
+            PlaySound(soundArray[17]);
             vpunts = vpunts + 2000;
             os6 = false;
         }
@@ -2398,7 +2398,7 @@ while (!WindowShouldClose())
         }
         else if (os7)
         {
-            PlaySound(soundArray[8]); // canviar per el item pick up sound
+            PlaySound(soundArray[17]);
             vpunts = vpunts + 1000;
             os7 = false;
         }
