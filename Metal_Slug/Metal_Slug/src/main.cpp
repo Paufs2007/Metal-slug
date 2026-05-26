@@ -1510,6 +1510,7 @@ while (!WindowShouldClose())
             if (p.x >= ed2.edx + 500 && p.x <= ed2.edx + 1600 && p.y >= ed2.edy && p.y <= ed2.edy + 1000)
                 p.x = ed2.edx + 500;
         }
+        else s9.ehp--;
 
         if (IsKeyDown(KEY_W) && !IsKeyDown(KEY_S)) p.facingy = 1;
         else if (IsKeyDown(KEY_S) && !IsKeyDown(KEY_W) && p.y < FLOOR_Y) p.facingy = -1;
