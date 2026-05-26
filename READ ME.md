@@ -42,6 +42,7 @@ Features:
  - Item that gives player invincibility for 20 seconds
  - B swaps the players bullet sprite for a png of a potato
  - Konami code (W - W - S - S - A - D - A - D - J - SPACE) gives player invincibility without a timer
+ - Items give player 1000 points when it comes in contact with the player
 
 1. Player actions:
 Up

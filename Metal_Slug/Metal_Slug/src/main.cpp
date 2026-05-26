@@ -75,6 +75,7 @@ public:
     float theadTimer = 0.0f;
     bool  theadFiring = false;
     float smoothHeadH = 110.0f;
+    int ehp = 1;
 };
 
 class boss
@@ -261,6 +262,7 @@ int main()
     soundArray[14] = LoadSound("bola.mp3");
     soundArray[15] = LoadSound("electric_bird.mp3");
     soundArray[16] = LoadSound("electric_bird2.mp3");
+    soundArray[17] = LoadSound("bingo.mp3");
 
     
 
@@ -385,6 +387,9 @@ int main()
     soldier s9 = { 15250, 900 };
     soldier cheat = { -10000, 0 };
 
+    tank cheat2 = { -10000, 0 };
+
+
     objecte o1 = { 5250, 605 };
 
     objecte o2 = { 12300, 605 };
@@ -401,6 +406,8 @@ int main()
 
     bool os1 = true;
     bool bocheat = true;
+    bool bocheat2 = true;
+    bool bcheat2 = false;
     bool os2 = true;
     bool killhim = false;
 
@@ -1460,6 +1467,7 @@ while (!WindowShouldClose())
         }
 
         if (IsKeyPressed(KEY_Z)) cheat.ex = p.x, cheat.ey = p.y, bcheat = true, cheat.ehp = 1;
+        if (IsKeyPressed(KEY_V)) cheat2.tx = p.x, cheat2.ty = p.y, bcheat2 = true, cheat2.ehp = 1;
         if (IsKeyPressed(KEY_I)) bocheat = true, ocheat.alive = 1, ocheat.ox = p.x + 55, ocheat.oy = p.y - 55;
 
         s1.ey += s1.vy;
@@ -1546,6 +1554,14 @@ while (!WindowShouldClose())
         {
             t1.ty = tankFloor;
             t1.tvy = 0;
+        }
+
+        cheat2.ty += cheat2.tvy;
+        cheat2.tvy += 4;
+
+        if (cheat2.ty >= FLOOR_Y) {
+            cheat2.ty = FLOOR_Y;
+            cheat2.tvy = 0;
         }
 
         const float tankStopDistance = 350.00f;
@@ -1902,6 +1918,20 @@ while (!WindowShouldClose())
             {
                 bullets[i].active = false;
                 t1.thp--;
+            }
+            if (bcheat2 && cheat2.ehp >= 1 &&
+                bullets[i].x >= cheat2.tx && bullets[i].x <= cheat2.tx + 300 &&
+                bullets[i].y >= cheat2.ty && bullets[i].y <= cheat2.ty + 200)
+            {
+                bullets[i].active = false;
+                cheat2.ehp--;
+                if (cheat2.ehp <= 0)
+                {
+                    vpunts += 100;
+                    cheat2.tx = 100000000;
+                    bcheat2 = false;
+                    PlaySound(soundArray[0]);
+                }
             }
             if (bullets[i].x >= ed1.edx + 500 && bullets[i].x <= ed1.edx + 1000 && bullets[i].y >= ed1.edy && bullets[i].y <= ed1.edy + 1000)
             {
@@ -2820,6 +2850,7 @@ while (!WindowShouldClose())
             bcheat = false;
         }
 
+
         if (t1.thp >= 1)
         {
             if (t1.tvx == 0)
@@ -2920,6 +2951,21 @@ while (!WindowShouldClose())
             t1.tx = 100000000;
             PlaySound(soundArray[0]);
             bt1 = false;
+        }
+
+        if (bcheat2 && cheat2.ehp >= 1)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle poscheat2 = { (float)cheat2.tx, (float)cheat2.ty, framerectbase.width * 5, framerectbase.height * 5 };
+            DrawTexturePro(tbase, framerectbase, poscheat2, position, 0, WHITE);
+
+            float headW = (tcap.width / 3.0f) * 5.0f;
+            float bodyW = framerectbase.width * 5.0f;
+            float headOffsetX = (bodyW - headW) / 2.0f;
+            float headH = framerectcap.height * 5.0f;
+            float anchorY = cheat2.ty + 45.0f;
+            Rectangle destHead = { cheat2.tx + headOffsetX, anchorY - headH, headW, headH };
+            DrawTexturePro(tcap, framerectcap, destHead, { 0.0f, 0.0f }, 0.0f, WHITE);
         }
 
         if (p.Omniman == true)
