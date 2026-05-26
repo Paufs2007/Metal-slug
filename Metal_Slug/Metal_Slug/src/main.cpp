@@ -3149,7 +3149,6 @@ while (!WindowShouldClose())
             }
 
             if (IsKeyPressed(KEY_C)) p.credits++;
-
             if (IsKeyPressed(KEY_R)) {
                 p.Omniman = false;
                 lose = false;
@@ -3161,19 +3160,25 @@ while (!WindowShouldClose())
                 bs5 = true;
                 bs6 = true;
                 bs7 = true;
+                bs8 = true;
+                bs9 = true;
                 bJorge = true;
+                bcheat = true;
                 os1 = true;
                 os2 = true;
+                bocheat = true;
                 winscreen = false;
                 s1.ehp = 100;
                 s2.ehp = 1;
-                killhim = false;
                 s3.ehp = 1;
                 s4.ehp = 1;
                 s5.ehp = 1;
                 s6.ehp = 1;
                 s7.ehp = 1;
-                s5.evx = 0; 
+                s8.ehp = 1;
+                s9.ehp = 1;
+                killhim = false;
+                s5.evx = 0;
                 s6.evx = 0;
                 t1.thp = 25;
                 bt1 = true;
@@ -3191,6 +3196,8 @@ while (!WindowShouldClose())
                 potatoBullets = false;
                 ed1.edx = 13850;
                 ed2.edx = 14500;
+                konami = 0;
+                p.vides = 3;
                 startTimer(&vidaTimer, timerlife);
 
                 StopMusicStream(musicArray[0]);
@@ -3204,14 +3211,16 @@ while (!WindowShouldClose())
                 p.vy = 0;
                 s2.ex = 5450;
                 s2.evx = 0;
-                s3.ehp = 1;
                 s3.ex = 10450;
                 s4.ex = 4750;
                 s5.ex = 6000;
+                s5.ey = 1000;
                 s6.ex = 8850;
                 s7.ex = 12250;
-                s5.ey = 1000;
-
+                s8.ex = 13600;
+                s9.ex = 15250;
+                cheat.ex = -10000;
+                cheat.ehp = 1;
 
                 t1.tx = 17500;
                 t1.ty = 880;
@@ -3256,19 +3265,19 @@ while (!WindowShouldClose())
             if (IsKeyPressed(KEY_W)) {
                 if (konami == 0 || konami == 1) konami++;
                 else konami = 0;
-            } else if (IsKeyPressed(KEY_S)) {
+            } if (IsKeyPressed(KEY_S)) {
                 if (konami == 2 || konami == 3) konami++;
                 else konami = 0;
-            } else if (IsKeyPressed(KEY_A)) {
+            } if (IsKeyPressed(KEY_A)) {
                 if (konami == 4 || konami == 6) konami++;
                 else konami = 0;
-            } else if (IsKeyPressed(KEY_D)) {
+            } if (IsKeyPressed(KEY_D)) {
                 if (konami == 5 || konami == 7) konami++;
                 else konami = 0;
-            } else if (IsKeyPressed(KEY_J)) {
+            } if (IsKeyPressed(KEY_J)) {
                 if (konami == 8) konami++;
                 else konami = 0;
-            } else if (IsKeyPressed(KEY_SPACE)) {
+            } if (IsKeyPressed(KEY_SPACE)) {
                 if (konami == 9) {
                     konami++;
                     p.Omniman = true;
@@ -3277,7 +3286,6 @@ while (!WindowShouldClose())
                 } else konami = 0;
             }
 
-            else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
             if (IsKeyPressed(KEY_SPACE) && p.canJump) p.jump();
             if (IsKeyDown(KEY_S) && !IsKeyDown(KEY_W) && p.canJump)
             {
@@ -3305,28 +3313,41 @@ while (!WindowShouldClose())
                 p.Omniman = false;
                 winscreen = false;
                 inMenu = true;
-                winSoundPlayed = false;
-                menuSoundPlayed = false;
                 lose = false;
+                menuSoundPlayed = false;
+                winSoundPlayed = false;
                 vpunts -= vpunts;
                 KevinTheFuckingBoss = true;
                 bs2 = true;
                 bs3 = true;
+                bs4 = true;
+                bs5 = true;
+                bs6 = true;
+                bs7 = true;
+                bs8 = true;
+                bs9 = true;
                 bJorge = true;
+                bcheat = true;
                 bt1 = true;
                 os1 = true;
                 os2 = true;
-                winscreen = false;
+                bocheat = true;
                 s1.ehp = 100;
-                p.vides = 3;
                 s2.ehp = 1;
                 s3.ehp = 1;
+                s4.ehp = 1;
+                s5.ehp = 1;
+                s6.ehp = 1;
+                s7.ehp = 1;
+                s8.ehp = 1;
+                s9.ehp = 1;
+                killhim = false;
                 s5.evx = 0;
                 s6.evx = 0;
+                t1.thp = 25;
                 o1.alive = 1;
                 o2.alive = 1;
                 Jorge.ehp = 1;
-                t1.thp = 25;
                 Jorge.ex = 3200;
                 timerlife = 450;
                 omnimanTimer = { 0 };
@@ -3337,13 +3358,14 @@ while (!WindowShouldClose())
                 ed1.edx = 13850;
                 ed2.edx = 14500;
                 potatoBullets = false;
+                konami = 0;
+                p.vides = 3;
                 startTimer(&vidaTimer, timerlife);
 
-                StopMusicStream(musicArray[0]);                
+                StopMusicStream(musicArray[0]);
                 menuSoundPlayed = false;
                 PlayMusicStream(musicArray[0]);
                 StopSound(soundArray[9]);
-
 
                 p.x = 400;
                 p.y = 1220;
@@ -3351,17 +3373,16 @@ while (!WindowShouldClose())
                 p.vy = 0;
                 s2.ex = 5450;
                 s2.evx = 0;
-                s3.ehp = 1;
                 s3.ex = 10450;
-                s4.ehp = 1;
                 s4.ex = 4750;
-                s5.ehp = 1;
                 s5.ex = 6000;
-                s6.ehp = 1;
-                s6.ex = 8850;
-                s7.ehp = 1;
-                s7.ex = 12250;
                 s5.ey = 1000;
+                s6.ex = 8850;
+                s7.ex = 12250;
+                s8.ex = 13600;
+                s9.ex = 15250;
+                cheat.ex = -10000;
+                cheat.ehp = 1;
 
                 t1.tx = 17500;
                 t1.ty = 880;
@@ -3388,29 +3409,45 @@ while (!WindowShouldClose())
             DrawTexturePro(gameover, src3, dest3, { 0, 0 }, 0.0f, WHITE);
             DrawText("PRESS P TO RETURN TO MENU\nPRESS R TO RESTART LEVEL", 375, 800, 40, RED);
             if (IsKeyPressed(KEY_P)) {
+                p.Omniman = false;
                 winscreen = false;
-                menuSoundPlayed = false;
                 inMenu = true;
                 lose = false;
+                menuSoundPlayed = false;
+                winSoundPlayed = false;
                 vpunts -= vpunts;
                 KevinTheFuckingBoss = true;
                 bs2 = true;
                 bs3 = true;
+                bs4 = true;
+                bs5 = true;
+                bs6 = true;
+                bs7 = true;
+                bs8 = true;
+                bs9 = true;
                 bJorge = true;
+                bcheat = true;
+                bt1 = true;
                 os1 = true;
                 os2 = true;
-                winscreen = false;
+                bocheat = true;
                 s1.ehp = 100;
                 s2.ehp = 1;
                 s3.ehp = 1;
-                p.vides = 3;
-                bt1 = true;
+                s4.ehp = 1;
+                s5.ehp = 1;
+                s6.ehp = 1;
+                s7.ehp = 1;
+                s8.ehp = 1;
+                s9.ehp = 1;
+                killhim = false;
+                s5.evx = 0;
+                s6.evx = 0;
+                t1.thp = 25;
                 o1.alive = 1;
                 o2.alive = 1;
-                t1.thp = 25;
                 Jorge.ehp = 1;
                 Jorge.ex = 3200;
-                winSoundPlayed = false;
                 timerlife = 450;
                 omnimanTimer = { 0 };
                 ed1.edhp = 40;
@@ -3420,14 +3457,14 @@ while (!WindowShouldClose())
                 ed1.edx = 13850;
                 ed2.edx = 14500;
                 potatoBullets = false;
+                konami = 0;
+                p.vides = 3;
                 startTimer(&vidaTimer, timerlife);
-
 
                 StopMusicStream(musicArray[0]);
                 menuSoundPlayed = false;
                 PlayMusicStream(musicArray[0]);
                 StopSound(soundArray[9]);
-
 
                 p.x = 400;
                 p.y = 1220;
@@ -3435,17 +3472,16 @@ while (!WindowShouldClose())
                 p.vy = 0;
                 s2.ex = 5450;
                 s2.evx = 0;
-                s3.ehp = 1;
                 s3.ex = 10450;
-                s4.ehp = 1;
                 s4.ex = 4750;
-                s5.ehp = 1;
                 s5.ex = 6000;
-                s6.ehp = 1;
+                s5.ey = 1000;
                 s6.ex = 8850;
-                s7.ehp = 1;
                 s7.ex = 12250;
-
+                s8.ex = 13600;
+                s9.ex = 15250;
+                cheat.ex = -10000;
+                cheat.ehp = 1;
 
                 t1.tx = 17500;
                 t1.ty = 880;
