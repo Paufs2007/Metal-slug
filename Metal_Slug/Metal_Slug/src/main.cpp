@@ -210,6 +210,11 @@ bool raig = true;
 
 bool bola = false;
 
+//variables jefe
+int   currentFrameBoss = 0;
+float bossFrameTimer = 0.0f;
+int   bossAnim = 0;             // 0=morter_up, 1=morter_down, 2=laser, 3=bola, 4 = moviment vertical
+
 int main()
 {
     SetConfigFlags(FLAG_VSYNC_HINT);
@@ -314,11 +319,11 @@ int main()
     Texture sgranadaex = LoadTexture("exposio granada.png");
 
     //BOSS
-    Texture laser = LoadTexture("dixparar laser (ha d'estar a dalt).png");
-    Texture bolaa = LoadTexture("disparar bola de terra.png");
+    Texture laserstart = LoadTexture("dixparar laser (ha d'estar a dalt).png");
+    Texture bolaastart = LoadTexture("disparar bola de terra.png");
     Texture morter_down = LoadTexture("disparar boss (quan es troba a baix).png");
     Texture morter_up = LoadTexture("disparar boss (quan es troba a dalt).png");
-
+    Texture movimentvertboss = LoadTexture("moviment vertical boss.png");
 
 
     Font timerNums = LoadFont("prova 2 tipografia.png");
@@ -441,8 +446,9 @@ int main()
 
     Rectangle framerecmorterup = { 0, 0, (float)morter_up.width / 17, (float)morter_up.height };
     Rectangle framerecmorterdown = { 0, 0, (float)morter_down.width / 17, (float)morter_down.height };
-    Rectangle framerecLaser = { 0, 0, (float)laser.width / 10, (float)laser.height };
-    Rectangle framerecBola = { 0, 0, (float)bolaa.width / 10, (float)bolaa.height };
+    Rectangle framerecLaserstart = { 0, 0, (float)laserstart.width / 10, (float)laserstart.height };
+    Rectangle framerecBolastart = { 0, 0, (float)bolaastart.width / 10, (float)bolaastart.height };
+    Rectangle framerecbossvmov = { 0, 0, (float)movimentvertboss.width / 19, (float)movimentvertboss.height };
 
     int currentFrameidle = 0;
     int currentFramcorrer = 0;
@@ -461,13 +467,11 @@ int main()
 
 
     // BOSS 
-    int   currentFrameBoss = 0;
-    float bossFrameTimer = 0.0f;
     float bossFrameSpeed = 4.0f;   // frames per second — fast, fluid
     float bossFrameSpeedLaser = 3.0f;
-    int   bossAnim = 0;             // 0=morter_up, 1=morter_down, 2=laser, 3=bola
     int   bossLastAnim = -1;        // track anim switches to reset frame counter
     bool  bossBulletFired = false;  // fire bullet once per animation cycle
+    bool movingDown = false;
 
     const int MAX_BULLETSE = 100;
     Bullete bulletse[MAX_BULLETSE] = {};
@@ -542,19 +546,45 @@ while (!WindowShouldClose())
             bossLastAnim = bossAnim;
         }
 
-        int maxFrames = (bossAnim == 2 || bossAnim == 3) ? 10 : 17;
+        int maxFrames = 17;
+
+        if (bossAnim == 2 || bossAnim == 3)
+            maxFrames = 10;
+        else if (bossAnim == 4)
+            maxFrames = 19;
+
         currentFrameBoss++;
+
         if (currentFrameBoss >= maxFrames)
         {
             currentFrameBoss = 0;
-            bossBulletFired = false;  // allow next cycle to fire again
+
+            // quan acaba la transició vertical
+            if (bossAnim == 4)
+            {
+                static bool isDown = true;
+
+                isDown = !isDown;
+
+                bossAnim = isDown ? 1 : 0;
+            }
+
+            bossBulletFired = false;
         }
 
         // Update the correct rectangle for whichever anim is active
         framerecmorterup.x = (float)currentFrameBoss * morter_up.width / 17;
         framerecmorterdown.x = (float)currentFrameBoss * morter_down.width / 17;
-        framerecLaser.x = (float)currentFrameBoss * laser.width / 10;
-        framerecBola.x = (float)currentFrameBoss * bolaa.width / 10;
+        framerecLaserstart.x = (float)currentFrameBoss * laserstart.width / 10;
+        framerecBolastart.x = (float)currentFrameBoss * bolaastart.width / 10;
+
+        int transitionFrame = currentFrameBoss;
+
+        if (movingDown)
+            transitionFrame = 18 - currentFrameBoss;
+
+        framerecbossvmov.x =
+            (float)transitionFrame * movimentvertboss.width / 19;
 
         if (s1.ehp >= 1 && !inMenu && !winscreen && !lose &&
             (bossAnim == 0 || bossAnim == 1) &&
@@ -566,12 +596,12 @@ while (!WindowShouldClose())
                 {
                     if (bossAnim == 0)  // morter_up: cannon tip is high on the sprite
                     {
-                        bulletsa1[i].x = s1.ex + 200.0f;
-                        bulletsa1[i].y = s1.ey - 100.0f;
+                        bulletsa1[i].x = s1.ex + 150.0f;
+                        bulletsa1[i].y = s1.ey + 100.0f;
                     }
                     else  // morter_down: cannon tip is lower (sprite drawn at s1.ey + 150)
                     {
-                        bulletsa1[i].x = s1.ex + 150.0f;
+                        bulletsa1[i].x = s1.ex + 225.0f;
                         bulletsa1[i].y = s1.ey + 400.0f;
                     }
                     float gravity = 0.5f;
@@ -2247,19 +2277,33 @@ while (!WindowShouldClose())
             // --- Determine which animation to play ---
             if (s1.ehp > 75 || (s1.ehp <= 75 && p.y <= 400))
             {
-                static float morterTimer = 0.0f;
-                morterTimer += GetFrameTime();
-                if (morterTimer >= 4.0f)
+                // no tocar animació durant transició
+                if (bossAnim != 4)
                 {
-                    morterTimer = 0.0f;
-                    bossAnim = (bossAnim == 0) ? 1 : 0;
+                    static float morterTimer = 0.0f;
+                    morterTimer += GetFrameTime();
+
+                    if (morterTimer >= 4.0f)
+                    {
+                        morterTimer = 0.0f;
+
+                        // decidir direcció
+                        movingDown = (bossAnim == 0);
+
+                        // iniciar transició
+                        bossAnim = 4;
+                        currentFrameBoss = 0;
+                    }
                 }
             }
+
+            // FASE 2 → laser / bola
             else
             {
-                // Phase 2, player on lower platform: alternate laser / bola
-                if (raig && !bola)  bossAnim = 2;
-                else                bossAnim = 3;
+                if (raig && !bola)
+                    bossAnim = 2;
+                else
+                    bossAnim = 3;
             }
 
             // --- Draw the correct sprite at the correct Y ---
@@ -2272,31 +2316,29 @@ while (!WindowShouldClose())
 
             if (bossAnim == 0)
             {
-                Rectangle dest_boss = { (float)s1.ex, (float)s1.ey,
-                                         framerecmorterup.width * 5.0f,
-                                         framerecmorterup.height * 5.0f };
+                Rectangle dest_boss = { (float)s1.ex, (float)s1.ey, framerecmorterup.width * 5.0f, framerecmorterup.height * 5.0f };
                 DrawTexturePro(morter_up, framerecmorterup, dest_boss, bossOrigin, 0, WHITE);
             }
             else if (bossAnim == 1)
             {
-                Rectangle dest_boss = { (float)s1.ex, (float)s1.ey + 150.0f,
-                                         framerecmorterdown.width * 5.0f,
-                                         framerecmorterdown.height * 5.0f };
+                Rectangle dest_boss = { (float)s1.ex, (float)s1.ey + 150.0f, framerecmorterdown.width * 5.0f, framerecmorterdown.height * 5.0f };
                 DrawTexturePro(morter_down, framerecmorterdown, dest_boss, bossOrigin, 0, WHITE);
             }
             else if (bossAnim == 2)
             {
-                Rectangle dest_boss = { (float)s1.ex, (float)s1.ey,
-                                         framerecLaser.width * 5.0f,
-                                         framerecLaser.height * 5.0f };
-                DrawTexturePro(laser, framerecLaser, dest_boss, bossOrigin, 0, WHITE);
+                Rectangle dest_boss = { (float)s1.ex, (float)s1.ey, framerecLaserstart.width * 5.0f, framerecLaserstart.height * 5.0f };
+                DrawTexturePro(laserstart, framerecLaserstart, dest_boss, bossOrigin, 0, WHITE);
             }
             else if (bossAnim == 3)
             {
-                Rectangle dest_boss = { (float)s1.ex, (float)s1.ey + 150.0f,
-                                         framerecBola.width * 5.0f,
-                                         framerecBola.height * 5.0f };
-                DrawTexturePro(bolaa, framerecBola, dest_boss, bossOrigin, 0, WHITE);
+                Rectangle dest_boss = { (float)s1.ex, (float)s1.ey + 150.0f, framerecBolastart.width * 5.0f, framerecBolastart.height * 5.0f };
+                DrawTexturePro(bolaastart, framerecBolastart, dest_boss, bossOrigin, 0, WHITE);
+            }
+            else if (bossAnim == 4)
+            {
+                float verticalOffset = 80.0f;
+                Rectangle dest_boss ={ (float)s1.ex, (float)s1.ey + verticalOffset, framerecbossvmov.width * 5.0f, framerecbossvmov.height * 5.0f};
+                DrawTexturePro( movimentvertboss, framerecbossvmov, dest_boss, bossOrigin, 0, WHITE);
             }
 
             // --- Fire bullet tied to animation frame, not a separate timer ---
@@ -3588,12 +3630,13 @@ while (!WindowShouldClose())
     UnloadTexture(edv2);
     UnloadTexture(edv3);
     UnloadTexture(sgranada);
-    UnloadTexture(laser);
-    UnloadTexture(bolaa);
+    UnloadTexture(laserstart);
+    UnloadTexture(bolaastart);
     UnloadTexture(morter_down);
     UnloadTexture(morter_up);
     UnloadTexture(sgranadap);
     UnloadTexture(sgranadaex);
+    UnloadTexture(movimentvertboss);
     CloseWindow();
     return 0;
 }
