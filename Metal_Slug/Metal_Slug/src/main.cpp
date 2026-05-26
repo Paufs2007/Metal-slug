@@ -334,7 +334,7 @@ int main()
     Texture morter_up = LoadTexture("disparar boss (quan es troba a dalt).png");
     Texture movimentvertboss = LoadTexture("moviment vertical boss.png");
     Texture bolabaixaboss = LoadTexture("atrac de terra boss.png");
-    
+    Texture laserboss = LoadTexture("laser boss.png");
 
     Font timerNums = LoadFont("prova 2 tipografia.png");
     Font whiteFont = LoadFont("tipografia gris.png");
@@ -464,6 +464,7 @@ int main()
     Rectangle framerecBolastart = { 0, 0, (float)bolaastart.width / 10, (float)bolaastart.height };
     Rectangle framerecbossvmov = { 0, 0, (float)movimentvertboss.width / 19, (float)movimentvertboss.height };
     Rectangle framerecBola = { 0, 0, (float)bolabaixaboss.width / 4, (float)bolabaixaboss.height };
+    Rectangle framreclaser = { 0, 0, (float)laserboss.width / 2, (float)laserboss.height };
 
     int currentFrameidle = 0;
     int currentFramedrive = 0;
@@ -2325,6 +2326,7 @@ while (!WindowShouldClose())
 
         if (s1.ehp >= 1)
         {
+            // fase 1
             if (s1.ehp > 75 || (s1.ehp <= 75 && p.y <= 400))
             {
                 if (bossAnim != 4)
@@ -2386,6 +2388,8 @@ while (!WindowShouldClose())
                 Rectangle dest_boss ={ (float)s1.ex, (float)s1.ey + verticalOffset, framerecbossvmov.width * 5.0f, framerecbossvmov.height * 5.0f};
                 DrawTexturePro( movimentvertboss, framerecbossvmov, dest_boss, bossOrigin, 0, WHITE);
             }
+
+            //fase2
 
             if (!inMenu && !winscreen && !lose)
             {
@@ -3685,6 +3689,7 @@ while (!WindowShouldClose())
     UnloadTexture(tcapdis);
     UnloadTexture(balastanque); 
     UnloadTexture(bolabaixaboss);
+    UnloadTexture(laserboss);
     CloseWindow();
     return 0;
 }
