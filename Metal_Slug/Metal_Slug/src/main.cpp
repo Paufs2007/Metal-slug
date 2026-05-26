@@ -2933,6 +2933,8 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posidle = { (float)p.x, (float)p.y, frameRecidle.width * 5, frameRecidle.height * 5 };
                 DrawTexturePro(p1, frameRecidle, posidle, position, 0, WHITE);
+                DrawText(cix, p.x, p.y, 20, RED);
+                DrawText(ciy, p.x, p.y + 30, 20, RED);
             }
             else if (p.vx > 0 && p.facing == 1 && p.canJump == true && p.isshooting == -1)
             {
