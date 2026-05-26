@@ -347,6 +347,7 @@ int main()
     Texture laserboss = LoadTexture("laser boss.png");
     Texture up = LoadTexture("1_up.png");
     Texture cred = LoadTexture("credit.png");
+    Texture infinit = LoadTexture("infinit.png");
 
     Font timerNums = LoadFont("prova 2 tipografia.png");
     Font whiteFont = LoadFont("tipografia gris.png");
@@ -3421,6 +3422,10 @@ while (!WindowShouldClose())
             if (killhim) {
                 Vector2 health = { 195, 45 };
                 DrawTextEx(timerNums, TextFormat("%d", machineGunAmmo), health, 30, -10, WHITE);
+            }
+            else {
+                Vector2 carteraaaaa = { 195, 45 };
+                DrawTextureEx(infinit, carteraaaaa, 0.0f, 1.5f, WHITE);
             }
 
             if (music == false) {
