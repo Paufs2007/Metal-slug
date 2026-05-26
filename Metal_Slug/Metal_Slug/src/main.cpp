@@ -2493,7 +2493,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad; 
                 src.x = s2.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)s2.ex, (float)s2.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)s2.ex, (float)s2.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s2.evx == 0)
@@ -2524,7 +2524,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad;
                 src.x = Jorge.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)Jorge.ex, (float)Jorge.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)Jorge.ex, (float)Jorge.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (Jorge.evx == 0)
@@ -2555,7 +2555,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad;
                 src.x = s3.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)s3.ex, (float)s3.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)s3.ex, (float)s3.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s3.evx == 0)
@@ -2587,7 +2587,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad;
                 src.x = s4.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)s4.ex, (float)s4.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)s4.ex, (float)s4.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s4.evx == 0)
@@ -2619,7 +2619,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad;
                 src.x = s5.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)s5.ex, (float)s5.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)s5.ex, (float)s5.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s5.evx == 0)
@@ -2651,7 +2651,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad;
                 src.x = s6.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)s6.ex, (float)s6.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)s6.ex, (float)s6.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s6.evx == 0)
@@ -2683,7 +2683,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad;
                 src.x = s7.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)s7.ex, (float)s7.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)s7.ex, (float)s7.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s7.evx == 0)
@@ -2715,7 +2715,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad;
                 src.x = s8.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)s8.ex, (float)s8.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)s8.ex, (float)s8.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s8.evx == 0)
@@ -2746,7 +2746,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad;
                 src.x = s9.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)s9.ex, (float)s9.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)s9.ex, (float)s9.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s9.evx == 0)
@@ -2778,7 +2778,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad;
                 src.x = cheat.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)cheat.ex, (float)cheat.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)cheat.ex, (float)cheat.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (cheat.evx == 0)
@@ -2802,6 +2802,7 @@ while (!WindowShouldClose())
             cheat.ex = 100000000;
             bcheat = false;
         }
+
         if (t1.thp >= 1)
         {
             if (t1.tvx == 0)
