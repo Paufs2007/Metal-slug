@@ -1868,7 +1868,7 @@ while (!WindowShouldClose())
                 cheat.ehp--;
                 bullets[i].active = false;
             }
-            if (bullets[i].x >= t1.tx && bullets[i].x <= t1.tx + 100 && bullets[i].y >= t1.ty && bullets[i].y <= t1.ty + 200)
+            if (bullets[i].x >= t1.tx && bullets[i].x <= t1.tx + 300 && bullets[i].y >= t1.ty && bullets[i].y <= t1.ty + 200)
             {
                 bullets[i].active = false;
                 t1.thp--;
