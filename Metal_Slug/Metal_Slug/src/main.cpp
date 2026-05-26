@@ -334,6 +334,7 @@ int main()
     Texture balastanque = LoadTexture("balas tanque.png");
     Texture tcapdis = LoadTexture("tanque disparant.png");  
     Texture tdrive = LoadTexture("p1 drivig.png");
+    Texture hakari = LoadTexture("invulneravilitat.png");
     //BOSS
     Texture laserstart = LoadTexture("dixparar laser (ha d'estar a dalt).png");
     Texture bolaastart = LoadTexture("disparar bola de terra.png");
@@ -457,6 +458,7 @@ int main()
     Rectangle frameReccap = { 0, 0, (float)p1cap.width / 4, (float)p1cap.height };
     Rectangle frameRecdretacorrent = { 0, 0, (float)p1dretacorrentcames.width / 12, (float)p1dretacorrentcames.height };
     Rectangle frameRecidle = { 0, 0, (float)p1.width / 4, (float)p1.height };
+    Rectangle framerechakari = { 0, 0, (float)hakari.width / 2, (float)hakari.height };
 
     Rectangle framerectbalastanque = { 0, 0, (float)balastanque.width / 3, (float)balastanque.height };
     Rectangle framerectcap = { 0, 0, (float)tcap.width / 3, (float)tcap.height };
@@ -556,6 +558,8 @@ while (!WindowShouldClose())
         framrecsgranadex.x = (float)currentframeexplo * (float)sgranadaex.width / 6;
         framerectdrive.x = (float)currentFramedrive * (float)tdrive.width / 10;
         framerecBola.x = (float)currentFrameidle * (float)bolabaixaboss.width / 4;
+        framreclaser.x = (float)currentFrameobj* (float)laserboss.width / 2;
+        framerechakari.x = (float)currentFrameobj * (float)hakari.width / 2;
     }
 
     float currentBossSpeed = (bossAnim == 2 || bossAnim == 3) ? bossFrameSpeedLaser : bossFrameSpeed;
@@ -2005,8 +2009,20 @@ while (!WindowShouldClose())
 
         for (int i = 0; i < MAX_BULLETSA2; i++) {
             if (!bulletsa2[i].active) continue;
-            DrawTexture(bulletee, (int)bulletsa2[i].x, (int)bulletsa2[i].y, WHITE);
-            if (!p.Omniman && bulletsa2[i].x >= p.x && bulletsa2[i].x <= p.x + 100 && bulletsa2[i].y >= p.y && bulletsa2[i].y <= p.y + 200 && p.isajupit == -1 || !p.Omniman && bulletsa2[i].x >= p.x && bulletsa2[i].x <= p.x + 100 && bulletsa2[i].y >= p.y + 100 && bulletsa2[i].y <= p.y + 200 && p.isajupit == 1)
+            Vector2 position1 = { 0.0f, 0.0f };
+            Rectangle posat20 = { (int)bulletsa2[i].x - 300, (int)bulletsa2[i].y - 100, framreclaser.width * 30, framreclaser.height * 7.5 };
+            DrawTexturePro(laserboss, framreclaser, posat20, position1, 0, WHITE);
+            Rectangle posat21 = { (int)bulletsa2[i].x, (int)bulletsa2[i].y - 100, framreclaser.width * 30, framreclaser.height * 7.5 };
+            DrawTexturePro(laserboss, framreclaser, posat21, position1, 0, WHITE);
+            Rectangle posat22 = { (int)bulletsa2[i].x + 300, (int)bulletsa2[i].y - 100, framreclaser.width * 30, framreclaser.height * 7.5 };
+            DrawTexturePro(laserboss, framreclaser, posat22, position1, 0, WHITE);
+            Rectangle posat23 = { (int)bulletsa2[i].x + 600, (int)bulletsa2[i].y - 100, framreclaser.width * 30, framreclaser.height * 7.5 };
+            DrawTexturePro(laserboss, framreclaser, posat23, position1, 0, WHITE);
+            Rectangle posat24 = { (int)bulletsa2[i].x + 900, (int)bulletsa2[i].y - 100, framreclaser.width * 30, framreclaser.height * 7.5 };
+            DrawTexturePro(laserboss, framreclaser, posat24, position1, 0, WHITE);
+            Rectangle posat25 = { (int)bulletsa2[i].x + 1200, (int)bulletsa2[i].y - 100, framreclaser.width * 30, framreclaser.height * 7.5 };
+            DrawTexturePro(laserboss, framreclaser, posat25, position1, 0, WHITE);
+            if (!p.Omniman && bulletsa2[i].x >= p.x - 1000 && bulletsa2[i].x <= p.x + 1000 && bulletsa2[i].y >= p.y - 100 && bulletsa2[i].y <= p.y + 200 && p.isajupit == -1 || !p.Omniman && bulletsa2[i].x >= p.x && bulletsa2[i].x <= p.x + 100 && bulletsa2[i].y >= p.y + 100 && bulletsa2[i].y <= p.y + 200 && p.isajupit == 1)
             {
                 bulletsa2[i].active = false;
                 hitCooldown = 1.5f;
@@ -2902,6 +2918,13 @@ while (!WindowShouldClose())
             bt1 = false;
         }
 
+        if (p.Omniman == true)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle poshakari = { (float)p.x - 40, (float)p.y - 30, framerechakari.width * 6, framerechakari.height * 6 };
+            DrawTexturePro(hakari, framerechakari, poshakari, position, 0, WHITE);
+        }
+
         if (p.isajupit == -1) 
         {
             if (p.vx == 0 && p.facing == 1 && p.canJump == true && p.isshooting == -1)
@@ -3727,6 +3750,7 @@ while (!WindowShouldClose())
     UnloadTexture(balastanque); 
     UnloadTexture(bolabaixaboss);
     UnloadTexture(laserboss);
+    UnloadTexture(hakari);
     CloseWindow();
     return 0;
 }
