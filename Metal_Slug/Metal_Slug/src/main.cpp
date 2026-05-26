@@ -1510,7 +1510,6 @@ while (!WindowShouldClose())
             if (p.x >= ed2.edx + 500 && p.x <= ed2.edx + 1600 && p.y >= ed2.edy && p.y <= ed2.edy + 1000)
                 p.x = ed2.edx + 500;
         }
-        else s9.ehp--;
 
         if (IsKeyDown(KEY_W) && !IsKeyDown(KEY_S)) p.facingy = 1;
         else if (IsKeyDown(KEY_S) && !IsKeyDown(KEY_W) && p.y < FLOOR_Y) p.facingy = -1;
@@ -2179,10 +2178,14 @@ while (!WindowShouldClose())
         }
         else if (ed2b)
         {
+            s9.ehp = 0;
+            s9.ex = 100000000;
+            bs9 = false;
             ed2.edx = 100000000;
             PlaySound(soundArray[0]);
             ed2b = false;
         }
+        
 
         if (killhim) 
         {
@@ -3166,7 +3169,7 @@ while (!WindowShouldClose())
                 bcheat = true;
                 os1 = true;
                 os2 = true;
-                bocheat = true;
+                bocheat = false;
                 winscreen = false;
                 s1.ehp = 100;
                 s2.ehp = 1;
@@ -3217,7 +3220,7 @@ while (!WindowShouldClose())
                 s5.ey = 1000;
                 s6.ex = 8850;
                 s7.ex = 12250;
-                s8.ex = 13600;
+				s8.ex = 13600;
                 s9.ex = 15250;
                 cheat.ex = -10000;
                 cheat.ehp = 1;
@@ -3226,6 +3229,11 @@ while (!WindowShouldClose())
                 t1.ty = 880;
                 t1.tvy = 0;
                 t1.tvx = 0;
+
+                ocheat.alive = 0;
+                ocheat.ox = -10000;
+                ocheat.oy = 0;
+                machineGunAmmo = 0;
 
                 camera.target.x = p.x;
                 camera.target.y = 1100;
@@ -3265,27 +3273,29 @@ while (!WindowShouldClose())
             if (IsKeyPressed(KEY_W)) {
                 if (konami == 0 || konami == 1) konami++;
                 else konami = 0;
-            } if (IsKeyPressed(KEY_S)) {
+            } else if (IsKeyPressed(KEY_S)) {
                 if (konami == 2 || konami == 3) konami++;
                 else konami = 0;
-            } if (IsKeyPressed(KEY_A)) {
+            } else if (IsKeyPressed(KEY_A)) {
                 if (konami == 4 || konami == 6) konami++;
                 else konami = 0;
-            } if (IsKeyPressed(KEY_D)) {
+            } else if (IsKeyPressed(KEY_D)) {
                 if (konami == 5 || konami == 7) konami++;
                 else konami = 0;
-            } if (IsKeyPressed(KEY_J)) {
+            } else if (IsKeyPressed(KEY_J)) {
                 if (konami == 8) konami++;
                 else konami = 0;
-            } if (IsKeyPressed(KEY_SPACE)) {
+            } else if (IsKeyPressed(KEY_SPACE)) {
                 if (konami == 9) {
                     konami++;
                     p.Omniman = true;
+                    startTimer(&omnimanTimer, 99999.0f);
                     PlaySound(soundArray[9]);
                     PauseMusicStream(musicArray[0]);
-                } else konami = 0;
+                }else konami = 0;
             }
 
+            else if (!IsKeyDown(KEY_D) && !IsKeyDown(KEY_A)) p.vx = 0;
             if (IsKeyPressed(KEY_SPACE) && p.canJump) p.jump();
             if (IsKeyDown(KEY_S) && !IsKeyDown(KEY_W) && p.canJump)
             {
@@ -3331,7 +3341,7 @@ while (!WindowShouldClose())
                 bt1 = true;
                 os1 = true;
                 os2 = true;
-                bocheat = true;
+                bocheat = false;
                 s1.ehp = 100;
                 s2.ehp = 1;
                 s3.ehp = 1;
@@ -3388,6 +3398,11 @@ while (!WindowShouldClose())
                 t1.ty = 880;
                 t1.tvy = 0;
                 t1.tvx = 0;
+
+                ocheat.alive = 0;
+                ocheat.ox = -10000;
+                ocheat.oy = 0;
+                machineGunAmmo = 0;
 
                 camera.target.x = p.x;
                 camera.target.y = 1100;
@@ -3430,7 +3445,7 @@ while (!WindowShouldClose())
                 bt1 = true;
                 os1 = true;
                 os2 = true;
-                bocheat = true;
+                bocheat = false;
                 s1.ehp = 100;
                 s2.ehp = 1;
                 s3.ehp = 1;
@@ -3487,6 +3502,11 @@ while (!WindowShouldClose())
                 t1.ty = 880;
                 t1.tvy = 0;
                 t1.tvx = 0;
+
+                ocheat.alive = 0;
+                ocheat.ox = -10000;
+                ocheat.oy = 0;
+                machineGunAmmo = 0;
 
                 camera.target.x = p.x;
                 camera.target.y = 1100;
