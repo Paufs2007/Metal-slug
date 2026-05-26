@@ -3434,7 +3434,7 @@ while (!WindowShouldClose())
 
             int textWidth = MeasureText(cpunts, 30);
 
-            Vector2 cartera = { 975 - textWidth - 150, 652 };
+            Vector2 cartera = { 975 - 150, 652 };
             DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera, 98, -70, WHITE); 
             if (IsKeyPressed(KEY_C))
                 p.credits++;
@@ -3450,7 +3450,7 @@ while (!WindowShouldClose())
 
             int textWidth = MeasureText(cpunts, 30);
 
-            Vector2 cartera2 = { 975 - textWidth - 150, 652 };
+            Vector2 cartera2 = { 975 - 150, 652 };
             DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera2, 98, -70, WHITE); 
             Vector2 carteraaa = { 680, 690 };
             DrawTextureEx(cred, carteraaa, 0.0f, 1.5f, WHITE);
