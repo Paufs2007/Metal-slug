@@ -257,6 +257,8 @@ int main()
     soundArray[10] = LoadSound("MISSION.mp3");
     soundArray[11] = LoadSound("one.mp3");
     soundArray[12] = LoadSound("START.mp3");
+    soundArray[13] = LoadSound("BossStage.mp3");
+
     SetSoundVolume(soundArray[7], 100.0f);
 
     musicArray[0] = LoadMusicStream("bo.mp3");
@@ -1747,7 +1749,19 @@ while (!WindowShouldClose())
         float halfW = 975 / 2.0f;
         float halfH = 714 / 2.0f;
 
-        if (camera.target.x >  19000) camera.target.x = 19000; // LOCKS CAMERA ON BOSS AREA. - Aidan.
+        if (camera.target.x > 19000) {
+
+            camera.target.x = 19000; // LOCKS CAMERA ON BOSS AREA. - Aidan.
+        }
+
+        static bool played = false;
+
+        if (camera.target.x > 18600 && !played) {
+            PauseMusicStream(musicArray[0]);
+            PlaySound(soundArray[13]);
+            played = true;
+        }
+
 
         if (ed1.edhp >= 1)
         {
