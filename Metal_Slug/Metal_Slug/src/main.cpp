@@ -317,6 +317,8 @@ int main()
     Texture sgranada = LoadTexture("soldat granada.png");
     Texture sgranadap = LoadTexture("granada 2.png");
     Texture sgranadaex = LoadTexture("exposio granada.png");
+    Texture ui1 = LoadTexture("ui 1.png");
+    Texture ui2 = LoadTexture("ui 2.png");
 
     //BOSS
     Texture laserstart = LoadTexture("dixparar laser (ha d'estar a dalt).png");
@@ -2423,14 +2425,12 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posidles1 = { (float)s2.ex, (float)s2.ey, framereceidle.width * 5, framereceidle.height * 5 };
                 DrawTexturePro(sidle, framereceidle, posidles1, position, 0, WHITE);
-                DrawText(cix, s2.ex, s2.ey, 20, RED);
             }
             else if (s2.evx < 0)
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle poscorr = { (float)s2.ex, (float)s2.ey, framerececorr.width * 5, framerececorr.height * 5 };
                 DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
-                DrawText(cix, s2.ex, s2.ey, 20, RED);
             }
         }
         else if (bs2)
@@ -2456,14 +2456,12 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posidle = { (float)Jorge.ex, (float)Jorge.ey, framereceidle.width * 5, framereceidle.height * 5 };
                 DrawTexturePro(sidle, framereceidle, posidle, position, 0, WHITE);
-                DrawText(cix, Jorge.ex, Jorge.ey, 20, RED);
             }
             else if (Jorge.evx < 0)
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle poscorr = { (float)Jorge.ex, (float)Jorge.ey, framerececorr.width * 5, framerececorr.height * 5 };
                 DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
-                DrawText(cix, Jorge.ex, Jorge.ey, 20, RED);
             }
         }
         else if (bJorge)
@@ -2489,7 +2487,6 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posidle = { (float)s3.ex, (float)s3.ey, framereceidle.width * 5, framereceidle.height * 5 };
                 DrawTexturePro(sidle, framereceidle, posidle, position, 0, WHITE);
-                DrawText(cix, s3.ex, s3.ey, 20, RED);
             }
 
             else if (s3.evx < 0)
@@ -2497,7 +2494,6 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle poscorr = { (float)s3.ex, (float)s3.ey, framerececorr.width * 5, framerececorr.height * 5 };
                 DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
-                DrawText(cix, s3.ex, s3.ey, 20, RED);
             }
         }
         else if (bs3)
@@ -2523,7 +2519,6 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posidle = { (float)s4.ex, (float)s4.ey, framereceidle.width * 5, framereceidle.height * 5 };
                 DrawTexturePro(sidle, framereceidle, posidle, position, 0, WHITE);
-                DrawText(cix, s4.ex, s4.ey, 20, RED);
             }
 
             else if (s4.evx < 0)
@@ -2531,7 +2526,6 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle poscorr = { (float)s4.ex, (float)s4.ey, framerececorr.width * 5, framerececorr.height * 5 };
                 DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
-                DrawText(cix, s4.ex, s4.ey, 20, RED);
             }
         }
         else if (bs4)
@@ -2557,7 +2551,6 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posidle = { (float)s5.ex, (float)s5.ey, framereceidle.width * 5, framereceidle.height * 5 };
                 DrawTexturePro(sidle, framereceidle, posidle, position, 0, WHITE);
-                DrawText(cix, s5.ex, s5.ey, 20, RED);
             }
 
             else if (s5.evx < 0)
@@ -2565,7 +2558,6 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle poscorr = { (float)s5.ex, (float)s5.ey, framerececorr.width * 5, framerececorr.height * 5 };
                 DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
-                DrawText(cix, s5.ex, s5.ey, 20, RED);
             }
         }
         else if (bs5)
@@ -2591,7 +2583,6 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posidle = { (float)s6.ex, (float)s6.ey, framereceidle.width * 5, framereceidle.height * 5 };
                 DrawTexturePro(sidle, framereceidle, posidle, position, 0, WHITE);
-                DrawText(cix, s6.ex, s6.ey, 20, RED);
             }
 
             else if (s6.evx < 0)
@@ -2599,7 +2590,6 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle poscorr = { (float)s6.ex, (float)s6.ey, framerececorr.width * 5, framerececorr.height * 5 };
                 DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
-                DrawText(cix, s6.ex, s6.ey, 20, RED);
             }
         }
         else if (bs6)
@@ -2625,7 +2615,6 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posidle = { (float)s7.ex, (float)s7.ey, framereceidle.width * 5, framereceidle.height * 5 };
                 DrawTexturePro(sidle, framereceidle, posidle, position, 0, WHITE);
-                DrawText(cix, s7.ex, s7.ey, 20, RED);
             }
 
             else if (s7.evx < 0)
@@ -2633,7 +2622,6 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle poscorr = { (float)s7.ex, (float)s7.ey, framerececorr.width * 5, framerececorr.height * 5 };
                 DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
-                DrawText(cix, s7.ex, s7.ey, 20, RED);
             }
         }
         else if (bs7)
@@ -2659,7 +2647,6 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posidle = { (float)s8.ex, (float)s8.ey, framereceidle.width * 5, framereceidle.height * 5 };
                 DrawTexturePro(sidle, framereceidle, posidle, position, 0, WHITE);
-                DrawText(cix, s8.ex, s8.ey, 20, RED);
             }
 
             else if (s8.evx < 0)
@@ -2667,7 +2654,6 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle poscorr = { (float)s8.ex, (float)s8.ey, framerececorr.width * 5, framerececorr.height * 5 };
                 DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
-                DrawText(cix, s8.ex, s8.ey, 20, RED);
             }
         }
         else if (bs8)
@@ -2692,7 +2678,6 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posidle = { (float)s9.ex, (float)s9.ey, framereceidle.width * 5, framereceidle.height * 5 };
                 DrawTexturePro(sidle, framereceidle, posidle, position, 0, WHITE);
-                DrawText(cix, s9.ex, s9.ey, 20, RED);
             }
 
             else if (s9.evx < 0)
@@ -2700,7 +2685,6 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle poscorr = { (float)s9.ex, (float)s9.ey, framerececorr.width * 5, framerececorr.height * 5 };
                 DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
-                DrawText(cix, s9.ex, s9.ey, 20, RED);
             }
         }
         else if (bs9)
@@ -2726,7 +2710,6 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posidle = { (float)cheat.ex, (float)cheat.ey, framereceidle.width * 5, framereceidle.height * 5 };
                 DrawTexturePro(sidle, framereceidle, posidle, position, 0, WHITE);
-                DrawText(cix, cheat.ex, cheat.ey, 20, RED);
             }
 
             else if (cheat.evx < 0)
@@ -2734,7 +2717,6 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle poscorr = { (float)cheat.ex, (float)cheat.ey, framerececorr.width * 5, framerececorr.height * 5 };
                 DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
-                DrawText(cix, cheat.ex, cheat.ey, 20, RED);
             }
         }
         else if (bcheat)
@@ -2751,14 +2733,12 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posidles1 = { (float)t1.tx, (float)t1.ty, framerectbase.width * 5, framerectbase.height * 5 };
                 DrawTexturePro(tbase, framerectbase, posidles1, position, 0, WHITE);
-                DrawText(cix, t1.tx, t1.ty, 20, RED);
             }
             else if (t1.tvx < 0)
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle poscorr = { (float)t1.tx, (float)t1.ty, framerececorr.width * 5, framerececorr.height * 5 };
                 DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
-                DrawText(cix, t1.tx, t1.ty, 20, RED);
             }
 
             if (!inMenu && !winscreen && !lose)
@@ -2810,8 +2790,6 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posidle = { (float)p.x, (float)p.y, frameRecidle.width * 5, frameRecidle.height * 5 };
                 DrawTexturePro(p1, frameRecidle, posidle, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
-                DrawText(ciy, p.x, p.y + 30, 20, RED);
             }
             else if (p.vx > 0 && p.facing == 1 && p.canJump == true && p.isshooting == -1)
             {
@@ -2820,7 +2798,6 @@ while (!WindowShouldClose())
                 Rectangle poscap = { (float)p.x + 60, (float)p.y + 45, frameReccap.width * 4.75, frameReccap.height * 4.75 };
                 DrawTexturePro(p1dretacorrentcames, frameRecdretacorrent, posdretacorrent, position, 0, WHITE);
                 DrawTexturePro(p1cap, frameReccap, poscap, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.vx < 0 && p.facing == -1 && p.canJump == true && p.isshooting == -1)
             {
@@ -2829,14 +2806,12 @@ while (!WindowShouldClose())
                 Rectangle poscap = { (float)p.x + 60, (float)p.y + 45, frameReccape.width * 4.75, frameReccape.height * 4.75 };
                 DrawTexturePro(p1esquerracorrentcames, frameesquerracorrent, posesquerracorrent, position, 0, WHITE);
                 DrawTexturePro(p1cape, frameReccape, poscap, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.vx == 0 && p.facing == -1 && p.canJump == true && p.isshooting == -1)
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posidle = { (float)p.x, (float)p.y, frameRecidlee.width * 5, frameRecidlee.height * 5 };
                 DrawTexturePro(p1e, frameRecidlee, posidle, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.canJump == false && p.facing == 1 && p.isshooting == -1)
             {
@@ -2845,7 +2820,6 @@ while (!WindowShouldClose())
                 Rectangle poscaps = { (float)p.x, (float)p.y - 100, framerecscap.width * 5, framerecscap.height * 5 };
                 DrawTexturePro(p1scap, framerecscap, poscaps, position, 0, WHITE);
                 DrawTexturePro(p1scames, framerecscames, poscamess, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.canJump == false && p.facing == -1 && p.isshooting == -1)
             {
@@ -2854,7 +2828,6 @@ while (!WindowShouldClose())
                 Rectangle poscapse = { (float)p.x, (float)p.y - 100, framerecscape.width * 5, framerecscape.height * 5 };
                 DrawTexturePro(p1scape, framerecscape, poscapse, position, 0, WHITE);
                 DrawTexturePro(p1scamese, framerecscamese, poscamesse, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.vx == 0 && p.canJump == true && p.facing == 1 && p.isshooting == 1 && p.facingy == 1)
             {
@@ -2863,7 +2836,6 @@ while (!WindowShouldClose())
                 Rectangle poshota = { (float)p.x - 10, (float)p.y - 210, framerecalttir.width * 5, framerecalttir.height * 5 };
                 DrawTexturePro(p1alttir, framerecalttir, poshota, position, 0, WHITE);
                 DrawTexturePro(p1camq, framereccamq, camqu, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.vx > 0 && p.canJump == true && p.facing == 1 && p.isshooting == 1 && p.facingy == 1)
             {
@@ -2872,7 +2844,6 @@ while (!WindowShouldClose())
                 Rectangle poshota = { (float)p.x - 10, (float)p.y - 210, framerecalttir.width * 5, framerecalttir.height * 5 };
                 DrawTexturePro(p1alttir, framerecalttir, poshota, position, 0, WHITE);
                 DrawTexturePro(p1dretacorrentcames, frameRecdretacorrent, posdretacorrent, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.vx == 0 && p.canJump == true && p.facing == -1 && p.isshooting == 1 && p.facingy == 1)
             {
@@ -2881,7 +2852,6 @@ while (!WindowShouldClose())
                 Rectangle poshotae = { (float)p.x - 50, (float)p.y - 210, framerecalttire.width * 5, framerecalttire.height * 5 };
                 DrawTexturePro(p1alttire, framerecalttire, poshotae, position, 0, WHITE);
                 DrawTexturePro(p1camqe, framereccamqe, camque, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.vx < 0 && p.canJump == true && p.facing == -1 && p.isshooting == 1 && p.facingy == 1)
             {
@@ -2890,7 +2860,6 @@ while (!WindowShouldClose())
                 Rectangle poshotae = { (float)p.x - 50, (float)p.y - 210, framerecalttire.width * 5, framerecalttire.height * 5 };
                 DrawTexturePro(p1alttire, framerecalttire, poshotae, position, 0, WHITE);
                 DrawTexturePro(p1esquerracorrentcames, frameesquerracorrent, posesquerracorrent, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.canJump == false && p.facing == 1 && p.isshooting == 1 && p.facingy == 1)
             {
@@ -2899,7 +2868,6 @@ while (!WindowShouldClose())
                 Rectangle poshota = { (float)p.x - 10, (float)p.y - 220, framerecalttir.width * 5, framerecalttir.height * 5 };
                 DrawTexturePro(p1alttir, framerecalttir, poshota, position, 0, WHITE);
                 DrawTexturePro(p1scames, framerecscames, poscamess, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.canJump == false && p.facing == -1 && p.isshooting == 1 && p.facingy == 1)
             {
@@ -2908,7 +2876,6 @@ while (!WindowShouldClose())
                 Rectangle poshotae = { (float)p.x - 10, (float)p.y - 210, framerecalttire.width * 5, framerecalttire.height * 5 };
                 DrawTexturePro(p1alttire, framerecalttire, poshotae, position, 0, WHITE);
                 DrawTexturePro(p1scamese, framerecscamese, poscamesse, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.canJump == false && p.facing == 1 && p.isshooting == 1)
             {
@@ -2917,7 +2884,6 @@ while (!WindowShouldClose())
                 Rectangle poshots = { (float)p.x + 10, (float)p.y - 30, framerectir.width * 5, framerectir.height * 5 };
                 DrawTexturePro(p1shot, framerectir, poshots, position, 0, WHITE);
                 DrawTexturePro(p1scames, framerecscames, poscamess, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.canJump == false && p.facing == -1 && p.isshooting == 1)
             {
@@ -2926,7 +2892,6 @@ while (!WindowShouldClose())
                 Rectangle poshotse = { (float)p.x - 170, (float)p.y - 20, framerectire.width * 5, framerectire.height * 5 };
                 DrawTexturePro(p1shote, framerectire, poshotse, position, 0, WHITE);
                 DrawTexturePro(p1scamese, framerecscamese, poscamesse, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.vx == 0 && p.canJump == true && p.facing == 1 && p.isshooting == 1)
             {
@@ -2935,7 +2900,6 @@ while (!WindowShouldClose())
                 Rectangle poshots = { (float)p.x + 15, (float)p.y - 25, framerectir.width * 5, framerectir.height * 5 };
                 DrawTexturePro(p1shot, framerectir, poshots, position, 0, WHITE);
                 DrawTexturePro(p1camq, framereccamq, camqu, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.vx > 0 && p.canJump == true && p.facing == 1 && p.isshooting == 1)
             {
@@ -2944,7 +2908,6 @@ while (!WindowShouldClose())
                 Rectangle poshots = { (float)p.x + 15, (float)p.y - 25, framerectir.width * 5, framerectir.height * 5 };
                 DrawTexturePro(p1shot, framerectir, poshots, position, 0, WHITE);
                 DrawTexturePro(p1dretacorrentcames, frameRecdretacorrent, posdretacorrent, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.vx == 0 && p.canJump == true && p.facing == -1 && p.isshooting == 1)
             {
@@ -2953,7 +2916,6 @@ while (!WindowShouldClose())
                 Rectangle poshotse = { (float)p.x - 215, (float)p.y - 5, framerectire.width * 5, framerectire.height * 5 };
                 DrawTexturePro(p1shote, framerectire, poshotse, position, 0, WHITE);
                 DrawTexturePro(p1camqe, framereccamqe, camque, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             else if (p.vx < 0 && p.canJump == true && p.facing == -1 && p.isshooting == 1)
             {
@@ -2962,7 +2924,6 @@ while (!WindowShouldClose())
                 Rectangle poshotse = { (float)p.x - 215, (float)p.y - 5, framerectire.width * 5, framerectire.height * 5 };
                 DrawTexturePro(p1shote, framerectire, poshotse, position, 0, WHITE);
                 DrawTexturePro(p1esquerracorrentcames, frameesquerracorrent, posesquerracorrent, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
         }
         else if (p.isajupit == 1) 
@@ -2972,56 +2933,48 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posaju = { (float)p.x, (float)p.y + 70, framerecbaix.width * 5, framerecbaix.height * 5 };
                 DrawTexturePro(p1baix, framerecbaix, posaju, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             if (p.vx > 0 && p.facing == 1 && p.isshooting == -1)
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posaju = { (float)p.x, (float)p.y + 70, framereccajupit.width * 5, framereccajupit.height * 5 };
                 DrawTexturePro(p1cbaix, framereccajupit, posaju, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             if (p.vx == 0 && p.facing == -1 && p.isshooting == -1)
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posajue = { (float)p.x, (float)p.y + 70, framerecbaixe.width * 5, framerecbaixe.height * 5 };
                 DrawTexturePro(p1baixe, framerecbaixe, posajue, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             if (p.vx < 0 && p.facing == -1 && p.isshooting == -1)
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posajue = { (float)p.x, (float)p.y + 70, framerecbaixe.width * 5, framerecbaixe.height * 5 };
                 DrawTexturePro(p1cbaixe, framereccajupite, posajue, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             if (p.vx == 0 && p.facing == 1 && p.isshooting == 1)
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posajutir = { (float)p.x + 20, (float)p.y + 45, framerecbaixtir.width * 5, framerecbaixtir.height * 5 };
                 DrawTexturePro(p1baixtir, framerecbaixtir, posajutir, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             if (p.vx > 0 && p.facing == 1 && p.isshooting == 1)
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posajutir = { (float)p.x + 20, (float)p.y + 45, framerecbaixtir.width * 5, framerecbaixtir.height * 5 };
                 DrawTexturePro(p1baixtir, framerecbaixtir, posajutir, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             if (p.vx == 0 && p.facing == -1 && p.isshooting == 1)
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posajutire = { (float)p.x - 140, (float)p.y + 45, framerecbaixtire.width * 5, framerecbaixtire.height * 5 };
                 DrawTexturePro(p1baixtire, framerecbaixtire, posajutire, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
             if (p.vx < 0 && p.facing == -1 && p.isshooting == 1)
             {
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posajutire = { (float)p.x - 140, (float)p.y + 45, framerecbaixtire.width * 5, framerecbaixtire.height * 5 };
                 DrawTexturePro(p1baixtire, framerecbaixtire, posajutire, position, 0, WHITE);
-                DrawText(cix, p.x, p.y, 20, RED);
             }
 
         }
@@ -3163,15 +3116,18 @@ while (!WindowShouldClose())
 
             Vector2 cartera2 = { 975 - textWidth - 150, 652 };
             DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera2, 98, -70, WHITE); //Afegir imatge "CREDIT "
-            Vector2 health2 = { 70, -30 };
+            Vector2 health2 = { 5, -30 };
             DrawTextEx(whiteFont, cpunts, health2, 100, -60, WHITE);
             Vector2 health = { 80, 60 };
             DrawTextEx(timerNums, TextFormat("%d", p.vides), health, 50, -60, WHITE);
 
-
+            Vector2 vui1 = { 180, 20 };
+            Vector2 vui2 = { 273, 20 };
+            DrawTextureEx(ui1, vui1, 0.0f, 3.0f, WHITE);
+            DrawTextureEx(ui2, vui2, 0.0f, 3.0f, WHITE);
             if (killhim) {
-                Vector2 health = { 250, 30 };
-                DrawTextEx(timerNums, TextFormat("%d", machineGunAmmo), health, 50, -20, WHITE);
+                Vector2 health = { 195, 45 };
+                DrawTextEx(timerNums, TextFormat("%d", machineGunAmmo), health, 30, -10, WHITE);
             }
 
             if (music == false) {
