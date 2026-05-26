@@ -312,6 +312,8 @@ int main()
     Texture sgranada = LoadTexture("soldat granada.png");
     Texture sgranadap = LoadTexture("granada 2.png");
     Texture sgranadaex = LoadTexture("exposio granada.png");
+    Texture ui1 = LoadTexture("ui 1.png");
+    Texture ui2 = LoadTexture("ui 2.png");
 
     //BOSS
     Texture laser = LoadTexture("dixparar laser (ha d'estar a dalt).png");
@@ -3121,15 +3123,15 @@ while (!WindowShouldClose())
 
             Vector2 cartera2 = { 975 - textWidth - 150, 652 };
             DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera2, 98, -70, WHITE); //Afegir imatge "CREDIT "
-            Vector2 health2 = { 70, -30 };
+            Vector2 health2 = { 5, -30 };
             DrawTextEx(whiteFont, cpunts, health2, 100, -60, WHITE);
             Vector2 health = { 80, 60 };
             DrawTextEx(timerNums, TextFormat("%d", p.vides), health, 50, -60, WHITE);
 
 
             if (killhim) {
-                Vector2 health = { 250, 30 };
-                DrawTextEx(timerNums, TextFormat("%d", machineGunAmmo), health, 50, -20, WHITE);
+                Vector2 health = { 190, 45 };
+                DrawTextEx(timerNums, TextFormat("%d", machineGunAmmo), health, 30, -10, WHITE);
             }
 
             if (music == false) {
@@ -3530,6 +3532,10 @@ while (!WindowShouldClose())
                 bulletsa3[i].active = false;
             }
         }
+        Vector2 vui1 = { 180, 20 };
+        Vector2 vui2 = { 273, 20 };
+        DrawTextureEx(ui1, vui1, 0.0f, 3.0f, WHITE);
+        DrawTextureEx(ui2, vui2, 0.0f, 3.0f, WHITE);
         EndDrawing();
     }
     CloseAudioDevice();
