@@ -325,15 +325,16 @@ int main()
     Texture ui2 = LoadTexture("ui 2.png");
     Texture tcap = LoadTexture("tanque (cap) normal.png");   
     Texture balastanque = LoadTexture("balas tanque.png");
-    Texture tcapdis = LoadTexture("tanque disparant.png");      
+    Texture tcapdis = LoadTexture("tanque disparant.png");  
+    Texture tdrive = LoadTexture("p1 drivig.png");
     //BOSS
     Texture laserstart = LoadTexture("dixparar laser (ha d'estar a dalt).png");
     Texture bolaastart = LoadTexture("disparar bola de terra.png");
     Texture morter_down = LoadTexture("disparar boss (quan es troba a baix).png");
     Texture morter_up = LoadTexture("disparar boss (quan es troba a dalt).png");
     Texture movimentvertboss = LoadTexture("moviment vertical boss.png");
-    Texture tdrive = LoadTexture("p1 drivig.png");
-
+    Texture bolabaixaboss = LoadTexture("atrac de terra boss.png");
+    
 
     Font timerNums = LoadFont("prova 2 tipografia.png");
     Font whiteFont = LoadFont("tipografia gris.png");
@@ -462,6 +463,7 @@ int main()
     Rectangle framerecLaserstart = { 0, 0, (float)laserstart.width / 10, (float)laserstart.height };
     Rectangle framerecBolastart = { 0, 0, (float)bolaastart.width / 10, (float)bolaastart.height };
     Rectangle framerecbossvmov = { 0, 0, (float)movimentvertboss.width / 19, (float)movimentvertboss.height };
+    Rectangle framerecBola = { 0, 0, (float)bolabaixaboss.width / 4, (float)bolabaixaboss.height };
 
     int currentFrameidle = 0;
     int currentFramedrive = 0;
@@ -519,6 +521,8 @@ while (!WindowShouldClose())
         if (currentFrameobj >= 2) currentFrameobj = 0;
         currentframeexplo++;
         if (currentframeexplo >= 6) currentframeexplo = 0;
+        currentFramedrive++;
+        if (currentFramedrive >= 10) currentFramedrive = 0;
 
         frameRecidle.x = (float)currentFrameidle * (float)p1.width / 4;
         frameReccap.x = (float)currentFrameidle * (float)p1cap.width / 4;
@@ -542,10 +546,8 @@ while (!WindowShouldClose())
         framereccajupite.x = (float)currentFramajupit * (float)p1cbaixe.width / 7;
         frameRecmgun.x = (float)currentFrameobj * (float)mgun.width / 2;
         framrecsgranadex.x = (float)currentframeexplo * (float)sgranadaex.width / 6;
-        currentFramedrive++;
-        if (currentFramedrive >= 10) currentFramedrive = 0;
         framerectdrive.x = (float)currentFramedrive * (float)tdrive.width / 10;
-
+        framerecBola.x = (float)currentFrameidle * (float)bolabaixaboss.width / 4;
     }
 
     float currentBossSpeed = (bossAnim == 2 || bossAnim == 3) ? bossFrameSpeedLaser : bossFrameSpeed;
@@ -2007,7 +2009,9 @@ while (!WindowShouldClose())
 
         for (int i = 0; i < MAX_BULLETSA3; i++) {
             if (!bulletsa3[i].active) continue;
-            DrawTexture(bulletee, (int)bulletsa3[i].x, (int)bulletsa3[i].y, WHITE);
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle posat3 = { (int)bulletsa3[i].x, (int)bulletsa3[i].y - 30, framerecBola.width * 4.75, framerecBola.height * 4.75 };
+            DrawTexturePro(bolabaixaboss, framerecBola, posat3, position, 0, WHITE);
             if (!p.Omniman && bulletsa3[i].x >= p.x && bulletsa3[i].x <= p.x + 100 && bulletsa3[i].y >= p.y && bulletsa3[i].y <= p.y + 200 && p.isajupit == -1 || !p.Omniman && bulletsa3[i].x >= p.x && bulletsa3[i].x <= p.x + 100 && bulletsa3[i].y >= p.y + 100 && bulletsa3[i].y <= p.y + 200 && p.isajupit == 1)
             {
                 bulletsa3[i].active = false;
@@ -3679,7 +3683,8 @@ while (!WindowShouldClose())
     UnloadTexture(movimentvertboss);
     UnloadTexture(tcap);
     UnloadTexture(tcapdis);
-    UnloadTexture(balastanque);
+    UnloadTexture(balastanque); 
+    UnloadTexture(bolabaixaboss);
     CloseWindow();
     return 0;
 }
