@@ -88,9 +88,9 @@ public:
     int efacing = 1; // 1 = right, -1 = left
     int efacingy = 1; // 1 = up, -1 = down
     float enemyShootTimer = 0.0f;
-    int   burstCount = 0;      // bullets remaining in barrage
-    float burstTimer = 0.0f;   // time between each burst shot
-    const float burstInterval = 0.12f; // seconds between each shot in barrage
+    int   burstCount = 0;     
+    float burstTimer = 0.0f;  
+    const float burstInterval = 0.12f; 
     int phase2BurstCount = 0;
     float phase2BurstTimer = 0.0f;
 };
@@ -217,12 +217,12 @@ bool bola = false;
 //variables jefe
 int   currentFrameBoss = 0;
 float bossFrameTimer = 0.0f;
-int   bossAnim = 0;             // 0=morter_up, 1=morter_down, 2=laser, 3=bola, 4 = moviment vertical
+int   bossAnim = 0; 
 
 int main()
 {
     SetConfigFlags(FLAG_VSYNC_HINT);
-    InitWindow(975, 714, "Metal Slug"); //1300 952
+    InitWindow(975, 714, "Metal Slug");
     SetTargetFPS(60);
 
     bool logoscreen = true;
@@ -324,6 +324,7 @@ int main()
     Texture ui1 = LoadTexture("ui 1.png");
     Texture ui2 = LoadTexture("ui 2.png");
     Texture tcap = LoadTexture("tanque (cap) normal.png");   
+    Texture balastanque = LoadTexture("balas tanque.png");
     Texture tcapdis = LoadTexture("tanque disparant.png");      
     //BOSS
     Texture laserstart = LoadTexture("dixparar laser (ha d'estar a dalt).png");
@@ -449,8 +450,10 @@ int main()
     Rectangle frameRecdretacorrent = { 0, 0, (float)p1dretacorrentcames.width / 12, (float)p1dretacorrentcames.height };
     Rectangle frameRecidle = { 0, 0, (float)p1.width / 4, (float)p1.height };
 
+    Rectangle framerectbalastanque = { 0, 0, (float)balastanque.width / 3, (float)balastanque.height };
     Rectangle framerectcap = { 0, 0, (float)tcap.width / 3, (float)tcap.height };
     Rectangle framerectcapdis = { 0, 0, (float)tcapdis.width / 4, (float)tcapdis.height };
+
     Rectangle frameRecmgun = { 0, 0, (float)mgun.width / 2, (float)mgun.height };
 
     Rectangle framerectdrive = { 0, 0, (float)tdrive.width / 10, (float)tdrive.height };
@@ -478,10 +481,10 @@ int main()
 
 
     // BOSS 
-    float bossFrameSpeed = 4.0f;   // frames per second — fast, fluid
+    float bossFrameSpeed = 4.0f;   
     float bossFrameSpeedLaser = 3.0f;
-    int   bossLastAnim = -1;        // track anim switches to reset frame counter
-    bool  bossBulletFired = false;  // fire bullet once per animation cycle
+    int   bossLastAnim = -1;  
+    bool  bossBulletFired = false;
     bool movingDown = false;
 
     const int MAX_BULLETSE = 100;
@@ -552,7 +555,6 @@ while (!WindowShouldClose())
     {
         bossFrameTimer = 0.0f;
 
-        // Reset frame counter when animation changes
         if (bossAnim != bossLastAnim)
         {
             currentFrameBoss = 0;
@@ -586,7 +588,6 @@ while (!WindowShouldClose())
             bossBulletFired = false;
         }
 
-        // Update the correct rectangle for whichever anim is active
         framerecmorterup.x = (float)currentFrameBoss * morter_up.width / 17;
         framerecmorterdown.x = (float)currentFrameBoss * morter_down.width / 17;
         framerecLaserstart.x = (float)currentFrameBoss * laserstart.width / 10;
@@ -608,12 +609,12 @@ while (!WindowShouldClose())
             {
                 if (!bulletsa1[i].active)
                 {
-                    if (bossAnim == 0)  // morter_up: cannon tip is high on the sprite
+                    if (bossAnim == 0)  
                     {
                         bulletsa1[i].x = s1.ex + 150.0f;
                         bulletsa1[i].y = s1.ey + 100.0f;
                     }
-                    else  // morter_down: cannon tip is lower (sprite drawn at s1.ey + 150)
+                    else  
                     {
                         bulletsa1[i].x = s1.ex + 225.0f;
                         bulletsa1[i].y = s1.ey + 400.0f;
@@ -636,7 +637,6 @@ while (!WindowShouldClose())
         }
     }
 
-    // --- Tank head animation ---
     if (bt1 && t1.thp >= 1)
     {
         float headFps = t1.theadFiring ? 10.0f : 6.0f;
@@ -649,7 +649,7 @@ while (!WindowShouldClose())
 
             if (t1.theadFiring)
             {
-                if (t1.theadFrame >= 4)          // fire anim done → back to idle
+                if (t1.theadFrame >= 4)          
                 {
                     t1.theadFrame = 0;
                     t1.theadFiring = false;
@@ -657,11 +657,10 @@ while (!WindowShouldClose())
             }
             else
             {
-                if (t1.theadFrame >= 3) t1.theadFrame = 0;   // idle loops
+                if (t1.theadFrame >= 3) t1.theadFrame = 0;   
             }
         }
 
-        // Keep rectangles in sync
         framerectcap.x = (float)t1.theadFrame * tcap.width / 3;
         framerectcapdis.x = (float)t1.theadFrame * tcapdis.width / 4;
     }
@@ -690,6 +689,7 @@ while (!WindowShouldClose())
         currentFrametirb1++;
         if (currentFrametirb1 >= 3) currentFrametirb1 = 0;
 
+        framerectbalastanque.x = (float)currentFrametirb1 * (float)balastanque.width / 3;
         framecrecat1b1.x = (float)currentFrametirb1 * (float)at1b1.width / 3;
         framecrecat1b2.x = (float)currentFrametirb1 * (float)at1b2.width / 3;
         framecrecat1b3.x = (float)currentFrametirb1 * (float)at1b3.width / 3;
@@ -1747,8 +1747,8 @@ while (!WindowShouldClose())
         float halfW = 975 / 2.0f;
         float halfH = 714 / 2.0f;
 
-        if (camera.target.x >  19000) camera.target.x = 19000; // LOCKS CAMERA ON BOSS AREA. - Aidan. /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-         //apagat per testing
+        if (camera.target.x >  19000) camera.target.x = 19000; // LOCKS CAMERA ON BOSS AREA. - Aidan.
+
         if (ed1.edhp >= 1)
         {
             if (camera.target.x > 13550) camera.target.x = 13550;
@@ -1777,6 +1777,7 @@ while (!WindowShouldClose())
 
         BeginDrawing();
 
+        //escenari
         ClearBackground(BLACK);
         if (hitCooldown > 0.0f) hitCooldown -= GetFrameTime();
         if (shootCooldown > 0.0f) shootCooldown -= GetFrameTime();
@@ -1788,7 +1789,7 @@ while (!WindowShouldClose())
         DrawTexturePro(bg, src, dest, { 0,0 }, 0.0f, WHITE);
         Vector2 positiont = {p.x+100, p.y-100 };
         
-        //escenari
+
 
         // bales jugador
 
@@ -1932,7 +1933,6 @@ while (!WindowShouldClose())
             float dirX = bulletsa1[i].vx / len;
             float dirY = bulletsa1[i].vy / len;
 
-            // separaci� entre boles
             float spacing = 18.0f;
 
             if (!bulletsa1[i].active) continue;
@@ -1979,7 +1979,7 @@ while (!WindowShouldClose())
             }
         }
 
-        //bales atac 2 jefe (laser) // durant segona fase l'alterna entre raig i bola vaixa constantment sense importar la distancia
+        //bales atac 2 jefe (laser) durant segona fase l'alterna entre raig i bola vaixa constantment sense importar la distancia
 
         for (int i = 0; i < MAX_BULLETSA2; i++) {
             if (!bulletsa2[i].active) continue;
@@ -2029,7 +2029,9 @@ while (!WindowShouldClose())
 
         for (int i = 0; i < MAX_BULLETSTANK; i++) {
             if (!bulletstank[i].active) continue;
-            DrawTexture(bulletee, (int)bulletstank[i].x, (int)bulletstank[i].y, WHITE);
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle destbalastanque = { bulletstank[i].x, bulletstank[i].y, framerectbalastanque.width * 5, framerectbalastanque.height * 5 };
+            DrawTexturePro(balastanque, framerectbalastanque, destbalastanque, position, 0, WHITE);
 
             if (!p.Omniman &&
                 bulletstank[i].x >= p.x && bulletstank[i].x <= p.x + 100 &&
@@ -2055,7 +2057,7 @@ while (!WindowShouldClose())
             winSoundPlayed = false;
 
 
-            if (IsKeyPressed(KEY_L))p.x = 19000, ed1.edhp = 0, ed2.edhp = 0; // USED FOR TESTING THE BOSS YOU STUPID ASS HOES
+            if (IsKeyPressed(KEY_L))p.x = 19000, ed1.edhp = 0, ed2.edhp = 0;
             if (IsKeyPressed(KEY_X))p.x = 16500, ed1.edhp = 0, ed2.edhp = 0;
             if (IsKeyPressed(KEY_K))p.x = 12500;
             if (IsKeyPressed(KEY_O))p.x = 14000;
@@ -2319,10 +2321,8 @@ while (!WindowShouldClose())
 
         if (s1.ehp >= 1)
         {
-            // --- Determine which animation to play ---
             if (s1.ehp > 75 || (s1.ehp <= 75 && p.y <= 400))
             {
-                // no tocar animació durant transició
                 if (bossAnim != 4)
                 {
                     static float morterTimer = 0.0f;
@@ -2332,17 +2332,14 @@ while (!WindowShouldClose())
                     {
                         morterTimer = 0.0f;
 
-                        // decidir direcció
                         movingDown = (bossAnim == 0);
 
-                        // iniciar transició
                         bossAnim = 4;
                         currentFrameBoss = 0;
                     }
                 }
             }
 
-            // FASE 2 → laser / bola
             else
             {
                 if (raig && !bola)
@@ -2386,12 +2383,10 @@ while (!WindowShouldClose())
                 DrawTexturePro( movimentvertboss, framerecbossvmov, dest_boss, bossOrigin, 0, WHITE);
             }
 
-            // --- Fire bullet tied to animation frame, not a separate timer ---
             if (!inMenu && !winscreen && !lose)
             {
                 if (s1.ehp <= 75 && p.y > 400)
                 {
-                    // Original timer-based firing — unchanged
                     s1.enemyShootTimer += GetFrameTime();
 
                     if (s1.enemyShootTimer >= enemyShootInterval)
@@ -2792,7 +2787,7 @@ while (!WindowShouldClose())
 
                 Rectangle destHead = {
                     t1.tx + headOffsetX,
-                    anchorY - headH,                     // top = anchor minus height
+                    anchorY - headH,
                     headW,
                     headH
                 };
@@ -2844,17 +2839,16 @@ while (!WindowShouldClose())
                             bulletstank[i].x = t1.tx;
                             bulletstank[i].y = t1.ty + 30;
 
-                            float gravity = 0.3f;   // matches bullet update loop, WHY ARE YOU GAY?
-                            float vy = -12.0f; // Arc parabola
+                            float gravity = 0.3f;   
+                            float vy = -12.0f; 
 
-                            // Frames until bullet returns to same Y
-                            float timeOfFlight = (-2.0f * vy) / gravity; // = 48 frames
+                            float timeOfFlight = (-2.0f * vy) / gravity; 
 
-                            // vx needed to land exactly on player's X
+  
                             bulletstank[i].vx = (p.x - t1.tx) / timeOfFlight;
-                            bulletstank[i].vy = vy;
+                            bulletstank[i].vy = vy - 5;
 
-                            bulletstank[i].useGravity = true; // ACTIVA LA GRAVETAT GILIPOLLAS
+                            bulletstank[i].useGravity = true; 
                             bulletstank[i].active = true;
                             break;
                         }
@@ -3122,7 +3116,7 @@ while (!WindowShouldClose())
             if (IsKeyPressed(KEY_N)) {
                 for (int i = 0; i < 20; i++)
                     SetSoundVolume(soundArray[i], 1.0f);
-                SetSoundVolume(soundArray[7], 100.0f); // restore Fahhhh's original loud volume
+                SetSoundVolume(soundArray[7], 100.0f);
                 ResumeMusicStream(musicArray[0]);
                 music = true;
             }
@@ -3169,7 +3163,7 @@ while (!WindowShouldClose())
             if (IsKeyPressed(KEY_N)) {
                 for (int i = 0; i < 20; i++)
                     SetSoundVolume(soundArray[i], 1.0f);
-                SetSoundVolume(soundArray[7], 100.0f); // restore Fahhhh's original loud volume
+                SetSoundVolume(soundArray[7], 100.0f); 
                 ResumeMusicStream(musicArray[0]);
                 music = true;
             }
@@ -3188,7 +3182,7 @@ while (!WindowShouldClose())
             int textWidth = MeasureText(cpunts, 30);
 
             Vector2 cartera = { 975 - textWidth - 150, 652 };
-            DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera, 98, -70, WHITE); //Afegir imatge "CREDIT "
+            DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera, 98, -70, WHITE); 
             if (IsKeyPressed(KEY_C))
                 p.credits++;
             if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
@@ -3204,7 +3198,7 @@ while (!WindowShouldClose())
             int textWidth = MeasureText(cpunts, 30);
 
             Vector2 cartera2 = { 975 - textWidth - 150, 652 };
-            DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera2, 98, -70, WHITE); //Afegir imatge "CREDIT "
+            DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera2, 98, -70, WHITE); 
             Vector2 health2 = { 5, -30 };
             DrawTextEx(whiteFont, cpunts, health2, 100, -60, WHITE);
             Vector2 health = { 80, 60 };
@@ -3233,7 +3227,7 @@ while (!WindowShouldClose())
             if (IsKeyPressed(KEY_N)) {
                 for (int i = 0; i < 20; i++)
                     SetSoundVolume(soundArray[i], 1.0f);
-                SetSoundVolume(soundArray[7], 100.0f); // restore Fahhhh's original loud volume
+                SetSoundVolume(soundArray[7], 100.0f);
                 ResumeMusicStream(musicArray[0]);
                 music = true;
             }
@@ -3681,11 +3675,14 @@ while (!WindowShouldClose())
     UnloadTexture(morter_up);
     UnloadTexture(sgranadap);
     UnloadTexture(sgranadaex);
+    UnloadTexture(tdrive);
     UnloadTexture(movimentvertboss);
     UnloadTexture(tcap);
     UnloadTexture(tcapdis);
+    UnloadTexture(balastanque);
     CloseWindow();
     return 0;
 }
+
 // Copyright (c) 2026 Explota Studio
 // Licensed under the MIT License
