@@ -71,6 +71,10 @@ public:
     int tfacing = 1; // 1 = right, -1 = left
     int tfacingy = 1; // 1 = up, -1 = down
     float tankShootTimer = 0.0f;
+    int   theadFrame = 0;
+    float theadTimer = 0.0f;
+    bool  theadFiring = false;
+    float smoothHeadH = 110.0f;
 };
 
 class boss
@@ -319,13 +323,15 @@ int main()
     Texture sgranadaex = LoadTexture("exposio granada.png");
     Texture ui1 = LoadTexture("ui 1.png");
     Texture ui2 = LoadTexture("ui 2.png");
-
+    Texture tcap = LoadTexture("tanque (cap) normal.png");   
+    Texture tcapdis = LoadTexture("tanque disparant.png");      
     //BOSS
     Texture laserstart = LoadTexture("dixparar laser (ha d'estar a dalt).png");
     Texture bolaastart = LoadTexture("disparar bola de terra.png");
     Texture morter_down = LoadTexture("disparar boss (quan es troba a baix).png");
     Texture morter_up = LoadTexture("disparar boss (quan es troba a dalt).png");
     Texture movimentvertboss = LoadTexture("moviment vertical boss.png");
+    Texture tdrive = LoadTexture("p1 drivig.png");
 
 
     Font timerNums = LoadFont("prova 2 tipografia.png");
@@ -443,9 +449,11 @@ int main()
     Rectangle frameRecdretacorrent = { 0, 0, (float)p1dretacorrentcames.width / 12, (float)p1dretacorrentcames.height };
     Rectangle frameRecidle = { 0, 0, (float)p1.width / 4, (float)p1.height };
 
-
+    Rectangle framerectcap = { 0, 0, (float)tcap.width / 3, (float)tcap.height };
+    Rectangle framerectcapdis = { 0, 0, (float)tcapdis.width / 4, (float)tcapdis.height };
     Rectangle frameRecmgun = { 0, 0, (float)mgun.width / 2, (float)mgun.height };
 
+    Rectangle framerectdrive = { 0, 0, (float)tdrive.width / 10, (float)tdrive.height };
     Rectangle framerecmorterup = { 0, 0, (float)morter_up.width / 17, (float)morter_up.height };
     Rectangle framerecmorterdown = { 0, 0, (float)morter_down.width / 17, (float)morter_down.height };
     Rectangle framerecLaserstart = { 0, 0, (float)laserstart.width / 10, (float)laserstart.height };
@@ -453,6 +461,7 @@ int main()
     Rectangle framerecbossvmov = { 0, 0, (float)movimentvertboss.width / 19, (float)movimentvertboss.height };
 
     int currentFrameidle = 0;
+    int currentFramedrive = 0;
     int currentFramcorrer = 0;
     int currentFramsalt = 0;
     int currentFramtir = 0;
@@ -530,6 +539,9 @@ while (!WindowShouldClose())
         framereccajupite.x = (float)currentFramajupit * (float)p1cbaixe.width / 7;
         frameRecmgun.x = (float)currentFrameobj * (float)mgun.width / 2;
         framrecsgranadex.x = (float)currentframeexplo * (float)sgranadaex.width / 6;
+        currentFramedrive++;
+        if (currentFramedrive >= 10) currentFramedrive = 0;
+        framerectdrive.x = (float)currentFramedrive * (float)tdrive.width / 10;
 
     }
 
@@ -623,6 +635,37 @@ while (!WindowShouldClose())
             }
         }
     }
+
+    // --- Tank head animation ---
+    if (bt1 && t1.thp >= 1)
+    {
+        float headFps = t1.theadFiring ? 10.0f : 6.0f;
+        t1.theadTimer += GetFrameTime();
+
+        if (t1.theadTimer >= 1.0f / headFps)
+        {
+            t1.theadTimer = 0.0f;
+            t1.theadFrame++;
+
+            if (t1.theadFiring)
+            {
+                if (t1.theadFrame >= 4)          // fire anim done → back to idle
+                {
+                    t1.theadFrame = 0;
+                    t1.theadFiring = false;
+                }
+            }
+            else
+            {
+                if (t1.theadFrame >= 3) t1.theadFrame = 0;   // idle loops
+            }
+        }
+
+        // Keep rectangles in sync
+        framerectcap.x = (float)t1.theadFrame * tcap.width / 3;
+        framerectcapdis.x = (float)t1.theadFrame * tcapdis.width / 4;
+    }
+
 
     if (framesCounter >= (60 / framesSpeedtir))
     {
@@ -1825,7 +1868,7 @@ while (!WindowShouldClose())
                 cheat.ehp--;
                 bullets[i].active = false;
             }
-            if (bullets[i].x >= t1.tx && bullets[i].x <= t1.tx + 100 && bullets[i].y >= t1.ty && bullets[i].y <= t1.ty + 200)
+            if (bullets[i].x >= t1.tx && bullets[i].x <= t1.tx + 300 && bullets[i].y >= t1.ty && bullets[i].y <= t1.ty + 200)
             {
                 bullets[i].active = false;
                 t1.thp--;
@@ -2733,12 +2776,55 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posidles1 = { (float)t1.tx, (float)t1.ty, framerectbase.width * 5, framerectbase.height * 5 };
                 DrawTexturePro(tbase, framerectbase, posidles1, position, 0, WHITE);
+
+                Texture& headTex = t1.theadFiring ? tcapdis : tcap;
+                Rectangle& headRec = t1.theadFiring ? framerectcapdis : framerectcap;
+
+                float bodyW = framerectbase.width * 5.0f;
+                float headW = (t1.theadFiring ? tcapdis.width / 4.0f : tcap.width / 3.0f) * 5.0f;
+
+                float headOffsetX = (bodyW - headW) / 2.0f;
+
+                float targetHeadH = headRec.height * 5.0f;
+                t1.smoothHeadH = t1.smoothHeadH + (targetHeadH - t1.smoothHeadH) * 0.2f;
+                float headH = t1.smoothHeadH;
+                float anchorY = t1.ty + 45.0f;
+
+                Rectangle destHead = {
+                    t1.tx + headOffsetX,
+                    anchorY - headH,                     // top = anchor minus height
+                    headW,
+                    headH
+                };
+
+                Vector2 origin = { 0.0f, 0.0f };
+                DrawTexturePro(headTex, headRec, destHead, origin, 0.0f, WHITE);
             }
             else if (t1.tvx < 0)
             {
                 Vector2 position = { 0.0f, 0.0f };
-                Rectangle poscorr = { (float)t1.tx, (float)t1.ty, framerececorr.width * 5, framerececorr.height * 5 };
-                DrawTexturePro(scor, framerececorr, poscorr, position, 0, WHITE);
+                Rectangle posdrive = { (float)t1.tx, (float)t1.ty, framerectdrive.width * 5, framerectdrive.height * 5 };
+                DrawTexturePro(tdrive, framerectdrive, posdrive, position, 0, WHITE);
+
+                Texture& headTex = t1.theadFiring ? tcapdis : tcap;
+                Rectangle& headRec = t1.theadFiring ? framerectcapdis : framerectcap;
+
+                float bodyW = framerectdrive.width * 5.0f;
+                float headW = (t1.theadFiring ? tcapdis.width / 4.0f : tcap.width / 3.0f) * 5.0f;
+                float headOffsetX = (bodyW - headW) / 2.0f;
+
+                float targetHeadH = headRec.height * 5.0f;
+                t1.smoothHeadH = t1.smoothHeadH + (targetHeadH - t1.smoothHeadH) * 0.2f;
+                float headH = t1.smoothHeadH;
+                float anchorY = t1.ty + 45.0f;
+
+                Rectangle destHead = {
+                    t1.tx + headOffsetX,
+                    anchorY - headH,
+                    headW,
+                    headH
+                };
+                DrawTexturePro(headTex, headRec, destHead, { 0.0f, 0.0f }, 0.0f, WHITE);
             }
 
             if (!inMenu && !winscreen && !lose)
@@ -2747,6 +2833,9 @@ while (!WindowShouldClose())
                 if (t1.tankShootTimer >= enemyShootInterval)
                 {
                     t1.tankShootTimer = 0.0f;
+                    t1.theadFiring = true;  
+                    t1.theadFrame = 0;      
+                    t1.theadTimer = 0.0f;   
 
                     for (int i = 0; i < MAX_BULLETSTANK; i++)
                     {
@@ -3593,6 +3682,8 @@ while (!WindowShouldClose())
     UnloadTexture(sgranadap);
     UnloadTexture(sgranadaex);
     UnloadTexture(movimentvertboss);
+    UnloadTexture(tcap);
+    UnloadTexture(tcapdis);
     CloseWindow();
     return 0;
 }
