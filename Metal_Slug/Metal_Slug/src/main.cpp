@@ -258,6 +258,11 @@ int main()
     soundArray[11] = LoadSound("one.mp3");
     soundArray[12] = LoadSound("START.mp3");
     soundArray[13] = LoadSound("BossStage.mp3");
+    soundArray[14] = LoadSound("bola.mp3");
+    soundArray[15] = LoadSound("electric_bird.mp3");
+    soundArray[16] = LoadSound("electric_bird2.mp3");
+
+    
 
     SetSoundVolume(soundArray[7], 100.0f);
 
@@ -329,6 +334,7 @@ int main()
     Texture balastanque = LoadTexture("balas tanque.png");
     Texture tcapdis = LoadTexture("tanque disparant.png");  
     Texture tdrive = LoadTexture("p1 drivig.png");
+    Texture hakari = LoadTexture("invulneravilitat.png");
     //BOSS
     Texture laserstart = LoadTexture("dixparar laser (ha d'estar a dalt).png");
     Texture bolaastart = LoadTexture("disparar bola de terra.png");
@@ -454,6 +460,7 @@ int main()
     Rectangle frameReccap = { 0, 0, (float)p1cap.width / 4, (float)p1cap.height };
     Rectangle frameRecdretacorrent = { 0, 0, (float)p1dretacorrentcames.width / 12, (float)p1dretacorrentcames.height };
     Rectangle frameRecidle = { 0, 0, (float)p1.width / 4, (float)p1.height };
+    Rectangle framerechakari = { 0, 0, (float)hakari.width / 2, (float)hakari.height };
 
     Rectangle framerectbalastanque = { 0, 0, (float)balastanque.width / 3, (float)balastanque.height };
     Rectangle framerectcap = { 0, 0, (float)tcap.width / 3, (float)tcap.height };
@@ -554,6 +561,7 @@ while (!WindowShouldClose())
         framerectdrive.x = (float)currentFramedrive * (float)tdrive.width / 10;
         framerecBola.x = (float)currentFrameidle * (float)bolabaixaboss.width / 4;
         framreclaser.x = (float)currentFrameobj* (float)laserboss.width / 2;
+        framerechakari.x = (float)currentFrameobj * (float)hakari.width / 2;
     }
 
     float currentBossSpeed = (bossAnim == 2 || bossAnim == 3) ? bossFrameSpeedLaser : bossFrameSpeed;
@@ -2360,6 +2368,7 @@ while (!WindowShouldClose())
             {
                 if (bossAnim != 4)
                 {
+
                     static float morterTimer = 0.0f;
                     morterTimer += GetFrameTime();
 
@@ -2368,7 +2377,6 @@ while (!WindowShouldClose())
                         morterTimer = 0.0f;
 
                         movingDown = (bossAnim == 0);
-
                         bossAnim = 4;
                         currentFrameBoss = 0;
                     }
@@ -2445,6 +2453,10 @@ while (!WindowShouldClose())
                                     bulletsa2[i].vy = 0;
                                     bulletsa2[i].active = true;
                                     bulletsa2[i].useGravity = false;
+                                    StopSound(soundArray[14]);
+                                    PlaySound(soundArray[15]);
+                                    PlaySound(soundArray[16]);
+
                                     raig = false;
                                     bola = true;
                                     break;
@@ -2468,6 +2480,9 @@ while (!WindowShouldClose())
                                     bulletsa3[i].useGravity = false;
                                     raig = true;
                                     bola = false;
+                                    StopSound(soundArray[15]);
+                                    StopSound(soundArray[16]);
+                                    PlaySound(soundArray[14]);
                                     break;
                                 }
                             }
@@ -2480,8 +2495,10 @@ while (!WindowShouldClose())
         {
             vpunts += 1000;
             KevinTheFuckingBoss = false;
-            PlaySound(soundArray[0]);
+            PlaySound(soundArray[6]);
             winscreen = true;
+            StopSound(soundArray[6]);
+
         }
 
 
@@ -2492,7 +2509,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad; 
                 src.x = s2.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)s2.ex, (float)s2.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)s2.ex, (float)s2.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s2.evx == 0)
@@ -2523,7 +2540,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad;
                 src.x = Jorge.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)Jorge.ex, (float)Jorge.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)Jorge.ex, (float)Jorge.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (Jorge.evx == 0)
@@ -2554,7 +2571,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad;
                 src.x = s3.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)s3.ex, (float)s3.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)s3.ex, (float)s3.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s3.evx == 0)
@@ -2586,7 +2603,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad;
                 src.x = s4.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)s4.ex, (float)s4.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)s4.ex, (float)s4.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s4.evx == 0)
@@ -2618,7 +2635,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad;
                 src.x = s5.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)s5.ex, (float)s5.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)s5.ex, (float)s5.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s5.evx == 0)
@@ -2650,7 +2667,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad;
                 src.x = s6.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)s6.ex, (float)s6.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)s6.ex, (float)s6.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s6.evx == 0)
@@ -2682,7 +2699,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad;
                 src.x = s7.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)s7.ex, (float)s7.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)s7.ex, (float)s7.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s7.evx == 0)
@@ -2714,7 +2731,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad;
                 src.x = s8.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)s8.ex, (float)s8.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)s8.ex, (float)s8.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s8.evx == 0)
@@ -2745,7 +2762,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad;
                 src.x = s9.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)s9.ex, (float)s9.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)s9.ex, (float)s9.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (s9.evx == 0)
@@ -2777,7 +2794,7 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle src = framerecsgranad;
                 src.x = cheat.currentframegranada * (sgranada.width / 16);
-                Rectangle posgranad = { (float)cheat.ex, (float)cheat.ey, src.width * 5, src.height * 5 };
+                Rectangle posgranad = { (float)cheat.ex, (float)cheat.ey - 30, src.width * 5, src.height * 5 };
                 DrawTexturePro(sgranada, src, posgranad, position, 0, WHITE);
             }
             else if (cheat.evx == 0)
@@ -2801,6 +2818,7 @@ while (!WindowShouldClose())
             cheat.ex = 100000000;
             bcheat = false;
         }
+
         if (t1.thp >= 1)
         {
             if (t1.tvx == 0)
@@ -2901,6 +2919,13 @@ while (!WindowShouldClose())
             t1.tx = 100000000;
             PlaySound(soundArray[0]);
             bt1 = false;
+        }
+
+        if (p.Omniman == true)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle poshakari = { (float)p.x - 40, (float)p.y - 30, framerechakari.width * 6, framerechakari.height * 6 };
+            DrawTexturePro(hakari, framerechakari, poshakari, position, 0, WHITE);
         }
 
         if (p.isajupit == -1) 
@@ -3730,6 +3755,7 @@ while (!WindowShouldClose())
     UnloadTexture(balastanque); 
     UnloadTexture(bolabaixaboss);
     UnloadTexture(laserboss);
+    UnloadTexture(hakari);
     CloseWindow();
     return 0;
 }
