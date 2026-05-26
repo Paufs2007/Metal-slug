@@ -1508,8 +1508,19 @@ while (!WindowShouldClose())
         }
 
         if (IsKeyPressed(KEY_Z)) cheat.ex = p.x, cheat.ey = p.y, bcheat = true, cheat.ehp = 1;
-        if (IsKeyPressed(KEY_V)) cheat2.tx = p.x, cheat2.ty = p.y, bcheat2 = true, cheat2.ehp = 1;
-        if (IsKeyPressed(KEY_I)) bocheat = true, ocheat.alive = 1, ocheat.ox = p.x + 55, ocheat.oy = p.y - 55;
+        if (IsKeyPressed(KEY_V)) {
+            cheat2.tx = p.x;
+            cheat2.ty = p.y;
+            cheat2.tvy = 0;
+            cheat2.tvx = 0;
+            cheat2.thp = 20;
+            cheat2.theadFrame = 0;
+            cheat2.theadTimer = 0.0f;
+            cheat2.theadFiring = false;
+            cheat2.smoothHeadH = 110.0f;
+            cheat2.tankShootTimer = 0.0f;
+            bcheat2 = true;
+        }        if (IsKeyPressed(KEY_I)) bocheat = true, ocheat.alive = 1, ocheat.ox = p.x + 55, ocheat.oy = p.y - 55;
 
         s1.ey += s1.vy;
         s1.vy += 4;
@@ -2005,19 +2016,12 @@ while (!WindowShouldClose())
                 bullets[i].active = false;
                 t1.thp--;
             }
-            if (bcheat2 && cheat2.ehp >= 1 &&
+            if (bcheat2 && cheat2.thp >= 1 &&
                 bullets[i].x >= cheat2.tx && bullets[i].x <= cheat2.tx + 300 &&
                 bullets[i].y >= cheat2.ty && bullets[i].y <= cheat2.ty + 200)
             {
                 bullets[i].active = false;
-                cheat2.ehp--;
-                if (cheat2.ehp <= 0)
-                {
-                    vpunts += 100;
-                    cheat2.tx = 100000000;
-                    bcheat2 = false;
-                    PlaySound(soundArray[0]);
-                }
+                cheat2.thp--;
             }
             if (bullets[i].x >= ed1.edx + 500 && bullets[i].x <= ed1.edx + 1000 && bullets[i].y >= ed1.edy && bullets[i].y <= ed1.edy + 1000)
             {
@@ -3096,18 +3100,83 @@ while (!WindowShouldClose())
 
         if (bcheat2 && cheat2.ehp >= 1)
         {
-            Vector2 position = { 0.0f, 0.0f };
-            Rectangle poscheat2 = { (float)cheat2.tx, (float)cheat2.ty, framerectbase.width * 5, framerectbase.height * 5 };
-            DrawTexturePro(tbase, framerectbase, poscheat2, position, 0, WHITE);
 
-            float headW = (tcap.width / 3.0f) * 5.0f;
-            float bodyW = framerectbase.width * 5.0f;
-            float headOffsetX = (bodyW - headW) / 2.0f;
-            float headH = framerectcap.height * 5.0f;
-            float anchorY = cheat2.ty + 45.0f;
-            Rectangle destHead = { cheat2.tx + headOffsetX, anchorY - headH, headW, headH };
-            DrawTexturePro(tcap, framerectcap, destHead, { 0.0f, 0.0f }, 0.0f, WHITE);
         }
+
+        if (bcheat2 && cheat2.thp >= 1)
+        {
+            float headFps = cheat2.theadFiring ? 10.0f : 6.0f;
+            cheat2.theadTimer += GetFrameTime();
+            if (cheat2.theadTimer >= 1.0f / headFps)
+            {
+                cheat2.theadTimer = 0.0f;
+                cheat2.theadFrame++;
+                if (cheat2.theadFiring) {
+                    if (cheat2.theadFrame >= 4) { cheat2.theadFrame = 0; cheat2.theadFiring = false; }
+                }
+                else {
+                    if (cheat2.theadFrame >= 3) cheat2.theadFrame = 0;
+                }
+            }
+
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle poscheat2body = { (float)cheat2.tx, (float)cheat2.ty, framerectbase.width * 5, framerectbase.height * 5 };
+            DrawTexturePro(tbase, framerectbase, poscheat2body, position, 0, WHITE);
+
+            Texture& headTex2 = cheat2.theadFiring ? tcapdis : tcap;
+            Rectangle headRec2 = cheat2.theadFiring
+                ? Rectangle{ (float)cheat2.theadFrame * tcapdis.width / 4, 0, (float)tcapdis.width / 4, (float)tcapdis.height }
+            : Rectangle{ (float)cheat2.theadFrame * tcap.width / 3, 0, (float)tcap.width / 3, (float)tcap.height };
+
+            float bodyW2 = framerectbase.width * 5.0f;
+            float headW2 = headRec2.width * 5.0f;
+            float headH2 = headRec2.height * 5.0f;
+            cheat2.smoothHeadH = cheat2.smoothHeadH + (headH2 - cheat2.smoothHeadH) * 0.2f;
+            Rectangle destHead2 = {
+                cheat2.tx + (bodyW2 - headW2) / 2.0f,
+                cheat2.ty + 45.0f - cheat2.smoothHeadH,
+                headW2,
+                cheat2.smoothHeadH
+            };
+            DrawTexturePro(headTex2, headRec2, destHead2, { 0,0 }, 0.0f, WHITE);
+
+            if (!inMenu && !winscreen && !lose)
+            {
+                cheat2.tankShootTimer += GetFrameTime();
+                if (cheat2.tankShootTimer >= enemyShootInterval)
+                {
+                    cheat2.tankShootTimer = 0.0f;
+                    cheat2.theadFiring = true;
+                    cheat2.theadFrame = 0;
+                    cheat2.theadTimer = 0.0f;
+
+                    for (int i = 0; i < MAX_BULLETSTANK; i++)
+                    {
+                        if (!bulletstank[i].active)
+                        {
+                            bulletstank[i].x = cheat2.tx;
+                            bulletstank[i].y = cheat2.ty + 30;
+                            float gravity = 0.3f;
+                            float vy = -12.0f;
+                            float timeOfFlight = (-2.0f * vy) / gravity;
+                            bulletstank[i].vx = (p.x - cheat2.tx) / timeOfFlight;
+                            bulletstank[i].vy = vy - 5;
+                            bulletstank[i].useGravity = true;
+                            bulletstank[i].active = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        else if (bcheat2 && cheat2.thp <= 0)
+        {
+            vpunts += 100;
+            cheat2.tx = 100000000;
+            bcheat2 = false;
+            PlaySound(soundArray[0]);
+        }
+
 
         if (p.Omniman == true)
         {
@@ -3433,9 +3502,8 @@ while (!WindowShouldClose())
             DrawTexturePro(start, src2, dest2, { 0, 0 }, 0.0f, WHITE);
 
             int textWidth = MeasureText(cpunts, 30);
-
-            Vector2 cartera = { 975 - 150, 652 };
-            DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera, 98, -70, WHITE); 
+            Vector2 cartera = { 800, 652 };
+            DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera, 98, -70, WHITE);
             if (IsKeyPressed(KEY_C))
                 p.credits++;
             if (IsKeyPressed(KEY_ENTER) && p.credits > 0)
@@ -3449,9 +3517,8 @@ while (!WindowShouldClose())
         else if (!inMenu && !logoscreen) {
 
             int textWidth = MeasureText(cpunts, 30);
-
-            Vector2 cartera2 = { 975 - 150, 652 };
-            DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera2, 98, -70, WHITE); 
+            Vector2 cartera2 = { 800, 652 };
+            DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera2, 98, -70, WHITE);
             Vector2 carteraaa = { 680, 690 };
             DrawTextureEx(cred, carteraaa, 0.0f, 1.5f, WHITE);
             Vector2 health2 = { 5, -30 };
@@ -3560,6 +3627,16 @@ while (!WindowShouldClose())
                 t1.theadTimer = 0.0f;
                 t1.theadFiring = false;
                 t1.smoothHeadH = 110.0f;
+                cheat2.thp = 20;
+                cheat2.tx = -10000;
+                cheat2.ty = 0;
+                cheat2.tvy = 0;
+                cheat2.tvx = 0;
+                cheat2.tankShootTimer = 0.0f;
+                cheat2.theadFrame = 0;
+                cheat2.theadTimer = 0.0f;
+                cheat2.theadFiring = false;
+                cheat2.smoothHeadH = 110.0f;
                 startTimer(&vidaTimer, timerlife);
 
                 StopMusicStream(musicArray[0]);
@@ -3748,6 +3825,16 @@ while (!WindowShouldClose())
                 t1.theadTimer = 0.0f;
                 t1.theadFiring = false;
                 t1.smoothHeadH = 110.0f;
+                cheat2.thp = 20;
+                cheat2.tx = -10000;
+                cheat2.ty = 0;
+                cheat2.tvy = 0;
+                cheat2.tvx = 0;
+                cheat2.tankShootTimer = 0.0f;
+                cheat2.theadFrame = 0;
+                cheat2.theadTimer = 0.0f;
+                cheat2.theadFiring = false;
+                cheat2.smoothHeadH = 110.0f;
                 startTimer(&vidaTimer, timerlife);
 
                 StopMusicStream(musicArray[0]);
@@ -3871,6 +3958,16 @@ while (!WindowShouldClose())
                 t1.theadTimer = 0.0f;
                 t1.theadFiring = false;
                 t1.smoothHeadH = 110.0f;
+                cheat2.thp = 20;
+                cheat2.tx = -10000;
+                cheat2.ty = 0;
+                cheat2.tvy = 0;
+                cheat2.tvx = 0;
+                cheat2.tankShootTimer = 0.0f;
+                cheat2.theadFrame = 0;
+                cheat2.theadTimer = 0.0f;
+                cheat2.theadFiring = false;
+                cheat2.smoothHeadH = 110.0f;
                 startTimer(&vidaTimer, timerlife);
 
                 StopMusicStream(musicArray[0]);
