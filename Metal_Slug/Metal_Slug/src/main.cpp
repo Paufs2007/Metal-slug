@@ -3079,9 +3079,12 @@ while (!WindowShouldClose())
             Vector2 health = { 80, 60 };
             DrawTextEx(timerNums, TextFormat("%d", p.vides), health, 50, -60, WHITE);
 
-
+            Vector2 vui1 = { 180, 20 };
+            Vector2 vui2 = { 273, 20 };
+            DrawTextureEx(ui1, vui1, 0.0f, 3.0f, WHITE);
+            DrawTextureEx(ui2, vui2, 0.0f, 3.0f, WHITE);
             if (killhim) {
-                Vector2 health = { 190, 45 };
+                Vector2 health = { 195, 45 };
                 DrawTextEx(timerNums, TextFormat("%d", machineGunAmmo), health, 30, -10, WHITE);
             }
 
@@ -3483,10 +3486,6 @@ while (!WindowShouldClose())
                 bulletsa3[i].active = false;
             }
         }
-        Vector2 vui1 = { 180, 20 };
-        Vector2 vui2 = { 273, 20 };
-        DrawTextureEx(ui1, vui1, 0.0f, 3.0f, WHITE);
-        DrawTextureEx(ui2, vui2, 0.0f, 3.0f, WHITE);
         EndDrawing();
     }
     CloseAudioDevice();
