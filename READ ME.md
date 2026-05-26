@@ -15,17 +15,31 @@ features animated sprites, music, sound effects, a win and lose screen, and fina
 of defeating enemies, surviving and completing the mission.
 
 Controls:
-A and D to move left and right
-W and S to aim up and down
-SPACE to jump
-J to shoot
-C to insert credit
-M to mute only music
-N to unmute only music
-R to restart lever or return from win/lose screen
-ENTER to start (requires credit)
+ Player controls:
+ - A and D to move left and right
+ - W and S to aim up and down
+ - SPACE to jump
+ - J to shoot
+ - C to insert credit
+ - M to mute the game
+ - N to unmute the game
+ - R to restart lever or return from win/lose screen
+ - P to return to Metal Slug menu from win/lose screen
+ - ENTER to start (requires credit in Metal Slug menu)
+
+ Debug Controls:
+ - L teleports the player to the boss arena and destroys both building to prevent screen locks on the buildings. (used for testing boss fight)
+ - X teleports player o the tank and destroys both buildings to keep camera from locking on buildings. (used for testing tank)
+ - K teleports player to invincibility item (used for testing item)
+ - O teleports player to firts building (used for buildings testing)
+ - Y teleports player to top of the screen (used for testing platforms)
+ - Z spawns an enemy at player's current position (used for testing enemy)
+ - I spawns a machine gun power-up at plyer's current position (used for testing machine gun)
 
 Features:
+ - Item that gives player invincibility for 20 seconds
+ - B swaps the players bullet sprite for a png of a potato
+ - Konami code (W - W - S - S - A - D - A - D - J - SPACE) gives player invincibility without a timer
 
 1. Player actions:
 Up
@@ -40,20 +54,28 @@ Restart level
 2. Enemies:
 Take damage
 Inflict damage
-Shoot projectiles both left and right depending on the players position
-Health (Die with one hit)
+Grenade throwing both left and right depending on the players position
+Health
 Gravity
+They move along the map
+Multiple enemies: soldiers, tank and boss fight.
+Boss with attack paterns and a second phase (Phase 1: Morter, Phase 2: Morter, laser and energy ball)
+Buildings with life that block the players path while still alive
 
 3. UI:
 Points
 Timer
 Credits
 Debug text
+Lives
+Machine gun ammo counter
+
 
 4. Audio:
 Sound effects
 Music
 Mute button
+Unmute button
 
 5. Screens:
 Credits screen
@@ -69,15 +91,26 @@ Player animations:
 - Walking
 - Taking damage
 Enemy animations:
-- Still
+ Soldiers:
+ - Still
+ - Walking
+ - Launching granades
+ Tank:
+ - Walking
+ - Still
+ - Shooting
+ - Aiming 
 
 7. Camera system:
 Follows the player on the map from left to right
+Camera locks behind destructible buildings until they are destroyed
+Vertical camera movement while the player is on the ramp
 
 8. Terrain:
 Ramps
 Flat surface
 Platforms
+Boundry limits
 
 
 This project is licensed under the MIT License - see the LICENSE file for details.
