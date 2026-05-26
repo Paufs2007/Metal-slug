@@ -3455,7 +3455,7 @@ while (!WindowShouldClose())
             Vector2 carteraaa = { 680, 690 };
             DrawTextureEx(cred, carteraaa, 0.0f, 1.5f, WHITE);
             Vector2 health2 = { 5, -30 };
-            DrawTextEx(whiteFont, cpunts, health2, 100, -60, WHITE);
+            DrawTextEx(whiteFont, cpunts, health2, 100, -70, WHITE);
             Vector2 health = { 80, 60 };
             DrawTextEx(timerNums, TextFormat("%d", p.vides), health, 50, -60, WHITE);
             Vector2 carteraaaa = { 5, 68 };
