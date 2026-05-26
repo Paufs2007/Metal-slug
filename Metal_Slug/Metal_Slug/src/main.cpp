@@ -551,6 +551,7 @@ while (!WindowShouldClose())
         framrecsgranadex.x = (float)currentframeexplo * (float)sgranadaex.width / 6;
         framerectdrive.x = (float)currentFramedrive * (float)tdrive.width / 10;
         framerecBola.x = (float)currentFrameidle * (float)bolabaixaboss.width / 4;
+        framreclaser.x = (float)currentFrameobj* (float)laserboss.width / 2;
     }
 
     float currentBossSpeed = (bossAnim == 2 || bossAnim == 3) ? bossFrameSpeedLaser : bossFrameSpeed;
@@ -2000,8 +2001,20 @@ while (!WindowShouldClose())
 
         for (int i = 0; i < MAX_BULLETSA2; i++) {
             if (!bulletsa2[i].active) continue;
-            DrawTexture(bulletee, (int)bulletsa2[i].x, (int)bulletsa2[i].y, WHITE);
-            if (!p.Omniman && bulletsa2[i].x >= p.x && bulletsa2[i].x <= p.x + 100 && bulletsa2[i].y >= p.y && bulletsa2[i].y <= p.y + 200 && p.isajupit == -1 || !p.Omniman && bulletsa2[i].x >= p.x && bulletsa2[i].x <= p.x + 100 && bulletsa2[i].y >= p.y + 100 && bulletsa2[i].y <= p.y + 200 && p.isajupit == 1)
+            Vector2 position1 = { 0.0f, 0.0f };
+            Rectangle posat20 = { (int)bulletsa2[i].x - 300, (int)bulletsa2[i].y - 100, framreclaser.width * 30, framreclaser.height * 7.5 };
+            DrawTexturePro(laserboss, framreclaser, posat20, position1, 0, WHITE);
+            Rectangle posat21 = { (int)bulletsa2[i].x, (int)bulletsa2[i].y - 100, framreclaser.width * 30, framreclaser.height * 7.5 };
+            DrawTexturePro(laserboss, framreclaser, posat21, position1, 0, WHITE);
+            Rectangle posat22 = { (int)bulletsa2[i].x + 300, (int)bulletsa2[i].y - 100, framreclaser.width * 30, framreclaser.height * 7.5 };
+            DrawTexturePro(laserboss, framreclaser, posat22, position1, 0, WHITE);
+            Rectangle posat23 = { (int)bulletsa2[i].x + 600, (int)bulletsa2[i].y - 100, framreclaser.width * 30, framreclaser.height * 7.5 };
+            DrawTexturePro(laserboss, framreclaser, posat23, position1, 0, WHITE);
+            Rectangle posat24 = { (int)bulletsa2[i].x + 900, (int)bulletsa2[i].y - 100, framreclaser.width * 30, framreclaser.height * 7.5 };
+            DrawTexturePro(laserboss, framreclaser, posat24, position1, 0, WHITE);
+            Rectangle posat25 = { (int)bulletsa2[i].x + 1200, (int)bulletsa2[i].y - 100, framreclaser.width * 30, framreclaser.height * 7.5 };
+            DrawTexturePro(laserboss, framreclaser, posat25, position1, 0, WHITE);
+            if (!p.Omniman && bulletsa2[i].x >= p.x - 1000 && bulletsa2[i].x <= p.x + 1000 && bulletsa2[i].y >= p.y - 100 && bulletsa2[i].y <= p.y + 200 && p.isajupit == -1 || !p.Omniman && bulletsa2[i].x >= p.x && bulletsa2[i].x <= p.x + 100 && bulletsa2[i].y >= p.y + 100 && bulletsa2[i].y <= p.y + 200 && p.isajupit == 1)
             {
                 bulletsa2[i].active = false;
                 hitCooldown = 1.5f;
