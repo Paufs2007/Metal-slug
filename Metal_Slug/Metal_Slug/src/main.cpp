@@ -329,6 +329,7 @@ int main()
     Texture balastanque = LoadTexture("balas tanque.png");
     Texture tcapdis = LoadTexture("tanque disparant.png");  
     Texture tdrive = LoadTexture("p1 drivig.png");
+    Texture hakari = LoadTexture("invulneravilitat.png");
     //BOSS
     Texture laserstart = LoadTexture("dixparar laser (ha d'estar a dalt).png");
     Texture bolaastart = LoadTexture("disparar bola de terra.png");
@@ -452,6 +453,7 @@ int main()
     Rectangle frameReccap = { 0, 0, (float)p1cap.width / 4, (float)p1cap.height };
     Rectangle frameRecdretacorrent = { 0, 0, (float)p1dretacorrentcames.width / 12, (float)p1dretacorrentcames.height };
     Rectangle frameRecidle = { 0, 0, (float)p1.width / 4, (float)p1.height };
+    Rectangle framerechakari = { 0, 0, (float)hakari.width / 2, (float)hakari.height };
 
     Rectangle framerectbalastanque = { 0, 0, (float)balastanque.width / 3, (float)balastanque.height };
     Rectangle framerectcap = { 0, 0, (float)tcap.width / 3, (float)tcap.height };
@@ -552,6 +554,7 @@ while (!WindowShouldClose())
         framerectdrive.x = (float)currentFramedrive * (float)tdrive.width / 10;
         framerecBola.x = (float)currentFrameidle * (float)bolabaixaboss.width / 4;
         framreclaser.x = (float)currentFrameobj* (float)laserboss.width / 2;
+        framerechakari.x = (float)currentFrameobj * (float)hakari.width / 2;
     }
 
     float currentBossSpeed = (bossAnim == 2 || bossAnim == 3) ? bossFrameSpeedLaser : bossFrameSpeed;
@@ -2901,6 +2904,13 @@ while (!WindowShouldClose())
             bt1 = false;
         }
 
+        if (p.Omniman == true)
+        {
+            Vector2 position = { 0.0f, 0.0f };
+            Rectangle poshakari = { (float)p.x - 40, (float)p.y - 30, framerechakari.width * 6, framerechakari.height * 6 };
+            DrawTexturePro(hakari, framerechakari, poshakari, position, 0, WHITE);
+        }
+
         if (p.isajupit == -1) 
         {
             if (p.vx == 0 && p.facing == 1 && p.canJump == true && p.isshooting == -1)
@@ -3726,6 +3736,7 @@ while (!WindowShouldClose())
     UnloadTexture(balastanque); 
     UnloadTexture(bolabaixaboss);
     UnloadTexture(laserboss);
+    UnloadTexture(hakari);
     CloseWindow();
     return 0;
 }
