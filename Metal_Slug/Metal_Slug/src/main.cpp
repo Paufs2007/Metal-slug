@@ -258,6 +258,11 @@ int main()
     soundArray[11] = LoadSound("one.mp3");
     soundArray[12] = LoadSound("START.mp3");
     soundArray[13] = LoadSound("BossStage.mp3");
+    soundArray[14] = LoadSound("bola.mp3");
+    soundArray[15] = LoadSound("electric_bird.mp3");
+    soundArray[16] = LoadSound("electric_bird2.mp3");
+
+    
 
     SetSoundVolume(soundArray[7], 100.0f);
 
@@ -2345,6 +2350,7 @@ while (!WindowShouldClose())
             {
                 if (bossAnim != 4)
                 {
+
                     static float morterTimer = 0.0f;
                     morterTimer += GetFrameTime();
 
@@ -2353,7 +2359,6 @@ while (!WindowShouldClose())
                         morterTimer = 0.0f;
 
                         movingDown = (bossAnim == 0);
-
                         bossAnim = 4;
                         currentFrameBoss = 0;
                     }
@@ -2430,6 +2435,10 @@ while (!WindowShouldClose())
                                     bulletsa2[i].vy = 0;
                                     bulletsa2[i].active = true;
                                     bulletsa2[i].useGravity = false;
+                                    StopSound(soundArray[14]);
+                                    PlaySound(soundArray[15]);
+                                    PlaySound(soundArray[16]);
+
                                     raig = false;
                                     bola = true;
                                     break;
@@ -2453,6 +2462,9 @@ while (!WindowShouldClose())
                                     bulletsa3[i].useGravity = false;
                                     raig = true;
                                     bola = false;
+                                    StopSound(soundArray[15]);
+                                    StopSound(soundArray[16]);
+                                    PlaySound(soundArray[14]);
                                     break;
                                 }
                             }
@@ -2465,8 +2477,10 @@ while (!WindowShouldClose())
         {
             vpunts += 1000;
             KevinTheFuckingBoss = false;
-            PlaySound(soundArray[0]);
+            PlaySound(soundArray[6]);
             winscreen = true;
+            StopSound(soundArray[6]);
+
         }
 
 
