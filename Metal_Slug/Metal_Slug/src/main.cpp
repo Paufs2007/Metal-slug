@@ -1510,6 +1510,7 @@ while (!WindowShouldClose())
             if (p.x >= ed2.edx + 500 && p.x <= ed2.edx + 1600 && p.y >= ed2.edy && p.y <= ed2.edy + 1000)
                 p.x = ed2.edx + 500;
         }
+        else s9.ehp--;
 
         if (IsKeyDown(KEY_W) && !IsKeyDown(KEY_S)) p.facingy = 1;
         else if (IsKeyDown(KEY_S) && !IsKeyDown(KEY_W) && p.y < FLOOR_Y) p.facingy = -1;
@@ -3117,15 +3118,15 @@ while (!WindowShouldClose())
 
             Vector2 cartera2 = { 975 - textWidth - 150, 652 };
             DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera2, 98, -70, WHITE); //Afegir imatge "CREDIT "
-            Vector2 health2 = { 100, -30 };
+            Vector2 health2 = { 70, -30 };
             DrawTextEx(whiteFont, cpunts, health2, 100, -60, WHITE);
-            Vector2 health = { 100, 40 };
-            DrawTextEx(yellowFont, TextFormat("%d", p.vides), health, 100, -60, WHITE);
+            Vector2 health = { 80, 60 };
+            DrawTextEx(timerNums, TextFormat("%d", p.vides), health, 50, -60, WHITE);
 
 
             if (killhim) {
-                Vector2 health = { 50, 30 };
-                DrawTextEx(yellowFont, TextFormat("%d", machineGunAmmo), health, 100, -60, WHITE);
+                Vector2 health = { 250, 30 };
+                DrawTextEx(timerNums, TextFormat("%d", machineGunAmmo), health, 50, -20, WHITE);
             }
 
             if (music == false) {
