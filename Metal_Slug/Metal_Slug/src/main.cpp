@@ -2025,7 +2025,7 @@ while (!WindowShouldClose())
             DrawTexturePro(laserboss, framreclaser, posat24, position1, 0, WHITE);
             Rectangle posat25 = { (int)bulletsa2[i].x + 1200, (int)bulletsa2[i].y - 100, framreclaser.width * 30, framreclaser.height * 7.5 };
             DrawTexturePro(laserboss, framreclaser, posat25, position1, 0, WHITE);
-            if (!p.Omniman && bulletsa2[i].x >= p.x - 1000 && bulletsa2[i].x <= p.x + 1000 && bulletsa2[i].y >= p.y - 100 && bulletsa2[i].y <= p.y + 200 && p.isajupit == -1 || !p.Omniman && bulletsa2[i].x >= p.x && bulletsa2[i].x <= p.x + 100 && bulletsa2[i].y >= p.y + 100 && bulletsa2[i].y <= p.y + 200 && p.isajupit == 1)
+            if (!p.Omniman && bulletsa2[i].x >= p.x - 10000 && bulletsa2[i].x <= p.x + 100 && bulletsa2[i].y >= p.y - 100 && bulletsa2[i].y <= p.y + 200 && p.isajupit == -1 || !p.Omniman && bulletsa2[i].x >= p.x && bulletsa2[i].x <= p.x + 100 && bulletsa2[i].y >= p.y + 100 && bulletsa2[i].y <= p.y + 200 && p.isajupit == 1)
             {
                 bulletsa2[i].active = false;
                 hitCooldown = 1.5f;
@@ -2936,6 +2936,9 @@ while (!WindowShouldClose())
                 Vector2 position = { 0.0f, 0.0f };
                 Rectangle posidle = { (float)p.x, (float)p.y, frameRecidle.width * 5, frameRecidle.height * 5 };
                 DrawTexturePro(p1, frameRecidle, posidle, position, 0, WHITE);
+                //descomentar per revisar posicio
+                //DrawText(cix, p.x, p.y, 20, RED);
+                //DrawText(ciy, p.x, p.y + 30, 20, RED);
             }
             else if (p.vx > 0 && p.facing == 1 && p.canJump == true && p.isshooting == -1)
             {
