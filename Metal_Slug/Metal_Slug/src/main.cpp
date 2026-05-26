@@ -3267,6 +3267,8 @@ while (!WindowShouldClose())
             DrawTextEx(whiteFont, cpunts, health2, 100, -60, WHITE);
             Vector2 health = { 80, 60 };
             DrawTextEx(timerNums, TextFormat("%d", p.vides), health, 50, -60, WHITE);
+            Vector2 carteraaaa = { 5, 68 };
+            DrawTextureEx(up, carteraaaa, 0.0f, 1.5f, WHITE);
 
             Vector2 vui1 = { 180, 20 };
             Vector2 vui2 = { 273, 20 };
