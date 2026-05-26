@@ -33,8 +33,10 @@ Controls:
  - K teleports player to invincibility item (used for testing item)
  - O teleports player to firts building (used for buildings testing)
  - Y teleports player to top of the screen (used for testing platforms)
- - Z spawns an enemy at player's current position (used for testing enemy)
+ Cheats:
+ - Z spawns soldier at player's current position (used for testing enemy)
  - I spawns a machine gun power-up at plyer's current position (used for testing machine gun)
+ - V spawns a tank at player's current position (used for testing enemy).
 
 Features:
  - Item that gives player invincibility for 20 seconds

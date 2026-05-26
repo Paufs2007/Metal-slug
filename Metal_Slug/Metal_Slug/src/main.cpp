@@ -343,6 +343,8 @@ int main()
     Texture movimentvertboss = LoadTexture("moviment vertical boss.png");
     Texture bolabaixaboss = LoadTexture("atrac de terra boss.png");
     Texture laserboss = LoadTexture("laser boss.png");
+    Texture up = LoadTexture("1_up.png");
+    Texture cred = LoadTexture("credit.png");
 
     Font timerNums = LoadFont("prova 2 tipografia.png");
     Font whiteFont = LoadFont("tipografia gris.png");
@@ -3261,10 +3263,14 @@ while (!WindowShouldClose())
 
             Vector2 cartera2 = { 975 - textWidth - 150, 652 };
             DrawTextEx(whiteFont, TextFormat("%d", (int)p.credits), cartera2, 98, -70, WHITE); 
+            Vector2 carteraaa = { 680, 690 };
+            DrawTextureEx(cred, carteraaa, 0.0f, 1.5f, WHITE);
             Vector2 health2 = { 5, -30 };
             DrawTextEx(whiteFont, cpunts, health2, 100, -60, WHITE);
             Vector2 health = { 80, 60 };
             DrawTextEx(timerNums, TextFormat("%d", p.vides), health, 50, -60, WHITE);
+            Vector2 carteraaaa = { 5, 68 };
+            DrawTextureEx(up, carteraaaa, 0.0f, 1.5f, WHITE);
 
             Vector2 vui1 = { 180, 20 };
             Vector2 vui2 = { 273, 20 };
