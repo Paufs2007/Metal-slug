@@ -335,6 +335,8 @@ int main()
     Texture tcapdis = LoadTexture("tanque disparant.png");  
     Texture tdrive = LoadTexture("p1 drivig.png");
     Texture hakari = LoadTexture("invulneravilitat.png");
+    Texture bales = LoadTexture("objecte punts1.png");
+    Texture gasolina = LoadTexture("objecte punts 2.png");
     //BOSS
     Texture laserstart = LoadTexture("dixparar laser (ha d'estar a dalt).png");
     Texture bolaastart = LoadTexture("disparar bola de terra.png");
@@ -388,6 +390,16 @@ int main()
 
     objecte o2 = { 12300, 605 };
 
+    objecte o3 = { 7235, 1000 };
+
+    objecte o4 = { 12513, 780 };
+
+    objecte o5 = { 10836, 780 };
+
+    objecte o6 = { 13528, 780 };
+
+    objecte o7 = { 18801, 230 };
+
     objecte ocheat = { -10000, 0 };
 
     edificis ed1 = { 13850, 680 , 40};
@@ -401,6 +413,11 @@ int main()
     bool os1 = true;
     bool bocheat = true;
     bool os2 = true;
+    bool os3 = true;
+    bool os4 = true;
+    bool os5 = true;
+    bool os6 = true;
+    bool os7 = true;
     bool killhim = false;
 
     bool KevinTheFuckingBoss = true;
@@ -1391,6 +1408,30 @@ while (!WindowShouldClose())
         o2.alive--;
     }
 
+    if (sqrt((p.x - o3.ox) * (p.x - o3.ox) + (p.y - o3.oy) * (p.y - o3.oy)) < 50)
+    {
+        o3.alive--;
+    }
+
+    if (sqrt((p.x - o4.ox) * (p.x - o4.ox) + (p.y - o4.oy) * (p.y - o4.oy)) < 50)
+    {
+        o4.alive--;
+    }
+
+    if (sqrt((p.x - o5.ox) * (p.x - o5.ox) + (p.y - o5.oy) * (p.y - o5.oy)) < 50)
+    {
+        o5.alive--;
+    }
+
+    if (sqrt((p.x - o6.ox) * (p.x - o6.ox) + (p.y - o6.oy) * (p.y - o6.oy)) < 50)
+    {
+        o6.alive--;
+    }
+
+    if (sqrt((p.x - o7.ox) * (p.x - o7.ox) + (p.y - o7.oy) * (p.y - o7.oy)) < 50)
+    {
+        o7.alive--;
+    }
 
         p.x += p.vx;
         p.y -= p.vy/2;
@@ -1513,6 +1554,51 @@ while (!WindowShouldClose())
         {
             o2.oy = 1400;
             o2.ovy = 0;
+        }
+
+        o3.oy += o3.ovy;
+        o3.ovy += 4;
+
+        if (o3.oy >= 1400)
+        {
+            o3.oy = 1400;
+            o3.ovy = 0;
+        }
+
+        o4.oy += o4.ovy;
+        o4.ovy += 4;
+
+        if (o4.oy >= 1400)
+        {
+            o4.oy = 1400;
+            o4.ovy = 0;
+        }
+
+        o5.oy += o5.ovy;
+        o5.ovy += 4;
+
+        if (o5.oy >= 1400)
+        {
+            o5.oy = 1400;
+            o5.ovy = 0;
+        }
+
+        o6.oy += o6.ovy;
+        o6.ovy += 4;
+
+        if (o6.oy >= 1400)
+        {
+            o6.oy = 1400;
+            o6.ovy = 0;
+        }
+
+        o7.oy += o7.ovy;
+        o7.ovy += 4;
+
+        if (o7.oy >= 1400)
+        {
+            o7.oy = 1400;
+            o7.ovy = 0;
         }
 
         s3.ey += s3.vy;
@@ -2229,6 +2315,61 @@ while (!WindowShouldClose())
             p.Omniman = true;
 
             startTimer(&omnimanTimer, 20.0f);
+        }
+
+        if (o3.alive == 1)
+        {
+            DrawTexturePro( gasolina, Rectangle{ 0, 0, (float)gasolina.width, (float)gasolina.height }, Rectangle{ (float)o3.ox, (float)o3.oy, 150, 150 }, Vector2{ 0, 0 } , 0.0f, WHITE);
+        }
+        else if (os3)
+        {
+            PlaySound(soundArray[8]); // canviar per el item pick up sound
+            vpunts = vpunts + 1000;
+            os3 = false;
+        }
+
+        if (o4.alive == 1)
+        {
+            DrawTexturePro(bales, Rectangle{ 0, 0, (float)bales.width, (float)bales.height }, Rectangle{ (float)o4.ox, (float)o4.oy, 150, 150 }, Vector2{ 0, 0 }, 0.0f, WHITE);
+        }
+        else if (os4)
+        {
+            PlaySound(soundArray[8]); // canviar per el item pick up sound
+            vpunts = vpunts + 2000;
+            os4 = false;
+        }
+
+        if (o5.alive == 1)
+        {
+            DrawTexturePro(gasolina, Rectangle{ 0, 0, (float)gasolina.width, (float)gasolina.height }, Rectangle{ (float)o5.ox, (float)o5.oy, 150, 150 }, Vector2{ 0, 0 }, 0.0f, WHITE);
+        }
+        else if (os5)
+        {
+            PlaySound(soundArray[8]); // canviar per el item pick up sound
+            vpunts = vpunts + 1000;
+            os5 = false;
+        }
+
+        if (o6.alive == 1)
+        {
+            DrawTexturePro(bales, Rectangle{ 0, 0, (float)bales.width, (float)bales.height }, Rectangle{ (float)o6.ox, (float)o6.oy, 150, 150 }, Vector2{ 0, 0 }, 0.0f, WHITE);
+        }
+        else if (os6)
+        {
+            PlaySound(soundArray[8]); // canviar per el item pick up sound
+            vpunts = vpunts + 2000;
+            os6 = false;
+        }
+
+        if (o7.alive == 1)
+        {
+            DrawTexturePro(gasolina, Rectangle{ 0, 0, (float)gasolina.width, (float)gasolina.height }, Rectangle{ (float)o7.ox, (float)o7.oy, 150, 150 }, Vector2{ 0, 0 }, 0.0f, WHITE);
+        }
+        else if (os7)
+        {
+            PlaySound(soundArray[8]); // canviar per el item pick up sound
+            vpunts = vpunts + 1000;
+            os7 = false;
         }
 
         //edificis destructibles
@@ -3761,6 +3902,8 @@ while (!WindowShouldClose())
     UnloadTexture(bolabaixaboss);
     UnloadTexture(laserboss);
     UnloadTexture(hakari);
+    UnloadTexture(bales);
+    UnloadTexture(gasolina);
     CloseWindow();
     return 0;
 }
