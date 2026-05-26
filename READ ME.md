@@ -29,7 +29,7 @@ Controls:
 
  Debug Controls:
  - L teleports the player to the boss arena and destroys both building to prevent screen locks on the buildings. (used for testing boss fight)
- - X teleports player o the tank and destroys both buildings to keep camera from locking on buildings. (used for testing tank)
+ - X teleports player to the tank and destroys both buildings to keep camera from locking on buildings. (used for testing tank)
  - K teleports player to invincibility item (used for testing item)
  - O teleports player to firts building (used for buildings testing)
  - Y teleports player to top of the screen (used for testing platforms)
@@ -38,11 +38,12 @@ Controls:
  - I spawns a machine gun power-up at plyer's current position (used for testing machine gun)
  - V spawns a tank at player's current position (used for testing enemy).
 
-Features:
+Extra Features:
  - Item that gives player invincibility for 20 seconds
  - B swaps the players bullet sprite for a png of a potato
  - Konami code (W - W - S - S - A - D - A - D - J - SPACE) gives player invincibility without a timer
- - Items give player 1000 points when it comes in contact with the player
+ - Items give player 1000 / 2000 points when it comes in contact with the player
+ - Destructible buidlings that the player must destroy to progress
 
 1. Player actions:
 Up
@@ -92,7 +93,7 @@ Player animations:
 - Jumping
 - Crouching
 - Walking
-- Taking damage
+- Still
 Enemy animations:
  Soldiers:
  - Still
@@ -103,6 +104,13 @@ Enemy animations:
  - Still
  - Shooting
  - Aiming 
+ Boss:
+ - Mortar shoot top
+ - Mortar shoot bottom
+ - Energy ball charge
+ - Laser charge
+ - Move up
+ - Move down
 
 7. Camera system:
 Follows the player on the map from left to right
