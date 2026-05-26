@@ -3320,6 +3320,8 @@ while (!WindowShouldClose())
                 startTimer(&vidaTimer, timerlife);
 
                 StopMusicStream(musicArray[0]);
+                StopSound(soundArray[13]);
+                bool played = false;
                 missionSoundStep = 0;
                 PlayMusicStream(musicArray[0]);
                 StopSound(soundArray[9]);
@@ -3489,6 +3491,8 @@ while (!WindowShouldClose())
                 startTimer(&vidaTimer, timerlife);
 
                 StopMusicStream(musicArray[0]);
+                StopSound(soundArray[13]);
+                bool played = false;
                 menuSoundPlayed = false;
                 PlayMusicStream(musicArray[0]);
                 StopSound(soundArray[9]);
@@ -3593,6 +3597,8 @@ while (!WindowShouldClose())
                 startTimer(&vidaTimer, timerlife);
 
                 StopMusicStream(musicArray[0]);
+                bool played = false;
+                StopSound(soundArray[13]);
                 menuSoundPlayed = false;
                 PlayMusicStream(musicArray[0]);
                 StopSound(soundArray[9]);
@@ -3645,6 +3651,9 @@ while (!WindowShouldClose())
             for (int i = 0; i < MAX_BULLETSA3; i++) {
                 bulletsa3[i].active = false;
             }
+
+            StopSound(soundArray[13]);
+            bool played = false;
         }
         EndDrawing();
     }
